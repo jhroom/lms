@@ -10,5 +10,4 @@ public class Week {
 	private String EndDate;	
 	private int lectureNo;
 	
-
 }
