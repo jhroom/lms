@@ -3,4 +3,8 @@
 [신승현] : 신기하네요!
 [안지현] : commit 테스트 2
 [유해원] : 커밋!
+<<<<<<< HEAD
 [김현준] : 충돌 테스트
+=======
+[신승현] : 혼돈 파괴 망각!
+>>>>>>> branch 'master' of https://github.com/fiveooo/5000_lms.git
