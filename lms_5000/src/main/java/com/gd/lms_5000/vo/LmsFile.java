@@ -1,5 +1,12 @@
 package com.gd.lms_5000.vo;
 
-public class LmsFile {
+import lombok.Data;
 
+@Data
+public class LmsFile {
+	private String fileName;
+	private String fileOriginame;
+	private String fileType;
+ 	private String createDate;
+	private int lmsNoticeNo;
 }
