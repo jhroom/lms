@@ -13,6 +13,6 @@ public class User {
 	private String userGender;
 	private String updateDate;
 	private String createDate;
-	private String lastLoginDate;
+	private String lastloginDate;
 	private String userActive;
 }

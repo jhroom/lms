@@ -11,5 +11,5 @@ public class Student {
 	private String stGender;
 	private String accessDate;
 	private String updateDate;
-	private String majorNo;
+	private int majorNo;
 }

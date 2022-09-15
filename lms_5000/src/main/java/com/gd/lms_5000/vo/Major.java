@@ -7,5 +7,5 @@ public class Major {
 	private int majorNo;
 	private String majorName;
 	private String majorCreatedate;
-	private String majorId;
+	private String userId;
 }
