@@ -4,7 +4,10 @@ import lombok.Data;
 
 @Data
 public class MultiChoice {
-	private int choiceNo;
-	private int questionNo;
-	private String choiceContent;
+	//보기 번호
+	private int choiceNo;			
+	//문제 번호
+	private int questionNo;			
+	//보기 내용
+	private String choiceContent;	
 }

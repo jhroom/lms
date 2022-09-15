@@ -4,9 +4,14 @@ import lombok.Data;
 
 @Data
 public class Board {
-	private int boardNo;
-	private String boardName;
-	private String boardType;
-	private String createDate;
-	private int lectureNo;
+	// 게시판 번호
+	private int boardNo;	
+	// 게시판 이름
+	private String boardName;	
+	// 게시판 종류 ( QNA , 공지사항 등 ..)
+	private String boardType;		
+	// 작성일
+	private String createDate;		
+	// 강좌 번호
+	private int lectureNo;			
 }

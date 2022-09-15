@@ -4,9 +4,14 @@ import lombok.Data;
 
 @Data
 public class LmsFile {
-	private String fileName;
-	private String fileOriginame;
-	private String fileType;
- 	private String createDate;
-	private int lmsNoticeNo;
+	//파일 이름
+	private String fileName;			
+	//파일 원본 이름
+	private String fileOriginame;		
+	//파일 타입
+	private String fileType;			
+	//작성일
+ 	private String createDate;			
+ 	//LMS 공지사항 번호
+	private int lmsNoticeNo;			
 }

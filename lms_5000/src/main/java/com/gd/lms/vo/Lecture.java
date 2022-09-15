@@ -4,13 +4,22 @@ import lombok.Data;
 
 @Data
 public class Lecture {
-	private int lectureNo;
-	private String lectureTime;
-	private String lectureStarttime;
-	private String lectureEndtime;
-	private int lectureDay;
-	private int subjectNo;
-	private int classroomNo;
-	private String userId;
-	private int semesterNo;
+	//강좌 번호
+	private int lectureNo;				
+	//강의 시간
+	private String lectureTime;			
+	//강의 시작시간
+	private String lectureStarttime;	
+	//강의 종료시간
+	private String lectureEndtime;		
+	//강의를 하는 요일
+	private int lectureDay;			
+	//과목 번호
+	private int subjectNo;			
+	//강의실 번호
+	private int classroomNo;		
+	//교수 ID
+	private String userId;			
+	//학기 번호
+	private int semesterNo;				
 }

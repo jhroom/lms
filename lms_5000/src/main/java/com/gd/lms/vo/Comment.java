@@ -4,9 +4,14 @@ import lombok.Data;
 
 @Data
 public class Comment {
-	private int commentNo;
-	private String commentContent;
-	private String commentCreatedate;
-	private String commentUpdatedate;
-	private int boardPostNo;
+	//댓글 번호
+	private int commentNo;				
+	//댓글 내용
+	private String commentContent;		
+	//댓글 작성일
+	private String commentCreatedate;	
+	//댓글 수정일
+	private String commentUpdatedate;	
+	//게시글 번호
+	private int boardPostNo;			
 }

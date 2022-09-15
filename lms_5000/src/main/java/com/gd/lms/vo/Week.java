@@ -9,7 +9,7 @@ public class Week {
 	// 강좌 시작날자 
 	private String startDate;
 	// 강좌 종료날자
-	private String EndDate;	
+	private String endDate;	
 	// 강좌 번호
 	private int lectureNo;
 	
