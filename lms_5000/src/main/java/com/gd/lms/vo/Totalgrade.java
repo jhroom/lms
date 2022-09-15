@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Totalgrade {
-	// 수강 번호
+	// 수강 코드
 	private int signNo;
 	// 최종 학점
 	private double totalGrade;
