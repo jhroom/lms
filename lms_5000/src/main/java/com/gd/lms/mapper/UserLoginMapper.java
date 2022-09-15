@@ -8,6 +8,8 @@ import com.gd.lms.vo.User;
 public interface UserLoginMapper {
 	
 	User selectUserLogin(User user);
+	
+	int insertUser(User user);
 		
 
 }

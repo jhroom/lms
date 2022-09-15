@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -28,7 +29,7 @@ public class UserController {
 	
 	//로그인 액션
 	@PostMapping("/user/login")
-	public String userLogin(HttpSession session, User user) {
+	public String userLogin(Model model, HttpSession session, User user) {
 		
 		//디버깅
 		log.debug(TeamColor.AJH + user + "로그인한 매개변수 확인");
@@ -39,11 +40,20 @@ public class UserController {
 		//디버깅
 		log.debug(TeamColor.AJH + resultUser + " db 정보유무확인");
 		
-		//계정 활성화가 Y인 계정에 id,level 값 세션 부여
-		if( "Y".equals(resultUser.getUserActive()) ) {
-			session.setAttribute("user", resultUser.getUserId());
-			session.setAttribute("level", resultUser.getUserLevel());
+		// id pw가 user정보에 없다면(로그인실패)시 실패메세지 알림
+		if(resultUser == null) {
+			model.addAttribute("errMsg","로그인 정보를 다시 확인해주세요");
+			return "user/login";
 		}
+		// 유저 정보는 있지만 승인대기상태(N) 일 떄 메세지출력
+		if("N".equals(resultUser.getUserActive())) {
+			model.addAttribute("errMsg","승인 대기 상태입니다");
+			return "user/login";
+		}
+		
+		// user 정보가 일치하고 계정 활성화(Y)인 계정에 세션부여
+		session.setAttribute("user", resultUser.getUserId());
+		session.setAttribute("level", resultUser.getUserLevel());
 		
 		return "redirect:/index";
 	}
@@ -63,6 +73,28 @@ public class UserController {
 	session.invalidate();			
 				
 	return "redirect:/user/login";			
+	}
+	
+	//회원가입
+	@GetMapping("/user/addUser")
+	public String addUser() {
+		return "user/addUser";
+	}
+	
+	//회원가입 액션
+	@PostMapping("/user/addUser")
+	public String addUser(Model model, User user) {
+		
+		log.debug(TeamColor.JCH + this.getClass() + user + " addUser 파라미터 값 ");
+		
+		//addUser 회원가입 페이지에서 입력한정보가 성공적으로 들어갔을 떄 로그인 폼, 확인메세지 출력
+		if(userLoginService.addUser(user)) {
+			model.addAttribute("errMsg","회원가입 완료되었습니다");
+			System.out.println("회원가입완료");
+		}
+		//회원가입 로직중 에러발생시 404페이지로 이동 추가 할 예정
+		
+		return "user/login";
 	}
 	
 		

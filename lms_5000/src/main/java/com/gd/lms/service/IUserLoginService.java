@@ -5,5 +5,7 @@ import com.gd.lms.vo.User;
 public interface IUserLoginService {
 	
 	User getUserLogin(User user);
+	
+	boolean addUser(User user);
 
 }

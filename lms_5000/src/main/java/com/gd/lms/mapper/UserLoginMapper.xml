@@ -12,4 +12,30 @@
 		WHERE user_id = #{userId} AND user_pw = #{userPw}
 	</select>
 	
+	<insert id="insertUser" parameterType="com.gd.lms.vo.User">
+		INSERT INTO user (
+			user_id,
+			user_pw,
+			user_level,
+			user_name,
+			user_email,
+			user_tel,
+			user_gender,
+			create_date,
+			update_date,
+			lastlogin_date
+		) VALUES (
+			#{userId},
+			#{userPw},
+			#{userLevel},
+			#{userName},
+			#{userEmail},
+			#{userTel},
+			#{userGender},
+			NOW(),
+			NOW(),
+			NOW()
+		)
+	</insert>
+	
 </mapper>
