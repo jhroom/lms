@@ -24,5 +24,6 @@
 	</div>
 	
 	<div><a href="${pageContext.request.contextPath}/user/addUser">회원가입</a></div>
+	<div><a href="${pageContext.request.contextPath}/user/findUserId">아이디/비밀번호 찾기</a></div>
 </body>
 </html>

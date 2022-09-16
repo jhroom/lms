@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.lms.mapper.FindUserMapper">
+
+	<select id="findUserId" parameterType="com.gd.lms.vo.User" resultType="com.gd.lms.vo.User">
+		<!-- 이름과 전화번호값을 받아서 그 name과 tel이 존재하면 일치하는 id정보를 출력 -->
+		SELECT
+			user_id userId
+		FROM user
+		WHERE user_name = #{userName} AND user_tel = #{userTel}
+	</select>
+	
+	<select id="findUserPw" parameterType="com.gd.lms.vo.User" resultType="com.gd.lms.vo.User">
+		<!-- id 이름 전화번호 값을 받아서 그것이 존재하면 그 ID의 비밀번호를 출력 -->
+		SELECT
+			user_pw userPw
+		FROM user
+		WHERE user_id = #{userId} AND user_name = #{userName} AND user_tel = #{userTel}
+	</select>
+</mapper>
