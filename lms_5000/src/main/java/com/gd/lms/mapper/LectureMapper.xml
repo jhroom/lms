@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.lms.mapper.LectureMapper">
+<mapper namespace="com.gd.selftest.mapper.LectureMapper">
 
-<!-- 수강신청을 위한 개설 강좌 리스트 출력 -->
+	<!-- 수강신청을 위한 개설 강좌 리스트 출력 -->
 	<select id="selectLectureListForSign" resultType="map">
-		SELECT l.lecture_no, l.lecture_time, l.lecture_starttime, l.lecture_endtime, l.lecture_day, l.classroom_no, 
+		SELECT l.lecture_no, l.lecture_time, l.lecture_starttime, l.lecture_endtime,
+			   l.lecture_day, l.classroom_no, l.semester_no,
 			   s.subject_no, s.subject_name, s.subject_point, s.subject_grade,
-			   m.major_no, m.major_name
+	 		   m.major_no, m.major_name
 		FROM lecture l INNER JOIN subject s ON s.subject_no = l.subject_no
 		INNER JOIN major m ON m.major_no = s.major_no
 		ORDER BY l.lecture_no
 	</select>	
+	
+	<!-- 학생 원하는 수강 과목 insert -->
+	<insert id="insertSign" parameterType="com.gd.lms.vo.Sign">
+		INSERT INTO sign (
+			user_id,
+			sign_state, 
+			sign_startdate, 
+			sign_enddate,
+			lecture_no 
+			)
+		VALUES (
+			#{userId},
+			#{signState},
+			NOW(),
+			NOW(),
+			#{lectureNo}
+			)
+	</insert>
+	
+	<!-- 학생 수강신청 목록 -->
+	<select id="selectSignList" parameterType="map"  resultType="com.gd.lms.vo.Sign">
+	    SELECT
+			t.user_id,
+			g.sign_state, g.sign_startdate, g.sign_enddate, 
+			l.lecture_no, l.lecture_starttime, l.lecture_endtime, l.lecture_day, l.classroom_no,
+			s.subject_name, s.subject_point, s.subject_grade
+		FROM student t INNER JOIN sign g ON g.user_id = t.user_id
+		INNER JOIN lecture l ON l.lecture_no = g.lecture_no
+		INNER JOIN subject s ON S.subject_no = L.lecture_no 
+		WHERE t.user_id = #{userId}
+	</select>		
 </mapper>
