@@ -53,8 +53,6 @@
 					<th>과목이름(subjectName)</th>
 					<th>과목학점(subjectPoint)</th>
 					<th>신청 가능 학년(subjectGrade)</th>
-					<th>수업 시작 일(lectureStarttime)</th>
-					<th>수강 종료 일(lectureEndtime)</th>
 					<th>수업진행요일(lectureDay)</th>
 					<th>강의실(classNo)</th>
 					<th>수강 신청 상태(signState)</th>
@@ -67,9 +65,18 @@
 						<td>${s.subject_name}</td>
 						<td>${s.subject_point}점</td>
 						<td>${s.subject_grade}</td>
-						<td>${s.lecture_starttime}</td>
-						<td>${s.lecture_endtime}</td>
-						<td>${s.lecture_day}요일</td>
+						<td>
+							<c:choose>
+								<c:when test="${s.lecture_day eq 1}">월요일</c:when>
+								<c:when test="${s.lecture_day eq 2}">화요일</c:when>
+								<c:when test="${s.lecture_day eq 3}">수요일</c:when>
+								<c:when test="${s.lecture_day eq 4}">목요일</c:when>
+								<c:when test="${s.lecture_day eq 5}">금요일</c:when>
+								<c:when test="${s.lecture_day eq 6}">토요일</c:when>
+								<c:when test="${s.lecture_day eq 7}">일요일</c:when>
+								<c:otherwise>요일을 다시 확인해 주세요</c:otherwise>
+							</c:choose>
+						</td>
 						<td>${s.classroom_no}호 강의실</td>
 						<td>${s.sign_state}</td>
 						<td><a href="${pageContext.request.contextPath}/sign/deletSign">수강취소</a></td>

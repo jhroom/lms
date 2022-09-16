@@ -6,10 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.LectureMapper;
 import com.gd.lms.vo.Sign;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class LectureService implements ILectureService {
 	@Autowired LectureMapper lecturemapper;
@@ -18,7 +21,8 @@ public class LectureService implements ILectureService {
 	// 수강신청을 위한 개설강좌 목록
 	public List<Map<String, Object>> selectLectureListForSign() {
 		List<Map<String, Object>> Lecturelist = lecturemapper.selectLectureListForSign();
-		System.out.println("개설강좌 목록 service : " + Lecturelist);
+		//디버깅
+		log.debug(TeamColor.YHW + Lecturelist + "-- Lecturelist-service");
 		return Lecturelist;
 	}
 
@@ -26,7 +30,8 @@ public class LectureService implements ILectureService {
 	// 학생 선택 과목 add
 	public int addSign(Sign sign){
 		int addSign = lecturemapper.insertSign(sign);
-		System.out.println("\r\n addSign service : " + addSign);
+		//디버깅
+		log.debug(TeamColor.YHW + addSign + "-- addSign-service");
 		return addSign;
 	}
 
@@ -34,7 +39,8 @@ public class LectureService implements ILectureService {
 	// 학생 수강신청 목록
 	public List<Map<String, Object>> signList(Sign userId) {
 		List<Map<String, Object>> SignList = lecturemapper.selectSignList(userId);
-		System.out.println("해당 아이디 수강 신청 목록 service : " + SignList);
+		//디버깅
+		log.debug(TeamColor.YHW + SignList + "-- SignList-service");
 		return SignList;
 	}
 
