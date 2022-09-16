@@ -40,7 +40,7 @@
 			s.subject_name, s.subject_point, s.subject_grade
 		FROM student t INNER JOIN sign g ON g.user_id = t.user_id
 		INNER JOIN lecture l ON l.lecture_no = g.lecture_no
-		INNER JOIN subject s ON S.subject_no = L.lecture_no 
+		INNER JOIN subject s ON s.subject_no = l.lecture_no 
 		WHERE t.user_id = #{userId}
 	</select>		
 </mapper>
