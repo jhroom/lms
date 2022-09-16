@@ -7,5 +7,7 @@ public interface IUserLoginService {
 	User getUserLogin(User user);
 	
 	boolean addUser(User user);
+	
+	boolean getUserIdCheck(String userId);
 
 }

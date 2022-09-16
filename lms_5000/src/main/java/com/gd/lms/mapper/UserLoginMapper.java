@@ -7,6 +7,8 @@ import com.gd.lms.vo.User;
 @Mapper
 public interface UserLoginMapper {
 	
+	int selectUserIdCheck(String userId);
+	
 	User selectUserLogin(User user);
 	
 	int insertUser(User user);

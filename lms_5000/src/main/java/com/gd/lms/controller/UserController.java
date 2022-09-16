@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.UserLoginService;
@@ -75,7 +77,7 @@ public class UserController {
 	return "redirect:/user/login";			
 	}
 	
-	//회원가입
+	//회원가입 폼으로가기
 	@GetMapping("/user/addUser")
 	public String addUser() {
 		return "user/addUser";
@@ -95,6 +97,20 @@ public class UserController {
 		//회원가입 로직중 에러발생시 404페이지로 이동 추가 할 예정
 		
 		return "user/login";
+	}
+	
+	//회원가입시 아이디 중복체크
+	@PostMapping("/user/idCheck")
+	@ResponseBody
+	public String userIdCkeck(@RequestParam (value="userId") String userId) {
+		System.out.println(TeamColor.AJH + "id check 진입 "+ userId);
+		if(userLoginService.getUserIdCheck(userId)) {
+			return "true";
+		}
+		else {
+			return "false";
+		}
+		
 	}
 	
 		
