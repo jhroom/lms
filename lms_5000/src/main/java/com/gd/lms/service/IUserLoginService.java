@@ -9,5 +9,7 @@ public interface IUserLoginService {
 	boolean addUser(User user);
 	
 	boolean getUserIdCheck(String userId);
+	
+	boolean addStudent(User user, int majorNo);
 
 }

@@ -2,6 +2,7 @@ package com.gd.lms.controller;
 
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,6 +82,23 @@ public class UserController {
 	@GetMapping("/user/addUser")
 	public String addUser() {
 		return "user/addUser";
+	}
+	
+	// 학생회원가입 폼으로가기
+	@GetMapping("/user/addStudent")
+	public String addStudent(Model model) {
+		//학과 리스트 받아서 포워딩해야함
+		return "user/addStudent";
+	}
+	// 학생회원가입 액션
+	@PostMapping("/user/addStudent")
+	public String addStudent(User user ,@RequestParam (value="majorNo") int majorNo) {
+		log.debug(TeamColor.AJH+"addStudent 파라미터 user 값 "+ user);
+		log.debug(TeamColor.AJH+"addStudent 파라미터 majorNo 값 "+ majorNo);
+		if(userLoginService.addStudent(user, majorNo)) {
+			log.debug(TeamColor.AJH + "student 회원가입 성공");
+		}
+		return "user/login";
 	}
 	
 	//회원가입 액션

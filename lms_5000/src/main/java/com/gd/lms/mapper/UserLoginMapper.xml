@@ -46,5 +46,26 @@
 			NOW()
 		)
 	</insert>
-	
+	<!-- 학생 회원가입 쿼리 -->
+	<insert id="insertStudent" parameterType="com.gd.lms.vo.Student">
+		Insert Into student (
+			user_id,
+			st_name,
+			st_email,
+			st_tel,
+			st_gender,
+			access_date,
+			update_date,
+			major_no
+		) Values (
+			#{userId},
+			#{stName},
+			#{stEmail},
+			#{stTel},
+			#{stGender},
+			Now(),
+			Now(),
+			#{majorNo}
+		)
+	</insert>
 </mapper>
