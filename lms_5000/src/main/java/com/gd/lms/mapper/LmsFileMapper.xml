@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.lms.mapper.LmsFileMapper">
+
+	<!-- 파일 추가 -->
+	<insert id="insertLmsFile" parameterType="com.gd.lms.vo.LmsFile">
+	INSERT INTO lmsFile(
+		filename,
+		fileOriginame,
+		fileType,
+		createDate,
+		lmsNoticeNo	
+	) VALUES (
+		#{fileName},
+		#{fileOriginame},
+		#{fileType},
+		#{createDate},
+		#{lmsNoticeNo}
+	)
+
+	</insert>
+	<!-- 공지사항 삭제시 파일도 삭제됨 -->
+	<delete id="deleteLmsFile" parameterType="int">
+		DELETE FROM LmsFile
+		WHERE lmsNoticeNo =#{LmsNoticeNo}
+	
+	</delete>
+	
+	
+	
+	
+
+</mapper>
