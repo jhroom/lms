@@ -31,21 +31,19 @@ public class FindUserController {
 		return "user/findUserPw";
 	}
 		
-		
 	//아이디 찾기 액션
 	@PostMapping("/user/findUserId")
 	public String findUserId(Model model, User user) {
 		//실행을 위한 서비스 호출
 		String findId = findUserService.findUserId(user);
-		System.out.println(findId + "유저 정보 확인용");
-
-		//findId가 null일 경우에
-		if(findId == null) {
-			model.addAttribute("IdMsg", "입력 정보를 확인해주세요");
-			
-		}else { //null이 아닐경우 찾은 ID출력.
+		
+		//db에 정보가 없을경우에
+		if(findId == "") {
+			System.out.println("데이터가 없을때");
+			model.addAttribute("IdMsg" , "정보를 확인해주세요");
+		}else {
+			System.out.println("데이터가 있을때");
 			model.addAttribute("IdMsg" , "아이디는 " + findId + "입니다");
-			
 		}
 		
 		log.debug(TeamColor.JCH + this.getClass()  + " 아이디 찾기 액션 ");
@@ -61,7 +59,7 @@ public class FindUserController {
 		
 		
 		//finPw가 null일경우에 ( 입력한 정보가 맞지않아 비밀번호를 db에서 찾아낼 수 없을때)
-		if(findPw == null) {
+		if(findPw == "") {
 			model.addAttribute("PwMsg", "입력 정보를 확인해주세요");
 		}else {  
 			//비밀번호가 존재하면 일부는 *로 치환해서 보여줄것.
@@ -85,6 +83,9 @@ public class FindUserController {
 			String resultPw = mdPw + pwStar;
 			model.addAttribute("PwMsg" , "비밀번호는 " + resultPw + "입니다");
 		}
+		
+		log.debug(TeamColor.JCH + this.getClass()  + " 비밀번호 찾기 액션 ");
+
 		return "user/findUserPw";
 	}
 }
