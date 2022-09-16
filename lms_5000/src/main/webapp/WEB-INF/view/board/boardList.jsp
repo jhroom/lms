@@ -12,14 +12,14 @@
 	<div>
 		<!-- 공지사항 -->
 		<div>
-			<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${noticeNo}">과목 공지사항</a></h3>
+			<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${noticeNo}&boardName=공지사항">과목 공지사항</a></h3>
 
 		</div>
 		
 		
 		<!-- Qna -->
 		<div>
-			<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${qnaNo}">과목 Qna</a></h3>
+			<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${qnaNo}&boardName=QNA">과목 Qna</a></h3>
 
 		</div>
 			
@@ -27,6 +27,7 @@
 		<!-- 과목 게시판 -->
 		<div>
 			<h3>과목 게시판</h3>
+			<a href="${pageContext.request.contextPath}/board/add/form?lectureNo=${lectureNo}">게시판 만들기(미구현)</a>
 			<table border="1">
 				<thead>
 					<tr>
@@ -37,7 +38,7 @@
 					<c:forEach var="n" items="${boardList}">
 						<c:if test="${n.boardType eq 3}">
 							<tr>
-								<td>${n.boardNo}</td><td><a href="${pageContext.request.contextPath}/board/post?boardNo=${n.boardNo}">${n.boardName}</a></td><td>${n.createDate}</td>
+								<td>${n.boardNo}</td><td><a href="${pageContext.request.contextPath}/board/post?boardNo=${n.boardNo}&boardName=${n.boardName}">${n.boardName}</a></td><td>${n.createDate}</td>
 							</tr>
 						</c:if>
 					</c:forEach>

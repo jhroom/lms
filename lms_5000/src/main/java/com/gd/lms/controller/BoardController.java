@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.service.IBoardService;
 import com.gd.lms.vo.Board;
+import com.gd.lms.vo.BoardPost;
 
 
 @Controller
@@ -52,6 +54,8 @@ public class BoardController {
 
 		//값 넘겨주기
 		model.addAttribute("boardList",list);
+		model.addAttribute("lectureNo",lectureNo);
+		
 		model.addAttribute("noticeNo",noticeNo);
 		model.addAttribute("qnaNo",qnaNo);
 		
@@ -67,23 +71,102 @@ public class BoardController {
 	
 	//게시판 게시글 출력 메서드
 	@GetMapping("/board/post")
-	public String getBoardPostList(int boardNo, Model model) {
+	public String getBoardPostList(int boardNo, String boardName, Model model) {
 		
 		//파라미터 확인 디버깅
 		System.out.println("[boardCtrl] boardNo : " + boardNo);	
+		System.out.println("[boardCtrl] boardName : " + boardName);	
 		
-		model.addAttribute("boardNo", boardNo);
+
+		
+		//넘겨줄 리스트(게시판)
+		List<BoardPost> list = boardService.getBoardPostList(boardNo);
+		
+		
+		//값 넘겨주기
+		model.addAttribute("boardPostList",list);
+		model.addAttribute("boardName",boardName);
+		model.addAttribute("boardNo",boardNo);
+		
+
+
+		//디버깅
+		System.out.println("[boardCtrl] boardPost list : " + list);		
+		System.out.println("[boardCtrl] boardPost 리스트 생성 및 포워딩");
 		
 		
 		//디버깅
-		System.out.println("[boardCtrl] board 포워딩");
+		System.out.println("[boardCtrl] boardPost 포워딩");
 		
 		//포워딩
 		return "board/boardPost";
 		
 	}
 	
+	//게시글 상세 페이지 출력 메서드
+	@GetMapping("/board/post/one")
+	public String getBoardPostOne(int boardPostNo, String boardName, int boardNo, Model model) {
+		
+
+		//파라미터 확인 디버깅
+		System.out.println("[boardCtrl] boardPostNo : " + boardPostNo);	
+		
+		//넘겨줄 값(BoardPost)
+		BoardPost boardPost = boardService.getBoardPostOne(boardPostNo);
+		
+		//값 넘겨주기
+		model.addAttribute("boardPost",boardPost);
+		model.addAttribute("boardName",boardName);
+		model.addAttribute("boardNo",boardNo);
+		
+		//포워딩
+		return "board/boardOne";
+		
+	}
+	
+	//게시글 추가 폼 전송 메서드
+	@GetMapping("/board/post/add/form")
+	public String directAddBoardPost(int boardNo, String boardName, Model model) {
+
+		//파라미터 확인 디버깅
+		System.out.println("[boardCtrl] boardNo : " + boardNo);	
+		
+		//값 넘겨주기
+		model.addAttribute("boardName",boardName);
+		model.addAttribute("boardNo",boardNo);
+		
+		return "board/addBoardPost";
+	}
 	
 	
+	
+	//게시글 추가 메서드
+	@PostMapping("/board/post/add")
+	public String addBoardPost(Board board, BoardPost boardPost) {
+		
+		//파라미터 확인 디버깅
+		System.out.println("[boardCtrl] boardPost : " + boardPost);	
+		System.out.println("[boardCtrl] board : " + board);	
+		
+		//파일 넘기는 법 연구 필요
+		
+		
+		
+		//리다이렉션
+		//return "redirect:/board/post";
+		return "board/addBoardPost";
+		
+	}
+	
+	//게시판 추가 메서드
+	@GetMapping("/board/add/form")
+	public String directAddBoard(int lectureNo) {
+		
+		//파라미터 확인 디버깅
+		System.out.println("[boardCtrl] lectureNo : " + lectureNo);	
+		
+		//포워팅
+		return "board/addBoard";
+	}
 
 }
