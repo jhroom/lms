@@ -18,7 +18,7 @@
 			user_level userLevel,
 			user_active userActive
 		FROM user
-		WHERE user_id = #{userId} AND user_pw = #{userPw}
+		WHERE user_id = #{userId} AND user_pw = password(#{userPw})
 	</select>
 	
 	<!-- 회원가입시 들어가는 정보 쿼리 -->

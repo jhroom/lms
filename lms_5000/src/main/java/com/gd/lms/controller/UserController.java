@@ -134,6 +134,14 @@ public class UserController {
 		}
 		
 	}
+	@GetMapping("/user/messageList")
+	public String messageList() {
+		return "user/messageList";
+	}
+	@GetMapping("/user/message")
+	public String message() {
+		return "user/message";
+	}
 	
 		
 }

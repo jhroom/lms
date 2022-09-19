@@ -17,6 +17,8 @@
 				<a href="${pageContext.request.contextPath}/sign/openLectureList">강의 리스트</a><br>
 				<a href="${pageContext.request.contextPath}/board/list?lectureNo=1">게시판</a><br>
 				<a href="${pageContext.request.contextPath}/user/logout">로그아웃</a>
+				<button  onclick="window.open('${pageContext.request.contextPath}/user/messageList'
+				, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false">메세지버튼</button>
 			</c:when>
 			<c:otherwise>
 			

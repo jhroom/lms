@@ -14,12 +14,12 @@
 		<table border="1">
 			<tr>
 				<td>이름</td>
-				<td><input type="text" value="관리자" name="userName"></td>
+				<td><input type="text" name="userName"></td>
 			</tr>
 			
 			<tr>
 				<td>전화번호</td>
-				<td><input type="text" value="010" name="userTel"></td>
+				<td><input type="text" name="userTel"></td>
 			</tr>
 			
 		</table>
