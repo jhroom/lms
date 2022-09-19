@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.gd.lms.vo.Sign;
+import com.gd.lms.vo.SignCancel;
 
 
 public interface ILectureService {
@@ -15,4 +16,8 @@ public interface ILectureService {
 	List<Map<String, Object>> signList(Sign userId);
 	// 수강 취소 
 	int removeSign(Sign sign);
+	// 수강 취소 과목 입력
+	int addCancleSign(SignCancel signCancel);
+	// 수강 취소 리스트
+	List<Map<String, Object>> selectCancelSignList(SignCancel userId);
 }

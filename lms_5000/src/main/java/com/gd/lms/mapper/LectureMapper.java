@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.Sign;
+import com.gd.lms.vo.SignCancel;
 
 
 @Mapper
@@ -18,4 +19,8 @@ public interface LectureMapper {
 	List<Map<String, Object>> selectSignList(Sign userId);
 	// 수강 취소
 	int deleteSign(Sign sign);
+	// 취소 목록 등록
+	int insertCancelSign(SignCancel signCancel);
+	// 수강 취소 리스트
+	List<Map<String, Object>> selectCancelSignList(SignCancel userId);
 }

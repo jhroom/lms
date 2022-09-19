@@ -79,13 +79,13 @@
 						</td>
 						<td>${s.classroom_no}호 강의실</td>
 						<td>
-							<!-- session 등으로 수강신청 관련 대기 -->
+							<!-- session 등으로 수강신청 상태 대기 -->
 							<c:choose>
 								<c:when test="${s.sign_state eq 0}">신청 대기</c:when>
 								<c:when test="${s.sign_state eq 1}">수강 신청 완료</c:when>
 							</c:choose>
 						</td>
-						<td><a href="${pageContext.request.contextPath}/sign/removeSign?signNo=${s.sign_no}">수강취소</a></td>
+						<td><a href="${pageContext.request.contextPath}/sign/cancelSign?signNo=${s.sign_no}">수강취소</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -95,19 +95,28 @@
 		<table border="1">
 			<thead>
 				<tr>
-					<th>취소 과목 이름</th>
-					<th>취소 과목 주체</th>
-					<th>취소 사유</th>
-					<th>취소 시간</th>
+					<th>강좌번호(lectureNo)</th>
+					<th>취소 과목 이름(subjectName)</th>
+					<th>취소 과목 주체(userId)</th>
+					<th>취소 사유(Content)</th>
+					<th>취소 시간(cancelDate)</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+				<c:forEach var="c" items="${cancelSignList}">
+					<tr>
+						<td>${c.lecture_no}</td>
+						<td>${c.subject_name}</td>
+						<c:if test="">
+							<td>${c.lecture_no}</td>
+						</c:if>
+						<c:if test="">
+							<td>${c.lecture_no}</td>
+						</c:if>
+						
+						<td>${c.create_date}</td>
+					</tr>
+				</c:forEach>
 			</tbody>		
 		</table>
 	</div>

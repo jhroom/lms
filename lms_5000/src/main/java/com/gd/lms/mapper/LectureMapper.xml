@@ -31,7 +31,7 @@
 	<select id="selectSignList" parameterType="com.gd.lms.vo.Sign"  resultType="map">
  		SELECT
 			t.user_id,
-			g.sign_state,
+			g.sign_state, g.sign_no,
 			l.lecture_no, l.lecture_starttime, l.lecture_endtime, l.lecture_day, l.classroom_no,
 			s.subject_name, s.subject_point, s.subject_grade
 		FROM student t INNER JOIN sign g ON g.user_id = t.user_id
@@ -44,4 +44,29 @@
 	<delete id="deleteSign" parameterType="com.gd.lms.vo.Sign">
 		DELETE FROM sign WHERE sign_no = #{signNo}
 	</delete>
+	
+	<!-- 수강 취소시 수강취소 목록에 등록 -->
+	<insert id="insertCancelSign" parameterType="com.gd.lms.vo.Sign">
+		INSERT INTO sign_cancel(
+			sign_no, 
+			user_id, 
+			cancel_date) 
+		VALUES (
+			#{signNo}, 
+			#{userId}, 
+			NOW()) 
+	</insert>
+	
+	<!-- 수강 취소 리스트 -->
+	<select id="selectCancelSignList" parameterType="com.gd.lms.vo.Sign" resultType="map">
+		SELECT
+			t.user_id,
+		  	g.sign_no,
+			l.lecture_no, 
+			s.subject_name
+		FROM student t INNER JOIN sign g ON g.user_id = t.user_id
+		INNER JOIN lecture l ON l.lecture_no = g.lecture_no
+		INNER JOIN subject s ON s.subject_no = l.subject_no 
+		WHERE t.user_id = #{userId}
+	</select>
 </mapper>
