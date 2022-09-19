@@ -44,4 +44,13 @@ public class LectureService implements ILectureService {
 		return SignList;
 	}
 
+	@Override
+	// 수강 취소
+	public int removeSign(Sign sign) {
+		int removeSign = lecturemapper.deleteSign(sign);
+		//디버깅
+		log.debug(TeamColor.YHW + removeSign + "-- removeSign-service");
+		return removeSign;
+	}
+
 }

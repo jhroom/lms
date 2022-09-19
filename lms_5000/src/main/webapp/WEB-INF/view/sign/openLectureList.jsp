@@ -64,7 +64,7 @@
 						<td>${s.lecture_no}</td>
 						<td>${s.subject_name}</td>
 						<td>${s.subject_point}점</td>
-						<td>${s.subject_grade}</td>
+						<td>${s.subject_grade}학년</td>
 						<td>
 							<c:choose>
 								<c:when test="${s.lecture_day eq 1}">월요일</c:when>
@@ -78,11 +78,37 @@
 							</c:choose>
 						</td>
 						<td>${s.classroom_no}호 강의실</td>
-						<td>${s.sign_state}</td>
-						<td><a href="${pageContext.request.contextPath}/sign/deletSign">수강취소</a></td>
+						<td>
+							<!-- session 등으로 수강신청 관련 대기 -->
+							<c:choose>
+								<c:when test="${s.sign_state eq 0}">신청 대기</c:when>
+								<c:when test="${s.sign_state eq 1}">수강 신청 완료</c:when>
+							</c:choose>
+						</td>
+						<td><a href="${pageContext.request.contextPath}/sign/removeSign?signNo=${s.sign_no}">수강취소</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
+		</table>
+		<br><br><br>
+		<h3>수강 취소 내역</h3>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>취소 과목 이름</th>
+					<th>취소 과목 주체</th>
+					<th>취소 사유</th>
+					<th>취소 시간</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>		
 		</table>
 	</div>
 	<div>

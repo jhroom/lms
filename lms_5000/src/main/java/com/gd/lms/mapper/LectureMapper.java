@@ -16,4 +16,6 @@ public interface LectureMapper {
 	int insertSign(Sign sign);
 	// 수강 신청 목록
 	List<Map<String, Object>> selectSignList(Sign userId);
+	// 수강 취소
+	int deleteSign(Sign sign);
 }

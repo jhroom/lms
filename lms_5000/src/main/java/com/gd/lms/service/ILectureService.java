@@ -13,4 +13,6 @@ public interface ILectureService {
 	int addSign(Sign sign);
 	// 학생 수강 신청 List
 	List<Map<String, Object>> signList(Sign userId);
+	// 수강 취소 
+	int removeSign(Sign sign);
 }
