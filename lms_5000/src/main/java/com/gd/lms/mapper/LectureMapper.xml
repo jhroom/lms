@@ -35,7 +35,7 @@
 	<select id="selectSignList" parameterType="map"  resultType="com.gd.lms.vo.Sign">
 	    SELECT
 			t.user_id,
-			g.sign_state, g.sign_startdate, g.sign_enddate, 
+			g.sign_state,
 			l.lecture_no, l.lecture_starttime, l.lecture_endtime, l.lecture_day, l.classroom_no,
 			s.subject_name, s.subject_point, s.subject_grade
 		FROM student t INNER JOIN sign g ON g.user_id = t.user_id

@@ -16,9 +16,9 @@
 	<div>
 		<form action="${pageContext.request.contextPath}/user/login" method="post">
 			id
-				<input type="text" name="userId">
+				<input type="text" value="admin" name="userId">
 			pw
-				<input type="password" name="userPw">
+				<input type="password" value="1234" name="userPw">
 				<button type="submit">로그인</button>
 		</form>
 	</div>
