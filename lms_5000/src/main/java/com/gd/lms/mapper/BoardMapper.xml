@@ -64,7 +64,7 @@
 	
 	
 	<!-- 게시글 추가 쿼리 -->
-	<insert id="insertBoardPost" parameterType="com.gd.lms.vo.BoardPost">
+	<insert id="insertBoardPost" parameterType="com.gd.lms.vo.BoardPost" useGeneratedKeys="true" keyProperty="board_post_no">
 		insert
 			into board_post(
 				board_no

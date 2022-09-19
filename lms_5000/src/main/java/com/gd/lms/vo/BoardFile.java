@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class BoardFile {
+	//Uuid(중복 방지 문자열)
+	private String uuid;		
 	// 파일 이름
 	private String fileName;				
 	// 파일 원본 이름
@@ -14,4 +16,6 @@ public class BoardFile {
 	private String createDate;			
 	// 게시글 번호
 	private int boardPostNo;				
+
+	
 }
