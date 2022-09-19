@@ -18,27 +18,27 @@
 			<tbody>
 				<tr>
 					<th>제목</th>
-					<td>${boardPost.boardPostTitle}</td>
+					<td>${boardOne.get('boardPostTitle')}</td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td>${boardPost.boardPostWriter}</td>
+					<td>${boardOne.boardPostWriter}</td>
 				</tr>
 				<tr>
 					<th>작성일</th>
-					<td>${boardPost.boardPostCreatedate}</td>
+					<td>${boardOne.boardPostCreatedate}</td>
 				</tr>
 				<tr>
 					<th>수정일</th>
-					<td>${boardPost.boardPostUpdatedate}</td>
+					<td>${boardOne.boardPostUpdatedate}</td>
 				</tr>
 				<tr>
 					<th>조회수</th>
-					<td>${boardPost.count}</td>
+					<td>${boardOne.count}</td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td>${boardPost.boardPostContent}</td>
+					<td>${boardOne.boardPostContent}</td>
 				</tr>		
 				<tr>
 					<th>첨부파일</th>

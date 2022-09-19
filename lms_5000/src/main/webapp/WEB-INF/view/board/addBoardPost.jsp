@@ -23,7 +23,7 @@
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="boardPostName" id="boardPostName"></td>
+					<td><input type="text" name="boardPostTitle" id="boardPostTitle"></td>
 				</tr>
 				
 				<tr>
@@ -36,7 +36,7 @@
 				</tr>		
 				<tr>
 					<th>첨부파일</th>
-					<td><input type="file" name="boardPostFile" id="boardPostFile"></td>
+					<td><input type="file" name="uploadFile" id="uploadFile"></td>
 					<!-- 파일 넘기는법 연구필요 -->
 				</tr>		
 			</tbody>

@@ -48,27 +48,31 @@
 
 	
 	<!-- 게시글 상세 조회 쿼리 -->
-	<select id="selectBoardPostOne" resultType="com.gd.lms.vo.BoardPost">
+	<select id="selectBoardPostOne" resultType="map">
 		select
-			board_post_no boardPostNo
-			, board_no boardNo
-			, board_post_Title boardPostTitle
-			, board_post_content boardPostContent
-			, board_post_writer boardPostWriter
-			, board_post_createdate boardPostCreatedate
-			, board_post_updatedate boardPostUpdatedate
-			, count count
-		from board_post
-		where board_post_no = #{boardPostNo}
+			p.board_post_no boardPostNo
+			, p.board_no boardNo
+			, p.board_post_Title boardPostTitle
+			, p.board_post_content boardPostContent
+			, p.board_post_writer boardPostWriter
+			, p.board_post_createdate boardPostCreatedate
+			, p.board_post_updatedate boardPostUpdatedate
+			, p.count count
+			, f.file_originname fileOriginname
+			, f.file_name fileName
+		from board_post p 
+		inner join board_file f
+		on p.board_post_no = f.board_post_no
+		where p.board_post_no = #{boardPostNo}
 	</select>
 	
 	
 	<!-- 게시글 추가 쿼리 -->
-	<insert id="insertBoardPost" parameterType="com.gd.lms.vo.BoardPost" useGeneratedKeys="true" keyProperty="board_post_no">
+	<insert id="insertBoardPost" parameterType="com.gd.lms.vo.BoardPost" useGeneratedKeys="true" keyProperty="boardPostNo">
 		insert
 			into board_post(
 				board_no
-				, board_post_Title
+				, board_post_title
 				, board_post_content
 				, board_post_writer
 				, board_post_createdate
@@ -84,6 +88,27 @@
 				, 0			
 			)
 	</insert>
+	
+	
+	<!-- 게시글 추가 쿼리 -->
+	<insert id="insertBoardFile" parameterType="com.gd.lms.vo.BoardFile">
+		insert
+			into board_file(
+				file_name
+				, file_originname
+				, file_type
+				, create_date
+				, board_post_no
+			) values (
+				#{fileName}
+				, #{fileOriginname}			
+				, #{fileType}
+				, now()
+				, #{boardPostNo}
+			)
+	</insert>
+	
+	
 
 
 

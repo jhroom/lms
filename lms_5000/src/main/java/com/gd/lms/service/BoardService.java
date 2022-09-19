@@ -1,6 +1,7 @@
 package com.gd.lms.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.lms.mapper.BoardMapper;
 import com.gd.lms.vo.Board;
+import com.gd.lms.vo.BoardFile;
 import com.gd.lms.vo.BoardPost;
 
 @Service
@@ -56,9 +58,9 @@ public class BoardService implements IBoardService{
 	
 
 	@Override
-	public BoardPost getBoardPostOne(int boardPostNo) {
+	public Map<String, Object> getBoardPostOne(int boardPostNo) {
 		//리턴 값(list) 세팅
-		BoardPost boardPost = boardMapper.selectBoardPostOne(boardPostNo);
+		Map<String, Object> boardPost = boardMapper.selectBoardPostOne(boardPostNo);
 		
 		//디버깅
 		System.out.println("[boardSvc] boardPost : " + boardPost);
@@ -74,6 +76,20 @@ public class BoardService implements IBoardService{
 		
 		//디버깅
 		System.out.println("[boardSvc] add BoardPost row : " + row);
+		
+		//리턴
+		return row;
+	}
+
+
+
+	@Override
+	public int addBoardFile(BoardFile boardFile) {
+		//리턴 값(int) 세팅
+		int row = boardMapper.insertBoardFile(boardFile);
+		
+		//디버깅
+		System.out.println("[boardSvc] add boardFile row : " + row);
 		
 		//리턴
 		return row;

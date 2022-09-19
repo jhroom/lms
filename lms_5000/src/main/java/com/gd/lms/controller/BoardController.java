@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.IBoardService;
@@ -127,10 +129,10 @@ public class BoardController {
 		System.out.println("[boardCtrl] boardPostNo : " + boardPostNo);	
 		
 		//넘겨줄 값(BoardPost)
-		BoardPost boardPost = boardService.getBoardPostOne(boardPostNo);
+		Map<String, Object> boardOne = boardService.getBoardPostOne(boardPostNo);
 		
 		//값 넘겨주기
-		model.addAttribute("boardPost",boardPost);
+		model.addAttribute("boardOne",boardOne);
 		model.addAttribute("boardName",boardName);
 		model.addAttribute("boardNo",boardNo);
 		
@@ -190,85 +192,88 @@ public class BoardController {
 	
 	//게시글 추가 메서드-	확인 필요
 	@PostMapping("/board/post/add")
-	public String addBoardPost(Board board, BoardPost boardPost, MultipartFile[] uploadFiles) {
+	public String addBoardPost(Board board, BoardPost boardPost, MultipartFile[] uploadFile) {
 		
 		//파라미터 확인 디버깅
-		System.out.println("[boardCtrl] boardPost : " + boardPost);	
-		System.out.println("[boardCtrl] uploadFiles : " + uploadFiles);	
-		System.out.println("[boardCtrl] board : " + board);
+		log.debug(TeamColor.KHJ + "값 확인 / add boardPost boardPost : " + boardPost);
+		log.debug(TeamColor.KHJ + "값 확인 / add boardPost uploadFile : " + uploadFile);
+		log.debug(TeamColor.KHJ + "값 확인 / add boardPost board : " + board);
+		
 		
 		//게시글 추가하기
 		int row = boardService.addBoardPost(boardPost);
 		
 		//디버깅
 		System.out.println("[boardCtrl] boardPost : " + boardPost);	
+		log.debug(TeamColor.KHJ + "완료 후 값 확인 /  boardPost : " + boardPost);
 		
 		
 		//////파일 넣는 추가
 		// 변수 확인
-		String path = "C:\\Users\\82102\\spring-workspace\\test\\src\\main\\webapp\\WEB-INF\\file2";
-		String fileName = "";
+		String path = "C:\\Users\\82102\\git\\5000_lms\\lms_5000\\src\\main\\webapp\\boardFile";
 		String originFileName = "";
 		String contentType = "";
 
 		//리스트 생성
 		List<BoardFile> list = new ArrayList<>();
 		
-
-		for(MultipartFile file : uploadFiles) {
-			if(!file.isEmpty()) {
-				//변수 세팅
-				fileName = file.getName();
-				originFileName = file.getOriginalFilename();
-				contentType = file.getContentType();	
+		if(uploadFile != null) {
+			for(MultipartFile file : uploadFile) {
+				if(!file.isEmpty()) {
+					//변수 세팅
+					originFileName = file.getOriginalFilename();
+					contentType = file.getContentType();	
+					
+					//객체 생성
+					BoardFile tempFile = new BoardFile();
+					
+					//디버깅
+					log.debug(TeamColor.KHJ + "값 확인 / add boardPost tempFile : " + tempFile);
+					
+					//값 세팅하기
+					tempFile.setFileOriginname(originFileName);
+					tempFile.setFileName(UUID.randomUUID() + "_" + originFileName);
+					tempFile.setFileType(contentType);
+					tempFile.setBoardPostNo(boardPost.getBoardPostNo());
+					
+					//디버깅
+					log.debug(TeamColor.KHJ + "값 확인 / add boardPost tempFile : " + tempFile);
 				
-				//객체 생성
-				BoardFile tempFile = new BoardFile();
-				
-				//디버깅
-				log.debug(TeamColor.KHJ + "값 확인 / add boardPost tempFile : " + tempFile);
-				
-				//값 세팅하기
-				tempFile.setUuid(UUID.randomUUID().toString());
-				tempFile.setFileOriginname(originFileName);
-				tempFile.setFileName(fileName);
-				tempFile.setFileType(contentType);
-				tempFile.setBoardPostNo(boardPost.getBoardPostNo());
-				
-				//디버깅
-				log.debug(TeamColor.KHJ + "값 확인 / add boardPost tempFile : " + tempFile);
+	
+					//리스트에 추가하기
+					list.add(tempFile);
 			
-
-				//리스트에 추가하기
-				list.add(tempFile);
-		
-				//파일 객체 생성
-				File newFileName = new File(path + File.separator + tempFile.getUuid()+"_"+tempFile.getFileName());
-
-				//저장 파일 이름 생성(연구 중)
-				String saveFileName = path + File.separator + tempFile.getUuid()+"_"+tempFile.getFileName();
+					//파일 객체 생성
+					File newFileName = new File(path + File.separator + tempFile.getFileName());
+	
+					//저장 파일 이름 생성(연구 중)
+					String saveFileName = path + File.separator + tempFile.getFileName();
+					
+					//저장 파일 경로 생성 (확인 중)
+					Path savePath = Paths.get(saveFileName);
+					
+					try {
+						file.transferTo(savePath);
+						
+						//게시글 추가하기
+						int row2 =+ boardService.addBoardFile(tempFile);
+						
+						
+					} catch (Exception e) {
+						System.out.println("실패");
+						e.printStackTrace();
+					}
 				
-				//저장 파일 경로 생성 (확인 중)
-				Path savePath = Paths.get(saveFileName);
-				
-
-				try {
-					file.transferTo(savePath);
-				} catch (Exception e) {
-					System.out.println("실패");
-					e.printStackTrace();
 				}
-			
+				
+				
 			}
-			
-			
 		}
 		
 		
 		
 		//리다이렉션
-		//return "redirect:/board/post";
-		return "board/addBoardPost";
+		return "redirect:/board/post?boardNo=" + board.getBoardNo() +"&boardName=" + board.getBoardName();
 		
 	}
 
