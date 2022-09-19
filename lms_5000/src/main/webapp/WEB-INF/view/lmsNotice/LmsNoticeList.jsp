@@ -11,11 +11,11 @@
 	<h3>LMS 공지사항</h3>
 </div>
 	<div>
-		<a href="${pageContext.request.contextPath}/LmsNoticeAddBoard">글 작성</a>
+		<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeAddBoard">글 작성</a>
 	</div>
 	<div>
 	
-	<table border="1">
+	<table border="" bordercolor="green">
 		<tr>
 			<th>번호</th>
 			<th>제목</th>

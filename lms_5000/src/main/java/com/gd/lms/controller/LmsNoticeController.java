@@ -24,33 +24,33 @@ public class LmsNoticeController {
 	@GetMapping("/lmsNotice/LmsNoticeList")
 	public String getLmsNoticeList(Model model) {
 		
+		
+		
+		//리스트 불러오기
 		List<LmsNotice> LmsNoticeList = lmsNoticeService.getLmsNoticeList();
 		model.addAttribute("lmsNoticeList", LmsNoticeList);
 		return "/lmsNotice/LmsNoticeList";
 		
 	}
 
-//	//공지 추가
-//	@GetMapping("/LmsNoticeAddBoard")
-//	public String LmsNoticeAddBoard() {
-//		
-//		//디버깅
-//		log.debug(TeamColor.SSH + LmsNoticeAddBoard() + "정보 추가");
-//		
-//		return "LmsNoticeAddBoard";
-//		
-//	}
-//	
-//	//공지 추가 액션
-//	@GetMapping("/LmsNoticeAddBoard")
+	//공지 추가
+	@GetMapping("/lmsNotice/LmsNoticeAddBoard")
+	public String LmsNoticeAddBoard() {
+		
+		return "/lmsNotice/LmsNoticeAddBoard";
+		
+	}
+	
+	//공지 추가 액션
+//	@GetMapping("/lmsNotice/LmsNoticeAddBoard")
 //	public String LmsNoticeAddboard(LmsNotice lmsNotice, HttpSession session) {
 //		
-//		String path = session.getServletContext().getRealPath("/update");
+//		String path = session.getServletContext().getRealPath("/upload");
 //		lmsNoticeService.LmsAddNotice(lmsNotice, path);
-//		
-//		return "redirect:/LmsNticeList";
+//			
+//		return "redirect:/lmsNotice/LmsNticeList";
 //		
 //	}
-//	
+	
 	
 }
