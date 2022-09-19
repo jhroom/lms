@@ -107,14 +107,24 @@
 					<tr>
 						<td>${c.lecture_no}</td>
 						<td>${c.subject_name}</td>
-						<c:if test="">
-							<td>${c.lecture_no}</td>
-						</c:if>
+						<td>	
+							${c.user_id}
+							<c:choose >
+								<c:when test="${level eq 1 }">(운영자)</c:when>
+								<c:when test="${level eq 3 }">(학생)</c:when>
+							</c:choose>
+						</td>
+						<td>	
+							<c:choose >
+								<c:when test="${level eq 1 }">수강 기준 부합(운영자)</c:when>
+								<c:when test="${level eq 3 }">학생 개인 사유</c:when>
+							</c:choose>
+						</td>	
 						<c:if test="">
 							<td>${c.lecture_no}</td>
 						</c:if>
 						
-						<td>${c.create_date}</td>
+						<td>${c.cancel_date}</td>
 					</tr>
 				</c:forEach>
 			</tbody>		

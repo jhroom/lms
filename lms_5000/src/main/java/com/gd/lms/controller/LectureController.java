@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILectureService;
@@ -26,11 +27,11 @@ public class LectureController {
    public String selectLectureListForSign(Model model, Sign sign, SignCancel signCancel, HttpSession session) {
 //	  // 로그인 상태가 아니면 로그인페이지
 //	  if(session.getAttribute("user") == null) { 
-//		  return "redirect:/user/login";
+//		  return "redirect:/lms/user/login";
 //	  }
 //	  // 권한이 학생 아니면 인덱스 페이지
-//	  else if (Integer.parseInt((String) session.getAttribute("level")) != 3) {
-//		  return "redirect:/index";
+//	  else if (Integer.parseInt((String) session.getAttribute("level")) != 3 || Integer.parseInt((String) session.getAttribute("level")) != 1) {
+//		  return "redirect:/lms/index";
 //	  }
 	 
 		
@@ -68,12 +69,13 @@ public class LectureController {
 	  
       return "/sign/openLectureList";
 	   }
-	  
+  
 	   @GetMapping("/sign/addSign")
 	   // 수강신청 추가
-	   public String insertLecture(Sign sign) {
+	   public String insertLecture(Sign sign, HttpSession session) {
 		   // 임의 값 저장 실행확인///////////////////////////////////////////////////////////
-		   sign.setSignState(1);
+		   //sign.setSignState(Integer.parseInt((String) session.getAttribute("level")));
+		   sign.setSignNo(1);
 		   //디버깅
 		   log.debug(TeamColor.YHW + "-- sign-controller -- "+ sign );
 		   int addSign = lectureService.addSign(sign);
@@ -91,21 +93,25 @@ public class LectureController {
 		  int removeSign = lectureService.removeSign(sign); 
 		  //디버깅
 		  log.debug(TeamColor.YHW + "-- removeSign-controller -- "+ removeSign );
+		  
 		  return "redirect:/sign/openLectureList";
 	   }
 	   
 	   
 	    @GetMapping("/sign/cancelSign") 
 	    // 수강신청 취소 내용 입력
-	    public String cancelSign(SignCancel signCancel) {
-	    	//signCancel.setUserId((String)session.getAttribute("user"));//////////////////////////////
+	    public String cancelSign(SignCancel signCancel, HttpSession session) {
+	    	//signCancel.setUserId((String)session.getAttribute("user"));
 	    	signCancel.setUserId("son");
 	    	//디버깅
 	    	log.debug(TeamColor.YHW + "-- signCancel-controller -- "+ signCancel );
 	    	int addSignCancel = lectureService.addCancleSign(signCancel);
 	    	//디버깅
 	    	log.debug(TeamColor.YHW + "-- addSignCancel-controller -- "+ addSignCancel );
-			return "redirect:/sign/removeSign";
+	    	
+	    	// removeSign에 전달할 값 받기
+	    	int signNo = signCancel.getSignNo();
+			return "redirect:/sign/removeSign?signNo="+signNo;
 	    }
   
 }
