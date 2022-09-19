@@ -62,8 +62,10 @@
 	
 </script>
 <body>
+	<a href="${pageContext.request.contextPath}/user/addUser">학생/교수</a>
+	<a href="${pageContext.request.contextPath}/user/addAdmin">운영자(직원)</a>
 	<div>
-		<form action="${pageContext.request.contextPath}/user/addStudent" method="post" id="form">
+		<form action="${pageContext.request.contextPath}/user/addAdmin" method="post" id="form">
 			<table border="1">
 				
 				<tr>
@@ -81,18 +83,18 @@
 				<tr>
 					<td>사용자유형</td>
 					<td>
-						학생<input type="hidden" name="userLevel" value="3" placeholder="학생">
+						<select name="userLevel">
+							<option value="1">운영자</option>
+						</select>
 					</td>
 				</tr>
 				<tr>
-					<td>학과</td>
+					<td>직책</td>
 					<td>
-						<select name="majorNo">
-							<option value="1">컴퓨터</option>
-							<option value="2">국어국문</option>
-							<option value="3">경영학</option>
+						<select name="positionNo">
+							<option value="1">학생관리자</option>
+							<option value="2">직원관리자</option>
 						</select>
-						<!-- 학과리스트 받아오는거 추가해야함 -->
 					</td>
 				</tr>
 				<tr>
@@ -118,7 +120,6 @@
 			
 			<button type="button" id="btn">회원가입</button>
 		</form>
-		
 	</div>
 </body>
 

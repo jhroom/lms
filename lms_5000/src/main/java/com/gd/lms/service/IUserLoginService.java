@@ -6,10 +6,10 @@ public interface IUserLoginService {
 	
 	User getUserLogin(User user);
 	
-	boolean addUser(User user);
+	boolean addAdmin(User user, int positionNo);
 	
 	boolean getUserIdCheck(String userId);
 	
-	boolean addStudent(User user, int majorNo);
+	boolean addStudentOrPro(User user, int majorNo);
 
 }

@@ -23,6 +23,12 @@ public class UserController {
 	
 	@Autowired UserLoginService userLoginService;
 	
+	//메인페이지
+	@GetMapping("/index")
+	public String index() {
+		return "index";
+	}
+	
 	//로그인 페이지
 	@GetMapping("/user/login")
 	public String userLogin() {
@@ -61,54 +67,32 @@ public class UserController {
 		return "redirect:/index";
 	}
 	
-	//메인페이지
-	@GetMapping("/index")
-	public String index() {
-		return "index";
-	}
 	
 	//로그아웃
 	@GetMapping("/user/logout")			
 	public String logout(HttpSession session) {			
-	log.debug(TeamColor.AJH + this.getClass() + " 로그아웃 액션");
-	
-	// 세션 무효화			
-	session.invalidate();			
-				
-	return "redirect:/user/login";			
-	}
-	
-	//회원가입 폼으로가기
-	@GetMapping("/user/addUser")
-	public String addUser() {
-		return "user/addUser";
-	}
-	
-	// 학생회원가입 폼으로가기
-	@GetMapping("/user/addStudent")
-	public String addStudent(Model model) {
-		//학과 리스트 받아서 포워딩해야함
-		return "user/addStudent";
-	}
-	// 학생회원가입 액션
-	@PostMapping("/user/addStudent")
-	public String addStudent(User user ,@RequestParam (value="majorNo") int majorNo) {
-		log.debug(TeamColor.AJH+"addStudent 파라미터 user 값 "+ user);
-		log.debug(TeamColor.AJH+"addStudent 파라미터 majorNo 값 "+ majorNo);
-		if(userLoginService.addStudent(user, majorNo)) {
-			log.debug(TeamColor.AJH + "student 회원가입 성공");
-		}
-		return "user/login";
-	}
-	
-	//회원가입 액션
-	@PostMapping("/user/addUser")
-	public String addUser(Model model, User user) {
+		log.debug(TeamColor.AJH + " 로그아웃 액션");
 		
-		log.debug(TeamColor.JCH + this.getClass() + user + " addUser 파라미터 값 ");
+		// 세션 무효화			
+		session.invalidate();			
+					
+		return "redirect:/user/login";			
+	}
+	
+	// 운영자 가입 폼으로가기
+	@GetMapping("/user/addAdmin")
+	public String addUser() {
+		return "user/addAdmin";
+	}
+	
+	// 운영자 가입 액션
+	@PostMapping("/user/addAdmin")
+	public String addUser(Model model, User user, @RequestParam (value="positionNo") int positionNo) {
+		
+		log.debug(TeamColor.JCH + " addUser 파라미터 값 "+ user);
 		
 		//addUser 회원가입 페이지에서 입력한정보가 성공적으로 들어갔을 떄 로그인 폼, 확인메세지 출력
-		if(userLoginService.addUser(user)) {
+		if(userLoginService.addAdmin(user, positionNo)) {
 			model.addAttribute("errMsg","회원가입 완료되었습니다");
 			System.out.println("회원가입완료");
 		}
@@ -116,6 +100,26 @@ public class UserController {
 		
 		return "user/login";
 	}
+	
+	// 학생,교수 가입 폼으로가기
+	@GetMapping("/user/addUser")
+	public String addStudent(Model model) {
+		//학과 리스트 받아서 포워딩해야함
+		return "user/addUser";
+	}
+	
+	// 학생,교수 가입 액션
+	@PostMapping("/user/addUser")
+	public String addStudent(Model model, User user , @RequestParam (value="majorNo") int majorNo) {
+		log.debug(TeamColor.AJH+"Student / Professro 파라미터 user 값 "+ user);
+		log.debug(TeamColor.AJH+"Student / Professro 파라미터 majorNo 값 "+ majorNo);
+		if(userLoginService.addStudentOrPro(user, majorNo)) {
+			log.debug(TeamColor.AJH + "학생/교수 회원가입 성공");
+			model.addAttribute("errMsg","회원가입 완료되었습니다");
+		}
+		return "user/login";
+	}
+	
 	
 	//회원가입시 아이디 중복체크
 	@PostMapping("/user/idCheck")
