@@ -160,13 +160,33 @@ public class BoardController {
 	
 	//게시판 추가 메서드
 	@GetMapping("/board/add/form")
-	public String directAddBoard(int lectureNo) {
+	public String directAddBoard(int lectureNo, Model model) {
 		
 		//파라미터 확인 디버깅
 		System.out.println("[boardCtrl] lectureNo : " + lectureNo);	
 		
+		
+		model.addAttribute("lectureNo", lectureNo);
+		
 		//포워팅
 		return "board/addBoard";
+	}
+	
+	//게시판 추가 메서드
+	@GetMapping("/board/add")
+	public String addBoard(Board board) {
+		
+		//파라미터 확인 디버깅
+		System.out.println("[boardCtrl] board : " + board);	
+		
+		//추가할 게시판 내용
+		int row = boardService.addBoard(board);
+		
+		//추가 여부 확인 디버깅
+		System.out.println("[boardCtrl] row : " + row);	
+		
+		//포워팅
+		return "redirect:/board/list?lectureNo="+board.getLectureNo();
 	}
 
 }

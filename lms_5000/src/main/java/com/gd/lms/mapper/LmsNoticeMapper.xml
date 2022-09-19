@@ -4,19 +4,19 @@
 <!-- 리스트 -->
 	<select id="selectLmsNoticeList" resultType="com.gd.lms.vo.LmsNotice">
 	select
-		lmsNoticeNo lmsNoticeNo;
-		lmsNoticeTitle lmsNoticetitle;
-		lmsNoticeContent lmsNoticeContent;
-		lmsNoticeCreatetime lmsNoticeCreatetime;
-	from lmsNotice	
+		lms_notice_no lmsNoticeNo,
+		lms_notice_title lmsNoticetitle,
+		lms_notice_content lmsNoticeContent,
+		lms_notice_createtime lmsNoticeCreatetime
+	from lms_notice	
 	</select>
 <!-- 공지 추가 -->
 	<insert id="LmsAddNotice" parameterType="com.gd.lms.vo.LmsNotice">
 		INSERT INTO lmsNotice(
-			lmsNoticeNo,
-			lmsNoticeTitle,
-			lmsNoticeContent,
-			lmsNoticeCreateTime
+			lms_notice_no,
+			lms_notice_title,
+			lms_notice_content,
+			lms_notice_createtime
 		) VALUES (
 			#{lmsNoticeNo},
 			#{lmsNoticeTitle},
@@ -37,8 +37,8 @@
 	<update id="updateLmsNotice" parameterType="com.gd.lms.vo.LmsNotice">
 		UPDATE lmsNotice
 		SET 
-			lmsNoticeTitle = #{lmsNoticeTitle},
-			lmsNoticeContent = #{lmsNoticeContent},
+			lms_notice_title = #{lmsNoticeTitle},
+			lms_notice_content = #{lmsNoticeContent},
 		WHERE lmsNoticeNo = #{lmsNoticeNo}
 	
 	</update>
@@ -46,11 +46,11 @@
 	<!-- 공지 상세보기 -->
 	<select id="selectLmsNoticeOne" parameterType="int" resultType="com.gd.lms.vo.LmsNotice">
 		SELECT
-			lmsNoticeNo lmsNoticeNo,
-			lmsNoticeTitle lmsNoticeTitle,
-			lmsNoticeContent lmsNoticeContent,
-			lmsNoticeCreatetime lmsNoticeCreatetime,
-			lmsNoticeUpdatetime lmsNoticeUpdatetime
+			lms_notice_no lmsNoticeNo,
+			lms_notice_title lmsNoticeTitle,
+			lms_notice_content lmsNoticeContent,
+			lms_notice_createtime lmsNoticeCreatetime,
+			lms_notice_updatetime lmsNoticeUpdatetime
 		FROM lmsNotice
 		WHERE lmsNoticeNo=#{lmsNoticeNo}
 	

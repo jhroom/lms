@@ -10,7 +10,7 @@ public interface ILmsNoticeService {
 	List<LmsNotice> getLmsNoticeList();
 	
 	// 공지 추가 (사진도)
-	void addLmsAddNotice(LmsNotice lmsNotice, String path);
+	void LmsAddNotice(LmsNotice lmsNotice, String path);
 	// 공지 삭제
 	int deleteLmsNotice(int lmsNoticeNo, String path);
 	// 공지 수정

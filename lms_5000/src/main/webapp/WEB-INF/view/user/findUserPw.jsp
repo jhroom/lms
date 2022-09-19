@@ -14,15 +14,15 @@
 		<table border="1">
 			<tr>
 				<td>id</td>
-				<td><input type="text" name="userId"></td>
+				<td><input type="text" value="admin" name="userId"></td>
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td><input type="text" name="userName"></td>
+				<td><input type="text" value="1234" name="userName"></td>
 			</tr>
 			<tr>
 				<td>전화번호</td>
-				<td><input type="text" name="userTel"></td>
+				<td><input type="text" value="010" name="userTel"></td>
 			</tr>
 		</table>
 		<button type="submit" >입력</button>

@@ -10,7 +10,7 @@
 
 <div>
 <h3>게시글 작성</h3>
-	<form action="${pageContext.request.contextPath}/board/add" method="post" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath}/board/add" method="get">
 		<input type="hidden" name="lectureNo" id="lectureNo" value="${lectureNo}">
 		<table border="1">
 			<thead>

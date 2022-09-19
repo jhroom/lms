@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>LMS 공지사항입니다.</title>
 </head>
 <body>
+<div>
+	<h3>LMS 공지사항</h3>
+</div>
 	<div>
 		<a href="${pageContext.request.contextPath}/LmsNoticeAddBoard">글 작성</a>
 	</div>
@@ -20,7 +23,7 @@
 			<th>작성일</th>
 			
 		</tr>
-		<c:forEach var="a" items="${boardList}">
+		<c:forEach var="a" items="${lmsNoticeList}">
 			<tr>
 				<td>${a.lmsNoticeNo}</td>
 				<td>${a.lmsNoticeTitle}</td>
