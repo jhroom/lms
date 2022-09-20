@@ -108,6 +108,34 @@
 			)
 	</insert>
 	
+	<insert id="insertComment" parameterType="com.gd.lms.vo.Comment">
+		insert
+			into comment(
+				comment_content
+				, comment_createdate
+				, comment_updatedate
+				, board_post_no
+			) values (
+				#{commentContent}
+				, now()
+				, now()
+				, #{boardPostNo}
+			)
+	
+	</insert>
+	
+	<select id="selectCommet" resultType="com.gd.lms.vo.Comment" >
+		select
+			comment_no commentNo
+			, comment_content commentContent
+			, comment_createdate commentCreatedate
+			, comment_updatedate commentUpdatedate
+			, board_post_no boardPostNo
+		from comment
+		where board_post_no = #{boardPostNo}
+				
+	</select>
+	
 	
 
 

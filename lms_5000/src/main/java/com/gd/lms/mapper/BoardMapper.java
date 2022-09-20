@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.gd.lms.vo.Board;
 import com.gd.lms.vo.BoardFile;
 import com.gd.lms.vo.BoardPost;
+import com.gd.lms.vo.Comment;
 
 @Mapper
 public interface BoardMapper {
@@ -29,8 +30,11 @@ public interface BoardMapper {
 	//게시글 첨부 파일 추가 쿼리
 	public int insertBoardFile(BoardFile boardFile);
 	
-	//댓글 리스트 생성 쿼리
+	//댓글 추가 생성 쿼리
+	public int insertComment(Comment comment);
 	
+	//댓글 리스트 생성 쿼리
+	public List<Comment> selectCommet(int boardPostNo);
 	
 
 }

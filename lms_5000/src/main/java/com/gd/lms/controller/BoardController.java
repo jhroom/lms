@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -31,7 +33,7 @@ import com.gd.lms.service.IBoardService;
 import com.gd.lms.vo.Board;
 import com.gd.lms.vo.BoardFile;
 import com.gd.lms.vo.BoardPost;
-
+import com.gd.lms.vo.Comment;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -126,10 +128,19 @@ public class BoardController {
 		//넘겨줄 값(BoardPost)
 		Map<String, Object> boardOne = boardService.getBoardPostOne(boardPostNo);
 		
+		
+		//댓글 리스트
+		List<Comment> commentList = boardService.getCommet(boardPostNo);
+		
+		
+		
+		
 		//값 넘겨주기
 		model.addAttribute("boardOne",boardOne);
+		model.addAttribute("commentList",commentList);		
 		model.addAttribute("boardName",boardName);
 		model.addAttribute("boardNo",boardNo);
+		
 		
 		//결과 디버깅
 		log.debug(TeamColor.KHJ + "값 확인 / boardOne : " + boardOne);
@@ -198,7 +209,7 @@ public class BoardController {
 	
 	//게시글 추가 메서드-	확인 필요
 	@PostMapping("/board/post/add")
-	public String addBoardPost(Board board, BoardPost boardPost, MultipartFile[] uploadFile) throws UnsupportedEncodingException {
+	public String addBoardPost(Board board, BoardPost boardPost, MultipartFile[] uploadFile, HttpServletRequest request) throws UnsupportedEncodingException {
 		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / add boardPost boardPost : " + boardPost);
@@ -207,78 +218,13 @@ public class BoardController {
 		
 		
 		//게시글 추가하기
-		int row = boardService.addBoardPost(boardPost);
+		//int row = boardService.addBoardPost(boardPost);
+		int row = boardService.addBoardPostandFile(boardPost, uploadFile, request);
+		
 		
 		//결과 확인 디버깅
-		log.debug(TeamColor.KHJ + "완료 후 값 확인 / 게시글 추가 행 수 : " + row);
+		log.debug(TeamColor.KHJ + "완료 후 값 확인 / 게시글 + 파일 추가 행 수 : " + row);
 		
-		
-		//////파일 첨부 코드
-		// 변수 확인
-		String path = "C:\\Users\\82102\\git\\5000_lms\\lms_5000\\src\\main\\webapp\\boardFile";
-		String originFileName = "";
-		String contentType = "";
-
-		//리스트 생성
-		List<BoardFile> list = new ArrayList<>();
-		
-		if(uploadFile != null) {
-			for(MultipartFile file : uploadFile) {
-				if(!file.isEmpty()) {
-					//변수 세팅
-					originFileName = file.getOriginalFilename();
-					contentType = file.getContentType();	
-					
-					//객체 생성
-					BoardFile tempFile = new BoardFile();
-					
-					//디버깅
-					log.debug(TeamColor.KHJ + "값 확인 / 파일 vo 세팅 전 값 : " + tempFile);
-					
-					//값 세팅하기
-					tempFile.setFileOriginname(originFileName);
-					tempFile.setFileName(UUID.randomUUID() + "_" + originFileName);
-					tempFile.setFileType(contentType);
-					tempFile.setBoardPostNo(boardPost.getBoardPostNo());
-					
-					//디버깅
-					log.debug(TeamColor.KHJ + "값 확인 / 파일 vo 세팅 후 값 : " + tempFile);
-				
-	
-					//리스트에 추가하기
-					list.add(tempFile);
-			
-					//파일 객체 생성
-					File newFileName = new File(path + File.separator + tempFile.getFileName());
-	
-					//저장 파일 이름 생성(연구 중)
-					String saveFileName = path + File.separator + tempFile.getFileName();
-					
-					//저장 파일 경로 생성 (확인 중)
-					Path savePath = Paths.get(saveFileName);
-					
-					
-					try {
-						//전송하기
-						file.transferTo(savePath);
-						
-						//첨부파일 추가하기
-						int row2 =+ boardService.addBoardFile(tempFile);
-						
-						//결과 확인 디버깅
-						log.debug(TeamColor.KHJ + "결과 확인 / 게시글 첨부파일 추가 행 수 : " + row2);
-						
-					} catch (Exception e) {
-						//실패 디버깅
-						log.debug(TeamColor.KHJ + "파일 추가 실패");
-						e.printStackTrace();
-					}
-				
-				}
-				
-				
-			}
-		}
 		
 		//넘겨주는 값 인코딩
 		String encodedboardName= URLEncoder.encode(board.getBoardName(), "UTF-8");
@@ -291,25 +237,28 @@ public class BoardController {
 		
 	}
 	
+	
+	
 	//파일 다운로드 메서드
 	@GetMapping("board/download/file")
-	public ResponseEntity<Object> downloadFile(String fileName, int boardPostNo, String boardName, int boardNo) throws UnsupportedEncodingException {
+	public ResponseEntity<Object> downloadFile(String fileName, int boardPostNo, String boardName, int boardNo, HttpServletRequest request) throws UnsupportedEncodingException {
 		
 		//파일 경로 설정
-		String path = "C:\\Users\\82102\\git\\5000_lms\\lms_5000\\src\\main\\webapp\\boardFile" +"\\"+ fileName;
+		String realPath = request.getSession().getServletContext().getRealPath("/uploadFile/boardFile") +"\\"+ fileName;
 
 		//값 확인 디버깅
-		log.debug(TeamColor.KHJ + "값 확인 / path: "+path);
+		log.debug(TeamColor.KHJ + "값 확인 / realPath: "+realPath);
+		
 		try {
 			
 			//path의 경로 객체 생성
-			Path filePath = Paths.get(path);
+			Path filePath = Paths.get(realPath);
 			
 			// 파일 resource 얻기
 			Resource resource = new InputStreamResource(Files.newInputStream(filePath)); 
 			
 			//파일 객체 생성
-			File file = new File(path);
+			File file = new File(realPath);
 			
 			//헤더 객체 생성
 			HttpHeaders headers = new HttpHeaders();
@@ -331,5 +280,35 @@ public class BoardController {
 		}
 				
 	}
+	
+	//댓글 달기 기능
+	@GetMapping("board/addComment")
+	public String addComment(Comment comment, String boardName, int boardNo, Model model) throws UnsupportedEncodingException{
+		
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / comment : " + comment);
+
+		// 실행
+		int row = boardService.addComment(comment);
+		
+		//결과확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 추가된 댓글 행수 : " + row);
+		
+		//결과확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 상세페이지로 포워딩");
+		
+		//넘겨주는 값 인코딩
+		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
+		
+
+		//포워딩
+		return "redirect:/board/post/one?boardPostNo="+comment.getBoardPostNo() + "&boardName=" + encodedboardName + "&boardNo=" + boardNo;
+				
+		
+	}
+	
+	
+	
+	
 
 }

@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div>
 	<div>
 	<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${boardNo}&boardName=${boardName}">${boardName} 게시판</a></h3>
 		<table border="1">
@@ -56,6 +57,43 @@
 		
 	</div>
 	
+	<!-- 댓글 입력 폼 -->
+	<div>
+	<h5>댓글</h5>
+	<form action="${pageContext.request.contextPath}/board/addComment" method="get">
+		
+		<input type="hidden" name="boardPostNo" value="${boardOne.boardPostNo}">
+		<input type="hidden" name="boardName" value="${boardName}">
+		<input type="hidden" name="boardNo" value="${boardNo}">
+		
+		<textarea name="commentContent"></textarea>
+		<button type="submit">댓글 달기</button>
+	</form>
+	
+	</div>
+	
+	<!-- 댓글 리스트 -->
+	<div>
+		<table>
+			<thead>
+			<tr>
+				<th>작성자</th><th>내용</th><th></th>
+			</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${commentList}" var="m">
+					<tr>
+						<td></td><td>${m.commentContent}</td><td><a href="">삭제</a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	
+	
+
+	
+	</div>
+</div>
 
 </body>
 </html>
