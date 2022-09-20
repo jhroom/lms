@@ -2,7 +2,6 @@ package com.gd.lms.controller;
 
 import javax.servlet.http.HttpSession;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,25 +43,25 @@ public class UserController {
 		log.debug(TeamColor.AJH + user + "로그인한 매개변수 확인");
 		
 		//입력한 id ,pw로 서비스 호출
-		User resultUser = userLoginService.getUserLogin(user);
+		User loginUser = userLoginService.getUserLogin(user);
 		
 		//디버깅
-		log.debug(TeamColor.AJH + resultUser + " db 정보유무확인");
+		log.debug(TeamColor.AJH + loginUser + " db 정보유무확인");
 		
 		// id pw가 user정보에 없다면(로그인실패)시 실패메세지 알림
-		if(resultUser == null) {
+		if(loginUser == null) {
 			model.addAttribute("errMsg","로그인 정보를 다시 확인해주세요");
 			return "user/login";
 		}
 		// 유저 정보는 있지만 승인대기상태(N) 일 떄 메세지출력
-		if("N".equals(resultUser.getUserActive())) {
+		if("N".equals(loginUser.getUserActive())) {
 			model.addAttribute("errMsg","승인 대기 상태입니다");
 			return "user/login";
 		}
 		
 		// user 정보가 일치하고 계정 활성화(Y)인 계정에 세션부여
-		session.setAttribute("user", resultUser.getUserId());
-		session.setAttribute("level", resultUser.getUserLevel());
+		session.setAttribute("loginUser", loginUser);
+		log.debug(TeamColor.AJH + "세션에 저장된 로그인 유저 정보" + loginUser);
 		
 		return "redirect:/index";
 	}
@@ -141,6 +140,15 @@ public class UserController {
 	@GetMapping("/user/message")
 	public String message() {
 		return "user/message";
+	}
+	@GetMapping("/user/mypage")
+	public String mypage(HttpSession session, Model model) {
+		//사용자 정보가 없는 사람이 마이페이지 갈경우
+		if(session.getAttribute("user") == null) {
+			model.addAttribute("errMsg","로그인후 이용 가능합니다");
+			return "user/login";
+		}
+		return "user/mypage";
 	}
 	
 		

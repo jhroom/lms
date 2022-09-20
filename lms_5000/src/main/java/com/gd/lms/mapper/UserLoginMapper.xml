@@ -14,7 +14,7 @@
 	<select id="selectUserLogin" parameterType="com.gd.lms.vo.User" resultType="com.gd.lms.vo.User">
 		SELECT
 			user_id userId,
-			user_pw userPw,
+			user_name userName,
 			user_level userLevel,
 			user_active userActive
 		FROM user
