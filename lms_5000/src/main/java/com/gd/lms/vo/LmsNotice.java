@@ -9,7 +9,9 @@ public class LmsNotice {
 	//LMS공지사항 제목
 	private String lmsNoticeTitle;		
 	//LMS공지사항 내용
-	private String lmsNoticeContent;		
+	private String lmsNoticeContent;
+	//작성자
+	private String lmsNoticeName;
 	//LMS공지사항 작성일
 	private String lmsNoticeCreatetime;		
 	//LMS공지사항 수정일

@@ -1,6 +1,7 @@
 package com.gd.lms.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILmsNoticeService;
+import com.gd.lms.service.LmsNoticeService;
 import com.gd.lms.vo.LmsNotice;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,15 +44,32 @@ public class LmsNoticeController {
 	}
 	
 	//공지 추가 액션
-//	@GetMapping("/lmsNotice/LmsNoticeAddBoard")
-//	public String LmsNoticeAddboard(LmsNotice lmsNotice, HttpSession session) {
-//		
-//		String path = session.getServletContext().getRealPath("/upload");
-//		lmsNoticeService.LmsAddNotice(lmsNotice, path);
-//			
-//		return "redirect:/lmsNotice/LmsNticeList";
-//		
-//	}
+	@GetMapping("/lmsNotice/LmsNoticeAddBoard//add")
+	public String LmsNoticeAddboard(LmsNotice lmsNotice) {
+		
+		
+		lmsNoticeService.LmsAddNotice(lmsNotice);
+			
+		return "redirect:/lmsNotice/LmsNoticeList";
+		
+	}
+	
+	//공지 상세보기
+	@GetMapping("/lmsNotice/LmsNoticeOne")
+	public String getselectLmsNoticeOne(int lmsNoticeNo, Model model) {
+		
+	Map<String, Object> noticeOne = lmsNoticeService.getLmsNoticeOne(lmsNoticeNo);
+	
+	//LmsNotice lmsNotice = lmsNoticeService.getLmsNoticeOne(lmsNoticeNo);
+	
+	model.addAttribute("noticeOne", noticeOne);
+	model.addAttribute("lmsNoticeNo", lmsNoticeNo);
 	
 	
+	return "lmsNotice/LmsNoticeOne";
+	
+	}
+
+ 
 }
+

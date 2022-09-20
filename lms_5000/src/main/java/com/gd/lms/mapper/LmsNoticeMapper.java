@@ -2,6 +2,8 @@ package com.gd.lms.mapper;
 
 import java.util.List;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.LmsNotice;
@@ -9,14 +11,14 @@ import com.gd.lms.vo.LmsNotice;
 @Mapper
 public interface LmsNoticeMapper {
 	//리스트
-	List<LmsNotice> selectLmsNoticeList();
+	public List<LmsNotice> selectLmsNoticeList();
 	//공지 추가
-	int LmsAddNotice(LmsNotice lmsNotice);
+	public int LmsAddNotice(LmsNotice lmsNotice);
 	//공지 삭제
-	int deleteLmsNotice(int lmsNoticeNo);
+	public int deleteLmsNotice(int lmsNoticeNo);
 	//공지 수정
-	int updateLmsNotice(LmsNotice lmsNotice);
+	public int updateLmsNotice(LmsNotice lmsNotice);
 	//공지 상세보기
-	LmsNotice selectLmsNoticeOne(int lmsNoticeNo);
+	public Map<String, Object> selectLmsNoticeOne(int lmsNoticeNo);
 	
 }

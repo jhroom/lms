@@ -4,9 +4,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상세보기</title>
 </head>
 <body>
-
+	<div>
+		<h3>공지 상세보기</h3>
+		<table border="1" bordercolor="green">
+			<tbody>
+				<tr>
+					<th>제목</th>
+					<td>${lmsNotice.lmsNoticeTitle}</td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td>${lmsNotice.lmsNoticeTitle}</td>				
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td>${lmsNotice.lmsNoticeContent}</td>			
+				</tr>
+				<tr>
+					<th>작성일</th>
+					<th>${lmsNotice.lmsNoticeCreatetime}</th>
+				</tr>
+				<tr>
+					<th>수정일</th>
+					<th>${lmsNotice.lmsNoticeUpdatetime}</th>
+				</tr>
+				<tr>
+					<th>조회수</th>
+					<th>${lmsNotice.count }</th>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td></td>
+				</tr>
+					
+			</tbody>
+			
+		</table>
+		<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/LmsNoticeList'">수정(ㄱㄷ)</button>
+		<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/LmsNoticeList'">삭제(ㄱㄷ)</button>
+		<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/LmsNoticeList'">글목록</button>
+	</div>
 </body>
 </html>

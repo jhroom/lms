@@ -5,11 +5,11 @@
 	<!-- 파일 추가 -->
 	<insert id="insertLmsFile" parameterType="com.gd.lms.vo.LmsFile">
 	INSERT INTO lmsFile(
-		filename,
-		fileOriginame,
-		fileType,
-		createDate,
-		lmsNoticeNo	
+		file_name,
+		file_originame,
+		file_type,
+		create_date,
+		lms_notice_no	
 	) VALUES (
 		#{fileName},
 		#{fileOriginame},
@@ -22,7 +22,7 @@
 	<!-- 공지사항 삭제시 파일도 삭제됨 -->
 	<delete id="deleteLmsFile" parameterType="int">
 		DELETE FROM LmsFile
-		WHERE lmsNoticeNo =#{LmsNoticeNo}
+		WHERE lms_notice_no =#{LmsNoticeNo}
 	
 	</delete>
 	

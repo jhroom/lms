@@ -1,6 +1,7 @@
 package com.gd.lms.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,29 +30,41 @@ public class LmsNoticeService implements ILmsNoticeService {
 	
 	// 공지 등록
 	@Override
-	public void LmsAddNotice(LmsNotice lmsNotice, String path) {
-		//공지 등록 중..
+	public int LmsAddNotice(LmsNotice lmsNotice) {
+		int row = lmsNoticeMapper.LmsAddNotice(lmsNotice);
+		
+		//디버깅
+		System.out.println("AddNotice : " + row);
+		
+		return row;
+		
 		
 	}
 
 	
-	
+	//공지 삭제
 	@Override
 	public int deleteLmsNotice(int lmsNoticeNo, String path) {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
-
+	
+	
+	//공지 수정
 	@Override
 	public void updateLmsNotice(LmsNotice lmsNotice, String path) {
-		// TODO Auto-generated method stub
+		
 		
 	}
-
+	//공지 상세보기
 	@Override
-	public LmsNotice getLmsNoticeOne(int lmsNoticeNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> getLmsNoticeOne(int lmsNoticeNo) {
+		
+		Map<String, Object> noticeOne = lmsNoticeMapper.selectLmsNoticeOne(lmsNoticeNo);
+		//LmsNotice lmsNotice = lmsNotice
+		
+		
+		return noticeOne;
 	}
 	
 

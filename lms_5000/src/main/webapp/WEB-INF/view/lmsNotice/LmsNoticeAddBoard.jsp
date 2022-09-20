@@ -8,8 +8,8 @@
 </head>
 <body>
 <div class="container">
-    <h1>LMS 공지사항 추가</h1>
-    <form action="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList" method="get" enctype="multipart/form-data">
+    <h1>LMS 공지사항 작성</h1>
+    <form action="${pageContext.request.contextPath}/lmsNotice/LmsNoticeAddBoard//add" method="get" enctype="multipart/form-data">
 		<input type="hidden" name="boardNo" id="boardNo" value="${lmsNoticeNo}">
 		<table border="1" bordercolor="green">
 			
@@ -30,7 +30,7 @@
 					<td><textarea name="lmsNoticeContent" id="lmsNoticeContent"></textarea></td>
 				</tr>		
 				<tr>
-					<th>첨부파일</th>
+					<th>파일</th>
 					<td><input type="file" name="noticeFile" id="noticeFile"></td>
 					
 				</tr>		
