@@ -74,7 +74,7 @@
 	
 	<!-- 댓글 리스트 -->
 	<div>
-		<table>
+		<table border="1">
 			<thead>
 			<tr>
 				<th>작성자</th><th>내용</th><th></th>
@@ -83,7 +83,7 @@
 			<tbody>
 				<c:forEach items="${commentList}" var="m">
 					<tr>
-						<td></td><td>${m.commentContent}</td><td><a href="">삭제</a></td>
+						<td></td><td>${m.commentContent}</td><td><a href="${pageContext.request.contextPath}/board/removeComment?commentNo=${m.commentNo}&boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}">삭제</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

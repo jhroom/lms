@@ -36,7 +36,9 @@ public interface IBoardService {
 	public int addComment(Comment comment);
 	
 	//댓글 리스트 조회 서비스
-	public List<Comment> getCommet(int boardPostNo);
+	public List<Comment> getComment(int boardPostNo);
 	
+	//댓글 삭제 리스트
+	public int removeComment(int commentNo);
 	
 }

@@ -34,7 +34,10 @@ public interface BoardMapper {
 	public int insertComment(Comment comment);
 	
 	//댓글 리스트 생성 쿼리
-	public List<Comment> selectCommet(int boardPostNo);
+	public List<Comment> selectComment(int boardPostNo);
+	
+	//댓글 삭제 쿼리
+	public int deleteComment(int CommentNo);
 	
 
 }

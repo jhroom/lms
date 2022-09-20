@@ -130,7 +130,7 @@ public class BoardController {
 		
 		
 		//댓글 리스트
-		List<Comment> commentList = boardService.getCommet(boardPostNo);
+		List<Comment> commentList = boardService.getComment(boardPostNo);
 		
 		
 		
@@ -305,6 +305,29 @@ public class BoardController {
 		return "redirect:/board/post/one?boardPostNo="+comment.getBoardPostNo() + "&boardName=" + encodedboardName + "&boardNo=" + boardNo;
 				
 		
+	}
+	
+	@GetMapping("board/removeComment")
+	public String removeCommet(int commentNo, int boardPostNo, String boardName, int boardNo, Model model) throws UnsupportedEncodingException {
+		
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / comment : " + commentNo);
+
+		// 실행
+		int row = boardService.removeComment(commentNo);
+		
+		//결과확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 삭제된 댓글 행수 : " + row);
+		
+		//결과확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 상세페이지로 포워딩");
+		
+		//넘겨주는 값 인코딩
+		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
+		
+
+		
+		return "redirect:/board/post/one?boardPostNo="+boardPostNo + "&boardName=" + encodedboardName + "&boardNo=" + boardNo;
 	}
 	
 	

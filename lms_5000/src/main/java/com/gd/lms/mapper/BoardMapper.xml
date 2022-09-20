@@ -124,7 +124,7 @@
 	
 	</insert>
 	
-	<select id="selectCommet" resultType="com.gd.lms.vo.Comment" >
+	<select id="selectComment" resultType="com.gd.lms.vo.Comment" >
 		select
 			comment_no commentNo
 			, comment_content commentContent
@@ -135,6 +135,12 @@
 		where board_post_no = #{boardPostNo}
 				
 	</select>
+	
+	<delete id="deleteComment" parameterType="int">
+		delete
+		from comment
+		where comment_no = #{commentNo}
+	</delete>
 	
 	
 

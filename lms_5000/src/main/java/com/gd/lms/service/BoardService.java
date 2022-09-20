@@ -182,17 +182,40 @@ public class BoardService implements IBoardService{
 		//디버깅
 		log.debug(TeamColor.KHJ + "결과 확인 / 추가된 commet 행수 : " + row);
 		
-		
+		//리턴
 		return row;
 	}
 
 
 	@Override
-	public List<Comment> getCommet(int boardPostNo) {
+	public List<Comment> getComment(int boardPostNo) {
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / boardPostNo : " + boardPostNo);
 		
-		List<Comment> list = boardMapper.selectCommet(boardPostNo);
+		//실행
+		List<Comment> list = boardMapper.selectComment(boardPostNo);
 		
+		//디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 댓글 list : " + list);
+				
+		//리턴
 		return list;
+	}
+
+
+	@Override
+	public int removeComment(int commentNo) {
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / commentNo : " + commentNo);
+		
+		//실행
+		int row = boardMapper.deleteComment(commentNo);
+		
+		//디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 댓글 삭제 행수 : " + row);
+				
+		//리턴
+		return row;
 	}
 
 
