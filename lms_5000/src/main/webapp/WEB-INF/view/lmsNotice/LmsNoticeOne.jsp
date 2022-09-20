@@ -13,27 +13,27 @@
 			<tbody>
 				<tr>
 					<th>제목</th>
-					<td>${lmsNotice.lmsNoticeTitle}</td>
+					<td>${noticeOne.lmsNoticeTitle}</td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td>${lmsNotice.lmsNoticeTitle}</td>				
+					<td>${noticeOne.lmsNoticeName}</td>				
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td>${lmsNotice.lmsNoticeContent}</td>			
+					<td>${noticeOne.lmsNoticeContent}</td>			
 				</tr>
 				<tr>
 					<th>작성일</th>
-					<th>${lmsNotice.lmsNoticeCreatetime}</th>
+					<th>${noticeOne.lmsNoticeCreatetime}</th>
 				</tr>
 				<tr>
 					<th>수정일</th>
-					<th>${lmsNotice.lmsNoticeUpdatetime}</th>
+					<th>${noticeOne.lmsNoticeUpdatetime}</th>
 				</tr>
 				<tr>
 					<th>조회수</th>
-					<th>${lmsNotice.count }</th>
+					<th>${noticeOne.count }</th>
 				</tr>
 				<tr>
 					<th>첨부파일</th>

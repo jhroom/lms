@@ -1,12 +1,14 @@
 package com.gd.lms.service;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.LmsNoticeMapper;
 import com.gd.lms.vo.LmsNotice;
 
@@ -44,7 +46,7 @@ public class LmsNoticeService implements ILmsNoticeService {
 	
 	//공지 삭제
 	@Override
-	public int deleteLmsNotice(int lmsNoticeNo, String path) {
+	public int deleteLmsNotice(int lmsNoticeNo) {
 		
 		return 0;
 	}
@@ -52,7 +54,7 @@ public class LmsNoticeService implements ILmsNoticeService {
 	
 	//공지 수정
 	@Override
-	public void updateLmsNotice(LmsNotice lmsNotice, String path) {
+	public void updateLmsNotice(LmsNotice lmsNotice) {
 		
 		
 	}
@@ -61,8 +63,8 @@ public class LmsNoticeService implements ILmsNoticeService {
 	public Map<String, Object> getLmsNoticeOne(int lmsNoticeNo) {
 		
 		Map<String, Object> noticeOne = lmsNoticeMapper.selectLmsNoticeOne(lmsNoticeNo);
-		//LmsNotice lmsNotice = lmsNotice
 		
+		log.debug(TeamColor.SSH + "넘기기" + noticeOne);
 		
 		return noticeOne;
 	}

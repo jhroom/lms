@@ -59,7 +59,7 @@
 			lms_notice_content lmsNoticeContent,
 			lms_notice_name lmsNoticeName,
 			lms_notice_createtime lmsNoticeCreatetime,
-			lms_notice_updatetime lmsNoticeUpdatetime
+			lms_notice_updatetime lmsNoticeUpdatetime,
 			count count
 		FROM lms_notice
 		WHERE lms_notice_no=#{lmsNoticeNo}

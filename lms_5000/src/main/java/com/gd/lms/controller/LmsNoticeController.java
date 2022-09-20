@@ -56,14 +56,16 @@ public class LmsNoticeController {
 	
 	//공지 상세보기
 	@GetMapping("/lmsNotice/LmsNoticeOne")
-	public String getselectLmsNoticeOne(int lmsNoticeNo, Model model) {
+	public String getselectLmsNoticeOne(int lmsNoticeNo, String lmsNoticeTitle, Model model) {
 		
 	Map<String, Object> noticeOne = lmsNoticeService.getLmsNoticeOne(lmsNoticeNo);
 	
-	//LmsNotice lmsNotice = lmsNoticeService.getLmsNoticeOne(lmsNoticeNo);
-	
 	model.addAttribute("noticeOne", noticeOne);
 	model.addAttribute("lmsNoticeNo", lmsNoticeNo);
+	model.addAttribute("lmsNoticeTitle", lmsNoticeTitle);
+	
+	log.debug(TeamColor.SSH + "값 확인/noticeOne" + noticeOne);
+	log.debug(TeamColor.SSH + "결과확인 / 포워딩");
 	
 	
 	return "lmsNotice/LmsNoticeOne";

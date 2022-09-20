@@ -13,9 +13,9 @@ public interface ILmsNoticeService {
 	// 공지 추가 (파일도 필요)
 	public int LmsAddNotice(LmsNotice lmsNotice);
 	// 공지 삭제
-	public int deleteLmsNotice(int lmsNoticeNo, String path);
+	public int deleteLmsNotice(int lmsNoticeNo);
 	// 공지 수정
-	void updateLmsNotice(LmsNotice lmsNotice, String path);
+	void updateLmsNotice(LmsNotice lmsNotice);
 	// 공지 상세보기
 	public Map<String, Object> getLmsNoticeOne(int lmsNoticeNo);
 	
