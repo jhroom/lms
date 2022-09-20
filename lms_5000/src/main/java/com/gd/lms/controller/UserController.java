@@ -141,12 +141,16 @@ public class UserController {
 	public String message() {
 		return "user/message";
 	}
+	
 	@GetMapping("/user/mypage")
 	public String mypage(HttpSession session, Model model) {
 		//사용자 정보가 없는 사람이 마이페이지 갈경우
-		if(session.getAttribute("user") == null) {
+		if(session.getAttribute("loginUser") == null) {
 			model.addAttribute("errMsg","로그인후 이용 가능합니다");
 			return "user/login";
+		}
+		if( session.getAttribute("loginUser") instanceof User) {
+			
 		}
 		return "user/mypage";
 	}
