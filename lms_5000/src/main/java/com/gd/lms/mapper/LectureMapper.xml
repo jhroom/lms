@@ -48,25 +48,28 @@
 	<!-- 수강 취소시 수강취소 목록에 등록 -->
 	<insert id="insertCancelSign" parameterType="com.gd.lms.vo.Sign">
 		INSERT INTO sign_cancel(
+		    sign_no,
 			user_id, 
-			cancel_date) 
+			cancel_date,
+			lecture_no) 
 		VALUES (
+			#{signNo},
 			#{userId}, 
-			NOW()) 
+			NOW(),
+			#{lectureNo}
+			) 
 	</insert>
 	
 	<!-- 수강 취소 리스트 -->
-	<select id="selectCancelSignList" parameterType="com.gd.lms.vo.Sign" resultType="map">
-		SELECT
-			t.user_id,
-		  	g.sign_no,
-			l.lecture_no, 
-			s.subject_name,
-			DATE_FORMAT(c.cancel_date,'%Y-%m-%d') cancel_date
-		FROM student t INNER JOIN sign g ON g.user_id = t.user_id
-		INNER JOIN lecture l ON l.lecture_no = g.lecture_no
-		INNER JOIN subject s ON s.subject_no = l.subject_no
-		inner JOIN sign_cancel c on  c.sign_no = g.sign_no
-		WHERE t.user_id  = #{userId}
+	<select id="selectCancelSignList" parameterType="com.gd.lms.vo.SignCancel" resultType="map">
+	   SELECT
+	      sc.user_id,
+	      l.lecture_no,
+	      s.subject_name,
+	      DATE_FORMAT(sc.cancel_date,'%Y-%m-%d') cancel_date
+	   FROM sign_cancel sc 
+	   INNER JOIN lecture l ON l.lecture_no = sc.lecture_no
+	   INNER JOIN subject s ON s.subject_no = l.subject_no 
+	   WHERE sc.user_id = #{userId}
 	</select>
 </mapper>

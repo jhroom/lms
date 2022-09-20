@@ -10,4 +10,6 @@ public class SignCancel {
 	private String userId;
 	// 취소날짜
 	private String cancelDate;
+	// 강좌 번호
+	private int lectureNo;
 }

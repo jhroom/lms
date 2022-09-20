@@ -85,7 +85,7 @@
 								<c:when test="${s.sign_state eq 1}">수강 신청 완료</c:when>
 							</c:choose>
 						</td>
-						<td><a href="${pageContext.request.contextPath}/sign/cancelSign?signNo=${s.sign_no}">수강취소</a></td>
+						<td><a href="${pageContext.request.contextPath}/sign/cancelSign?lectureNo=${s.lecture_no}&signNo=${s.sign_no}" onclick="clickBtn();" >수강취소</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -110,20 +110,16 @@
 						<td>	
 							${c.user_id}
 							<c:choose >
-								<c:when test="${level eq 1 }">(운영자)</c:when>
-								<c:when test="${level eq 3 }">(학생)</c:when>
+								<c:when test="${loginUser.userLevel eq 1 }">(운영자)</c:when>
+								<c:when test="${loginUser.userLevel eq 3 }">(학생)</c:when>
 							</c:choose>
 						</td>
 						<td>	
 							<c:choose >
-								<c:when test="${level eq 1 }">수강 기준 부합(운영자)</c:when>
-								<c:when test="${level eq 3 }">학생 개인 사유</c:when>
+								<c:when test="${loginUser.userLevel eq 1 }">수강 기준 부합(운영자)</c:when>
+								<c:when test="${loginUser.userLevel eq 3 }">학생 개인 사유</c:when>
 							</c:choose>
 						</td>	
-						<c:if test="">
-							<td>${c.lecture_no}</td>
-						</c:if>
-						
 						<td>${c.cancel_date}</td>
 					</tr>
 				</c:forEach>
