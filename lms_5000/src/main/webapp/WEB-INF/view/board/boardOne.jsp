@@ -18,7 +18,7 @@
 			<tbody>
 				<tr>
 					<th>제목</th>
-					<td>${boardOne.get('boardPostTitle')}</td>
+					<td>${boardOne.boardPostTitle}</td>
 				</tr>
 				<tr>
 					<th>작성자</th>
@@ -42,7 +42,11 @@
 				</tr>		
 				<tr>
 					<th>첨부파일</th>
-					<td></td>
+					<td>
+						<a href="${pageContext.request.contextPath}/board/download/file?fileName=${boardOne.fileName}&boardPostNo=${boardOne.boardPostNo}&boardNo=${boardNo}&boardName=${boardName}">
+							${boardOne.fileOriginname}
+						</a>
+					</td>
 				</tr>		
 
 			</tbody>

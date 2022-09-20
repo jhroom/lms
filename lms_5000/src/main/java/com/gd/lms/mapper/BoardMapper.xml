@@ -61,7 +61,7 @@
 			, f.file_originname fileOriginname
 			, f.file_name fileName
 		from board_post p 
-		inner join board_file f
+		left outer join board_file f
 		on p.board_post_no = f.board_post_no
 		where p.board_post_no = #{boardPostNo}
 	</select>
