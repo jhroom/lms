@@ -55,34 +55,22 @@ public class FindUserController {
 	@PostMapping("/user/findUserPw")
 	public String findUserPw(Model model, User user) {
 		String findPw = findUserService.findUserPw(user);
-		System.out.println(findPw + "유저 pw 확인용");
 		
-		
-		//finPw가 null일경우에 ( 입력한 정보가 맞지않아 비밀번호를 db에서 찾아낼 수 없을때)
+		//정보가 맞지않아 데이터를 찾을수 없을때
 		if(findPw == "") {
 			model.addAttribute("PwMsg", "입력 정보를 확인해주세요");
-		}else {  
-			//비밀번호가 존재하면 일부는 *로 치환해서 보여줄것.
-			int pwSize = findPw.length()/2;
-			//뒤에 붙일 *표
-			String pwStar = "";
-			if(pwSize%2 == 1) { //홀수인경우에는 *이 하나 추가
-				for( int i=0; i<pwSize+1; i++) {
-					pwStar += "*";
-				}
-			}else { // 짝수일경우는 추가없이 
-				for( int i=0; i<pwSize; i++) {
-					pwStar += "*";
-				}
+		}else {
+			//임시 비밀번호를 만들어주는 서비스 출력
+			String randomPw = String.valueOf( findUserService.updateUserPw(user)  );
+			//임시비밀번호를 최종 비밀번호에 담아줌
+			String resultPw = randomPw;
+			
+			//확인용 출력
+			System.out.println(resultPw);
+			//업데이트된 임시비밀번호 출력.
+			model.addAttribute("PwMsg" , "임시비밀번호는 " + user.getUserPw() + "입니다."
+					+ " 로그인 후 비밀번호를 변경해 주세요.");
 			}
-			
-			//비밀번호를 일부를 잘라서 *표로 표현하기위한 subString
-			String mdPw = findPw.substring(0, pwSize);
-			
-			//최종적으로 값을 담아줄 resultPw
-			String resultPw = mdPw + pwStar;
-			model.addAttribute("PwMsg" , "비밀번호는 " + resultPw + "입니다");
-		}
 		
 		log.debug(TeamColor.JCH + this.getClass()  + " 비밀번호 찾기 액션 ");
 

@@ -13,4 +13,7 @@ public interface FindUserMapper {
 	
 	//비밀번호 찾기
 	User findUserPw(User user);
+	
+	//임시 비밀번호로 업데이트
+	int updateUserPw(User user);
 }

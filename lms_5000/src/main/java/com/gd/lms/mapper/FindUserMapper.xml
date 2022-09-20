@@ -17,4 +17,14 @@
 		FROM user
 		WHERE user_id = #{userId} AND user_name = #{userName} AND user_tel = #{userTel}
 	</select>
+	
+	<!-- 비밀번호를 임시 비밀번호로 업데이트. -->
+	<update id="updateUserPw" parameterType="com.gd.lms.vo.User">
+		UPDATE 
+			user
+		SET user_pw = password(#{userPw})
+		WHERE user_id = #{userId} AND user_name = #{userName} AND user_tel = #{userTel}
+	
+	</update>
+	
 </mapper>

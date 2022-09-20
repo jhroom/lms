@@ -51,4 +51,43 @@ public class FindUserService implements IFindUserService {
 		return userPw;
 	}
 
+	@Override
+	//임시비밀번호로 업데이트
+	public int updateUserPw(User user) {
+		//임시비밀번호를 담을 값
+		String updatePw = randomPw();
+		
+		//비밀번호 세팅
+		user.setUserPw(updatePw);
+		
+		//임시비밀번호로 업데이트
+		int row = findUserMapper.updateUserPw(user);
+		
+		if(row ==1 ) {
+			user = new User();
+			user.setUserPw(updatePw);
+		}
+
+		return row;
+	}
+
+	@Override
+	public String randomPw() {
+	//임시비밀번호 만드는 랜덤함수
+		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+	                'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+	                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y' ,'z'};
+
+		String randomPw = "";
+	
+		int idx = 0;
+		for (int i=0; i<6; i++) {
+			idx = (int) (charSet.length * Math.random());
+			randomPw += charSet[idx];
+		}
+		return randomPw;
+	}
+	
+	
+
 }
