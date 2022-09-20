@@ -7,7 +7,13 @@
 </head>
 <body>
 	<div>
-		<h3>마이페이지</h3>
+		
+		<ul>
+			<li><a href="${pageContext.request.contextPath}/user/mypage/info">로그인 정보</a></li>
+			<li><a href="#">나의 강의 정보</a></li>
+			<li><a href="#">글쓴 목록</a></li>
+		</ul>
+		
 	</div>
 </body>
 </html>

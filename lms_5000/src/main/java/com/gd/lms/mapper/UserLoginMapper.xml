@@ -21,6 +21,22 @@
 		WHERE user_id = #{userId} AND user_pw = password(#{userPw})
 	</select>
 	
+	<!-- 마이페이지 나의 정보 조회하기 -->
+	<select id="selectUserInfo" parameterType="String" resultType="com.gd.lms.vo.User">
+		SELECT
+			user_id userId,
+			user_pw userPw,
+			user_level userLevel,
+			user_name userName,
+			user_email userEmail,
+			user_tel userTel,
+			user_gender userGender,
+			create_date createDate,
+			lastlogin_date lastloginDate
+		FROM user
+		WHERE user_id = #{userId}
+	</select>
+	
 	<!-- 회원가입시 들어가는 정보 쿼리 -->
 	<insert id="insertUser" parameterType="com.gd.lms.vo.User">
 		INSERT INTO user (
@@ -116,5 +132,58 @@
 			#{majorNo}
 		)
 	</insert>
+	
+	<!-- 유저 이메일 변경 -->
+	<update id="modifyUserEmail">
+		Update user
+		Set user_email = #{userEmail}
+		Where user_id = #{userId}
+	</update>
+	
+	<!-- 운영자 이메일 변경 -->
+	<update id="modifyAdminEmail">
+		Update admin
+		Set admin_email = #{userEmail}
+		Where user_id = #{userId}
+	</update>
+	
+	<!-- 학생 이메일 변경 -->
+	<update id="modifyStudentEmail">
+		Update student
+		Set st_email = #{userEmail}
+		Where user_id = #{userId}
+	</update>
+	
+	<!-- 교수 이메일 변경 -->
+	<update id="modifyProEmail">
+		Update professor
+		Set pro_email = #{userEmail}
+		Where user_id = #{userId}
+	</update>
+		
+	<!-- 유저 번호 변경 -->
+	<update id="modifyUserTel">
+		Update user
+		Set user_tel = #{userTel}
+		Where user_id = #{userId}
+	</update>
+	<!-- 운영자 번호 변경 -->
+	<update id="modifyAdminTel">
+		Update admin
+		Set admin_tel = #{userTel}
+		Where user_id = #{userId}
+	</update>
+	<!-- 학생 번호 변경 -->
+	<update id="modifyStudentTel">
+		Update student
+		Set st_tel = #{userTel}
+		Where user_id = #{userId}
+	</update>
+	<!-- 교수 번호 변경 -->
+	<update id="modifyProTel">
+		Update professor
+		Set pro_tel = #{userTel}
+		Where user_id = #{userId}
+	</update>
 	
 </mapper>

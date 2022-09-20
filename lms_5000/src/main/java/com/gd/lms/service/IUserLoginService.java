@@ -1,5 +1,7 @@
 package com.gd.lms.service;
 
+import java.util.Map;
+
 import com.gd.lms.vo.User;
 
 public interface IUserLoginService {
@@ -11,5 +13,9 @@ public interface IUserLoginService {
 	boolean getUserIdCheck(String userId);
 	
 	boolean addStudentOrPro(User user, int majorNo);
+	
+	User getUserInfo(String userId);
+	
+	int modifyUserInfo(Map<String, Object> map);
 
 }
