@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.lms.mapper.UserListMapper">
+
+<!-- 승인 대기 명단 ( 모든 유저리스트를 보여주고 Y , N 을 조정할것) 가입일자 순으로 오름차순 정렬-->
+<select id="selectUserList" resultType="com.gd.lms.vo.User">
+	SELECT
+		user_id userId,
+		user_level userLevel,
+		user_name userName,
+		user_email userEmail,
+		user_tel userTel,
+		user_gender userGender,
+		create_date createDate,
+		user_active userActive
+	FROM user
+	ORDER BY create_date;
+</select>
+
+<update id="updateUserActive" parameterType="com.gd.lms.vo.User">
+<!-- 해당 id값의 active값을 변경 -->
+	UPDATE
+		user
+	SET
+		user_active = #{userActive}
+	WHERE user_id = #{userId}
+	
+</update>
+</mapper>
