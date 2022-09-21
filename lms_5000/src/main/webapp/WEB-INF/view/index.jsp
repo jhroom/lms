@@ -12,6 +12,10 @@
 		<c:choose>
 			<c:when test="${loginUser != null}">
 				<p>${loginUser.userName}님 환영합니다.</p>
+				<c:if test="${loginUser.userLevel eq 4}">
+						<!-- loginUser 레벨이 4일경우 승인 페이지로 갈수있는 링크 출력-->
+				<a href="${pageContext.request.contextPath}/user/userList">승인 페이지</a>
+				</c:if>
 				<br>
 				<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList">공지 리스트</a><br>
 				<a href="${pageContext.request.contextPath}/sign/openLectureList">강의 리스트</a><br>

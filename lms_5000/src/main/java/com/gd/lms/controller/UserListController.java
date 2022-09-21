@@ -2,6 +2,8 @@ package com.gd.lms.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.service.IMypageService;
 import com.gd.lms.service.IUserListService;
 import com.gd.lms.vo.User;
 
@@ -19,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserListController {
 	@Autowired IUserListService userService;
 	
+	@Autowired IMypageService mypageService;
 	//유저 리스트
 	@GetMapping("/user/userList")
 	public String userList(Model model) {
@@ -44,4 +48,28 @@ public class UserListController {
 		return "redirect:/user/userList";
 	}
 	
+	@GetMapping("/user/updatePw")
+	public String updatePw(HttpSession session, Model model) {
+		//사용자 정보가 없는 사람이 마이페이지 갈경우
+		if(session.getAttribute("loginUser") == null) {
+			model.addAttribute("errMsg","로그인 후 이용 가능합니다");
+			return "index/login";
+		}
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		
+		// 유저의 가입정보 받아오기
+		User userInfo = mypageService.getUserInfo(userId);
+		model.addAttribute("userInfo", userInfo);
+		
+		return "/user/updatePw";
+	}
+	
+	@PostMapping("/user/updatePw")
+	public String updateUserPw() {
+		//비밀번호 변경 액션 
+		
+		
+		//실패시엔 그냥 페이지 유지
+		return "/user/updatePw";
+	}
 }

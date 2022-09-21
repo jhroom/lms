@@ -83,7 +83,7 @@
 	</c:if>
 	</div>
 	</div>
-	<a href="${pageContext.request.contextPath}/user/login">로그인 페이지로 돌아가기</a>
+	<a href="${pageContext.request.contextPath}/index/login">로그인 페이지로 돌아가기</a>
 	<a href="${pageContext.request.contextPath}/user/findUserId">아이디 찾으러 가기</a>
      </div><!-- /.container-fluid -->
     </div>

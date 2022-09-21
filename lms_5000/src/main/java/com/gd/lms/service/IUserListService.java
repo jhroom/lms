@@ -11,4 +11,6 @@ public interface IUserListService {
 	
 	//업데이트 Active
 	public int updateUserActive(User user);
+	
+
 }

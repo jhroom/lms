@@ -13,4 +13,6 @@ public interface UserListMapper {
 	
 	//Active값 변경
 	public int updateUserActive(User user);
+	
+
 }
