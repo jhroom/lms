@@ -41,5 +41,14 @@ public interface BoardMapper {
 	
 	//게시글 삭제 쿼리
 	public int deleteBoardPost(int boardPostNo);
+	
+	//게시글 수정 쿼리
+	public int updateBoardPost(BoardPost boardPost);
+	
+	//게시판 삭제 쿼리
+	public int deleteBaord(int boardNo);
+	
+	//댓글 수정 쿼리
+	public int updateComment(Comment comment);
 
 }

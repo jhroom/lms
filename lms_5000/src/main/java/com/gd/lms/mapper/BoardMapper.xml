@@ -156,6 +156,29 @@
 	</delete>
 
 	<!-- 게시글 수정 쿼리 -->
+	<update id="updateBoardPost" parameterType="com.gd.lms.vo.BoardPost">
+		UPDATE board_post
+		SET 
+			board_post_title = #{boardPostTitle}
+			, board_post_content = #{boardPostContent}
+			, board_post_updatedate = now()
+		WHERE board_post_no = #{boardPostNo}
+	</update>
 
+	<!-- 게시판 삭제 쿼리 -->
+	<delete id="deleteBaord" parameterType="int">
+		delete
+		from board
+		where board_no = #{boardNo}
+	</delete>
+	
+	<!-- 댓글 수정 쿼리 -->
+	<update id="updateComment" parameterType="com.gd.lms.vo.Comment">
+		update comment
+		set 
+			comment_content = #{commentContent}
+			, comment_updatedate = now()
+		where comment_no = #{commentNo}
+	</update>
 
 </mapper>

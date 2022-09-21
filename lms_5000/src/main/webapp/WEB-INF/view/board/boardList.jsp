@@ -87,7 +87,7 @@
 					<c:forEach var="n" items="${boardList}">
 						<c:if test="${n.boardType eq 3}">
 							<tr>
-								<td>${n.boardNo}</td><td><a href="${pageContext.request.contextPath}/board/post?boardNo=${n.boardNo}&boardName=${n.boardName}">${n.boardName}</a></td><td>${n.createDate}</td>
+								<td>${n.boardNo}</td><td><a href="${pageContext.request.contextPath}/board/post?boardNo=${n.boardNo}&boardName=${n.boardName}&lectureNo=${lectureNo}">${n.boardName}</a></td><td>${n.createDate}</td>
 							</tr>
 						</c:if>
 					</c:forEach>

@@ -60,6 +60,11 @@
 				<div>
 				<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${boardNo}&boardName=${boardName}">${boardName} 게시판</a></h3>
 					<form action="${pageContext.request.contextPath}/board/modifyPost" method="post">
+					<input type="hidden" name="boardNo" value="${boardNo}">
+					<input type="hidden" name="boardName" value="${boardName}">
+					<input type="hidden" name="boardPostNo" value="${boardPostNo}">
+					
+					
 						<table border="1">
 							<thead>
 								<tr>
@@ -69,7 +74,7 @@
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td><input type="text" name="" value="${boardOne.boardPostTitle}"></td>
+									<td><input type="text" name="boardPostTitle" value="${boardOne.boardPostTitle}"></td>
 								</tr>
 								<tr>
 									<th>작성자</th>
@@ -89,7 +94,7 @@
 								</tr>
 								<tr>
 									<th>내용</th>
-									<td><input type="text" name="" value="${boardOne.boardPostContent}"></td>
+									<td><input type="text" name="boardPostContent" value="${boardOne.boardPostContent}"></td>
 								</tr>		
 								<tr>
 									<th>첨부파일</th>

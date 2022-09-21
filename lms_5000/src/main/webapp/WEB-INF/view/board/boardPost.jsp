@@ -59,7 +59,9 @@
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
 	<div>
 	<h3>${boardName} 게시판</h3>
-	<a href="${pageContext.request.contextPath}/board/post/add/form?boardNo=${boardNo}&boardName=${boardName}">글쓰기</a>
+	<a href="${pageContext.request.contextPath}/board/post/add/form?boardNo=${boardNo}&boardName=${boardName}&lectureNo=${lectureNo}">글쓰기</a>
+	<a href="${pageContext.request.contextPath}/board/removeBoard?boardNo=${boardNo}&lectureNo=${lectureNo}">게시판 삭제</a>
+	
 		<table border="1">
 			<thead>
 				<tr>

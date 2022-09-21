@@ -17,18 +17,14 @@ public interface IBoardService {
 	//게시판 리스트 생성 서비스
 	public List<Board> getBoardList(int lectureNo);
 	
-	
 	//게시판 추가 쿼리
 	public int addBoard(Board board);
 	
-	
 	//선택 게시판의 게시글 리스트 생성 서비스
 	public List<BoardPost> getBoardPostList(int boardNo);
-
 	
 	//게시글의 상세 조회 서비스
 	public Map<String, Object> getBoardPostOne(int boardPostNo);
-	
 	
 	//게시글 추가 서비스
 	public int addBoardPostandFile(BoardPost boardPost, MultipartFile[] uploadFile,HttpServletRequest request);
@@ -47,5 +43,14 @@ public interface IBoardService {
 	
 	//게시글 삭제 리스트
 	public int removeBoardPost(int boardPostNo, String fileName, HttpServletRequest request);
+	
+	//게시글 수정 서비스
+	public int modifyBoardPost(BoardPost boardPost);
+	
+	//게시판 삭제 서비스
+	public int removeBoard(int boardNo);
+	
+	//댓글 수정 서비스
+	public int modifyComment(Comment comment);
 	
 }

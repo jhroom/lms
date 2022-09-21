@@ -59,6 +59,8 @@
 				<h3>게시글 작성</h3>
 				<form action="${pageContext.request.contextPath}/board/post/add" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="boardNo" id="boardNo" value="${boardNo}">
+					<input type="hidden" name="lectureNo" id="lectureNo" value="${lectureNo}">
+					
 					<table border="1">
 						<thead>
 							<tr>

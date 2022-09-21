@@ -92,7 +92,7 @@ public class BoardController {
 	
 	//게시판 게시글 출력 메서드
 	@GetMapping("/board/post")
-	public String getBoardPostList(int boardNo, String boardName, Model model) {
+	public String getBoardPostList(int boardNo, String boardName, int lectureNo,  Model model) {
 		
 		//파라미터 확인 디버깅
 		System.out.println("[boardCtrl] boardNo : " + boardNo);	
@@ -107,6 +107,8 @@ public class BoardController {
 		model.addAttribute("boardPostList",list);
 		model.addAttribute("boardName",boardName);
 		model.addAttribute("boardNo",boardNo);
+		model.addAttribute("lectureNo",lectureNo);
+		
 		
 		//디버깅
 		log.debug(TeamColor.KHJ + "값 확인 / boardPost list : " + list);
@@ -190,7 +192,7 @@ public class BoardController {
 	
 	//게시글 추가 폼 전송 메서드
 	@GetMapping("/board/post/add/form")
-	public String directAddBoardPost(int boardNo, String boardName, Model model) {
+	public String directAddBoardPost(int boardNo, String boardName, int lectureNo, Model model) {
 
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / boardNo : " + boardNo);
@@ -198,6 +200,8 @@ public class BoardController {
 		//값 넘겨주기
 		model.addAttribute("boardName",boardName);
 		model.addAttribute("boardNo",boardNo);
+		model.addAttribute("lectureNo",lectureNo);
+		
 		
 		//결과 확인 디버깅
 		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 추가 폼으로 포워딩");
@@ -208,7 +212,7 @@ public class BoardController {
 	
 	//게시글 추가 메서드-	확인 필요
 	@PostMapping("/board/post/add")
-	public String addBoardPost(Board board, BoardPost boardPost, MultipartFile[] uploadFile, HttpServletRequest request) throws UnsupportedEncodingException {
+	public String addBoardPost(Board board, BoardPost boardPost, int lectureNo, MultipartFile[] uploadFile, HttpServletRequest request) throws UnsupportedEncodingException {
 		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / add boardPost boardPost : " + boardPost);
@@ -232,7 +236,7 @@ public class BoardController {
 		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 리스트로 리다이렉션");
 		
 		//리다이렉션
-		return "redirect:/board/post?boardNo=" + board.getBoardNo() +"&boardName=" + encodedboardName;
+		return "redirect:/board/post?boardNo=" + board.getBoardNo() +"&boardName=" + encodedboardName + "&lectureNo=" + lectureNo;
 		
 	}
 	
@@ -314,7 +318,7 @@ public class BoardController {
 	
 	//게시글 삭제 기능
 	@GetMapping("board/removePost")
-	public String removePost(int boardPostNo, String fileName, HttpServletRequest request) {
+	public String removePost(String boardName, int boardNo, int boardPostNo, String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / boardPostNo : " + boardPostNo);
 		log.debug(TeamColor.KHJ + "파라미터 확인 / fileName : " + fileName);
@@ -327,10 +331,14 @@ public class BoardController {
 		log.debug(TeamColor.KHJ + "결과 확인 / 삭제된 댓글 행수 : " + row);
 		
 		//결과확인 디버깅
-		log.debug(TeamColor.KHJ + "결과 확인 / 인덱스페이지로 포워딩");
-		log.debug(TeamColor.KHJ + "결과 확인 / 본래는 각자의 대시보드로 포워딩해야 맞음");
+		log.debug(TeamColor.KHJ + "결과 확인 / 해당 게시판으로 포워딩");
 		
-		return "redirect:/index";
+		
+		//넘겨주는 값 인코딩
+		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
+		
+		
+		return "redirect:/board/post?boardNo="+boardNo+"&boardName="+encodedboardName;
 
 		
 	}
@@ -355,6 +363,8 @@ public class BoardController {
 		model.addAttribute("commentList",commentList);		
 		model.addAttribute("boardName",boardName);
 		model.addAttribute("boardNo",boardNo);
+		model.addAttribute("boardPostNo",boardPostNo);
+		
 		
 		
 		//결과 디버깅
@@ -367,20 +377,67 @@ public class BoardController {
 	
 	//게시글 수정 기능
 	@PostMapping("board/modifyPost")
-	public String modifyPost(BoardPost boardPost, int boardNo, String boardName) {
+	public String modifyPost(BoardPost boardPost, int boardNo, String boardName) throws UnsupportedEncodingException {
 		
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / boardPost : " + boardPost);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / boardName : " + boardName);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / boardNo : " + boardNo);
 		
+		//실행
+		int row = boardService.modifyBoardPost(boardPost);
+
+		//넘겨주는 값 인코딩
+		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
 		
-		
-		return "redirect:/board/post?boardNo="+boardNo+"&boardName="+boardName;
+		//리턴
+		return "redirect:/board/post/one?boardPostNo="+boardPost.getBoardPostNo()+"&boardNo="+boardNo+"&boardName="+encodedboardName;
 	}
 	
 	
 	//게시판 삭제 기능
+	@GetMapping("board/removeBoard")
+	public String removeBoard(int boardNo, int lectureNo) {
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / boardNo : " + boardNo);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / lectureNo : " + lectureNo);
+		
+		// 실행
+		int row = boardService.removeBoard(boardNo);
+		
+		//결과확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 삭제된 댓글 행수 : " + row);
+		
+		//결과확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 게시판 리스트로 포워딩");
+				
+		return "redirect:/board/list?lectureNo=" + lectureNo;
+	}
 	
-	//게시판 수정 기능
 	
 	
+	//댓글 수정 기능 - 만들기는 했으나, 비동기 기술을 좀 공부하고 나서 적용하는 걸로!
+	@PostMapping("board/modifyComment")
+	public String modifyComment(Comment comment, String boardName, int boardNo, Model model) throws UnsupportedEncodingException {
+		
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / comment : " + comment);
+
+		// 실행
+		int row = boardService.modifyComment(comment);
+		
+		//결과확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 수정된 댓글 행수 : " + row);
+		
+		//결과확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 상세페이지로 포워딩");
+		
+		//넘겨주는 값 인코딩
+		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
+		
+		
+		return "redirect:/board/post/one?boardPostNo="+comment.getBoardPostNo() + "&boardName=" + encodedboardName + "&boardNo=" + boardNo;
+	}
 	
 
 }

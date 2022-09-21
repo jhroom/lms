@@ -102,7 +102,7 @@
 						</tbody>
 					</table>
 					<a href="${pageContext.request.contextPath}/board/modifyPost/form?boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}">수정(미구현)</a>
-					<a href="${pageContext.request.contextPath}/board/removePost?boardPostNo=${boardOne.boardPostNo}&fileName=${boardOne.fileName}">삭제(미구현)</a>
+					<a href="${pageContext.request.contextPath}/board/removePost?boardPostNo=${boardOne.boardPostNo}&fileName=${boardOne.fileName}&boardName=${boardName}&boardNo=${boardNo}">삭제(미구현)</a>
 					
 				</div>
 				

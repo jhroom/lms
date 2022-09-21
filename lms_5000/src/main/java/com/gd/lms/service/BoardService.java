@@ -310,6 +310,49 @@ public class BoardService implements IBoardService{
 	}
 
 
+	//게시글 수정 기능
+	@Override
+	public int modifyBoardPost(BoardPost boardPost) {
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / boardPost : " + boardPost);
+		
+		//실행
+		int row = boardMapper.updateBoardPost(boardPost);
+		
+		//리턴
+		return row;
+	}
+
+
+	@Override
+	public int removeBoard(int boardNo) {
+		
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / boardNo : " + boardNo);
+		
+		//실행
+		int row = boardMapper.deleteBaord(boardNo);
+		
+		//리턴
+		return row;
+
+	}
+
+
+	@Override
+	public int modifyComment(Comment comment) {
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / comment : " + comment);
+		
+		//실행
+		int row = boardMapper.updateComment(comment);
+		
+		//리턴
+		return row;
+		
+	}
+
+
 
 
 
