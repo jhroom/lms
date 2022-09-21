@@ -29,6 +29,8 @@ public class UserListController {
 		
 		log.debug(TeamColor.JCH + this.getClass()  + " 유저 리스트 출력 ");
 
+		//페이징
+		
 		return "user/userList";
 	}
 	

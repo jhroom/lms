@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.UserListMapper">
 
-<!-- 승인 대기 명단 ( 모든 유저리스트를 보여주고 Y , N 을 조정할것) 가입일자 순으로 오름차순 정렬-->
+<!-- 승인 대기 명단 ( 모든 유저리스트를 보여주고 Y , N 을 조정할것) 가입일자 순으로 내림차순 정렬?
+	최근에 가입한 사람이 위로 올 수 있도록.
+	페이징처리는 나중에.
+-->
 <select id="selectUserList" resultType="com.gd.lms.vo.User">
 	SELECT
 		user_id userId,
@@ -14,7 +17,7 @@
 		create_date createDate,
 		user_active userActive
 	FROM user
-	ORDER BY create_date;
+	ORDER BY create_date DESC;
 </select>
 
 <update id="updateUserActive" parameterType="com.gd.lms.vo.User">
