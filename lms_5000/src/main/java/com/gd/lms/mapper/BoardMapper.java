@@ -39,5 +39,7 @@ public interface BoardMapper {
 	//댓글 삭제 쿼리
 	public int deleteComment(int CommentNo);
 	
+	//게시글 삭제 쿼리
+	public int deleteBoardPost(int boardPostNo);
 
 }

@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class Comment {
 	//댓글 번호
-	private int commentNo;				
+	private int commentNo;		
+	//댓글 작성자
+	private String commentWriter;		
 	//댓글 내용
 	private String commentContent;		
 	//댓글 작성일

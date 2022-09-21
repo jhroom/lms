@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.lms.vo.Board;
@@ -32,6 +33,9 @@ public interface IBoardService {
 	//게시글 추가 서비스
 	public int addBoardPostandFile(BoardPost boardPost, MultipartFile[] uploadFile,HttpServletRequest request);
 		
+	//게시글 파일 다운로드 서비스
+	public ResponseEntity<Object> downloadFile(String fileName, String realPath);
+	
 	//댓글 추가 서비스
 	public int addComment(Comment comment);
 	
@@ -40,5 +44,8 @@ public interface IBoardService {
 	
 	//댓글 삭제 리스트
 	public int removeComment(int commentNo);
+	
+	//게시글 삭제 리스트
+	public int removeBoardPost(int boardPostNo, String fileName, HttpServletRequest request);
 	
 }

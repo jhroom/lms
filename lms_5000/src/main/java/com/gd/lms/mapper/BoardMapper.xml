@@ -108,15 +108,18 @@
 			)
 	</insert>
 	
+	<!-- 댓글 추가 쿼리 -->
 	<insert id="insertComment" parameterType="com.gd.lms.vo.Comment">
 		insert
 			into comment(
-				comment_content
+				comment_writer
+				, comment_content
 				, comment_createdate
 				, comment_updatedate
 				, board_post_no
 			) values (
-				#{commentContent}
+				'session_id'
+				, #{commentContent}
 				, now()
 				, now()
 				, #{boardPostNo}
@@ -124,9 +127,11 @@
 	
 	</insert>
 	
+	<!-- 댓글 조회 쿼리 -->
 	<select id="selectComment" resultType="com.gd.lms.vo.Comment" >
 		select
 			comment_no commentNo
+			, comment_writer commentWriter
 			, comment_content commentContent
 			, comment_createdate commentCreatedate
 			, comment_updatedate commentUpdatedate
@@ -136,14 +141,21 @@
 				
 	</select>
 	
+	<!-- 댓글 삭제 쿼리 -->
 	<delete id="deleteComment" parameterType="int">
 		delete
 		from comment
 		where comment_no = #{commentNo}
 	</delete>
 	
-	
+	<!-- 게시글 삭제 쿼리 -->
+	<delete id="deleteBoardPost" parameterType="int">
+		delete
+		from board_post
+		where board_post_no = #{boardPostNo}
+	</delete>
 
+	<!-- 게시글 수정 쿼리 -->
 
 
 </mapper>

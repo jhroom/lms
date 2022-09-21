@@ -89,6 +89,7 @@ public class BoardController {
 		
 	}
 	
+	
 	//게시판 게시글 출력 메서드
 	@GetMapping("/board/post")
 	public String getBoardPostList(int boardNo, String boardName, Model model) {
@@ -117,6 +118,7 @@ public class BoardController {
 		
 	}
 	
+	
 	//게시글 상세 페이지 출력 메서드
 	@GetMapping("/board/post/one")
 	public String getBoardPostOne(int boardPostNo, String boardName, int boardNo, Model model) {
@@ -131,9 +133,6 @@ public class BoardController {
 		
 		//댓글 리스트
 		List<Comment> commentList = boardService.getComment(boardPostNo);
-		
-		
-		
 		
 		//값 넘겨주기
 		model.addAttribute("boardOne",boardOne);
@@ -168,6 +167,7 @@ public class BoardController {
 		//포워딩
 		return "board/addBoard";
 	}
+	
 	
 	//게시판 추가 메서드
 	@GetMapping("/board/add")
@@ -206,7 +206,6 @@ public class BoardController {
 	}
 	
 	
-	
 	//게시글 추가 메서드-	확인 필요
 	@PostMapping("/board/post/add")
 	public String addBoardPost(Board board, BoardPost boardPost, MultipartFile[] uploadFile, HttpServletRequest request) throws UnsupportedEncodingException {
@@ -238,7 +237,6 @@ public class BoardController {
 	}
 	
 	
-	
 	//파일 다운로드 메서드
 	@GetMapping("board/download/file")
 	public ResponseEntity<Object> downloadFile(String fileName, int boardPostNo, String boardName, int boardNo, HttpServletRequest request) throws UnsupportedEncodingException {
@@ -249,37 +247,17 @@ public class BoardController {
 		//값 확인 디버깅
 		log.debug(TeamColor.KHJ + "값 확인 / realPath: "+realPath);
 		
-		try {
-			
-			//path의 경로 객체 생성
-			Path filePath = Paths.get(realPath);
-			
-			// 파일 resource 얻기
-			Resource resource = new InputStreamResource(Files.newInputStream(filePath)); 
-			
-			//파일 객체 생성
-			File file = new File(realPath);
-			
-			//헤더 객체 생성
-			HttpHeaders headers = new HttpHeaders();
-			
-			// 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더			
-			headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());  
-			
-			//결과 확인 디버깅
-			log.debug(TeamColor.KHJ + "결과 확인 / 파일 다운로드 성공");
-			
-			//리턴
-			return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
-		} catch(Exception e) {
-			//결과확인 디버깅
-			log.debug(TeamColor.KHJ + "결과 확인 / 파일 다운로드 실패");
-			
-			//리턴
-			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
-		}
+		//리턴값 세팅
+		ResponseEntity<Object> returnVal = boardService.downloadFile(fileName, realPath);
+		
+		//값 확인 디버깅
+		log.debug(TeamColor.KHJ + "값 확인 / returnVal: "+returnVal);
+		
+		//리턴
+		return returnVal;
 				
 	}
+	
 	
 	//댓글 달기 기능
 	@GetMapping("board/addComment")
@@ -307,6 +285,8 @@ public class BoardController {
 		
 	}
 	
+	
+	//댓글 삭제 기능
 	@GetMapping("board/removeComment")
 	public String removeCommet(int commentNo, int boardPostNo, String boardName, int boardNo, Model model) throws UnsupportedEncodingException {
 		
@@ -330,6 +310,75 @@ public class BoardController {
 		return "redirect:/board/post/one?boardPostNo="+boardPostNo + "&boardName=" + encodedboardName + "&boardNo=" + boardNo;
 	}
 	
+	
+	
+	//게시글 삭제 기능
+	@GetMapping("board/removePost")
+	public String removePost(int boardPostNo, String fileName, HttpServletRequest request) {
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / boardPostNo : " + boardPostNo);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / fileName : " + fileName);
+		
+
+		// 실행
+		int row = boardService.removeBoardPost(boardPostNo, fileName, request);
+		
+		//결과확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 삭제된 댓글 행수 : " + row);
+		
+		//결과확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 인덱스페이지로 포워딩");
+		log.debug(TeamColor.KHJ + "결과 확인 / 본래는 각자의 대시보드로 포워딩해야 맞음");
+		
+		return "redirect:/index";
+
+		
+	}
+	
+	
+	//게시글 수정 폼 전송 기능
+	@GetMapping ("board/modifyPost/form")
+	public String directModifyPost(int boardPostNo, String boardName, int boardNo, Model model) {
+		
+		//파라미터 확인 디버깅
+		System.out.println("[boardCtrl] boardPostNo : " + boardPostNo);	
+		
+		//넘겨줄 값(BoardPost)
+		Map<String, Object> boardOne = boardService.getBoardPostOne(boardPostNo);
+		
+		
+		//댓글 리스트
+		List<Comment> commentList = boardService.getComment(boardPostNo);
+		
+		//값 넘겨주기
+		model.addAttribute("boardOne",boardOne);
+		model.addAttribute("commentList",commentList);		
+		model.addAttribute("boardName",boardName);
+		model.addAttribute("boardNo",boardNo);
+		
+		
+		//결과 디버깅
+		log.debug(TeamColor.KHJ + "값 확인 / boardOne : " + boardOne);
+		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 수정 폼으로 포워딩");
+		
+		//포워딩
+		return "board/modifyBoardPost";
+	}
+	
+	//게시글 수정 기능
+	@PostMapping("board/modifyPost")
+	public String modifyPost(BoardPost boardPost, int boardNo, String boardName) {
+		
+		
+		
+		
+		return "redirect:/board/post?boardNo="+boardNo+"&boardName="+boardName;
+	}
+	
+	
+	//게시판 삭제 기능
+	
+	//게시판 수정 기능
 	
 	
 	

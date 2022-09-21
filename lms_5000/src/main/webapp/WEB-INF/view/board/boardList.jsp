@@ -76,7 +76,7 @@
 		<!-- 과목 게시판 -->
 		<div>
 			<h3>과목 게시판</h3>
-			<a href="${pageContext.request.contextPath}/board/add/form?lectureNo=${lectureNo}">게시판 만들기(미구현)</a>
+			<a href="${pageContext.request.contextPath}/board/add/form?lectureNo=${lectureNo}">게시판 만들기</a>
 			<table border="1">
 				<thead>
 					<tr>

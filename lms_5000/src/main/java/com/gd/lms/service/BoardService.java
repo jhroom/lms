@@ -1,6 +1,9 @@
 package com.gd.lms.service;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -11,6 +14,12 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -172,6 +181,47 @@ public class BoardService implements IBoardService{
 
 
 	@Override
+	public ResponseEntity<Object> downloadFile(String fileName, String realPath) {
+		//리턴타입 세팅
+		ResponseEntity<Object> returnVal = null;
+
+		try {
+			
+			//path의 경로 객체 생성
+			Path filePath = Paths.get(realPath);
+			
+			// 파일 resource 얻기
+			Resource resource = new InputStreamResource(Files.newInputStream(filePath)); 
+			
+			//파일 객체 생성
+			File file = new File(realPath);
+			
+			//헤더 객체 생성
+			HttpHeaders headers = new HttpHeaders();
+			
+			// 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더			
+			headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());  
+			
+			//결과 확인 디버깅
+			log.debug(TeamColor.KHJ + "결과 확인 / 파일 다운로드 성공");
+			
+			//리턴
+			return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
+		} catch(Exception e) {
+			//결과확인 디버깅
+			log.debug(TeamColor.KHJ + "결과 확인 / 파일 다운로드 실패");
+			
+			//리턴
+			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
+		}
+		
+		
+	}
+
+
+	
+
+	@Override
 	public int addComment(Comment comment) {
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / comment : " + comment);
@@ -214,6 +264,47 @@ public class BoardService implements IBoardService{
 		//디버깅
 		log.debug(TeamColor.KHJ + "결과 확인 / 댓글 삭제 행수 : " + row);
 				
+		//리턴
+		return row;
+	}	
+
+
+	@Override
+	public int removeBoardPost(int boardPostNo, String fileName, HttpServletRequest request) {
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / boardPostNo : " + boardPostNo);
+		
+		//실행
+		int row = boardMapper.deleteBoardPost(boardPostNo);
+		
+		
+		
+		//실제 파일 삭제
+        String srcFileName = null;
+        
+        String uploadPath = request.getSession().getServletContext().getRealPath("/uploadFile/boardFile");
+        try{
+            srcFileName = URLDecoder.decode(fileName,"UTF-8");
+            //UUID가 포함된 파일이름을 디코딩해줍니다.
+            File file = new File(uploadPath +File.separator + srcFileName);
+            boolean result = file.delete();
+
+            File thumbnail = new File(file.getParent(),"s_"+file.getName());
+            //getParent() - 현재 File 객체가 나태내는 파일의 디렉토리의 부모 디렉토리의 이름 을 String으로 리턴해준다.
+            result = thumbnail.delete();
+            new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+            new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+		
+		
+		
+		
+		
+		//디버깅
+		log.debug(TeamColor.KHJ + "결과 확인 / 댓글 삭제 행수 : " + row);
+		
 		//리턴
 		return row;
 	}

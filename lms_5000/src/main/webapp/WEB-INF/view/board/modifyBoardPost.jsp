@@ -56,27 +56,57 @@
       
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
-      
 			<div>
-			<h3>게시글 작성</h3>
-				<form action="${pageContext.request.contextPath}/board/add" method="get">
-					<input type="hidden" name="lectureNo" id="lectureNo" value="${lectureNo}">
-					<table border="1">
-						<thead>
-							<tr>
-								<th>구분</th><th>내용</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th>게시판 이름</th>
-								<td><input type="text" name="boardName" id="boardName"></td>
-							</tr>
-						</tbody>
-					</table>
-					<button type="submit">제출하기</button>
-				</form>
+				<div>
+				<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${boardNo}&boardName=${boardName}">${boardName} 게시판</a></h3>
+					<form action="${pageContext.request.contextPath}/board/modifyPost" method="post">
+						<table border="1">
+							<thead>
+								<tr>
+									<th>구분</th><th>내용</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>제목</th>
+									<td><input type="text" name="" value="${boardOne.boardPostTitle}"></td>
+								</tr>
+								<tr>
+									<th>작성자</th>
+									<td>${boardOne.boardPostWriter}</td>
+								</tr>
+								<tr>
+									<th>작성일</th>
+									<td>${boardOne.boardPostCreatedate}</td>
+								</tr>
+								<tr>
+									<th>수정일</th>
+									<td>${boardOne.boardPostUpdatedate}</td>
+								</tr>
+								<tr>
+									<th>조회수</th>
+									<td>${boardOne.count}</td>
+								</tr>
+								<tr>
+									<th>내용</th>
+									<td><input type="text" name="" value="${boardOne.boardPostContent}"></td>
+								</tr>		
+								<tr>
+									<th>첨부파일</th>
+									<td>${boardOne.fileOriginname}</td>
+								</tr>		
+				
+							</tbody>
+						</table>
+						<button type="submit">수정하기</button>
+					</form>
+										
+				</div>
+
 			</div>
+      
+      
+      
       
 
 
@@ -110,4 +140,5 @@
 
 </body>
 </html>
+
 
