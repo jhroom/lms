@@ -62,9 +62,18 @@
 <body>
 	<div>
 		<h3>내 계정</h3>
+		<c:choose>
+			<c:when test="${msg != null}">
+				<div>${msg}</div>
+			</c:when>
+		</c:choose>
 		
 		<div>아이디</div>
 		<div>${userInfo.userId }</div>
+		<hr>
+		
+		<div>비밀번호</div>
+		<div><a href="${pageContext.request.contextPath}/user/updatePw">변경</a></div>
 		<hr>
 		
 		<div>계정 유형</div>
@@ -86,7 +95,7 @@
 		<div>
 			${userInfo.userEmail}
 			<form action="${pageContext.request.contextPath}/index/mypage/changeUserInfo" id="emailForm" method="post">
-				<input type="text" id="email" name="userInfo">
+				<input type="text" id="email" name="userInfo" placeholder="ex)aaa@example.com">
 				<button type="button" onclick="verifyEmail()">확인</button>
 			</form>
 		</div>
@@ -96,7 +105,7 @@
 		<div>
 			${userInfo.userTel}
 			<form action="${pageContext.request.contextPath}/index/mypage/changeUserInfo" id="telForm" method="post">
-				<input type="text" id="tel" name="userInfo">
+				<input type="text" id="tel" name="userInfo" placeholder="ex)000-0000-0000">
 				<button type="button" onclick="verifyTel()">확인</button>
 			</form>
 		</div>

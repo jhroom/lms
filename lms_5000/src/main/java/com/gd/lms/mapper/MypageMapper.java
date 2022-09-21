@@ -33,5 +33,11 @@ public interface MypageMapper {
 	
 	//교수 번호 변경
 	int modifyProTel(String userTel, String userId);
+	
+	//비빌번호 변경시 기존 비밀번호 확인
+	User selectPwCheck(User user);
+	
+	//비밀번호 변경
+	int modifyUserPw(User user);
 
 }

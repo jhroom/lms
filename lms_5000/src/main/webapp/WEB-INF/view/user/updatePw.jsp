@@ -11,32 +11,36 @@
 
 <!-- 페이지 삽입 - 필수적인 레퍼런스(css, font) -->
 <%@include file="../import/reference.jsp" %>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
 <script>
 		$(document).ready(function(){
 			$("#pwUpdate").on("click", function(){
-				if($("#userPw").val==""){
+				console.log('테스트');
+				
+				if($("#userPw").val()==""){
 					alert("현재 비밀번호를 입력해주세요");
-					$("userPw").focus();
-					return false
+					$("#userPw").focus();
+					return;
 				}
-				if($("#userPw1").val==""){
-					alert("변경비밀번호을를 입력해주세요");
+				if($("#userPw1").val()==""){
+					alert("새 비밀번호를 입력해주세요");
 					$("#userPw1").focus();
-					return false
+					return;
 				}
-				if($("#userPw2").val==""){
-					alert("변경비밀번호를 입력해주세요");
+				if($("#userPw2").val()==""){
+					alert("새 비밀번호 확인을 입력해주세요");
 					$("#userPw2").focus();
-					return false
+					return;
 				}
 				if ($("#userPw1").val() != $("#userPw2").val()) {
-					alert("변경비밀번호가 일치하지 않습니다.");
+					alert("새 비밀번호와 비밀번호가 일치하지 않습니다.");
 					$("#userPw2").focus();
-					 
+					return;
+				}
 				
-	<!--			$.ajax({
-					url : "/member/pwCheck",
+				$.ajax({
+					url  : "/lms/rest/pwCheck",
 					type : "POST",
 					dataType : "json",
 					data : $("#updatePwForm").serializeArray(),
@@ -48,19 +52,16 @@
 						}else{
 							if(confirm("변경하시겠습니까?")){
 								$("#updatePwForm").submit();
+								alert('변경 한 비밀번호로 다시 로그인 해주세요');
 							}
-							
-						}
-					}
-				})
+						}		//else end
+					}		//success end
+				});		//ajax end
 				
-			}); -->
+			}); //pwUpdate btn click end
 			
-				
-			
-		})
+			});
 	</script>
-</head>
 <body class="hold-transition sidebar-mini">
 
 <!-- 전체 페이지 래퍼 -->
@@ -117,26 +118,27 @@
 		</div>
 		<hr>
 		
-		 <form action="${pageContext.request.contextPath}/user/updatePw" method="post" id="updatePwForm" name="updatePwForm">
-         <input type="hidden" id="memberId" name="memberId" value="${userInfo.userId}">
-    <div class="col-sm-8 col-sm-offset-2">
-        <div class="panel panel-default panel-margin-10">
-            <div class="panel-body panel-body-content text-center">
-                <p class="lead">변경하실 비밀번호를 입력해 주세요.</p>
-                <div class="form-group">
-                    <input type="password" name="userPw" id="userPw" class="form-control form-control-inline text-center" placeholder="현재 비밀번호" />
-                </div>
-                <div class="form-group">
-                    <input type="password" name="userPw1" class="form-control form-control-inline text-center" placeholder="새 비밀번호" />
-                </div>
-                <div class="form-group">
-                    <input type="password" name="userPw2" class="form-control form-control-inline text-center" placeholder="새 비밀번호 확인" />
-                </div>
-                <button type="button" id="pwUpdate" name="pwUpdate" class="btn btn-primary">비밀번호 변경</button> <a href="${pageContext.request.contextPath}/index" class="btn btn-default">취소</a>
-            </div>
-        </div>
-    </div>
-    </form>
+		<form action="${pageContext.request.contextPath}/index/mypage/updatePw" method="post" id="updatePwForm">
+	        <input type="hidden" id="userId" name="userId" value="${userInfo.userId}">
+	         
+		    <div class="col-sm-8 col-sm-offset-2">
+		        <div class="panel panel-default panel-margin-10">
+		            <div class="panel-body panel-body-content text-center">
+		                <p class="lead">변경하실 비밀번호를 입력해 주세요.</p>
+		                <div class="form-group">
+		                    <input type="password" name="userPw" id="userPw" class="form-control form-control-inline text-center" placeholder="현재 비밀번호" />
+		                </div>
+		                <div class="form-group">
+		                    <input type="password" name="userPw1" id="userPw1" class="form-control form-control-inline text-center" placeholder="새 비밀번호" />
+		                </div>
+		                <div class="form-group">
+		                    <input type="password" name="userPw2" id="userPw2" class="form-control form-control-inline text-center" placeholder="새 비밀번호 확인" />
+		                </div>
+		                <button type="button" id="pwUpdate" name="pwUpdate" class="btn btn-primary">비밀번호 변경</button> <a href="${pageContext.request.contextPath}/index" class="btn btn-default">취소</a>
+		            </div>
+		        </div>
+		    </div>
+	    </form>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

@@ -71,4 +71,19 @@
 		Where user_id = #{userId}
 	</update>
 	
+	<!-- 비밀번호 변경시 기존 비밀번호 입력한게 db와 일치하는지 확인 -->
+	<select id="selectPwCheck" parameterType="com.gd.lms.vo.User" resultType="com.gd.lms.vo.User">
+		Select
+			user_id userId
+		From user
+		Where user_id = #{userId} AND user_pw = password( #{userPw} )
+	</select>
+	
+	<!-- 유저 비밀번호 변경 -->
+	<update id="modifyUserPw" parameterType="com.gd.lms.vo.User">
+		Update user
+		Set user_pw =  password( #{userPw} )
+		Where user_id = #{userId}
+	</update>
+	
 </mapper>

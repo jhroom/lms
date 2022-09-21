@@ -10,7 +10,9 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.MypageMapper;
 import com.gd.lms.vo.User;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Transactional
 public class MypageService implements IMypageService {
@@ -34,6 +36,7 @@ public class MypageService implements IMypageService {
 		
 		System.out.println(TeamColor.AJH+"파라미터 레벨 확인 :" + userLevel);
 		
+		//정보변경하는 객체 이메일 전화번호 분기
 		if( ((String)map.get("userInfo")).contains("@")) {
 			System.out.println(TeamColor.AJH+"파라미터 형식 이메일");
 			
@@ -66,6 +69,16 @@ public class MypageService implements IMypageService {
 		}
 		
 		return row;
+	}
+	
+	@Override
+	public User getPwCheck(User user) {
+		log.debug("컨트롤러 에서 넘어온값 확인 : " + user);
+		return mypageMapper.selectPwCheck(user);
+	}
+	@Override
+	public int modifyUserPw(User user) {
+		return mypageMapper.modifyUserPw(user);
 	}
 
 }
