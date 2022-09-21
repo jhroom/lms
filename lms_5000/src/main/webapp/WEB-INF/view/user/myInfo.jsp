@@ -10,12 +10,12 @@
 <script>
 	$(document).ready(function(){
 		
+		// 이메일 검증 스크립트 작성
 		verifyEmail = function() {
-		  // 이메일 검증 스크립트 작성
+		  
 		  var emailVal = $("#email").val();
-	
-		  var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		  // 검증에 사용할 정규식 변수 regExp에 저장
+		  var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	
 		  if (emailVal.match(regExp) != null) {
 			  if (!confirm("사용 가능합니다\r\n변경(확인) 취소(아니오)를 눌러주세요.")) {
@@ -29,12 +29,12 @@
 		  }
 		};
 		
+		// 핸드폰번호 검증 스크립트 작성
 		verifyTel = function() {
-		  // 핸드폰번호 검증 스크립트 작성
+		  
 		  var telVal = $("#tel").val();
-	
-		  var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
 		  // 검증에 사용할 정규식 변수 regExp에 저장
+		  var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
 	
 		  if (telVal.match(regExp) != null) {
 		    alert('사용가능합니다!');
@@ -71,8 +71,8 @@
 		<div>
 			<c:choose>
 				<c:when test="${userInfo.userLevel == 1}">운영자</c:when>
-				<c:when test="${userInfo.userLevel == 2}">학생</c:when>
-				<c:when test="${userInfo.userLevel == 3}">교수</c:when>
+				<c:when test="${userInfo.userLevel == 2}">교수</c:when>
+				<c:when test="${userInfo.userLevel == 3}">학생</c:when>
 				<c:when test="${userInfo.userLevel == 4}">시스템관리자</c:when>
 			</c:choose>
 		</div>
@@ -85,22 +85,20 @@
 		<div>메일</div>
 		<div>
 			${userInfo.userEmail}
-			<form action="${pageContext.request.contextPath}/user/mypage/changeUserInfo" id="emailForm" method="post">
+			<form action="${pageContext.request.contextPath}/index/mypage/changeUserInfo" id="emailForm" method="post">
 				<input type="text" id="email" name="userInfo">
 				<button type="button" onclick="verifyEmail()">확인</button>
 			</form>
-			<button type="button" id="emailBtn">변경</button>
 		</div>
 		<hr>
 		
 		<div>휴대폰 번호</div>
 		<div>
 			${userInfo.userTel}
-			<form action="${pageContext.request.contextPath}/user/mypage/changeUserInfo" id="telForm" method="post">
+			<form action="${pageContext.request.contextPath}/index/mypage/changeUserInfo" id="telForm" method="post">
 				<input type="text" id="tel" name="userInfo">
 				<button type="button" onclick="verifyTel()">확인</button>
 			</form>
-			<button type="button" id="telBtn">변경</button>
 		</div>
 		<hr>
 		

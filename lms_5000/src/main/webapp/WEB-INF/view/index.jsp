@@ -16,16 +16,16 @@
 				<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList">공지 리스트</a><br>
 				<a href="${pageContext.request.contextPath}/sign/openLectureList">강의 리스트</a><br>
 				<a href="${pageContext.request.contextPath}/board/list?lectureNo=1">게시판</a><br>
-				<a href="${pageContext.request.contextPath}/user/mypage">마이페이지</a><br>
+				<a href="${pageContext.request.contextPath}/index/mypage">마이페이지</a><br>
 				<button  onclick="window.open('${pageContext.request.contextPath}/user/messageList'
 				, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false">메세지</button>
 				
-				<p><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></p>
+				<p><a href="${pageContext.request.contextPath}/index/logout">로그아웃</a></p>
 			</c:when>
 			<c:otherwise>
 			
 			
-				<a href="${pageContext.request.contextPath}/user/logout">로그인하러가기</a>
+				<a href="${pageContext.request.contextPath}/index/login">로그인하러가기</a>
 			</c:otherwise>
 		</c:choose>
 		

@@ -1,7 +1,5 @@
 package com.gd.lms.controller;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,14 +30,14 @@ public class UserController {
 	}
 	
 	//로그인 페이지
-	@GetMapping("/user/login")
+	@GetMapping("/index/login")
 	public String userLogin() {
 		
 		return "user/login";
 	}
 	
 	//로그인 액션
-	@PostMapping("/user/login")
+	@PostMapping("/index/login")
 	public String userLogin(Model model, HttpSession session, User user) {
 		
 		//디버깅
@@ -71,14 +69,14 @@ public class UserController {
 	
 	
 	//로그아웃
-	@GetMapping("/user/logout")			
+	@GetMapping("/index/logout")			
 	public String logout(HttpSession session) {			
 		log.debug(TeamColor.AJH + " 로그아웃 액션");
 		
 		// 세션 무효화			
 		session.invalidate();			
 					
-		return "redirect:/user/login";			
+		return "redirect:/index";			
 	}
 	
 	// 운영자 가입 폼으로가기
@@ -143,56 +141,6 @@ public class UserController {
 	@GetMapping("/user/message")
 	public String message() {
 		return "user/message";
-	}
-	
-	@GetMapping("/user/mypage")
-	public String mypage(HttpSession session, Model model) {
-		//사용자 정보가 없는 사람이 마이페이지 갈경우
-		if(session.getAttribute("loginUser") == null) {
-			model.addAttribute("errMsg","로그인 후 이용 가능합니다");
-			return "user/login";
-		}
-		
-		return "user/mypage";
-	}
-	
-	@GetMapping("user/mypage/info")
-	public String myInfo(HttpSession session, Model model) {
-		//사용자 정보가 없는 사람이 마이페이지 갈경우
-		if(session.getAttribute("loginUser") == null) {
-			model.addAttribute("errMsg","로그인 후 이용 가능합니다");
-			return "user/login";
-		}
-		String userId = ((User)session.getAttribute("loginUser")).getUserId();
-		
-		// 유저의 가입정보 받아오기
-		User userInfo = userLoginService.getUserInfo(userId);
-		model.addAttribute("userInfo", userInfo);
-		
-		return "user/myInfo";
-	}
-	
-	@PostMapping("user/mypage/changeUserInfo")
-	public String modifyUserInfo(Model model, HttpSession session, @RequestParam (value="userInfo") String userInfo) {
-		log.debug(TeamColor.AJH+"유저정보번경 메서드 파라미터 : " + userInfo);
-		
-		//세션에 저장된 UserInfo 의 아이디
-		String userId = ((User)session.getAttribute("loginUser")).getUserId();
-		int userLevel = ((User)session.getAttribute("loginUser")).getUserLevel();
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("userInfo", userInfo);
-		map.put("userLevel", userLevel);
-		map.put("userId", userId);
-		
-		int result = userLoginService.modifyUserInfo(map);
-		if(result == 1) {
-			model.addAttribute("errMsg","정보 변경 되었습니다.");
-			//index 뷰페이지 msg 출력 추가해야함
-			return "redirect:/index";
-		}
-		model.addAttribute("errMsg","오류로 인하여 변경 실패하였습니다.");
-		return "user/login";
 	}
 		
 }

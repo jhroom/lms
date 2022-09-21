@@ -14,7 +14,7 @@
 		</c:if>
 	</div>
 	<div>
-		<form action="${pageContext.request.contextPath}/user/login" method="post">
+		<form action="${pageContext.request.contextPath}/index/login" method="post">
 			id
 				<input type="text"  name="userId"><br>
 			pw
