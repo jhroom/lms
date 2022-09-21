@@ -63,13 +63,4 @@ public class UserListController {
 		
 		return "/user/updatePw";
 	}
-	
-	@PostMapping("/user/updatePw")
-	public String updateUserPw() {
-		//비밀번호 변경 액션 
-		
-		
-		//실패시엔 그냥 페이지 유지
-		return "/user/updatePw";
-	}
 }
