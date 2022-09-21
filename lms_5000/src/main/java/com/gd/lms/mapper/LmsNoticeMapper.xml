@@ -36,7 +36,7 @@
 	<!-- 공지 삭제 -->
 	<delete id="deleteLmsNotice" parameterType="int">
 		DELETE FROM lms_notice
-		WHERE lmsNoticeNo=#{lmsNoticeNo}
+		WHERE lms_notice_no=#{lmsNoticeNo}
 	
 	</delete>
 	
@@ -45,9 +45,10 @@
 	<update id="updateLmsNotice" parameterType="com.gd.lms.vo.LmsNotice">
 		UPDATE lms_notice
 		SET 
-			lms_notice_title = #{lmsNoticeTitle},
-			lms_notice_content = #{lmsNoticeContent},
-		WHERE lmsNoticeNo = #{lmsNoticeNo}
+			lms_notice_title=#{lmsNoticeTitle},
+			lms_notice_content=#{lmsNoticeContent},
+			lms_notice_updatetime=now()
+		WHERE lms_notice_no = #{lmsNoticeNo}
 	
 	</update>
 	

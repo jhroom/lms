@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,9 +44,16 @@
 			</tbody>
 			
 		</table>
-		<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/LmsNoticeList'">수정(ㄱㄷ)</button>
-		<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/LmsNoticeList'">삭제(ㄱㄷ)</button>
-		<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/LmsNoticeList'">글목록</button>
+		
+		
+		<form method="get" name="form">
+			<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/updateLmsNotice?lmsNoticeNo=${lmsNoticeNo}%lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}'">수정안됨</button>
+			<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/deleteLmsNotice?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}'">삭제안됨</button>
+			<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/LmsNoticeList'">글목록됨</button>
+		</form>
+		<a href="${pageContext.request.contextPath}/lmsNotice/deleteLmsNotice?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}">삭제</a>
+		<a href="${pageContext.request.contextPath}/lmsNotice/UpdateLmsNotice?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}">수정</a>
+		
 	</div>
 </body>
 </html>

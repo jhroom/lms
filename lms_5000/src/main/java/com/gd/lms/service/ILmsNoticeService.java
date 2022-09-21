@@ -15,7 +15,7 @@ public interface ILmsNoticeService {
 	// 공지 삭제
 	public int deleteLmsNotice(int lmsNoticeNo);
 	// 공지 수정
-	void updateLmsNotice(LmsNotice lmsNotice);
+	public int updateLmsNotice(LmsNotice lmsNotice);
 	// 공지 상세보기
 	public Map<String, Object> getLmsNoticeOne(int lmsNoticeNo);
 	

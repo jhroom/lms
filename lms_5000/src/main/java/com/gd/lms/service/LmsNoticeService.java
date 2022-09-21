@@ -48,16 +48,29 @@ public class LmsNoticeService implements ILmsNoticeService {
 	@Override
 	public int deleteLmsNotice(int lmsNoticeNo) {
 		
-		return 0;
+		return lmsNoticeMapper.deleteLmsNotice(lmsNoticeNo);
 	}
+	
+	
 	
 	
 	//공지 수정
 	@Override
-	public void updateLmsNotice(LmsNotice lmsNotice) {
+	public int updateLmsNotice(LmsNotice lmsNotice) {
+		
+		int row = lmsNoticeMapper.updateLmsNotice(lmsNotice);
+		
+		log.debug(TeamColor.SSH + "수정된거: "+row);
+		
+		return lmsNoticeMapper.updateLmsNotice(lmsNotice);
 		
 		
 	}
+	
+	
+	
+	
+	
 	//공지 상세보기
 	@Override
 	public Map<String, Object> getLmsNoticeOne(int lmsNoticeNo) {

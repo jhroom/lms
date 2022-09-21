@@ -58,23 +58,7 @@
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
 
 	<!-- 게시판 구역 -->
-	<div>
-		<!-- 공지사항 -->
-		<div>
-			<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${noticeNo}&boardName=공지사항">과목 공지사항</a></h3>
-
-		</div>
-		
-		
-		<!-- Qna -->
-		<div>
-			<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${qnaNo}&boardName=QNA">과목 Qna</a></h3>
-
-		</div>
-			
 	
-		<!-- 과목 게시판 -->
-		<div>
 	<h3>LMS 공지사항</h3>
 </div>
 	<div>
