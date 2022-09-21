@@ -3,6 +3,8 @@ package com.gd.lms.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
+
 import com.gd.lms.vo.LmsNotice;
 
 public interface ILmsNoticeService {
@@ -18,6 +20,8 @@ public interface ILmsNoticeService {
 	public int updateLmsNotice(LmsNotice lmsNotice);
 	// 공지 상세보기
 	public Map<String, Object> getLmsNoticeOne(int lmsNoticeNo);
+	// 공지 파일 다운로드
+	public ResponseEntity<Object> douwnloadFile(String fileName, String realPatth);
 	
 	
 	

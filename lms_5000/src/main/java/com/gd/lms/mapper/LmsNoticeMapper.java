@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.lms.vo.LmsFile;
 import com.gd.lms.vo.LmsNotice;
 
 @Mapper
@@ -20,5 +21,7 @@ public interface LmsNoticeMapper {
 	public int updateLmsNotice(LmsNotice lmsNotice);
 	//공지 상세보기
 	public Map<String, Object> selectLmsNoticeOne(int lmsNoticeNo);
+	//게시글 파일 추가
+	public int insertLmsNoticeFile(LmsFile lmsFile);
 	
 }

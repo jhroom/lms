@@ -3,17 +3,13 @@ package com.gd.lms.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILmsNoticeService;
-import com.gd.lms.service.LmsNoticeService;
 import com.gd.lms.vo.LmsNotice;
 
 import lombok.extern.slf4j.Slf4j;
@@ -90,14 +86,23 @@ public class LmsNoticeController {
 	
 	//공지 수정
 	@GetMapping("/lmsNotice/UpdateLmsNotice")
-	public String updateLmsNotice(Model model, @RequestParam(value="lmsNoticeNo") int lmsNoticeNo, LmsNotice lmsNotice) {
+	public String updateLmsNotice(Model model, int lmsNoticeNo, String lmsNoticeTitle, String lmsNoticeContent) {
 		
 		//lmsNoticeNo의 해당하는 One을 가지고온다.
 		Map<String, Object> updateNotice = lmsNoticeService.getLmsNoticeOne(lmsNoticeNo);
 		
+		//Map<String, Object> lmsNotice = lmsNoticeService.getLmsNoticeOne(lmsNoticeNo);
+		
+		//받아온 값 출력
 		model.addAttribute("updateNotice", updateNotice);
+		
+		
 //		model.addAttribute("lmsNoticeNo", lmsNoticeNo);
-//		model.addAttribute("lmsNotice", lmsNotice);
+//		model.addAttribute("lmsNoticeTitle", lmsNoticeTitle);
+//		model.addAttribute("lmsNoticeContent", lmsNoticeContent);
+		
+		log.debug(TeamColor.SSH+ "받아온 값 :" +updateNotice);
+		
 		
 		return "lmsNotice/UpdateLmsNotice";
 	}
@@ -105,9 +110,9 @@ public class LmsNoticeController {
  
 	//수정 액숀
 	@GetMapping("/lmsNotice/updateLmsNotice/action")
-	public String updateLmsNotice(LmsNotice lmsNotice) {
+	public String updateLmsNotice(LmsNotice lmsNotice, int lmsNoticeNo, String lmsnoticeTitle, String lmsNoticeContent) {
 		
-		lmsNoticeService.updateLmsNotice(lmsNotice);
+		//lmsNoticeService.updateLmsNotice(lmsNotice);
 		
 		return "redirect:/lmsNotice/LmsNoticeList";
 		

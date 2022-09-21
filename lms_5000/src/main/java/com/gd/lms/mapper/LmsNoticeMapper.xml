@@ -55,16 +55,20 @@
 	<!-- 공지 상세보기 -->
 	<select id="selectLmsNoticeOne" resultType="map">
 		SELECT
-			lms_notice_no lmsNoticeNo,
-			lms_notice_title lmsNoticeTitle,
-			lms_notice_content lmsNoticeContent,
-			lms_notice_name lmsNoticeName,
-			lms_notice_createtime lmsNoticeCreatetime,
-			lms_notice_updatetime lmsNoticeUpdatetime,
-			count count
-		FROM lms_notice
-		WHERE lms_notice_no=#{lmsNoticeNo}
-	
+			n.lms_notice_no lmsNoticeNo,
+			n.lms_notice_title lmsNoticeTitle,
+			n.lms_notice_content lmsNoticeContent,
+			n.lms_notice_name lmsNoticeName,
+			n.lms_notice_createtime lmsNoticeCreatetime,
+			n.lms_notice_updatetime lmsNoticeUpdatetime,
+			n.count count,
+			f.file_originame fileOriginname,
+			f.file_name fileName
+		FROM lms_notice n
+		left outer join lms_file f
+		on n.lms_notice_no = f.lms_notice_no
+		WHERE n.lms_notice_no=#{lmsNoticeNo}
+	<!-- lmsFile이랑 join -->
 	</select>
 	
 

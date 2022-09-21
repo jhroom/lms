@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,7 +61,9 @@ public class LmsNoticeService implements ILmsNoticeService {
 		
 		int row = lmsNoticeMapper.updateLmsNotice(lmsNotice);
 		
-		log.debug(TeamColor.SSH + "수정된거: "+row);
+
+		
+
 		
 		return lmsNoticeMapper.updateLmsNotice(lmsNotice);
 		
@@ -77,9 +80,24 @@ public class LmsNoticeService implements ILmsNoticeService {
 		
 		Map<String, Object> noticeOne = lmsNoticeMapper.selectLmsNoticeOne(lmsNoticeNo);
 		
-		log.debug(TeamColor.SSH + "넘기기" + noticeOne);
+		log.debug(TeamColor.SSH + "상세보기 값 넘기기" + noticeOne);
 		
 		return noticeOne;
+	}
+
+
+
+	// 첨부 파일 다운로드
+	@Override
+	public ResponseEntity<Object> douwnloadFile(String fileName, String realPatth) {
+		ResponseEntity<Object> returnVal = null;
+		
+		
+		
+		
+		
+		
+		return null;
 	}
 	
 
