@@ -14,6 +14,7 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILectureService;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
+import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,15 +44,14 @@ public class LectureController {
 	  
  	  
 	  // 수강신청한 목록 불러오기
- 	  //	  sign.setUserId((String)session.getAttribute("user"));
- 	  sign.setUserId("son");
+ 	  String userId = ((User)session.getAttribute("loginUser")).getUserId();
+ 	  sign.setUserId(userId);
  	  List<Map<String,Object>> singList = lectureService.signList(sign);
  	  //디버깅
  	  log.debug(TeamColor.YHW + singList + "-- addSign-controller");
  	  // model에 담아 전달
  	  model.addAttribute("singList",singList);
  	  
- 	  signCancel.setUserId("son");
  	  List<Map<String,Object>> cancelSignList = lectureService.selectCancelSignList(signCancel);
 	   //디버깅
 	   log.debug(TeamColor.YHW + "-- cancelSignList-controller -- "+ cancelSignList );
@@ -66,9 +66,8 @@ public class LectureController {
 	   @GetMapping("/sign/addSign")
 	   // 수강신청 추가
 	   public String insertLecture(Sign sign, HttpSession session) {
-		   // 임의 값 저장 실행확인///////////////////////////////////////////////////////////
-		   //sign.setSignState(Integer.parseInt((String) session.getAttribute("level")));
-		   sign.setSignNo(1);
+		   // 수강 허락 비하락 대기
+		   sign.setSignState(1);
 		   //디버깅
 		   log.debug(TeamColor.YHW + "-- sign-controller -- "+ sign );
 		   int addSign = lectureService.addSign(sign);
@@ -81,8 +80,10 @@ public class LectureController {
 	   @GetMapping("/sign/cancelSign") 
 	   // 수강신청 취소 이력 추가
 	   public String cancelSign(SignCancel signCancel, HttpSession session) {
-		   //signCancel.setUserId((String)session.getAttribute("user"));
-		   signCancel.setUserId("son");
+		   String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		   // 아이디 찾기 디버깅
+		   log.debug(TeamColor.YHW + "-- sign-controller -- "+ sign );
+		   signCancel.setUserId(userId);
 		   //디버깅
 		   log.debug(TeamColor.YHW + "-- signCancel-controller -- "+ signCancel );
 		   int addSignCancel = lectureService.addCancleSign(signCancel);
