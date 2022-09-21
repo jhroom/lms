@@ -83,7 +83,7 @@
 						<td>${m.subject_grade}학년</td>
 						<td>${m.major_name}</td>
 						<td>
-						   <a href="${pageContext.request.contextPath}/sign/addSign?lectureNo=${m.lecture_no}&userId=son">수강신청</a>
+						   <a href="${pageContext.request.contextPath}/sign/addSign?lectureNo=${m.lecture_no}&userId=${loginUser.userId}">수강신청</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -138,7 +138,7 @@
 										<c:when test="${s.sign_state eq 1}">수강 신청 완료</c:when>
 									</c:choose>
 								</td>
-								<td><a href="${pageContext.request.contextPath}/sign/cancelSign?lectureNo=${s.lecture_no}&signNo=${s.sign_no}" onclick="clickBtn();" >수강취소</a></td>
+								<td><a href="${pageContext.request.contextPath}/sign/cancelSign?userId=${loginUser.userId}&signNo=${s.sign_no}&lectureNo=${s.lecture_no}">수강취소</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

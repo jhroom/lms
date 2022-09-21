@@ -37,98 +37,73 @@ public class LectureController {
 		
 	  // 개설강좌 목록 불러오기
 	  List<Map<String,Object>> lectureList = lectureService.selectLectureListForSign();
-	  //디버깅
- 	  log.debug(TeamColor.YHW + "-- lectureList-controller -- "+ lectureList );
- 	  // view 전달을 위한 개설강좌 목록 model에 담기
+	  // 개설강좌 목록 확인
+ 	  log.debug(TeamColor.YHW + "-- lectureList - controller -- "+ lectureList );
+ 	  //개설강좌 목록 model에 담기
  	  model.addAttribute("lectureList",lectureList);
 	  
  	  
-	  // 수강신청한 목록 불러오기
+	  // 수강신청 리스트
  	  String userId = ((User)session.getAttribute("loginUser")).getUserId();
  	  sign.setUserId(userId);
  	  List<Map<String,Object>> singList = lectureService.signList(sign);
- 	  //디버깅
+ 	  // 수강신청 목록 확인
  	  log.debug(TeamColor.YHW + singList + "-- addSign-controller");
  	  // model에 담아 전달
  	  model.addAttribute("singList",singList);
  	  
+ 	  
+ 	  // 수강 취소 리스트 
  	  List<Map<String,Object>> cancelSignList = lectureService.selectCancelSignList(signCancel);
 	   //디버깅
-	   log.debug(TeamColor.YHW + "-- cancelSignList-controller -- "+ cancelSignList );
+	  log.debug(TeamColor.YHW + "-- cancelSignList-controller -- "+ cancelSignList );
 	   
-	   // view에 전달
-	   model.addAttribute("cancelSignList",cancelSignList);
+	  // view에 전달
+	  model.addAttribute("cancelSignList",cancelSignList);
 	   
       return "/sign/openLectureList";
 	  }
   
   
-	   @GetMapping("/sign/addSign")
-	   // 수강신청 추가
-	   public String insertLecture(Sign sign, HttpSession session) {
-		   // 수강 허락 비하락 대기
-		   sign.setSignState(1);
-		   //디버깅
+	  // 수강신청 추가
+  	   @GetMapping("/sign/addSign")
+  	   public String insertLecture(Sign sign, HttpSession session) {
+		   // 수강신청 추가 내용
 		   log.debug(TeamColor.YHW + "-- sign-controller -- "+ sign );
 		   int addSign = lectureService.addSign(sign);
-		   //디버깅
+		   // 수강신청 등록 확인
 		   log.debug(TeamColor.YHW + addSign + "-- addSign-controller");
 		  
 		   return "redirect:/sign/openLectureList";
-	   }
-	   
+  	   } 
+  	   
+  	   
+	  // 수강신청 취소 이력 추가
 	   @GetMapping("/sign/cancelSign") 
-	   // 수강신청 취소 이력 추가
 	   public String cancelSign(SignCancel signCancel, HttpSession session) {
 		   String userId = ((User)session.getAttribute("loginUser")).getUserId();
-		   // 아이디 찾기 디버깅
-		   log.debug(TeamColor.YHW + "-- sign-controller -- "+ sign );
 		   signCancel.setUserId(userId);
-		   //디버깅
-		   log.debug(TeamColor.YHW + "-- signCancel-controller -- "+ signCancel );
 		   int addSignCancel = lectureService.addCancleSign(signCancel);
 		   //디버깅
 		   log.debug(TeamColor.YHW + "-- addSignCancel-controller -- "+ addSignCancel );
 		   
 		   int lectureNo = signCancel.getLectureNo();
 		   int signNo = signCancel.getSignNo();
-		   return "redirect:/sign/removeSign?lectureNo="+lectureNo+"&signNo="+signNo;
+		   return "redirect:/sign/removeSign?lectureNo="+lectureNo+"&signNo="+signNo+"&userId="+userId;
 	   }
+
 	   
-	   @GetMapping("/sign/removeSign")
 	   // 수강신청 취소(수강 신청 list에서 제거)
-	   public String removeSign(Sign sign, SignCancel signCancel) {
-		   //디버깅
-		   log.debug(TeamColor.YHW + "-- sign-controller -- "+ sign );
+	   @GetMapping("/sign/removeSign")
+	   public String removeSign(Sign sign, SignCancel signCancel, HttpSession session) {
+		   String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		   sign.setUserId(userId);
 		   int removeSign = lectureService.removeSign(sign); 
-		   //디버깅
+		   // 수강신청 목록
 		   log.debug(TeamColor.YHW + "-- removeSign-controller -- "+ removeSign );
 		   
 		   int lectureNo = signCancel.getLectureNo();
 		   int signNo = signCancel.getSignNo();
-//		   return "redirect:/sign/cancelSignList?lectureNo="+lectureNo+"&signNo="+signNo;
-		   return "redirect:/sign/openLectureList?lectureNo="+lectureNo+"&signNo="+signNo;
+		   return "redirect:/sign/openLectureList?lectureNo="+lectureNo+"&signNo="+signNo+"&userId="+userId;
 	   }
-	   
-	   
-	   
-//	   @GetMapping("/sign/cancelSignList")
-//	   // 수강 취소 list 출력
-//	   public String cancelSignList(SignCancel signCancel, Model model) {
-//		   //signCancel.setUserId((String)session.getAttribute("user"));
-//		   signCancel.setUserId("son");
-//		   
-//		   List<Map<String,Object>> cancelSignList = lectureService.selectCancelSignList(signCancel);
-//		   //디버깅
-//		   log.debug(TeamColor.YHW + "-- cancelSignList-controller -- "+ cancelSignList );
-//		   
-//		   // view에 전달
-//		   model.addAttribute("cancelSignList",cancelSignList);
-//		   return "redirect:/sign/openLectureList";
-//	   }
-	   
-	   
-	   
-	   
-  
 }
