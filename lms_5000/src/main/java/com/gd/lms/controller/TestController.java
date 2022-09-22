@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ITestService;
 import com.gd.lms.vo.MultiChoice;
 import com.gd.lms.vo.Question;
+import com.gd.lms.vo.Test;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -75,8 +77,27 @@ public class TestController {
 	@GetMapping("test/addTest")
 	public String directAddTestForm() {
 		
-		
+		//바로 포워딩
 		return "test/addTest";
 	}
+	
+	
+	//시험 추가 메서드
+	@PostMapping("test/addTest")
+	public String addTest(Test test, Question question, MultiChoice multichoice) {
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / test : "+ test );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / question : "+ question );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / multichoice : "+ multichoice );
+		
+		
+
+
+		
+				
+		
+		return "";
+	}
+	
 	
 }

@@ -57,27 +57,81 @@
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
       <h3>시험 문제 만들기</h3>
-<form>
-	<label for="testName">시험 이름</label>
-	<input type="text" name="question" id="testName">
-	<!-- 시험문제 -->
-	<table id="questions">
-		<tr>
-			<td>
-				<label for="question">문제 1</label>
-				<input type="text" id="question">
-			</td>
-		</tr>
-
-
+		<form action="${pageContext.request.contextPath}/test/addTest" method="post">
+			<label for="testName">시험 이름</label>
+			<input type="text" name="testName" id="testName">
+			<label for="testStarttime">시험 시작 시간</label>
+			<input type="datetime-local" name="testStarttime">
+			<label for="testStarttime">시험 마감 시간</label>
+			<input type="datetime-local" name="testEndtime">
+			
+			
+			<!-- 시험문제 -->
+			<table id="questions" border="1">
+				<tr>
+					<td>
+						<label for="questionContents">문제 1</label>
+						<input type="text" name="questionContents" id="questionContents">
+						<label for="questionAnswer">답</label>
+						<input type="number" id="questionAnswers" name="questionAnswers">
+					<table>
+						<tr>
+							<td>
+								<br/>
+									<label for="choiceContent">보기 1</label>
+									<input type="text" name="choiceContents" id="choiceContents">
+					
+								<br/>
+									<label for="choiceContent">보기 2</label>
+									<input type="text" name="choiceContents" id="choiceContents">
+								<br/>
+									<label for="choiceContent">보기 3</label>
+									<input type="text" name="choiceContents" id="choiceContents">
+								<br/>
+									<label for="choiceContent">보기 4</label>
+									<input type="text" name="choiceContents" id="choiceContents">
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="questionContents">문제 2</label>
+						<input type="text" id="questionContents" name="questionContents">
+						<label for="questionAnswer">답</label>
+						<input type="number" id="questionAnswers" name="questionAnswers">
+					<table>
+						<tr>
+							<td>
+								<br/>
+									<label for="choiceContent">보기 1</label>
+									<input type="text" name="choiceContents" id="choiceContents">
+					
+								<br/>
+									<label for="choiceContent">보기 2</label>
+									<input type="text" name="choiceContents" id="choiceContents">
+								<br/>
+									<label for="choiceContent">보기 3</label>
+									<input type="text" name="choiceContents" id="choiceContents">
+								<br/>
+									<label for="choiceContent">보기 4</label>
+									<input type="text" name="choiceContents" id="choiceContents">
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				
+				
+				
+				
+			
+			</table>
+		<button type="submit" >시험 추가</button>
+		</form>
 		
-		
-	
-	</table>
-</form>
-
-<button id="addQBtn">문제 추가</button>
-<button id="removeQBtn">문제 삭제</button>
+		<button type="button"id="addQBtn">문제 추가</button>
 
 
       
@@ -117,14 +171,15 @@
 $(document).ready(function(){
 	$("#addQBtn").on("click", function(){
 
-	var row = '<tr> <td> <input type="text" id=""> <button class="removeQBtn">문제 삭제</button> </td> </tr>';
-
+	var row = '<tr> <td> <label for="questionContents">문제</label> <input type="text" id="questionContents" name="questionContents"> <label for="questionAnswer">답</label> <input type="number" id="questionAnswers" name="questionAnswers"> <table> <tr> <td> <br/> <label for="choiceContent">보기 1</label> <input type="text" name="choiceContents" id="choiceContents">  <br/> <label for="choiceContent">보기 2</label> <input type="text" name="choiceContents" id="choiceContents"> <br/> <label for="choiceContent">보기 3</label> <input type="text" name="choiceContents" id="choiceContents"> <br/> <label for="choiceContent">보기 4</label> <input type="text" name="choiceContents" id="choiceContents"> </td> </tr> </table> <button class="removeQBtn">문제 삭제</button></td> </tr>';
+		
 	$("#questions").append(row);
 
 	$(".removeQBtn").on("click", function(){
 
 		$(this).prev().remove();
 		$(this).next().remove();
+		
 		$(this).remove();
 		return;
 		});//end remove

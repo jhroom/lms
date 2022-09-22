@@ -10,4 +10,10 @@ public class MultiChoice {
 	private int questionNo;			
 	//보기 내용
 	private String choiceContent;	
+	
+	
+	//저장용 배열 객체
+	//문제 지문
+	private String [] choiceContents;		
+
 }
