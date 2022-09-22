@@ -30,5 +30,37 @@
 	
 </update>
 
+<select id="selectWaitUserList" resultType="com.gd.lms.vo.User">
+<!-- 유저 대기 리스트 출력 ( active 값이 N 인 계정들만 )  -->
+	SELECT
+		user_id userId,
+		user_level userLevel,
+		user_name userName,
+		user_email userEmail,
+		user_tel userTel,
+		user_gender userGender,
+		create_date createDate,
+		user_active userActive
+	FROM user
+	WHERE user_active = 'N'
+	ORDER BY create_date DESC;
+</select>
+
+<select id="selectYesUserList" resultType="com.gd.lms.vo.User">
+<!-- 유저 승인 리스트 출력 ( active 값이 Y 인 계정들만 )  -->
+	SELECT
+		user_id userId,
+		user_level userLevel,
+		user_name userName,
+		user_email userEmail,
+		user_tel userTel,
+		user_gender userGender,
+		create_date createDate,
+		user_active userActive
+	FROM user
+	WHERE user_active = 'Y'
+	ORDER BY create_date DESC;
+</select>
+
 
 </mapper>

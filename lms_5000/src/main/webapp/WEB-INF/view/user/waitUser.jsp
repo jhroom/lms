@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,14 +36,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">계정 승인 페이지</h1>
-			<a href="${pageContext.request.contextPath}/user/waitUser">승인 대기 계정</a>
-			<a href="${pageContext.request.contextPath}/user/yesUser">승인 완료 계정</a>
+            <h1 class="m-0 text-dark">승인 대기 계정</h1>
+            	<a href="${pageContext.request.contextPath}/user/userList">계정 승인 페이지</a>
+				<a href="${pageContext.request.contextPath}/user/yesUser">승인 완료 계정</a>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
-              <li class="breadcrumb-item active">계정 승인 페이지</li>
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Starter Page</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -56,9 +55,8 @@
     <!-- 메인 콘텐츠 -->
     <div class="content">
       <div class="container-fluid">
-	<!-- 가입승인 대기페이지 ? level값을 y , n 으로 변경하여 활성화처리 -->
-	<!-- 모든 user 정보를 볼 수 있는 페이지. -->
-	<div>
+      
+		<div>
 		<table border="1">
 			<thead>
 				<tr>
@@ -100,7 +98,7 @@
 					<td>${list.userGender}</td>
 					<td>${list.createDate}</td>
 					<td>
-					<form action="${pageContext.request.contextPath}/user/userList" method="post">
+					<form action="${pageContext.request.contextPath}/user/waitUser" method="post">
 					<!-- Active값이 Y인것은 "승인완료" 출력
 						 Active값이 N인것은 "승인대기" 출력
 					 -->
@@ -124,7 +122,8 @@
 				</tbody>
 			</table>
 	</div>
-</div><!-- /.container-fluid -->
+
+      </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
   </div>
@@ -150,5 +149,7 @@
 
 <!-- 페이지 삽입 - 필수적인 script -->
 <%@include file="../import/script.jsp" %>
+
 </body>
 </html>
+

@@ -12,5 +12,9 @@ public interface IUserListService {
 	//업데이트 Active
 	public int updateUserActive(User user);
 	
-
+	//승인대기 유저 리스트
+	public List<User> selectWaitUserList();
+	
+	//승인완료 유저 리스트
+	public List<User> selectYesUserList();
 }
