@@ -66,7 +66,7 @@
 	</div>
 	<div>
 	
-	<table border="" bordercolor="green">
+	<table border="1" bordercolor="green">
 		<tr>
 			<th>번호</th>
 			<th>제목</th>

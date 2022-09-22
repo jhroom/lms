@@ -122,11 +122,7 @@ public class LmsNoticeService implements ILmsNoticeService {
 		
 		int row = lmsNoticeMapper.updateLmsNotice(lmsNotice);
 		
-
-		
-
-		
-		return lmsNoticeMapper.updateLmsNotice(lmsNotice);
+		return row;
 		
 		
 	}

@@ -100,37 +100,39 @@ public class LmsNoticeController {
 	
 	
 	//공지 수정
-	@GetMapping("/lmsNotice/UpdateLmsNotice")
-	public String updateLmsNotice(Model model, int lmsNoticeNo, String lmsNoticeTitle, String lmsNoticeContent) {
+	@GetMapping("/lmsNotice/UpdateLmsNotice/form")
+	public String updateLmsNotice(int lmsNoticeNo,  Model model) {
 		
 		//lmsNoticeNo의 해당하는 One을 가지고온다.
-		Map<String, Object> updateNotice = lmsNoticeService.getLmsNoticeOne(lmsNoticeNo);
+		Map<String, Object> noticeOne = lmsNoticeService.getLmsNoticeOne(lmsNoticeNo);
 		
-
+		
 		
 		//받아온 값 출력
-		model.addAttribute("updateNotice", updateNotice);
-		
-		
+		model.addAttribute("noticeOne", noticeOne);
 		model.addAttribute("lmsNoticeNo", lmsNoticeNo);
-		model.addAttribute("lmsNoticeTitle", lmsNoticeTitle);
-		model.addAttribute("lmsNoticeContent", lmsNoticeContent);
 		
-		log.debug(TeamColor.SSH+ "받아온 값 :" +updateNotice);
 		
+		//결과 디버깅
+		log.debug(TeamColor.SSH + "넘겨주기 :" +noticeOne);
+		log.debug(TeamColor.SSH + "게시판수정으로 가렴");
 		
 		return "lmsNotice/UpdateLmsNotice";
 	}
 	
  
 	//수정 액숀
-	@GetMapping("/lmsNotice/updateLmsNotice/action")
-	public String updateLmsNotice(LmsNotice lmsNotice, int lmsNoticeNo, String lmsNoticeTitle, String lmsNoticeContent) {
+	@PostMapping("/lmsNotice/updateLmsNotice")
+	public String updateLmsNotice(LmsNotice lmsNotice) throws UnsupportedEncodingException  {
 		
 		//디버깅
-		log.debug(TeamColor.SSH + "넘버 : " + lmsNoticeNo);
-		log.debug(TeamColor.SSH + "제목수정 : " + lmsNoticeTitle);
-		log.debug(TeamColor.SSH + "내용수정 : " + lmsNoticeContent);
+		log.debug(TeamColor.SSH + "번경 값 : " + lmsNotice);
+//		log.debug(TeamColor.SSH + "제목수정 : " + lmsNoticeNo);
+//		log.debug(TeamColor.SSH + "내용수정 : " + lmsNoticeContent);
+		
+	int row = lmsNoticeService.updateLmsNotice(lmsNotice);
+		
+		
 		
 		return "redirect:/lmsNotice/LmsNoticeList";
 		

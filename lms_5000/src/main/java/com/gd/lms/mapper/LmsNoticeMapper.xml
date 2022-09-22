@@ -62,9 +62,9 @@
 	<update id="updateLmsNotice" parameterType="com.gd.lms.vo.LmsNotice">
 		UPDATE lms_notice
 		SET 
-			lms_notice_title=#{lmsNoticeTitle},
-			lms_notice_content=#{lmsNoticeContent},
-			lms_notice_updatetime=now()
+			lms_notice_title = #{lmsNoticeTitle},
+			lms_notice_content = #{lmsNoticeContent},
+			lms_notice_updatetime = now()
 		WHERE lms_notice_no = #{lmsNoticeNo}
 	
 	</update>
