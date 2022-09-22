@@ -37,12 +37,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">시험 과목 선택 페이지</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item active">STUDENT LMS PAGE</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -52,46 +51,60 @@
 
     <!-- Main content -->
     <!-- 메인 콘텐츠 -->
-    <div class="content">
-      <div class="container-fluid">
-	<div>
-		<%-- header 위치 --%>
-		<%-- <c:import url="/WEB-INF/view/inc/........"></c:import> --%>
+    <div class="col-sm-03"></div>
+  	<div>
+		<c:choose>
+			<c:when test="${loginUser != null}">
+				<h3>${loginUser.userName}님 환영합니다.</h3>
+				<br>
+					<button  onclick="window.open('${pageContext.request.contextPath}/sign/openLectureList'
+					, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false">수강신청
+					</button>
+				   <a href="${pageContext.request.contextPath}/sign/openLectureList"></a><br>
+			</c:when>
+		</c:choose>
 	</div>
-	<div class="container">
-		<form action="">
-			<table border="1">
-				<thead>
-					<tr>
-						<th>강좌번호(LectureNo)</th>
-						<th>과목명(SubjectName)</th>
-						<th>학기(Semester)</th>
-						<th>담당 교수(ProfessorName)</th>
-					</tr> 
-				</thead>
-				<tbody>
-					<c:forEach var="t" items="${testLectureList}">
-						<tr>
-							<td>${t.lecture_no}</td>					
-							<td>${t.subject_name}<a href=""></a></td>			
-							<td>${t.semester_no}학기</td>					
-							<td>${t.pro_name} 교수</td>					
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</form>
-		
-	<div>
-		<%-- footer 위치 --%>
-		<%-- <c:import url="/WEB-INF/view/inc/........"></c:import> --%>
+    <div class="content">
+    <div class="container-fluid">
+    <div class="col-sm-5">
+	<div class="card card-primary card-outline">
+         <div class="card-body">
+           <h1 class="card-title"><Strong>강의정보</Strong></h1><br>
+           <table border="1">
+           	 <thead>
+	           	 <tr>
+	           	 	<th>강의명(SubjectName)</th>
+	           	 	<th>수업요일(LectureDay)</th>
+	           	 	<th>강의실(classroomNo)</th>
+	           	 	<th>교수이름(ProfessorName)</th>
+	           	 </tr>
+           	 </thead>
+           	 <tbody>
+           	 	 <c:forEach var="a" items="${signList}">
+	           	 	 <tr>
+						<td>
+							<a href="${pageContext.request.contextPath}/stdashboard/lectureDashBoard">${a.subject_name}</a>
+						</td>     	 	 
+						<td>${a.lecture_day}요일</td>           	 	 
+						<td>${a.classroom_no} 강의실</td>           	 	 
+						<td>${a.professor_name} 교수</td>           	 	 
+	           	 	 </tr>
+           	 	 </c:forEach>
+           	 </tbody>
+		   </table>
+           <a href="#" class="card-link">Card link</a>
+           <a href="#" class="card-link">Another link</a>
+        </div>
+    </div><!-- /.card -->
+	</div>
+	<div class="col-sm-2"></div>
+	<div class="col-sm-5">
 	</div>
 	</div>
         <!-- /.row -->
-      </div><!-- /.container-fluid -->
+    </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
-  </div>
   </div>
   <!-- /.content-wrapper -->
 

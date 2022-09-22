@@ -51,50 +51,31 @@
 
     <!-- Main content -->
     <!-- 메인 콘텐츠 -->
+    <div class="col-sm-03"></div>
   	<div>
 		<c:choose>
 			<c:when test="${loginUser != null}">
 				<h3>${loginUser.userName}님 환영합니다.</h3>
-				<br>
-					<button  onclick="window.open('${pageContext.request.contextPath}/user/messageList'
-					, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false">메세지
-					</button>
-				   <a href="${pageContext.request.contextPath}/sign/openLectureList">수강신청 페이지</a><br>
-				<p><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></p>
 			</c:when>
 			<c:otherwise>
-				<a href="${pageContext.request.contextPath}/user/logout">로그인하러가기</a>
+				   <a href="${pageContext.request.contextPath}/index/login"></a>
 			</c:otherwise>
 		</c:choose>
 	</div>
     <div class="content">
-      <div class="container-fluid">
-	<div>
-		<%-- header 위치 --%>
-		<%-- <c:import url="/WEB-INF/view/inc/........"></c:import> --%>
-	</div>
-	<div class="container">
+    <div class="container-fluid">
+    <div class="col-sm-5">
 	<div class="card card-primary card-outline">
          <div class="card-body">
-           <h1 class="card-title"><Strong>강의 목록</Strong></h1><br>
+           <h1 class="card-title"><Strong>게시판</Strong></h1><br>
            <table border="1">
            	 <thead>
-	           	 <tr>
-	           	 	<th>강의 번호(LectuerNo)</th>
-	           	 	<th>강의명(SubjectNo)</th>
-	           	 	<th>수업요일(LecureDay)</th>
-	           	 	<th>강의실(classroomNo)</th>
-	           	 	<th>교수이름(ProfessorName)</th>
-	           	 </tr>
+	          
            	 </thead>
            	 <tbody>
-           	 	 <tr>
-					<td></td>           	 	 
-					<td></td>           	 	 
-					<td></td>           	 	 
-					<td></td>           	 	 
-					<td></td>           	 	 
-           	 	 </tr>
+           	 	 <c:forEach var="" items="">
+	           	 	
+           	 	 </c:forEach>
            	 </tbody>
 		   </table>
            <a href="#" class="card-link">Card link</a>
@@ -102,48 +83,98 @@
         </div>
     </div><!-- /.card -->
 	</div>
-	<br>
-	<div class = "container">
-		  <div class="card card-primary card-outline">
-              <div class="card-body">
-                <h1 class="card-title"><Strong>수강신청 과목</Strong></h1><br>
-                <table border="1">
-					
-					
-					
-					
-					
-				</table>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div><!-- /.card -->
-		
-	 </div>
-	 <br>
-	 <div class = "container">
-		  <div class="card card-primary card-outline">
-              <div class="card-body">
-               <h1 class="card-title"><Strong>수강 취소 내역</Strong></h1><br>
-               <table border="1">
-				
-				
-				
-				
-				
-				</table>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div><!-- /.card -->
+	
+	
+	<div class="col-sm-2"></div>
+	
+	
+	<div class="col-sm-5">
+	<div class="card card-primary card-outline">
+         <div class="card-body">
+           <h1 class="card-title"><Strong>과제재출</Strong></h1><br>
+           <table border="1">
+           	 <thead>
+	          
+           	 </thead>
+           	 <tbody>
+           	 	 <c:forEach var="" items="">
+	           	 	
+           	 	 </c:forEach>
+           	 </tbody>
+		   </table>
+           <a href="#" class="card-link">Card link</a>
+           <a href="#" class="card-link">Another link</a>
+        </div>
+    </div><!-- /.card -->
 	</div>
-	<div>
-		<%-- footer 위치 --%>
-		<%-- <c:import url="/WEB-INF/view/inc/........"></c:import> --%>
+	
+	<br><br>
+	
+	<div class="container-fluid">
+    <div class="col-sm-5">
+	<div class="card card-primary card-outline">
+         <div class="card-body">
+           <h1 class="card-title"><Strong>시험</Strong></h1><br>
+           <table border="1">
+           	 <thead>
+	          
+           	 </thead>
+           	 <tbody>
+           	 	 <c:forEach var="" items="">
+	           	 	
+           	 	 </c:forEach>
+           	 </tbody>
+		   </table>
+           <a href="#" class="card-link">Card link</a>
+           <a href="#" class="card-link">Another link</a>
+        </div>
+    </div><!-- /.card -->
 	</div>
+	
+	<div class="col-sm-2"></div>
+	
+	<div class="col-sm-5">
+	<div class="card card-primary card-outline">
+         <div class="card-body">
+           <h1 class="card-title"><Strong>성적확인</Strong></h1><br>
+           <table border="1">
+           	 <thead>
+	          
+           	 </thead>
+           	 <tbody>
+           	 	 <c:forEach var="" items="">
+	           	 	
+           	 	 </c:forEach>
+           	 </tbody>
+		   </table>
+           <a href="#" class="card-link">Card link</a>
+           <a href="#" class="card-link">Another link</a>
+        </div>
+    </div><!-- /.card -->
+	</div>
+	
+	<br><br>
+	
+	<div class="card card-primary card-outline">
+         <div class="card-body">
+           <h1 class="card-title"><Strong>출결현황</Strong></h1><br>
+           <table border="1">
+           	 <thead>
+	          
+           	 </thead>
+           	 <tbody>
+           	 	 <c:forEach var="" items="">
+	           	 	
+           	 	 </c:forEach>
+           	 </tbody>
+		   </table>
+           <a href="#" class="card-link">Card link</a>
+           <a href="#" class="card-link">Another link</a>
+        </div>
+    </div><!-- /.card -->
 	</div>
         <!-- /.row -->
-      </div><!-- /.container-fluid -->
+    </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
   </div>

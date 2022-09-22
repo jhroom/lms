@@ -27,7 +27,17 @@
 <%@include file="../import/sidebar.jsp" %>
 
 
-
+  <c:choose>
+			<c:when test="${loginUser != null}">
+				<p>${loginUser.userName}님 환영합니다.</p>
+				<c:if test="${loginUser.userLevel eq 3}">
+				<a href="${pageContext.request.contextPath}/index">권한제한</a>
+				</c:if>
+			</c:when>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/index/login">로그인하러가기</a>
+			</c:otherwise>
+		</c:choose>
   <!-- Content Wrapper. Contains page content -->
   <!-- 메인 컨텐츠 래퍼 -->
   <div class="content-wrapper">
@@ -53,11 +63,7 @@
     <!-- Main content -->
     <!-- 메인 콘텐츠 -->
     <div class="content">
-      <div class="container-fluid">
-	<div>
-		<%-- header 위치 --%>
-		<%-- <c:import url="/WEB-INF/view/inc/........"></c:import> --%>
-	</div>
+    <div class="container-fluid">
 	<div class="container">
 	<div class="card card-primary card-outline">
          <div class="card-body">
@@ -191,10 +197,6 @@
                 <a href="#" class="card-link">Another link</a>
               </div>
             </div><!-- /.card -->
-	</div>
-	<div>
-		<%-- footer 위치 --%>
-		<%-- <c:import url="/WEB-INF/view/inc/........"></c:import> --%>
 	</div>
 	</div>
         <!-- /.row -->

@@ -34,7 +34,7 @@ public class LectureController {
 //		  return "redirect:/lms/index";
 //	  }
 	 
-		
+	  	
 	  // 개설강좌 목록 불러오기
 	  List<Map<String,Object>> lectureList = lectureService.selectLectureListForSign();
 	  // 개설강좌 목록 확인
