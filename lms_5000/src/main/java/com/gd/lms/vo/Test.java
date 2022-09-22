@@ -13,9 +13,9 @@ public class Test {
 	// 시험 종료 시간
 	private String testEndtime;
 	// 등록날자
-	private String testCreatetime;
+	private String testCreatedate;
 	// 수정 날자
-	private String testUpdatetime;
+	private String testUpdatedate;
 	// 강좌 번호
 	private int lectureNo;
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.lms.mapper.TestMapper">
+	<select id="selectTestLecture" resultType="map">
+		SELECT
+			l.lecture_no,
+			l.semester_no,
+			p.pro_name,
+			s.subject_name
+		FROM lecture l INNER JOIN subject s ON l.subject_no = s.subject_no
+		INNER JOIN professor p ON p.user_id = l.user_id
+		ORDER BY l.subject_no
+	</select>
+	
+	<!-- 강좌별 시험리스트 생성 쿼리 -->
+	<select id="selectTestList" resultType="com.gd.lms.vo.Test">
+		select 
+			test_no testNo
+			,test_name testName
+			, test_starttime testStarttime
+			, test_endtime testEndtime
+			, test_createdate testCreatedate
+			, test_updatedate testUpdatedate
+			, lecture_no lectureNo
+		from test
+		where lecture_no = #{lectureNo}
+		
+	</select>	
+	
+	<!-- 시험별 문제 리스트 생성 쿼리 -->
+	<select id="selectTestQuestion" resultType="com.gd.lms.vo.Question">
+		SELECT 
+			question_no questionNo
+			, question_content questionContent
+			, question_answer questionAnswer
+			, test_no testNo
+		FROM question
+		WHERE test_no = #{testNo}
+		ORDER BY question_no
+	</select>
+	
+	<!-- 시험별 보기 리스트 생성 쿼리 -->
+	<select id="selectTestChoice" resultType="com.gd.lms.vo.MultiChoice">
+		SELECT
+		choice_no choiceNo
+		, question_no questionNo
+		, choice_content choiceContent
+		from multi_choice
+		WHERE question_no IN (
+			SELECT question_no
+			FROM question q
+			WHERE test_no = 1
+			ORDER BY q.question_no
+			)
+		order by question_no, choice_no
+	</select>
+</mapper>

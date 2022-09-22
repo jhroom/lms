@@ -11,6 +11,5 @@ public class Question {
 	//문제 정답
 	private int questionAnswer;			
 	//시험 번호
-
 	private int testNo;				
 }
