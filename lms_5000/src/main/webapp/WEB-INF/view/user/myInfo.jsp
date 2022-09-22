@@ -159,6 +159,14 @@
 		<div>생성 날짜</div>
 		<div>${userInfo.createDate}</div>
 		<hr>
+		
+		<div>정보 수정 날짜</div>
+		<div>${userInfo.updateDate}</div>
+		<hr>
+		
+		<div>마지막 로그인 날짜</div>
+		<div>${userInfo.lastloginDate}</div>
+		<hr>
 	</div>
     </div><!-- /.container-fluid -->
     </div>

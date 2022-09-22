@@ -21,13 +21,14 @@ public class UserLoginService implements IUserLoginService {
 
 	@Autowired UserLoginMapper userLoginMapper;
 	
+	// 로그인시 입력한 id,pw 정보로 계정 유무 조회
 	@Override
 	public User getUserLogin(User user) {
 		User temp = userLoginMapper.selectUserLogin(user);
 		
 		return temp;
 	}
-
+	//운영자 회원가입
 	@Override
 	public boolean addAdmin(User user, int positionNo) {
 		boolean result = false;
@@ -49,7 +50,7 @@ public class UserLoginService implements IUserLoginService {
 		}
 		return result;
 	}
-
+	//회원가입시 Id 중복검사
 	@Override
 	public boolean getUserIdCheck(String userId) {
 		boolean result = false;
@@ -60,7 +61,7 @@ public class UserLoginService implements IUserLoginService {
 		}
 		return result;
 	}
-	
+	//학생 or 교수 회원가입
 	@Override
 	public boolean addStudentOrPro(User user, int majorNo) {
 		boolean result = false;
@@ -109,5 +110,12 @@ public class UserLoginService implements IUserLoginService {
 		
 		return result;
 	}
+	//로그인시 마지막 로그인날짜 업데이트
+	@Override
+	public void modifyUserLastLogin(String userId) {
+		int row = userLoginMapper.updateUserLastLogin(userId);
+		log.debug(TeamColor.AJH + "마지막 로그인 업데이트 결과 : " + row);
+	}
+	
 
 }

@@ -13,6 +13,7 @@
 			user_tel userTel,
 			user_gender userGender,
 			create_date createDate,
+			update_date updateDate,
 			lastlogin_date lastloginDate
 		FROM user
 		WHERE user_id = #{userId}
@@ -82,7 +83,7 @@
 	<!-- 유저 비밀번호 변경 -->
 	<update id="modifyUserPw" parameterType="com.gd.lms.vo.User">
 		Update user
-		Set user_pw =  password( #{userPw} )
+		Set user_pw =  password(#{userPw}), update_date = Now()
 		Where user_id = #{userId}
 	</update>
 	
