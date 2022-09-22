@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.lms.mapper.MajorMapper">
+<!-- 학과 리스트 -->
+	<select id="selectMajorList" resultType="com.gd.lms.vo.Major">
+	select
+		m.major_no majorNo,
+		m.major_name majorName,
+		m.major_createdate majorCreatedate,
+		u.user_id userId
+	from major	m
+	left outer join user u
+	on m.user_id = u.user_id
+	<!-- 보수 필요 예정 -->	
+	</select>
+	
+<!-- 학과 추가 -->
+	<insert id="addMajor" parameterType="com.gd.lms.vo.Major">
+		INSERT INTO major(
+			major_no,
+			major_name,
+			major_createdate,
+			user_id
+		) VALUES (
+			#{majorNo},
+			#{majorTitle},
+			now(),
+			#{userId}
+		)
+	
+	
+	
+	</insert>
+
+
+</mapper>
