@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.gd.lms.vo.MultiChoice;
 import com.gd.lms.vo.Question;
+import com.gd.lms.vo.Test;
 
 public interface ITestService {
 	// 시험과목 리스트 
@@ -17,7 +18,10 @@ public interface ITestService {
 	List<Question> getTestQuestionList(int testNo);
 	
 	//시험 별 문제 보기 리스트 생성 기능
-	List<MultiChoice> getTestChoiceList();
+	List<MultiChoice> getTestChoiceList(int testNo);
+	
+	//시험 추가 기능
+	int addTest(Test test, Question question, MultiChoice multichoice);
 	
 	
 	

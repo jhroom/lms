@@ -1,5 +1,6 @@
 package com.gd.lms.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.TestMapper;
 import com.gd.lms.vo.MultiChoice;
 import com.gd.lms.vo.Question;
+import com.gd.lms.vo.Test;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,13 +54,111 @@ public class TestService implements ITestService {
 		return list;
 	}
 
+	//시험별 보기 리스트 생성 메서드
 	@Override
-	public List<MultiChoice> getTestChoiceList() {
+	public List<MultiChoice> getTestChoiceList(int testNo) {
+		
 		//리턴 값 세팅
-		List<MultiChoice> list = testMapper.selectTestChoice();
+		List<MultiChoice> list = testMapper.selectTestChoice(testNo);
 				
 		//리턴
 		return list;
+	}
+
+	//시험 추가 메서드
+	@Override
+	public int addTest(Test test, Question question, MultiChoice multichoice) {
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 test : "+ test );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 question : "+ question );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 multichoice : "+ multichoice );
+		
+		//배열값 추출
+		String [] questionContents = question.getQuestionContents();
+		int [] questionAnswers = question.getQuestionAnswers();
+		String [] choiceContents = multichoice.getChoiceContents();
+		
+		//반복문을 위한 배열 생성
+		int [] arr = new int [questionAnswers.length];
+		
+		//배열값 세팅
+		for(int i = 0 ; i<questionAnswers.length;i++) {
+			arr[i] = i;
+		}
+		
+		
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "배열 값 확인 리스트 questionContents : "+ Arrays.toString(questionContents) );
+		log.debug(TeamColor.KHJ + "배열 값 확인 리스트 questionAnswers : "+ Arrays.toString(questionAnswers) );
+		log.debug(TeamColor.KHJ + "배열 값 확인 리스트 choiceContents : "+ Arrays.toString(choiceContents));
+		log.debug(TeamColor.KHJ + "배열 값 확인 리스트 arr : "+ Arrays.toString(arr) );
+				
+		
+		
+		
+		//시험 추가
+		int row = testMapper.insertTest(test);
+		
+		//디버깅
+		log.debug(TeamColor.KHJ + "시험 쿼리 실행 값 확인 row  : "+ row );
+		
+		//시험 번호 변수 설정
+		int testNo = test.getTestNo();
+		
+
+		
+		for(int a : arr) {
+			
+			//시험 문제 객체 세팅
+			Question temp = new Question();
+			temp.setQuestionContent(questionContents[a]);
+			temp.setQuestionAnswer(questionAnswers[a]);
+			temp.setTestNo(testNo);
+			
+			//시험문제 쿼리 실행
+			int row2 = testMapper.insertTestQuestion(temp);
+			
+			//디버깅
+			log.debug(TeamColor.KHJ + "시험 문제 쿼리 실행 값 확인 row2  : "+ row2 );
+			
+			
+			//문제 번호 변수 설정
+			int qustionNo = temp.getQuestionNo();
+			
+			//for문 실행을 위한 시작 변수 설정
+			int startInt = a * 4;
+			
+			//문제 번호 입력을 위한 변수
+			int cn = 1;
+			
+			
+			//문제 입력
+			for(int i = startInt;i<startInt+4;i++) {
+				
+				
+				//객체 설정
+				MultiChoice temp2 = new MultiChoice();
+				temp2.setChoiceContent(choiceContents[i]);
+				temp2.setQuestionNo(qustionNo);
+				temp2.setChoiceNo(cn);
+				
+				//문제 보기 입력 입력
+				int row3 = testMapper.insertTestChoice(temp2);
+				
+				//디버깅
+				log.debug(TeamColor.KHJ + "시험 쿼리 실행 값 확인 row3  : "+ row3 );
+				
+				//보기 번호 추가
+				cn++;
+
+			}
+			
+		}
+		
+		
+		
+		
+		return 0;
 	}
 
 }

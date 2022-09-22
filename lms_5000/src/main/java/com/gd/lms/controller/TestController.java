@@ -3,6 +3,8 @@ package com.gd.lms.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import com.gd.lms.service.ITestService;
 import com.gd.lms.vo.MultiChoice;
 import com.gd.lms.vo.Question;
 import com.gd.lms.vo.Test;
+import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,6 +50,7 @@ public class TestController {
 		
 		//값 넘겨주기
 		model.addAttribute("testList",list);
+		model.addAttribute("lectureNo", lectureNo);
 		
 		
 		//리턴
@@ -63,7 +67,7 @@ public class TestController {
 		
 		//넘겨줄 값 세팅
 		List<Question>  list = testService.getTestQuestionList(testNo);
-		List<MultiChoice>  list2 = testService.getTestChoiceList();
+		List<MultiChoice>  list2 = testService.getTestChoiceList(testNo);
 		
 		//값 넘겨주기
 		model.addAttribute("questionList",list);
@@ -75,8 +79,10 @@ public class TestController {
 	
 	//시험 생성
 	@GetMapping("test/addTest")
-	public String directAddTestForm() {
+	public String directAddTestForm(int lectureNo, Model model) {
 		
+		
+		model.addAttribute("lectureNo", lectureNo);
 		//바로 포워딩
 		return "test/addTest";
 	}
@@ -90,14 +96,32 @@ public class TestController {
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / question : "+ question );
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / multichoice : "+ multichoice );
 		
-		
+		int row = testService.addTest(test, question, multichoice);
 
-
-		
+		//결과 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 값 확인 / row : "+ row );
 				
 		
-		return "";
+		return "test/board?lectureNo=" + test.getLectureNo();
 	}
+	
+	//시험 응시 확인
+	@GetMapping ("test/enter")
+	public String testEnter(HttpSession session, int testNo) {
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / testNo : "+ testNo );
+		
+		//세션 아이디 받아오기
+		String id = ((User)session.getAttribute("loginUser")).getUserId();
+				
+		
+		//응시여부 확인
+		
+		
+		
+		return "redirect:/test/page";
+	}
+	
 	
 	
 }

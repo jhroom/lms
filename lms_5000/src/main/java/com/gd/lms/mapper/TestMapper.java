@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.MultiChoice;
 import com.gd.lms.vo.Question;
+import com.gd.lms.vo.Test;
 
 @Mapper
 public interface TestMapper {
@@ -21,6 +22,15 @@ public interface TestMapper {
 	List<Question> selectTestQuestion(int testNo);
 	
 	//시험 문제 보기 리스트 생성 쿼리
-	List<MultiChoice> selectTestChoice();
+	List<MultiChoice> selectTestChoice(int testNo);
+	
+	//시험 추가 쿼리
+	int insertTest(Test test);
+	
+	//시험 문제 추가 쿼리
+	int insertTestQuestion(Question question);
+	
+	//시험 보기 추가 쿼리
+	int insertTestChoice(MultiChoice multichoice);
 		
 }

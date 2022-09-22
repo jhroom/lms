@@ -58,6 +58,7 @@
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
       <h3>시험 문제 만들기</h3>
 		<form action="${pageContext.request.contextPath}/test/addTest" method="post">
+		<input type="hidden" name="lectureNo" value="${lectureNo}">
 			<label for="testName">시험 이름</label>
 			<input type="text" name="testName" id="testName">
 			<label for="testStarttime">시험 시작 시간</label>
@@ -70,7 +71,7 @@
 			<table id="questions" border="1">
 				<tr>
 					<td>
-						<label for="questionContents">문제 1</label>
+						<label for="questionContents">문제</label>
 						<input type="text" name="questionContents" id="questionContents">
 						<label for="questionAnswer">답</label>
 						<input type="number" id="questionAnswers" name="questionAnswers">
@@ -95,35 +96,7 @@
 						</table>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<label for="questionContents">문제 2</label>
-						<input type="text" id="questionContents" name="questionContents">
-						<label for="questionAnswer">답</label>
-						<input type="number" id="questionAnswers" name="questionAnswers">
-					<table>
-						<tr>
-							<td>
-								<br/>
-									<label for="choiceContent">보기 1</label>
-									<input type="text" name="choiceContents" id="choiceContents">
-					
-								<br/>
-									<label for="choiceContent">보기 2</label>
-									<input type="text" name="choiceContents" id="choiceContents">
-								<br/>
-									<label for="choiceContent">보기 3</label>
-									<input type="text" name="choiceContents" id="choiceContents">
-								<br/>
-									<label for="choiceContent">보기 4</label>
-									<input type="text" name="choiceContents" id="choiceContents">
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				
-				
+				<!-- 시험문제 끝 -->
 				
 				
 			
@@ -178,7 +151,12 @@ $(document).ready(function(){
 	$(".removeQBtn").on("click", function(){
 
 		$(this).prev().remove();
+		$(this).prev().remove();
+		$(this).prev().remove();
+		$(this).prev().remove();
+		$(this).prev().remove();
 		$(this).next().remove();
+
 		
 		$(this).remove();
 		return;

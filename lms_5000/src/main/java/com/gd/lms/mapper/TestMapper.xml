@@ -49,9 +49,59 @@
 		WHERE question_no IN (
 			SELECT question_no
 			FROM question q
-			WHERE test_no = 1
+			WHERE test_no = #{testNo}
 			ORDER BY q.question_no
 			)
 		order by question_no, choice_no
 	</select>
+	
+	<!-- 시험 데이터 삽입 쿼리 -->
+	<insert id="insertTest" parameterType="com.gd.lms.vo.Test" useGeneratedKeys="true" keyProperty="testNo">
+	insert 
+		into test (
+			test_name
+			, test_starttime
+			, test_endtime
+			, test_createdate
+			, test_updatedate
+			, lecture_no
+		) values (
+			#{testName}
+			, #{testStarttime}
+			, #{testEndtime}
+			, now()
+			, now()
+			, #{lectureNo}
+		
+		)
+	</insert>
+	
+	<!-- 시험 문제 데이터 삽입 쿼리 -->
+	<insert id="insertTestQuestion" parameterType="com.gd.lms.vo.Question" useGeneratedKeys="true" keyProperty="questionNo">
+	insert 
+		into question (
+			question_content
+			, question_answer
+			, test_no
+		) values (
+			#{questionContent}
+			, #{questionAnswer}
+			, #{testNo}		
+		)
+	</insert>
+	
+	<!-- 시험 문제 보기 데이터 삽입 쿼리 -->
+	<insert id="insertTestChoice" parameterType="com.gd.lms.vo.MultiChoice">
+	insert 
+		into multi_choice (
+			choice_no 
+			, question_no
+			, choice_content
+		) values (
+			#{choiceNo}
+			, #{questionNo}
+			, #{choiceContent}
+		)
+	</insert>
+	
 </mapper>
