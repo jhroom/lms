@@ -13,7 +13,7 @@
 	from lms_notice	
 	</select>
 <!-- 공지 추가 -->
-	<insert id="LmsAddNotice" parameterType="com.gd.lms.vo.LmsNotice">
+	<insert id="LmsAddNotice" parameterType="com.gd.lms.vo.LmsNotice" useGeneratedKeys="true" keyProperty="lmsNoticeNo">
 		INSERT INTO lms_notice(
 			lms_notice_no,
 			lms_notice_title,
@@ -32,6 +32,23 @@
 			0	
 		)
 	</insert> 
+	
+	<!-- 게시글 파일 추가 -->
+	<insert id="insertLmsNoticeFile" parameterType="com.gd.lms.vo.LmsFile">
+		INSERT INTO lms_file(
+				file_name,
+				file_originname,
+				file_type,
+				create_date,
+				lms_notice_no
+			) VALUES (
+				#{fileName},
+				#{fileOriginname},
+				#{fileType},
+				now(),
+				#{lmsNoticeNo}
+			)
+	</insert>
 	
 	<!-- 공지 삭제 -->
 	<delete id="deleteLmsNotice" parameterType="int">
@@ -62,7 +79,7 @@
 			n.lms_notice_createtime lmsNoticeCreatetime,
 			n.lms_notice_updatetime lmsNoticeUpdatetime,
 			n.count count,
-			f.file_originame fileOriginname,
+			f.file_originname fileOriginname,
 			f.file_name fileName
 		FROM lms_notice n
 		left outer join lms_file f

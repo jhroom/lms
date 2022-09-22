@@ -22,7 +22,7 @@
 				<tr>
 					<th>작성자</th>
 					<td>
-						<input type="text" name="lmsNoticeName" value="${updateNotice.lmsNoticeName}" readonly="readonly">
+						${updateNotice.lmsNoticeName}
 					</td>
 				</tr>
 				<tr>
@@ -34,13 +34,13 @@
 				<tr>
 					<th>작성일</th>
 					<td>
-						<input type="text" name="lmsNoticeCreatetime" value="${updateNotice.lmsNoticeCreatetime}" readonly="readonly" >
+						${updateNotice.lmsNoticeCreatetime}
 					</td>
 				</tr>
 				<tr>
 					<th>수정일</th>
 					<td>
-						<input type="text" name="lmsNoticeUpdatetime" value="${updateNotice.lmsNoticeUpdatetime}"  readonly="readonly">
+						${updateNotice.lmsNoticeUpdatetime}
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +49,7 @@
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td></td>
+					<td>${updateNotice.fileOriginname}</td>
 				</tr>
 					
 			</tbody>

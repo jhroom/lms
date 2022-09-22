@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <h1>LMS 공지사항 작성</h1>
-    <form action="${pageContext.request.contextPath}/lmsNotice/LmsNoticeAddBoard//add" method="get" enctype="multipart/form-data">
+    <form action="${pageContext.request.contextPath}/lmsNotice/LmsNoticeAddBoard//add" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="boardNo" id="boardNo" value="${lmsNoticeNo}">
 		<table border="1" bordercolor="green">
 			
@@ -31,13 +31,13 @@
 				</tr>		
 				<tr>
 					<th>파일</th>
-					<td><input type="file" name="noticeFile" id="noticeFile"></td>
+					<td><input type="file" name="lmsFile" id="lmsFile"></td>
 					
 				</tr>		
 			</tbody>
 		</table>
 		<button type="submit">작성하기</button>
-		<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/LmsNoticeList'">글목록</button>
+	<!--  	<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/LmsNoticeList'">글목록</button>-->
 		
 	</form>
 </div>

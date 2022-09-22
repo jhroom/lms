@@ -38,7 +38,9 @@
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td></td>
+					<td>
+						<a href="${pageContext.request.contextPath}/lmsNotice/downloadFile?fileName=${noticeOne.fileName}&lmsNoticeNo=${noticeOne.lmsNoticeNo}">${noticeOne.fileOriginname}</a>
+					</td>
 				</tr>
 					
 			</tbody>

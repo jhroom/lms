@@ -1,12 +1,18 @@
 package com.gd.lms.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILmsNoticeService;
@@ -40,12 +46,21 @@ public class LmsNoticeController {
 		
 	}
 	
+	
+	
+	
 	//공지 추가 액션
-	@GetMapping("/lmsNotice/LmsNoticeAddBoard//add")
-	public String LmsNoticeAddboard(LmsNotice lmsNotice) {
+	@PostMapping("/lmsNotice/LmsNoticeAddBoard//add")
+	public String LmsNoticeAddboard(LmsNotice lmsNotice, MultipartFile[] lmsFile, HttpServletRequest request) throws UnsupportedEncodingException {
+		
+		//디버깅
+		log.debug(TeamColor.SSH + "공지작성 : " + lmsNotice);
+		log.debug(TeamColor.SSH + "파일확인 : " + lmsFile);
 		
 		
-		lmsNoticeService.LmsAddNotice(lmsNotice);
+		
+		
+		lmsNoticeService.LmsAddNotice(lmsNotice, lmsFile, request);
 			
 		return "redirect:/lmsNotice/LmsNoticeList";
 		
@@ -91,15 +106,15 @@ public class LmsNoticeController {
 		//lmsNoticeNo의 해당하는 One을 가지고온다.
 		Map<String, Object> updateNotice = lmsNoticeService.getLmsNoticeOne(lmsNoticeNo);
 		
-		//Map<String, Object> lmsNotice = lmsNoticeService.getLmsNoticeOne(lmsNoticeNo);
+
 		
 		//받아온 값 출력
 		model.addAttribute("updateNotice", updateNotice);
 		
 		
-//		model.addAttribute("lmsNoticeNo", lmsNoticeNo);
-//		model.addAttribute("lmsNoticeTitle", lmsNoticeTitle);
-//		model.addAttribute("lmsNoticeContent", lmsNoticeContent);
+		model.addAttribute("lmsNoticeNo", lmsNoticeNo);
+		model.addAttribute("lmsNoticeTitle", lmsNoticeTitle);
+		model.addAttribute("lmsNoticeContent", lmsNoticeContent);
 		
 		log.debug(TeamColor.SSH+ "받아온 값 :" +updateNotice);
 		
@@ -110,13 +125,35 @@ public class LmsNoticeController {
  
 	//수정 액숀
 	@GetMapping("/lmsNotice/updateLmsNotice/action")
-	public String updateLmsNotice(LmsNotice lmsNotice, int lmsNoticeNo, String lmsnoticeTitle, String lmsNoticeContent) {
+	public String updateLmsNotice(LmsNotice lmsNotice, int lmsNoticeNo, String lmsNoticeTitle, String lmsNoticeContent) {
 		
-		//lmsNoticeService.updateLmsNotice(lmsNotice);
+		//디버깅
+		log.debug(TeamColor.SSH + "넘버 : " + lmsNoticeNo);
+		log.debug(TeamColor.SSH + "제목수정 : " + lmsNoticeTitle);
+		log.debug(TeamColor.SSH + "내용수정 : " + lmsNoticeContent);
 		
 		return "redirect:/lmsNotice/LmsNoticeList";
 		
 		
 	}
+	
+	//파일 다운로드
+	@GetMapping("lmsNotice/downloadFile")
+	public ResponseEntity<Object> downloadFile(String fileName, int lmsNoticeNo, HttpServletRequest request) throws UnsupportedEncodingException{
+		
+		//파일 경로
+		String realPath = request.getSession().getServletContext().getRealPath("/lmsFile/file") + "\\"+ fileName;
+		
+		//디버깅
+		log.debug(TeamColor.SSH+ "값 확인 / realPath: " + realPath);
+		
+		//리턴값 세팅
+		ResponseEntity<Object> returnVal = lmsNoticeService.douwnloadFile(fileName, realPath);
+		
+		//디버깅
+		log.debug(TeamColor.SSH + "값 확인 / returnVal: " + returnVal);
+		
+		return returnVal;
+	
 }
-
+}
