@@ -4,10 +4,52 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Insert title here</title>
+<!-- 페이지 삽입 - 필수적인 레퍼런스(css, font) -->
+<%@include file="../view/import/reference.jsp" %>
 </head>
-<body>
-	<div>
+<body class="hold-transition sidebar-mini">
+
+<!-- 전체 페이지 래퍼 -->
+<div class="wrapper">
+
+
+<!-- 페이지 삽입 - nav bar -->
+<%@include file="../view/import/nav.jsp" %>
+
+<!-- 페이지 삽입 - side bar -->
+<%@include file="../view/import/sidebar.jsp" %>
+
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <!-- 메인 컨텐츠 래퍼 -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- 메인페이지 헤더(제목 등) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Starter Page</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Starter Page</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <!-- 메인 콘텐츠 -->
+    <div class="content">
+      <div class="container-fluid">
 		<h3>메인페이지</h3>
 		<c:choose>
 			<c:when test="${loginUser != null}">
@@ -35,5 +77,32 @@
 		
 		
 	</div>
+     </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <!-- 좌측 사이드 바 -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+    <div class="p-3">
+      <h5>Title</h5>
+      <p>Sidebar content</p>
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  
+  
+<!-- 페이지 삽입 - footer -->
+<%@include file="../view/import/footer.jsp" %>
+
+
+<!-- ./wrapper -->
+
+<!-- 페이지 삽입 - 필수적인 script -->
+<%@include file="../view/import/script.jsp" %>
+
 </body>
 </html>
