@@ -11,5 +11,7 @@ public interface IUserLoginService {
 	boolean getUserIdCheck(String userId);
 	
 	boolean addStudentOrPro(User user, int majorNo);
+	
+	void modifyUserLastLogin(String userId);
 
 }

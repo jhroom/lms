@@ -3,6 +3,7 @@ package com.gd.lms.controller;
 
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.lms.commons.TeamColor;
-import com.gd.lms.service.UserLoginService;
+import com.gd.lms.service.IUserLoginService;
 import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class UserController {
 	
-	@Autowired UserLoginService userLoginService;
+	@Autowired IUserLoginService userLoginService;
 	
 	//메인페이지
 	@GetMapping("/index")
@@ -59,6 +60,8 @@ public class UserController {
 			model.addAttribute("errMsg","승인 대기 상태입니다");
 			return "user/login";
 		}
+		//마지막 로그인 날짜 업데이트
+		userLoginService.modifyUserLastLogin(user.getUserId());
 		
 		// user 정보가 일치하고 계정 활성화(Y)인 계정에 세션부여
 		session.setAttribute("loginUser", loginUser);

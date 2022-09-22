@@ -21,6 +21,16 @@
 		WHERE user_id = #{userId} AND user_pw = password(#{userPw})
 	</select>
 	
+	<!-- 로그인시 마지막 로그인날짜 업데이트 -->
+	<update id="updateUserLastLogin" parameterType="string">
+		Update
+			user
+		Set
+			lastlogin_date = Now()
+		Where
+			user_id = #{userId}
+	</update>
+	
 	<!-- 회원가입시 들어가는 정보 쿼리 -->
 	<insert id="insertUser" parameterType="com.gd.lms.vo.User">
 		INSERT INTO user (
