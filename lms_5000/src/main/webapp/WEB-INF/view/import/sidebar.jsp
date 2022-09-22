@@ -1,23 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="${pageContext.request.contextPath}/index" class="brand-link">
       <img src="${pageContext.request.contextPath}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">LMS 5000</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+         <%-- <div class="image">
           <img src="${pageContext.request.contextPath}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
+        </div> --%>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="${pageContext.request.contextPath}/index/mypage" class="d-block">
+          <c:choose>
+          	<c:when test="${loginUser.userName != null}">
+          		 ${loginUser.userName}님
+          	</c:when>
+          	<c:otherwise>
+          		Guest님
+          	</c:otherwise>
+          </c:choose>
+         
+          </a>
         </div>
       </div>
 
@@ -59,6 +70,16 @@
             </a>
           </li>
         </ul>
+        	<div style=" position:absolute; bottom: 15px; left:15px;">
+        		<c:choose>
+        			<c:when test="${loginUser == null }">
+        				<a href="${pageContext.request.contextPath}/index/login">로그인</a><br>		
+        			</c:when>
+        			<c:otherwise>
+        				<a href="${pageContext.request.contextPath}/index/logout">로그아웃</a>		
+        			</c:otherwise>
+        		</c:choose>
+        	</div>
       </nav>
       <!-- /.sidebar-menu -->
     </div>

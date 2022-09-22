@@ -85,7 +85,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">마이페이지</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -102,10 +102,9 @@
     <!-- 메인 콘텐츠 -->
     <div class="content">
       <div class="container-fluid">
-		<h3>내 계정</h3>
 		<c:choose>
 			<c:when test="${msg != null}">
-				<div>${msg}</div>
+				<div><h5>${msg}</h5></div>
 			</c:when>
 		</c:choose>
 		
@@ -171,7 +170,6 @@
     </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
-  </div>
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
@@ -188,7 +186,7 @@
   
 <!-- 페이지 삽입 - footer -->
 <%@include file="../import/footer.jsp" %>
-
+</div>
 <!-- ./wrapper -->
 
 <!-- 페이지 삽입 - 필수적인 script -->

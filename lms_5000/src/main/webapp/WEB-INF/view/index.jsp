@@ -33,7 +33,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">메인 페이지</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -50,7 +50,109 @@
     <!-- 메인 콘텐츠 -->
     <div class="content">
       <div class="container-fluid">
-		<h3>메인페이지</h3>
+		
+	<!--  상단 구역 수강 게시판 섹션 -->
+	    <section class="content">
+	      <div class="container-fluid">
+	        <div class="row">
+	          <div class="col-12">
+	            <!-- Default box -->
+	            <div class="card">
+	            
+	              <div class="card-header">
+	                <h3 class="card-title">수강중인 게시판</h3>
+	                
+	                <div class="card-tools">
+	                	<!-- 감추거나 지우는 버튼들 -->
+	                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+	                    <i class="fas fa-minus"></i>
+	                   </button>
+	                  <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+	                    <i class="fas fa-times"></i>
+	                    </button>
+	                </div>
+	              </div><!-- End header -->
+	              
+	              <div class="card-body">
+	                Start creating your amazing application! 내용?
+	              </div>
+	              <!-- /.card-body -->
+	              <div class="card-footer">
+	                Footer 취향것
+	              </div>
+	              <!-- /.card-footer-->
+	            </div>
+	            <!-- /.card -->
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+	    <!-- /.end-->
+	    
+	<!--  하단 구역 수강 게시판 섹션 -->
+	    <section class="content">
+	      <div class="container-fluid">
+	        <div class="row">
+	<!-- 하단 구역 왼쪽 공지사랑 시작 -->
+	          <div class="col-6">
+	            <!-- Default box -->
+	            <div class="card">
+	              <div class="card-header">
+	                <h3 class="card-title">LMS 공지사항 게시판</h3>
+	                <div class="card-tools">
+	                	<!-- 감추거나 지우는 버튼들 -->
+	                	<a href="">더보기</a>
+	                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+	                    <i class="fas fa-minus"></i>
+	                   </button>
+	                  <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+	                    <i class="fas fa-times"></i>
+	                    </button>
+	                </div>
+	              </div><!-- End header -->
+	              
+	              <div class="card-body">
+	               	공지사항 내용 n개 만 보여주고 더보기 링크 클릭하면 리스트페이지로? 
+	              </div><!-- /.card-body -->
+	              
+	              <div class="card-footer">
+	                Footer 취향것
+	              </div><!-- /.card-footer-->
+	            </div><!-- /.card -->
+	          </div><!-- End col.6 -->
+	          
+	<!-- 하단구역 오른쪽 달력 시작-->
+	          <div class="col-6">
+	            <!-- Default box -->
+	            <div class="card">
+	              <div class="card-header">
+	                <h3 class="card-title">달력구역</h3>
+	                <div class="card-tools">
+	                	<!-- 감추거나 지우는 버튼들 -->
+	                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+	                    <i class="fas fa-minus"></i>
+	                   </button>
+	                  <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+	                    <i class="fas fa-times"></i>
+	                    </button>
+	                </div>
+	              </div><!-- End header -->
+	              
+	              <div class="card-body">
+	                달력내용
+	              </div><!-- /.card-body -->
+	              
+	              <div class="card-footer">
+	                Footer 취향것
+	              </div><!-- /.card-footer-->
+	            </div><!-- /.card -->
+	          </div><!-- End col.6 -->
+	        </div><!-- End row -->
+	      </div>
+	    </section>
+	<!-- /.end 하단구역-->
+	
+    기존 링크들은 사이드바로?
 		<c:choose>
 			<c:when test="${loginUser != null}">
 				<p>${loginUser.userName}님 환영합니다.</p>
@@ -68,19 +170,18 @@
 				
 				<p><a href="${pageContext.request.contextPath}/index/logout">로그아웃</a></p>
 			</c:when>
+			
 			<c:otherwise>
-			
-			
 				<a href="${pageContext.request.contextPath}/index/login">로그인하러가기</a>
 			</c:otherwise>
 		</c:choose>
 		
 		
-	</div>
+		</div>
      </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
-  </div>
+ <!-- 원래위치 -->
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
@@ -98,7 +199,7 @@
 <!-- 페이지 삽입 - footer -->
 <%@include file="../view/import/footer.jsp" %>
 
-
+ </div>
 <!-- ./wrapper -->
 
 <!-- 페이지 삽입 - 필수적인 script -->

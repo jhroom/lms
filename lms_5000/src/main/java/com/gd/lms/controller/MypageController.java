@@ -3,6 +3,7 @@ package com.gd.lms.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -79,18 +80,27 @@ public class MypageController {
 		if(result != 1) {
 			return "index/mypage/info";
 		}
-		msg = "정보 변경 되었습니다";
+		msg = "정보가 변경 되었습니다";
 		
 		String encodedParam = URLEncoder.encode(msg, "UTF-8"); 
 		//index 뷰페이지 msg 출력 추가해야함
 		
 		return "redirect:/index/mypage/info?msg="+encodedParam;
 	}
-	
+	// 마이페이지 글쓴 목록 페이지
 	@GetMapping("index/mypage/postList")
 	public String myPostList(HttpSession session, Model model) {
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		System.out.println(TeamColor.AJH + "세션에 저장된 아이디 : " + userId);
+		//게시글 리스트
+		List<Map<String, Object>> boardList = mypageService.getboardWriteList(userId);
+		log.debug(TeamColor.AJH + "게시글 리스트 값 : " + boardList.toString());
+		model.addAttribute("boardList", boardList);
+		
+		//댓글 리스트
+		List<Map<String, Object>> commentList = mypageService.getCommentWriteList(userId);
+		log.debug(TeamColor.AJH + "댓글 리스트 값 : " + commentList.toString());
+		model.addAttribute("commentList", commentList);
 		
 		return "user/postList";
 	}

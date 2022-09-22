@@ -1,5 +1,6 @@
 package com.gd.lms.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,17 @@ public class MypageService implements IMypageService {
 	@Override
 	public int modifyUserPw(User user) {
 		return mypageMapper.modifyUserPw(user);
+	}
+	//게시글 리스트
+	@Override
+	public List<Map<String, Object>> getboardWriteList(String userId) {
+		
+		return mypageMapper.selectboardWriteList(userId);
+	}
+	//댓글리스트
+	@Override
+	public List<Map<String, Object>> getCommentWriteList(String userId) {
+		return mypageMapper.selectCommentWriteList(userId);
 	}
 
 }

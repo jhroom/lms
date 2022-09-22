@@ -87,4 +87,57 @@
 		Where user_id = #{userId}
 	</update>
 	
+	<!-- 유저 아이디로 게시글 리스트 받아오기 -->
+	<select id="selectboardWriteList" parameterType="string" resultType="map">
+		SELECT
+			distinct
+			m.major_name majorName,
+			s.subject_name subjectName,
+ 			b.board_name boardName,
+ 			bp.board_post_title boardPostName,
+ 			bp.board_post_no boardPostNo,
+ 			b.board_no boardNo,
+ 			bp.board_post_createdate boardPostCreatedate,
+ 			bp.count count
+		from
+			professor p INNER JOIN lecture l
+			ON p.user_id = l.user_id
+				INNER JOIN subject s
+				ON l.subject_no = s.subject_no
+					INNER JOIN major m
+					ON s.major_no = m.major_no
+						INNER JOIN board b
+						ON l.lecture_no = b.lecture_no
+							INNER JOIN board_post bp
+							ON b.board_no = bp.board_no
+		WHERE bp.board_post_writer = #{userId}
+	</select>
+	
+	<!-- 유저 아이디로 작성한 댓글 리스트 -->
+	<select id="selectCommentWriteList" parameterType="string" resultType="map">
+		SELECT distinct 
+			m.major_name majorName,
+			s.subject_name subjectName,
+ 			b.board_name boardName,
+ 			bp.board_post_title boardPostTitle,
+ 			bp.board_post_no boardPostNo,
+ 			b.board_no boardNo,
+ 			co.comment_content commentContent,
+ 			co.comment_createdate commentCreateDate,
+ 			co.comment_updatedate commentUpdateDate
+		from professor p INNER JOIN lecture l
+			ON p.user_id = l.user_id
+				INNER JOIN subject s
+				ON l.subject_no = s.subject_no
+					INNER JOIN major m
+					ON s.major_no = m.major_no
+					INNER JOIN board b
+					ON l.lecture_no = b.lecture_no
+						INNER JOIN board_post bp
+						ON b.board_no = bp.board_no
+							INNER JOIN comment co
+							ON bp.board_post_no = co.board_post_no
+		WHERE co.comment_writer = #{userId}
+	</select>
+	
 </mapper>

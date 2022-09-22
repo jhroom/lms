@@ -57,7 +57,7 @@
 	<ul>
 			<li><a href="${pageContext.request.contextPath}/index/mypage/info">로그인 정보</a></li>
 			<li><a href="#">나의 강의 정보</a></li>
-			<li><a href="#">글쓴 목록</a></li>
+			<li><a href="${pageContext.request.contextPath}/index/mypage/postList">글쓴 목록</a></li>
 		</ul>
 
       </div><!-- /.container-fluid -->
