@@ -18,4 +18,7 @@ public class Test {
 	private String testUpdatedate;
 	// 강좌 번호
 	private int lectureNo;
+	
+	//출력용 변수
+	private String score;
 }

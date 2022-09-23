@@ -16,7 +16,7 @@ public interface TestMapper {
 	
 	
 	//강좌 시험 리스트 생성 쿼리
-	List<Map<String, Object>> selectTestList(int lectureNo);
+	List<Map<String, Object>> selectTestList(int lectureNo, int signNo);
 	
 	//시험문제 생성 쿼리
 	List<Question> selectTestQuestion(int testNo);
@@ -41,6 +41,12 @@ public interface TestMapper {
 	
 	//학생 답안지 제출 쿼리
 	int insertAnswer(int answerSelect, int questionNo, int signNo);
+	
+	//시험 응시 학생 리스트 생성 쿼리
+	List<Map<String, Object>> selectTestStudnet(int lectureNo, int testNo);
+	
+	//응시 학생 전체 채점 쿼리
+	int updateTestScore();
 	
 		
 }

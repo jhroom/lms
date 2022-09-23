@@ -12,7 +12,7 @@ public interface ITestService {
 	List<Map<String, Object>> testLecture();
 	
 	//강좌별 시험 리스트 생성 기능
-	List<Map<String, Object>> getTestList(int lectureNo);
+	List<Map<String, Object>> getTestList(String userId, int lectureNo);
 	
 	//시험별 문제 리스트 생성 기능
 	List<Question> getTestQuestionList(int testNo);
@@ -24,10 +24,13 @@ public interface ITestService {
 	int addTest(Test test, Question question, MultiChoice multichoice);
 	
 	//시험 응시 여부 확인 기능
-	boolean testCheck(String userId, int TestNo);
+	boolean testCheck(String userId, int testNo);
 	
 	//학생 답안지 제출 기능
-	int testSubmit(String userId, int TestNo, int [] answers, int [] questions);
+	int testSubmit(String userId, int testNo, int [] answers, int [] questions);
+	
+	//시험 응시 학생 리스트 생성 기능
+	List<Map<String, Object>> getTestStudnet(int lectureNo, int testNo);
 	
 	
 }

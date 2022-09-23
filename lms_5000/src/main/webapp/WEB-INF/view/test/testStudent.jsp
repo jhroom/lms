@@ -41,7 +41,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="br eadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item active">Starter Page</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -56,30 +56,26 @@
       
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
-		<div>
-		<h3>강좌별 시험 리스트</h3>
-		<h3>${testList[0].lectureNo} 강좌 시험</h3>
-		
-		<a href="${pageContext.request.contextPath}/test/addTest?lectureNo=${lectureNo}">시험 만들기</a>
-		
-		<table border="1">
-			<thead>
-				<tr>
-					<th>시험 번호</th><th>시험 이름</th><th>시험 시작 일자</th><th>시험 마감 일자</th><th>생성일</th><th>수정일</th><th>응시</th><th>점수</th><th>채점</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<c:forEach items="${testList}" var="t">
-					<tr>
-						<td>${t.testNo}</td><td>${t.testName}<a href="">수정</a></td><td>${t.testStarttime}</td><td>${t.testEndtime}</td><td>${t.testCreatedate}</td><td>${t.testUpdatedate}</td><td><a href="${pageContext.request.contextPath}/test/enter?testNo=${t.testNo}&lectureNo=${lectureNo}">시험 응시하기</a></td><td>${t.score}</td><td><a href="${pageContext.request.contextPath}/test/student?lectureNo=${lectureNo}&testNo=${t.testNo}">채점 링크</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		
-		</table>
-		
-		</div>
+	      <div>
+	      <h3>시험 이름 : ${sd}</h3>
+	      <p><a href="${pageContext.request.contextPath}/test/score?testNo=${testNo}&lectureNo=${lectureNo}">일괄 채점</a></p>
+	      	<table border="1">
+		      	<thead>
+			      	<tr>
+			      		<th>id</th><th>학생 이름</th><th>점수</th><th>상세보기</th>
+			      	</tr>
+		      	</thead>
+		      	<tbody>
+		      		<c:forEach items="${testStudentList}" var="s">
+			      		<tr>
+			      			<td>${s.studentId}</td><td>${s.studentName}</td><td>${s.studentScore}</td><td><a href="">링크</a></td>
+			      		</tr>
+		      		</c:forEach>
+		      	</tbody>
+	      	</table>
+	      
+	      </div>
+      
       
 
 
@@ -113,5 +109,4 @@
 
 </body>
 </html>
-
 

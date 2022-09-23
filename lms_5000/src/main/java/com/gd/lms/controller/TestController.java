@@ -39,14 +39,17 @@ public class TestController {
 	
 	//시험 게시판 폼 전송 메서드
 	@GetMapping ("/test/board")
-	public String testBoard(int lectureNo, Model model) {
+	public String testBoard(HttpSession session, int lectureNo, Model model) {
 		
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / lectureNo : "+ lectureNo );
 		
+		//세션 아이디 받아오기
+		//String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		String userId = "tt";
 		
 		//넘겨줄 값 세팅
-		List<Map<String, Object>>  list = testService.getTestList(lectureNo);
+		List<Map<String, Object>>  list = testService.getTestList(userId, lectureNo);
 		
 		
 		//값 넘겨주기
@@ -107,7 +110,7 @@ public class TestController {
 		log.debug(TeamColor.KHJ + "결과 값 확인 / row : "+ row );
 				
 		
-		return "test/board?lectureNo=" + test.getLectureNo();
+		return "redirect:/test/board?lectureNo=" + test.getLectureNo();
 	}
 	
 	//시험 장 입장
@@ -165,9 +168,40 @@ public class TestController {
 		return "redirect:/test/board?lectureNo="+lectureNo;
 	}
 	
-	//시험 수정
+	
+	//응시 학생 리스트 폼으로 가기
+	@GetMapping("test/student")
+	public String testSutdentForm(int lectureNo, int testNo, Model model) {
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / lectureNo : " + lectureNo);
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / TestNo : " + testNo);
+		
+		//값 확인
+		
+		List<Map<String, Object>> list = testService.getTestStudnet(lectureNo, testNo);
+		
+		
+		//값 넘겨주기
+		model.addAttribute("testStudentList", list);
+		model.addAttribute("testNo", testNo);
+		
+		
+		
+		//리턴
+		return "test/testStudent";
+	}
+	
 	
 	//시험 채점
+	@GetMapping("test/Score")
+	public String testScore(int testNo, int lectureNo) {
+		//
+		
+		//리턴값
+		return "redirect:/test/student?testNo="+testNo+"&lectureNo="+lectureNo;
+	}
+
+	//시험 수정
 	
 	
 }

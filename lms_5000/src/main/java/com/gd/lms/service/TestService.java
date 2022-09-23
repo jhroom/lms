@@ -30,12 +30,16 @@ public class TestService implements ITestService {
 	
 	//강좌별 시험 리스트 생성 메서드 
 	@Override
-	public List<Map<String, Object>> getTestList(int lectureNo) {
+	public List<Map<String, Object>> getTestList(String userId, int lectureNo) {
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 lectureNo : "+ lectureNo );
 		
+		//수강 정보 확인
+		int signNo = testMapper.selectSignNo(userId, lectureNo);
+		
+		
 		//리턴 값 세팅
-		List<Map<String,Object>> list = testMapper.selectTestList(lectureNo);
+		List<Map<String,Object>> list = testMapper.selectTestList(lectureNo, signNo);
 		
 		//리턴
 		return list;
@@ -163,16 +167,16 @@ public class TestService implements ITestService {
 
 	//학생 시험 응시여부 확인 기능
 	@Override
-	public boolean testCheck(String userId, int TestNo) {
+	public boolean testCheck(String userId, int testNo) {
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 userId : "+ userId );
-		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 TestNo : "+ TestNo );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 TestNo : "+ testNo );
 		
 		//리턴값 세팅
 		boolean result = false;
 		
 		//확인 실행
-		int row = testMapper.selectTestCheck(userId, TestNo);
+		int row = testMapper.selectTestCheck(userId, testNo);
 		
 		if(row > 0) {
 			result = true;
@@ -183,10 +187,10 @@ public class TestService implements ITestService {
 
 	//학생 답안 제출 기능
 	@Override
-	public int testSubmit(String userId, int TestNo, int[] answers, int[] questions) {
+	public int testSubmit(String userId, int testNo, int[] answers, int[] questions) {
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 userId : "+ userId );
-		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 TestNo : "+ TestNo );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 TestNo : "+ testNo );
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 answers : "+ Arrays.toString(answers) );
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 questions : "+ Arrays.toString(questions) );
 		
@@ -195,7 +199,7 @@ public class TestService implements ITestService {
 		int row = 0;
 		
 		//학생의 수강 번호 불어오기
-		int signNo = testMapper.selectSignNo(userId, TestNo);
+		int signNo = testMapper.selectSignNo(userId, testNo);
 		
 		
 		//반복문 배열 생성
@@ -219,6 +223,22 @@ public class TestService implements ITestService {
 		log.debug(TeamColor.KHJ + "결과 값 확인 리스트 row : "+ row );
 				
 		return row;
+	}
+
+	@Override
+	public List<Map<String, Object>> getTestStudnet(int lectureNo, int testNo) {
+		
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 lectureNo : "+ lectureNo );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 testNo : "+ testNo );
+				
+		
+		//값 세팅
+		List<Map<String, Object>> list = testMapper.selectTestStudnet(lectureNo, testNo);
+		
+		
+		//리턴
+		return list;
 	}
 
 }

@@ -14,17 +14,24 @@
 	
 	<!-- 강좌별 시험리스트 생성 쿼리 -->
 	<select id="selectTestList" resultType="com.gd.lms.vo.Test">
-		select 
-			test_no testNo
-			,test_name testName
-			, test_starttime testStarttime
-			, test_endtime testEndtime
-			, test_createdate testCreatedate
-			, test_updatedate testUpdatedate
-			, lecture_no lectureNo
-		from test
-		where lecture_no = #{lectureNo}
-		
+		SELECT 
+			t.test_no testNo
+			, t.test_name testName
+			, t.test_starttime testStarttime
+			, t.test_endtime testEndtime
+			, t.test_createdate testCreatedate
+			, t.test_updatedate testUpdatedate
+			, t.lecture_no lectureNo
+			, (
+				SELECT ifnull(SUM(answer_score),0)
+				FROM answer a
+				INNER JOIN question q
+				ON a.question_no = q.question_no
+				WHERE q.test_no = t.test_no AND a.sign_no = #{signNo}
+			) score
+		FROM test t
+		WHERE lecture_no = #{lectureNo}
+				
 	</select>	
 	
 	<!-- 시험별 문제 리스트 생성 쿼리 -->
@@ -150,5 +157,25 @@
 			, #{signNo}		
 		)
 	</insert>
+	
+	<!-- 시험 제출 학생 리스트 생성 쿼리 -->
+	<select id="selectTestStudnet" resultType="map">
+	SELECT
+		st.user_id studentId
+		, st.st_name studentName
+		, (
+			SELECT ifnull(SUM(answer_score),0)
+			FROM answer a
+			INNER JOIN question q
+			ON a.question_no = q.question_no
+			WHERE q.test_no=#{testNo} and a.sign_no = s.sign_no
+		) studentScore
+	FROM sign s
+	INNER JOIN student st
+	ON s.user_id = st.user_id
+	WHERE s.lecture_no = #{lectureNo};
+	</select>
+	
+
 	
 </mapper>
