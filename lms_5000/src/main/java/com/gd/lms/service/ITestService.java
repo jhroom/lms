@@ -23,6 +23,11 @@ public interface ITestService {
 	//시험 추가 기능
 	int addTest(Test test, Question question, MultiChoice multichoice);
 	
+	//시험 응시 여부 확인 기능
+	boolean testCheck(String userId, int TestNo);
+	
+	//학생 답안지 제출 기능
+	int testSubmit(String userId, int TestNo, int [] answers, int [] questions);
 	
 	
 }

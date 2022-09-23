@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ITestService;
+import com.gd.lms.vo.Answer;
 import com.gd.lms.vo.MultiChoice;
 import com.gd.lms.vo.Question;
 import com.gd.lms.vo.Test;
@@ -59,7 +60,7 @@ public class TestController {
 	
 	
 	@GetMapping ("/test/page")
-	public String testPage(int testNo, Model model) {
+	public String testPage(int testNo, int lectureNo, Model model) {
 		
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / testNo : "+ testNo );
@@ -72,12 +73,16 @@ public class TestController {
 		//값 넘겨주기
 		model.addAttribute("questionList",list);
 		model.addAttribute("choiceList",list2);
+		model.addAttribute("testNo",testNo);
+		model.addAttribute("lectureNo",lectureNo);
+		
+		
 		
 		
 		return"test/testPage";
 	}
 	
-	//시험 생성
+	//시험 생성 폼으로 보내기
 	@GetMapping("test/addTest")
 	public String directAddTestForm(int lectureNo, Model model) {
 		
@@ -105,23 +110,64 @@ public class TestController {
 		return "test/board?lectureNo=" + test.getLectureNo();
 	}
 	
-	//시험 응시 확인
+	//시험 장 입장
 	@GetMapping ("test/enter")
-	public String testEnter(HttpSession session, int testNo) {
+	public String testEnter(HttpSession session, int testNo, int lectureNo) {
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / testNo : "+ testNo );
 		
 		//세션 아이디 받아오기
-		String id = ((User)session.getAttribute("loginUser")).getUserId();
+		//String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		String userId = "tt";
 				
 		
 		//응시여부 확인
+		boolean check = testService.testCheck(userId, testNo);
 		
+		//결과 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / check : "+ check );
+				
 		
+		if(check) { //true(응시한 적이 있을 경우) - 시험 거부
+			//리턴
+			return "redirect:/test/board?lectureNo=" + lectureNo;
+		} else { //false(응시한 적이 없을 경우) - 시험장 입장
+			//리턴
+			return "redirect:/test/page?testNo=" + testNo + "&lectureNo=" + lectureNo;
+		}
 		
-		return "redirect:/test/page";
 	}
 	
+	//시험 응시
+	@PostMapping("test/submit")
+	public String testSubmit(int testNo, Answer answer, int lectureNo) {
+		//결과 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / testNo : "+ testNo );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / answer : "+ answer );
+		
+		//배열 갑 받아오기
+		int [] answers = answer.getAnswerSelects();
+		int [] questions = answer.getQuestionNos();
+
+		
+		//세션 아이디 받아오기
+		//String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		String userId = "tt";
+		
+		//실행
+		int row = testService.testSubmit(userId, testNo, answers, questions);
+				
+		//결과 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 값 확인 / row : "+ row );
+		
+		
+		//리턴
+		return "redirect:/test/board?lectureNo="+lectureNo;
+	}
+	
+	//시험 수정
+	
+	//시험 채점
 	
 	
 }

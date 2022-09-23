@@ -56,7 +56,10 @@
       
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
-      <form>
+      <form  action="${pageContext.request.contextPath}/test/submit" method="post">
+      <input type="hidden" name="testNo" value="${testNo}">
+      <input type="text" name="lectureNo" value="${lectureNo}">
+      
 	<table>
 		<thead>
 		</thead>
@@ -64,11 +67,12 @@
 		<tr>
 			<td>
 			<!-- 문제 반복문 시작 -->
-				<c:forEach items="${questionList}" var="q">
+				<c:forEach items="${questionList}" var="q" varStatus="status">
 					<table>
 						<tr>
 							<td>
-							n 번 ${q.questionContent}
+							<input type="hidden" name="questionNos" value="${q.questionNo}">
+							${status.count}번 : ${q.questionContent}
 							</td>
 						</tr>
 						<!-- 보기 반복문 시작 -->
@@ -76,7 +80,8 @@
 							<c:if test="${m.questionNo eq q.questionNo}">
 								<tr>
 									<td>
-									<input type="radio" name="${m.questionNo}" value="${m.choiceNo}">
+									
+									<input type="radio" name="answerSelects[${status.index}]" id="${m.questionNo}"value="${m.choiceNo}">
 									${m.choiceNo}번 : ${m.choiceContent}
 									</td>
 								</tr>
@@ -92,6 +97,7 @@
 		
 		</tbody>
 	</table>
+	<button type="submit">답안 제출하기</button>
 </form>
       
 

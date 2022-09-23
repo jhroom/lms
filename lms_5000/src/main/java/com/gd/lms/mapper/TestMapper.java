@@ -32,5 +32,15 @@ public interface TestMapper {
 	
 	//시험 보기 추가 쿼리
 	int insertTestChoice(MultiChoice multichoice);
+	
+	//시험 응시 여부 확인 쿼리
+	int selectTestCheck(String userId, int TestNo);
+	
+	//학생 수강번호 추출 쿼리
+	int selectSignNo(String userId, int testNo);
+	
+	//학생 답안지 제출 쿼리
+	int insertAnswer(int answerSelect, int questionNo, int signNo);
+	
 		
 }

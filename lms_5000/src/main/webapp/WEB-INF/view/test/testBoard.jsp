@@ -66,14 +66,14 @@
 		<table border="1">
 			<thead>
 				<tr>
-					<th>시험 번호</th><th>시험 이름</th><th>시험 시작 일자</th><th>시험 마감 일자</th><th>생성일</th><th>수정일</th><th>응시</th><th>수정</th><th>채점</th>
+					<th>시험 번호</th><th>시험 이름</th><th>시험 시작 일자</th><th>시험 마감 일자</th><th>생성일</th><th>수정일</th><th>응시</th><th>점수</th><th>채점</th>
 				</tr>
 			</thead>
 			
 			<tbody>
 				<c:forEach items="${testList}" var="t">
 					<tr>
-						<td>${t.testNo}</td><td><a href="${pageContext.request.contextPath}/test/page?testNo=${t.testNo}" >${t.testName}</a></td><td>${t.testStarttime}</td><td>${t.testEndtime}</td><td>${t.testCreatedate}</td><td>${t.testUpdatedate}</td>
+						<td>${t.testNo}</td><td><a href="${pageContext.request.contextPath}/test/page?testNo=${t.testNo}" >${t.testName}</a></td><td>${t.testStarttime}</td><td>${t.testEndtime}</td><td>${t.testCreatedate}</td><td>${t.testUpdatedate}</td><td><a href="${pageContext.request.contextPath}/test/enter?testNo=${t.testNo}&lectureNo=${lectureNo}">시험 응시하기</a></td><td></td><td></td>
 					</tr>
 				</c:forEach>
 			</tbody>

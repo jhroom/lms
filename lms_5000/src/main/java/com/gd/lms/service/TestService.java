@@ -87,7 +87,7 @@ public class TestService implements ITestService {
 		}
 		
 		
-		//파라미터 값 확인 디버깅
+		//배열 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "배열 값 확인 리스트 questionContents : "+ Arrays.toString(questionContents) );
 		log.debug(TeamColor.KHJ + "배열 값 확인 리스트 questionAnswers : "+ Arrays.toString(questionAnswers) );
 		log.debug(TeamColor.KHJ + "배열 값 확인 리스트 choiceContents : "+ Arrays.toString(choiceContents));
@@ -159,6 +159,66 @@ public class TestService implements ITestService {
 		
 		
 		return 0;
+	}
+
+	//학생 시험 응시여부 확인 기능
+	@Override
+	public boolean testCheck(String userId, int TestNo) {
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 userId : "+ userId );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 TestNo : "+ TestNo );
+		
+		//리턴값 세팅
+		boolean result = false;
+		
+		//확인 실행
+		int row = testMapper.selectTestCheck(userId, TestNo);
+		
+		if(row > 0) {
+			result = true;
+		}
+		
+		return result;
+	}
+
+	//학생 답안 제출 기능
+	@Override
+	public int testSubmit(String userId, int TestNo, int[] answers, int[] questions) {
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 userId : "+ userId );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 TestNo : "+ TestNo );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 answers : "+ Arrays.toString(answers) );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 questions : "+ Arrays.toString(questions) );
+		
+
+		//리턴 값 선언
+		int row = 0;
+		
+		//학생의 수강 번호 불어오기
+		int signNo = testMapper.selectSignNo(userId, TestNo);
+		
+		
+		//반복문 배열 생성
+		int [] arr = new int[questions.length];
+		
+		//반복문 배열 
+		for(int i = 0; i<arr.length;i++) {
+			arr[i] = i;
+		}
+		
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 userId : "+ userId );
+				
+		
+		//반복문 돌리기
+		for(int a : arr) {
+			row += testMapper.insertAnswer(answers[a], questions[a], signNo);
+		}
+		
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 값 확인 리스트 row : "+ row );
+				
+		return row;
 	}
 
 }

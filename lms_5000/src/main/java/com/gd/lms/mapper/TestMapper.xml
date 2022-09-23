@@ -104,4 +104,51 @@
 		)
 	</insert>
 	
+	<!-- 시험 응시 여부 확인 -->
+	<select id="selectTestCheck" resultType="int">
+	SELECT
+		Count(s.user_id) cnt
+	from answer a
+	INNER JOIN sign s
+	ON a.sign_no = s.sign_no
+	INNER JOIN user u
+	ON s.user_id = u.user_id
+	inner JOIN question q
+	ON a.question_no = q.question_no
+	INNER JOIN test t
+	ON q.test_no = t.test_no
+	WHERE u.user_id = #{userId} AND t.test_no = #{TestNo}
+	
+	</select>
+	
+	<!-- 학생 수강 -->
+	<select id="selectSignNo" resultType="int">
+	SELECT sign_no
+		from sign
+		WHERE 
+			user_id = #{userId}  
+		AND 
+			lecture_no=(
+				SELECT lecture_no
+					FROM test s
+					WHERE test_no = #{testNo})
+	</select>
+	
+	
+	<!-- 학생 답안 제출 쿼리-->
+	<insert id="insertAnswer">
+	INSERT
+		INTO answer(
+			answer_select
+			, answer_score
+			, question_no
+			, sign_no
+		) VALUES(
+			#{answerSelect}
+			, 0
+			, #{questionNo}
+			, #{signNo}		
+		)
+	</insert>
+	
 </mapper>

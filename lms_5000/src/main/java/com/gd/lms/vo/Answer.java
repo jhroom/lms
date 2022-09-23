@@ -12,4 +12,11 @@ public class Answer {
 	private int questionNo;	
 	// 학생의 수강 정보
 	private int signNo;
+	
+	//저장용 배열 객체
+	// 학생이 제출한 답안
+	private int [] answerSelects;
+	// 문제 번호
+	private int [] questionNos;	
+	
 }
