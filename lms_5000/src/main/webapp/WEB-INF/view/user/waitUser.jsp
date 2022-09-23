@@ -67,6 +67,7 @@
 					<th>전화번호</th>
 					<th>성별</th>
 					<th>가입일자</th>
+					<th>마지막 로그인 날짜</th>
 					<th>계정 승인 여부</th>
 				</tr>
 			</thead>
@@ -97,6 +98,7 @@
 					<td>${list.userTel}</td>
 					<td>${list.userGender}</td>
 					<td>${list.createDate}</td>
+					<td>${list.lastloginDate}</td>
 					<td>
 					<form action="${pageContext.request.contextPath}/user/waitUser" method="post">
 					<!-- Active값이 Y인것은 "승인완료" 출력

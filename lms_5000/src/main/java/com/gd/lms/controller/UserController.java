@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.service.IUserListService;
 import com.gd.lms.service.IUserLoginService;
 import com.gd.lms.vo.User;
 
@@ -23,16 +24,25 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 	
 	@Autowired IUserLoginService userLoginService;
+	@Autowired IUserListService userListService;
 	
 	//메인페이지
 	@GetMapping("/index")
 	public String index() {
+
 		return "index";
 	}
 	
 	//로그인 페이지
 	@GetMapping("/index/login")
 	public String userLogin() {
+		
+		//디버깅
+		log.debug(TeamColor.JCH + this.getClass() + "휴먼계정 처리");
+								
+		//누군가 index페이지로 들어오면 휴먼계정 체크.
+		int row = userListService.updateUserActiveByLastLogin();
+		System.out.println(row + "휴먼계정 확인");
 		
 		return "user/login";
 	}

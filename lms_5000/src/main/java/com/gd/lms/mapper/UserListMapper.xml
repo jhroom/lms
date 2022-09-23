@@ -15,7 +15,8 @@
 		user_tel userTel,
 		user_gender userGender,
 		create_date createDate,
-		user_active userActive
+		user_active userActive,
+		lastlogin_date lastloginDate
 	FROM user
 	ORDER BY create_date DESC;
 </select>
@@ -40,7 +41,8 @@
 		user_tel userTel,
 		user_gender userGender,
 		create_date createDate,
-		user_active userActive
+		user_active userActive,
+		lastlogin_date lastloginDate
 	FROM user
 	WHERE user_active = 'N'
 	ORDER BY create_date DESC;
@@ -56,11 +58,19 @@
 		user_tel userTel,
 		user_gender userGender,
 		create_date createDate,
-		user_active userActive
+		user_active userActive,
+		lastlogin_date lastloginDate
 	FROM user
 	WHERE user_active = 'Y'
 	ORDER BY create_date DESC;
 </select>
 
-
+<update id="updateUserActiveByLastLogin" parameterType="com.gd.lms.vo.User">
+	UPDATE
+		user
+	SET
+		user_active = 'N'
+	WHERE
+		DATEDIFF(NOW(), lastlogin_date ) >= 60 AND user_active = 'Y'
+</update>
 </mapper>

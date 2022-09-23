@@ -62,6 +62,14 @@ public class UserListService implements IUserListService {
 		log.debug(TeamColor.JCH + this.getClass() + " selectUserList 체크");
 		return list;
 	}
+	
+	//유저 Active값 자동 변경 ( 마지막 로그인 날짜와 현재 날짜차이가 60일 일 경우)
+	@Override
+	public int updateUserActiveByLastLogin() {
+		//디버깅
+		log.debug(TeamColor.JCH + this.getClass() + "휴면계정 변경");
+		return userListMapper.updateUserActiveByLastLogin();
+	}
 
 
 	
