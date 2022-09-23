@@ -29,6 +29,16 @@
 		WHERE user_id = #{userId} AND user_pw = password(#{userPw}) And user_email = #{userEmail}
 	</select>
 	
+	<!-- 휴면 계정 해제 업데이트 -->
+	<update id="updateRestUserActive" parameterType="string">
+		Update
+			user
+		Set
+			user_active = 'Y'
+		Where
+			user_id = #{userId} 
+	</update>
+	
 	<!-- 로그인시 마지막 로그인날짜 업데이트 -->
 	<update id="updateUserLastLogin" parameterType="string">
 		Update

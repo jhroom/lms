@@ -86,11 +86,16 @@ public class UserController {
 		//디버깅
 		log.debug(TeamColor.AJH + "휴면계정 페이지 파라미터 확인 : " + user  );
 		//서비스호출
-		String restUserId = userLoginService.getRestUserLogin(user);
+		String restUserId = userLoginService.getRestUserCheck(user);
 		if(restUserId == null) {
 			model.addAttribute("errMsg","잘못된 정보 입니다");
+			return "user/restUser";
+		} else {
+			int row = userLoginService.modifyRestUserActive(user.getUserId());
+			log.debug("휴면계정 활성화 결과 : " + row);
+			model.addAttribute("errMsg","휴면 해제 처리되었습니다 다시 로그인해주세요");
 		}
-		model.addAttribute("errMsg","휴면 해제 처리되었습니다 다시 로그인해주세요");
+		
 		return "user/login";
 	}
 	

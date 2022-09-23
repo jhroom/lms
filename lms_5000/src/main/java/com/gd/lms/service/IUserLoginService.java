@@ -6,7 +6,11 @@ public interface IUserLoginService {
 	
 	User getUserLogin(User user);
 	
-	String getRestUserLogin(User user);
+	// 휴면계정 정보확인 
+	String getRestUserCheck(User user);
+	
+	// 휴면계정 활성화
+	int modifyRestUserActive(String userId);
 	
 	boolean addAdmin(User user, int positionNo);
 	

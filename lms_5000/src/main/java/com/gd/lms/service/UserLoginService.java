@@ -31,8 +31,14 @@ public class UserLoginService implements IUserLoginService {
 	
 	// 휴면계정 로그인시 정보 유무 확인
 	@Override
-	public String getRestUserLogin(User user) {
+	public String getRestUserCheck(User user) {
 		return userLoginMapper.selectRestUserLogin(user);
+	}
+	
+	//휴면 계정 활성화
+	@Override
+	public int modifyRestUserActive(String userId) {
+		return userLoginMapper.updateRestUserActive(userId);
 	}
 	
 	//운영자 회원가입

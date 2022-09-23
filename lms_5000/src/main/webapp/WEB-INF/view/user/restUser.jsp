@@ -33,7 +33,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">휴면 계정 해제를 위해 알맞는 Id Pw Email 을 입력해주세요</p>
 
       <form action="${pageContext.request.contextPath}/index/restUser" method="post">
       

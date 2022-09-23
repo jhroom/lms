@@ -14,7 +14,8 @@ public class UserScheduler {
 	
 	@Autowired IUserListService userListService;
 	
-	@Scheduled(cron = "0 * * * * * ")
+	//매일 오후 18시마다 실행
+	@Scheduled(cron = "0 0 18 * * *")
 	public void modifyUserActiveN() {
 		
 		//디버깅

@@ -18,6 +18,9 @@ public interface UserLoginMapper {
 	//휴면 계정 로그인 확인
 	String selectRestUserLogin(User user);
 	
+	//휴면 계정 해제 업데이트
+	int updateRestUserActive(String userId);
+	
 	//로그인시 마지막 로그인날짜 업데이트
 	int updateUserLastLogin(String userId);
 	
