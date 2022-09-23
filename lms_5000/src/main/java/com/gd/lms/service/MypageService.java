@@ -19,11 +19,20 @@ import lombok.extern.slf4j.Slf4j;
 public class MypageService implements IMypageService {
 	
 	@Autowired MypageMapper mypageMapper;
-
+	
+	//마이페이지 로그인정보
 	@Override
-	public User getUserInfo(String userId) {
-		//세션이 담긴 아이디로 마이페이지에 보일 나의 정보 가져오기
-		return mypageMapper.selectUserInfo(userId);
+	public Map<String, Object> getUserInfo(String userId, int userLevel) {
+		Map<String, Object> userInfo = null;
+		
+		//계층별 조회할 유저 분기
+		switch(userLevel) {
+		case 1 : userInfo = mypageMapper.selectAdminInfo(userId);break;
+		case 2 : userInfo = mypageMapper.selectProfessorInfo(userId);break;
+		case 3 : userInfo = mypageMapper.selectStudentInfo(userId);break;
+		case 4 : userInfo = mypageMapper.selectSystemInfo(userId);break;
+		}
+		return userInfo;
 	}
 
 	@Override

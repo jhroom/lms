@@ -127,6 +127,20 @@
 		</div>
 		<hr>
 		
+		<c:choose>
+				<c:when test="${userInfo.userLevel == 1 }">
+					<div>직책</div>
+					<div>${userInfo.extraInfo}</div>
+					<hr>
+				</c:when>
+				<c:when test="${userInfo.userLevel == 2 || userInfo.userLevel == 3}">
+					<div>학과</div>
+					<div>${userInfo.extraInfo}</div>
+					<hr>
+				</c:when>
+				<%-- <c:when test="${userInfo.userLevel == 4}">시스템관리자</c:when> --%>
+		</c:choose>
+		
 		<div>이름</div>
 		<div>${userInfo.userName}</div>
 		<hr>

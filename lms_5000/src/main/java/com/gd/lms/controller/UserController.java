@@ -42,13 +42,13 @@ public class UserController {
 	public String userLogin(Model model, HttpSession session, User user) {
 		
 		//디버깅
-		log.debug(TeamColor.AJH + user + "로그인한 매개변수 확인");
+		log.debug(TeamColor.AJH + "로그인 페이지 파라미터 확인 : " + user  );
 		
 		//입력한 id ,pw로 서비스 호출
 		User loginUser = userLoginService.getUserLogin(user);
 		
 		//디버깅
-		log.debug(TeamColor.AJH + loginUser + " db 정보유무확인");
+		log.debug(TeamColor.AJH + "세션저장될 값 확인 loginUser : " + loginUser );
 		
 		// id pw가 user정보에 없다면(로그인실패)시 실패메세지 알림
 		if(loginUser == null) {
@@ -65,7 +65,6 @@ public class UserController {
 		
 		// user 정보가 일치하고 계정 활성화(Y)인 계정에 세션부여
 		session.setAttribute("loginUser", loginUser);
-		log.debug(TeamColor.AJH + "세션에 저장된 로그인 유저 정보" + loginUser);
 		
 		return "redirect:/index";
 	}
@@ -74,7 +73,7 @@ public class UserController {
 	//로그아웃
 	@GetMapping("/index/logout")			
 	public String logout(HttpSession session) {			
-		log.debug(TeamColor.AJH + " 로그아웃 액션");
+		log.debug(TeamColor.AJH + "로그아웃 액션");
 		
 		// 세션 무효화			
 		session.invalidate();			

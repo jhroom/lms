@@ -109,11 +109,6 @@ public class UserListController {
 			model.addAttribute("errMsg","로그인 후 이용 가능합니다");
 			return "index/login";
 		}
-		String userId = ((User)session.getAttribute("loginUser")).getUserId();
-		
-		// 유저의 가입정보 받아오기
-		User userInfo = mypageService.getUserInfo(userId);
-		model.addAttribute("userInfo", userInfo);
 		
 		return "/user/updatePw";
 	}

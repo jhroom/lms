@@ -2,21 +2,85 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.MypageMapper">
 
-	<!-- 마이페이지 나의 정보 조회하기 -->
-	<select id="selectUserInfo" parameterType="String" resultType="com.gd.lms.vo.User">
+	<!-- 마이페이지 학생 정보 -->
+	<select id="selectStudentInfo" parameterType="String" resultType="map">
 		SELECT
-			user_id userId,
-			user_pw userPw,
-			user_level userLevel,
-			user_name userName,
-			user_email userEmail,
-			user_tel userTel,
-			user_gender userGender,
-			create_date createDate,
-			update_date updateDate,
-			lastlogin_date lastloginDate
-		FROM user
-		WHERE user_id = #{userId}
+			u.user_id userId,
+			u.user_level userLevel,
+			m.major_name extraInfo,
+			u.user_name userName,
+			u.user_email userEmail,
+			u.user_tel userTel,
+			u.user_gender userGender,
+			u.create_date createDate,
+			u.update_date updateDate,
+			u.lastlogin_date lastloginDate
+			
+		FROM
+			user u INNER JOIN student s
+			ON u.user_id = s.user_id
+				INNER JOIN major m
+				ON s.major_no = m.major_no
+		WHERE u.user_id = #{userId}
+	</select>
+	
+	<!-- 마이페이지 교수정보 -->
+	<select id="selectProfessorInfo" parameterType="String" resultType="map">
+		SELECT
+			u.user_id userId,
+			u.user_level userLevel,
+			m.major_name extraInfo,
+			u.user_name userName,
+			u.user_email userEmail,
+			u.user_tel userTel,
+			u.user_gender userGender,
+			u.create_date createDate,
+			u.update_date updateDate,
+			u.lastlogin_date lastloginDate
+		FROM
+			user u INNER JOIN professor p
+			ON u.user_id = p.user_id
+				INNER JOIN major m
+				ON p.major_no = m.major_no
+		WHERE u.user_id = #{userId}
+	</select>
+	
+	<!-- 마이페이지 운영자 정보 -->
+	<select id="selectAdminInfo" parameterType="String" resultType="map">
+		SELECT
+			u.user_id userId,
+			u.user_level userLevel,
+			p.position_name extraInfo,
+			u.user_name userName,
+			u.user_email userEmail,
+			u.user_tel userTel,
+			u.user_gender userGender,
+			u.create_date createDate,
+			u.update_date updateDate,
+			u.lastlogin_date lastloginDate
+		FROM
+			user u INNER JOIN admin a
+			ON u.user_id = a.user_id
+				INNER JOIN position p
+				ON a.position_no = p.position_no
+		WHERE u.user_id = #{userId}
+	</select>
+	
+	<!-- 마이페이지 시스템관리자 정보 -->
+	<select id="selectSystemInfo" parameterType="String" resultType="map">
+		SELECT
+			u.user_id userId,
+			u.user_level userLevel,
+			u.user_name userName,
+			u.user_email userEmail,
+			u.user_tel userTel,
+			u.user_gender userGender,
+			u.create_date createDate,
+			u.update_date updateDate,
+			u.lastlogin_date lastloginDate
+		FROM
+			user u 
+		WHERE u.user_id = #{userId}
 	</select>
 	
 	<!-- 유저 이메일 변경 -->

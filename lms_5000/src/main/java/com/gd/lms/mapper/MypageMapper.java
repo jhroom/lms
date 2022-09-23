@@ -10,8 +10,17 @@ import com.gd.lms.vo.User;
 @Mapper
 public interface MypageMapper {
 	
-	//로그인된 유저 id로 마이페이지 정보 조회
-	User selectUserInfo(String userId);
+	//마이페이지 학생 정보
+	Map<String, Object> selectStudentInfo(String userId);
+	
+	//마이페이지 교수 정보
+	Map<String, Object> selectProfessorInfo(String userId);
+	
+	//마이페이지 운영자 정보
+	Map<String, Object> selectAdminInfo(String userId);
+	
+	//마이페이지 시스템관리자 정보
+	Map<String, Object> selectSystemInfo(String userId);
 	
 	//마이페이지 이메일 변경
 	int modifyUserEmail(String userEmail, String userId);

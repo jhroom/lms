@@ -104,22 +104,22 @@
       <div class="container-fluid">
 			<h3>내 계정</h3>
 		<div>아이디</div>
-		<div>${userInfo.userId }</div>
+		<div>${loginUser.userId }</div>
 		<hr>
 		
 		<div>계정 유형</div>
 		<div>
 			<c:choose>
-				<c:when test="${userInfo.userLevel == 1}">운영자</c:when>
-				<c:when test="${userInfo.userLevel == 2}">교수</c:when>
-				<c:when test="${userInfo.userLevel == 3}">학생</c:when>
-				<c:when test="${userInfo.userLevel == 4}">시스템관리자</c:when>
+				<c:when test="${loginUser.userLevel == 1}">운영자</c:when>
+				<c:when test="${loginUser.userLevel == 2}">교수</c:when>
+				<c:when test="${loginUser.userLevel == 3}">학생</c:when>
+				<c:when test="${loginUser.userLevel == 4}">시스템관리자</c:when>
 			</c:choose>
 		</div>
 		<hr>
 		
 		<form action="${pageContext.request.contextPath}/index/mypage/updatePw" method="post" id="updatePwForm">
-	        <input type="hidden" id="userId" name="userId" value="${userInfo.userId}">
+	        <input type="hidden" id="userId" name="userId" value="${loginUser.userId}">
 	         
 		    <div class="col-sm-8 col-sm-offset-2">
 		        <div class="panel panel-default panel-margin-10">

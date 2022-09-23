@@ -47,11 +47,16 @@ public class MypageController {
 			model.addAttribute("errMsg","로그인 후 이용 가능합니다");
 			return "index/login";
 		}
+		//세션의 유저 아이디
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		//세션의 유저 레벨
+		int userLevel = ((User)session.getAttribute("loginUser")).getUserLevel();
 		
 		// 유저의 가입정보 받아오기
-		User userInfo = mypageService.getUserInfo(userId);
-		System.out.println(TeamColor.AJH + "userId의 가입정보 : "+ userInfo);
+		Map<String, Object> userInfo = mypageService.getUserInfo(userId, userLevel);
+		
+		// 디버깅
+		log.debug(TeamColor.AJH + "userId의 가입정보 : "+ userInfo);
 		
 		model.addAttribute("userInfo", userInfo);
 		
