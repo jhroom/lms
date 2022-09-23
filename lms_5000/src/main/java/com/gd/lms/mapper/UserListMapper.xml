@@ -69,7 +69,7 @@
 	UPDATE
 		user
 	SET
-		user_active = 'N'
+		user_active = 'H'
 	WHERE
 		DATEDIFF(NOW(), lastlogin_date ) >= 7 AND user_active = 'Y' AND user_level IN (2,3) 
 </update>
