@@ -25,7 +25,7 @@
 			#{majorNo},
 			#{majorTitle},
 			now(),
-			#{userId}
+			#{user_id}
 		)
 	
 	

@@ -14,11 +14,19 @@
 		<tbody>
 			<tr>
 				<th>학과이름</th>
-				<td><input type="text" name="majorName" id="majorName" value="학과 이름"></td>
+				<td><input type="text" name="majorName" id="majorName" Placeholder="학과 이름을 적으세요."></td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>
+				<input type="text" name="userId" id="userId" value="shin" readonly="readonly">
+				</td>
 			</tr>
 		</tbody>
 		</table>
 		<button type="button">추가하기</button>
+		
+		
 	</form>
 
 </body>
