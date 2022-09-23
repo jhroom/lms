@@ -71,6 +71,6 @@
 	SET
 		user_active = 'N'
 	WHERE
-		DATEDIFF(NOW(), lastlogin_date ) >= 60 AND user_active = 'Y'
+		DATEDIFF(NOW(), lastlogin_date ) >= 7 AND user_active = 'Y' AND user_level IN (2,3) 
 </update>
 </mapper>

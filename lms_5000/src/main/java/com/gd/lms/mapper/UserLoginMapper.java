@@ -15,6 +15,9 @@ public interface UserLoginMapper {
 	//id,pw로 user 로그인과 최소한의 정보 담기
 	User selectUserLogin(User user);
 	
+	//휴면 계정 로그인 확인
+	String selectRestUserLogin(User user);
+	
 	//로그인시 마지막 로그인날짜 업데이트
 	int updateUserLastLogin(String userId);
 	

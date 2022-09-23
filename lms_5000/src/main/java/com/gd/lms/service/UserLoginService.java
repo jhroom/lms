@@ -28,6 +28,13 @@ public class UserLoginService implements IUserLoginService {
 		
 		return temp;
 	}
+	
+	// 휴면계정 로그인시 정보 유무 확인
+	@Override
+	public String getRestUserLogin(User user) {
+		return userLoginMapper.selectRestUserLogin(user);
+	}
+	
 	//운영자 회원가입
 	@Override
 	public boolean addAdmin(User user, int positionNo) {

@@ -6,6 +6,8 @@ public interface IUserLoginService {
 	
 	User getUserLogin(User user);
 	
+	String getRestUserLogin(User user);
+	
 	boolean addAdmin(User user, int positionNo);
 	
 	boolean getUserIdCheck(String userId);

@@ -37,13 +37,6 @@ public class UserController {
 	@GetMapping("/index/login")
 	public String userLogin() {
 		
-		//디버깅
-		log.debug(TeamColor.JCH + this.getClass() + "휴먼계정 처리");
-								
-		//누군가 index페이지로 들어오면 휴먼계정 체크.
-		int row = userListService.updateUserActiveByLastLogin();
-		System.out.println(row + "휴먼계정 확인");
-		
 		return "user/login";
 	}
 	
@@ -70,6 +63,10 @@ public class UserController {
 			model.addAttribute("errMsg","승인 대기 상태입니다");
 			return "user/login";
 		}
+		if("H".equals(loginUser.getUserActive())) {
+			model.addAttribute("errMsg","휴먼 계정 입니다");
+			return "user/restUser";
+		}
 		//마지막 로그인 날짜 업데이트
 		userLoginService.modifyUserLastLogin(user.getUserId());
 		
@@ -77,6 +74,24 @@ public class UserController {
 		session.setAttribute("loginUser", loginUser);
 		
 		return "redirect:/index";
+	}
+	
+	@GetMapping("/index/restUser")
+	public String restUser() {
+		return "user/restUser";
+	}
+	
+	@PostMapping("/index/restUser")
+	public String resUserCheck(Model model, User user) {
+		//디버깅
+		log.debug(TeamColor.AJH + "휴면계정 페이지 파라미터 확인 : " + user  );
+		//서비스호출
+		String restUserId = userLoginService.getRestUserLogin(user);
+		if(restUserId == null) {
+			model.addAttribute("errMsg","잘못된 정보 입니다");
+		}
+		model.addAttribute("errMsg","휴면 해제 처리되었습니다 다시 로그인해주세요");
+		return "user/login";
 	}
 	
 	
