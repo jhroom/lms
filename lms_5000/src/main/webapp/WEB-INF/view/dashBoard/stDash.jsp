@@ -56,10 +56,12 @@
 		<c:choose>
 			<c:when test="${loginUser != null}">
 				<h3>${loginUser.userName}님 환영합니다.</h3>
+				<br>
+					<button  onclick="window.open('${pageContext.request.contextPath}/sign/openLectureList'
+					, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false">수강신청
+					</button>
+				   <a href="${pageContext.request.contextPath}/sign/openLectureList"></a><br>
 			</c:when>
-			<c:otherwise>
-				   <a href="${pageContext.request.contextPath}/index/login"></a>
-			</c:otherwise>
 		</c:choose>
 	</div>
     <div class="content">
@@ -67,14 +69,37 @@
     <div class="col-sm-5">
 	<div class="card card-primary card-outline">
          <div class="card-body">
-           <h1 class="card-title"><Strong>게시판</Strong></h1><br>
+           <h1 class="card-title"><Strong>강의정보</Strong></h1><br>
            <table border="1">
            	 <thead>
-	          
+	           	 <tr>
+	           	 	<th>강의명(SubjectName)</th>
+	           	 	<th>수업요일(LectureDay)</th>
+	           	 	<th>강의실(classroomNo)</th>
+	           	 	<th>교수이름(ProfessorName)</th>
+	           	 </tr>
            	 </thead>
            	 <tbody>
-           	 	 <c:forEach var="" items="">
-	           	 	
+           	 	 <c:forEach var="a" items="${signList}">
+	           	 	 <tr>
+						<td>
+							<a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?userId=${loginUser.userId}&lecture=${a.lecture_no}">${a.subject_name}</a>
+						</td>     	 	 
+						<td>
+							<c:choose>
+								<c:when test="${a.lecture_day eq 1}">월요일</c:when>
+								<c:when test="${a.lecture_day eq 2}">화요일</c:when>
+								<c:when test="${a.lecture_day eq 3}">수요일</c:when>
+								<c:when test="${a.lecture_day eq 4}">목요일</c:when>
+								<c:when test="${a.lecture_day eq 5}">금요일</c:when>
+								<c:when test="${a.lecture_day eq 6}">토요일</c:when>
+								<c:when test="${a.lecture_day eq 7}">일요일</c:when>
+								<c:otherwise>요일을 다시 확인해 주세요</c:otherwise>
+							</c:choose>
+						</td> 	 	 
+						<td>${a.classroom_no} 강의실</td>           	 	 
+						<td>${a.pro_name} 교수</td>           	 	 
+	           	 	 </tr>
            	 	 </c:forEach>
            	 </tbody>
 		   </table>
@@ -83,95 +108,9 @@
         </div>
     </div><!-- /.card -->
 	</div>
-	
-	
 	<div class="col-sm-2"></div>
-	
-	
 	<div class="col-sm-5">
-	<div class="card card-primary card-outline">
-         <div class="card-body">
-           <h1 class="card-title"><Strong>과제재출</Strong></h1><br>
-           <table border="1">
-           	 <thead>
-	          
-           	 </thead>
-           	 <tbody>
-           	 	 <c:forEach var="" items="">
-	           	 	
-           	 	 </c:forEach>
-           	 </tbody>
-		   </table>
-           <a href="#" class="card-link">Card link</a>
-           <a href="#" class="card-link">Another link</a>
-        </div>
-    </div><!-- /.card -->
 	</div>
-	
-	<br><br>
-	
-	<div class="container-fluid">
-    <div class="col-sm-5">
-	<div class="card card-primary card-outline">
-         <div class="card-body">
-           <h1 class="card-title"><Strong>시험</Strong></h1><br>
-           <table border="1">
-           	 <thead>
-	          
-           	 </thead>
-           	 <tbody>
-           	 	 <c:forEach var="" items="">
-	           	 	
-           	 	 </c:forEach>
-           	 </tbody>
-		   </table>
-           <a href="#" class="card-link">Card link</a>
-           <a href="#" class="card-link">Another link</a>
-        </div>
-    </div><!-- /.card -->
-	</div>
-	
-	<div class="col-sm-2"></div>
-	
-	<div class="col-sm-5">
-	<div class="card card-primary card-outline">
-         <div class="card-body">
-           <h1 class="card-title"><Strong>성적확인</Strong></h1><br>
-           <table border="1">
-           	 <thead>
-	          
-           	 </thead>
-           	 <tbody>
-           	 	 <c:forEach var="" items="">
-	           	 	
-           	 	 </c:forEach>
-           	 </tbody>
-		   </table>
-           <a href="#" class="card-link">Card link</a>
-           <a href="#" class="card-link">Another link</a>
-        </div>
-    </div><!-- /.card -->
-	</div>
-	
-	<br><br>
-	
-	<div class="card card-primary card-outline">
-         <div class="card-body">
-           <h1 class="card-title"><Strong>출결현황</Strong></h1><br>
-           <table border="1">
-           	 <thead>
-	          
-           	 </thead>
-           	 <tbody>
-           	 	 <c:forEach var="" items="">
-	           	 	
-           	 	 </c:forEach>
-           	 </tbody>
-		   </table>
-           <a href="#" class="card-link">Card link</a>
-           <a href="#" class="card-link">Another link</a>
-        </div>
-    </div><!-- /.card -->
 	</div>
         <!-- /.row -->
     </div><!-- /.container-fluid -->

@@ -162,7 +162,7 @@
 				</c:if>
 				<br>
 				<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList">공지 리스트</a><br>
-				<a href="${pageContext.request.contextPath}/sign/openLectureList">강의 리스트</a><br>
+				<a href="${pageContext.request.contextPath}/dashBoard/stDash">강좌대시보드</a><br>
 				<a href="${pageContext.request.contextPath}/board/list?lectureNo=1">게시판</a><br>
 				<a href="${pageContext.request.contextPath}/index/mypage">마이페이지</a><br>
 				<button  onclick="window.open('${pageContext.request.contextPath}/user/messageList'

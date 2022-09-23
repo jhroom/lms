@@ -107,7 +107,7 @@ public class BoardService implements IBoardService{
 		
 		//리턴 값(int) 세팅
 		int row = boardMapper.insertBoardPost(boardPost);
-		
+		log.debug(TeamColor.KHJ + "파라미터 확인ddddd / boardPost : " + boardPost);
 		//파일 추가
 		if(row == 1 && uploadFile !=null) {
 			//////파일 첨부 코드

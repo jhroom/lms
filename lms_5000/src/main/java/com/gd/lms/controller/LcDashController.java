@@ -23,7 +23,7 @@ public class LcDashController {
 	@Autowired IMainDashService studentService;
 	
 	// 강의중 수강 목록 출력
-	@GetMapping("/stdashboard/stDash")
+	@GetMapping("/dashBoard/stDash")
 	public String dashboard(Sign sign, Model model, HttpSession session){
 		  String userId = ((User)session.getAttribute("loginUser")).getUserId();
 	 	  sign.setUserId(userId);
@@ -32,7 +32,7 @@ public class LcDashController {
 	 	  log.debug(TeamColor.YHW + signList + "-- addSign-controller");
 	 	  // model에 담아 전달
 	 	  model.addAttribute("signList",signList);
-		 return "/stdashboard/stDash";
+		 return "/dashBoard/stDash";
 		
 	}
 	
