@@ -114,7 +114,7 @@
 		
 		
 		<a href="javascript:history.back();">수정취소</a>
-		<a href="${pageContext.request.contextPath}/lmsNotice/updateLmsNotice?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}">수정</a>
+		&nbsp; 
 		<button type="submit">수정</button>
 		</form>
 	</div>

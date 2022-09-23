@@ -97,14 +97,11 @@
 			
 		</table>
 		
-		
-		<form method="get" name="form">
-			<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/updateLmsNotice?lmsNoticeNo=${lmsNoticeNo}%lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}'">수정안됨</button>
-			<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/deleteLmsNotice?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}'">삭제안됨</button>
-			<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/LmsNoticeList'">글목록됨</button>
-		</form>
-		<a href="${pageContext.request.contextPath}/lmsNotice/deleteLmsNotice?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}">삭제</a>
-		<a href="${pageContext.request.contextPath}/lmsNotice/UpdateLmsNotice/form?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}">수정</a>
+		<a href="${pageContext.request.contextPath}/lmsNotice/deleteLmsNotice?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}" class="btn btn-info" role="button">삭제</a>
+		&nbsp; 
+		<a href="${pageContext.request.contextPath}/lmsNotice/UpdateLmsNotice/form?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}" class="btn btn-info" role="button">수정</a>
+		&nbsp; 
+		<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList" class="btn btn-info" role="button">리스트</a>
 		
 	</div>
       
