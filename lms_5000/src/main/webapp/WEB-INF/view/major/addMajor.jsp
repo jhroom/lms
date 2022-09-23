@@ -18,9 +18,7 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td>
-				<input type="text" name="userId" id="userId" value="shin" readonly="readonly">
-				</td>
+				<td>${userId}<td>
 			</tr>
 		</tbody>
 		</table>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.IMajorService;
+import com.gd.lms.service.IMypageService;
 import com.gd.lms.vo.Major;
 import com.gd.lms.vo.User;
 
@@ -21,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 
 public class MajorController {
 	@Autowired IMajorService majorService;
+	@Autowired IMypageService mypageService;
+	
 	
 	// 학과 리스트
 	@GetMapping("/lmsMajor/MajorList")
@@ -37,8 +40,16 @@ public class MajorController {
 	
 	// 학과 추가
 	@GetMapping("/lmsMajor/addMajor")
-	public String addMajor() {
-		//HttpSession session, Model model
+	public String addMajor(HttpSession session, Model model) throws Exception {
+		//세션값 중 ID만 가져오기
+		String userId=((User)session.getAttribute("loginUser")).getUserId();
+		
+		//디버깅 이름 잘 들어왔나?
+		log.debug(TeamColor.SSH + "userId : " + userId);
+		
+		//model을 사용하여 전달
+		model.addAttribute("userId", userId);
+		
 		
 		
 		return "/major/addMajor";
@@ -49,6 +60,8 @@ public class MajorController {
 	@GetMapping("/lmsMajor/MajorList/add")
 	public String addMajor(Major major) {
 		majorService.addMajor(major);
+		
+		log.debug(TeamColor.SSH + "학과이름 : " + major);
 		
 		return "redirect:/lmsMajor/MajorList";
 		
