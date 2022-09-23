@@ -19,6 +19,9 @@ public interface UserListMapper {
 	
 	//승인 유저 리스트
 	List<User> selectYesUserList();
+	
+	//승인 유저 리스트
+	List<User> selectHUserList();
 
 	//휴면계정 전환 마지막 로그인 이후 60일 .. Y->N로 .
 	int updateUserActiveByLastLogin();

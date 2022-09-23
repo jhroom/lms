@@ -37,8 +37,9 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0 text-dark">승인 완료 계정</h1>
-            <a href="${pageContext.request.contextPath}/user/userList">계정 승인 페이지</a>
-           	<a href="${pageContext.request.contextPath}/user/waitUser">승인 대기 계정</a>
+            <a href="${pageContext.request.contextPath}/user/userList">계정 승인 페이지</a><br>
+           	<a href="${pageContext.request.contextPath}/user/waitUser">승인 대기 계정</a><br>
+           	<a href="${pageContext.request.contextPath}/user/hUser">휴면 계정</a>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

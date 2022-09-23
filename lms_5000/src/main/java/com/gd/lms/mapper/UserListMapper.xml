@@ -65,6 +65,23 @@
 	ORDER BY create_date DESC;
 </select>
 
+<select id="selectHUserList" resultType="com.gd.lms.vo.User">
+<!-- 유저 승인 리스트 출력 ( active 값이 H 인 계정들만 )  -->
+	SELECT
+		user_id userId,
+		user_level userLevel,
+		user_name userName,
+		user_email userEmail,
+		user_tel userTel,
+		user_gender userGender,
+		create_date createDate,
+		user_active userActive,
+		lastlogin_date lastloginDate
+	FROM user
+	WHERE user_active = 'H'
+	ORDER BY create_date DESC;
+</select>
+
 <update id="updateUserActiveByLastLogin" parameterType="com.gd.lms.vo.User">
 	UPDATE
 		user
