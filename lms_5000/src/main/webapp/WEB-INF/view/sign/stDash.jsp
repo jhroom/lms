@@ -58,7 +58,7 @@
 				<h3>${loginUser.userName}님 환영합니다.</h3>
 				<br>
 					<button  onclick="window.open('${pageContext.request.contextPath}/sign/openLectureList'
-					, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false">수강신청
+					, '새창', 'width=700px, height=600px' , 'location=no' , 'toolbar=yes'); return false">수강신청
 					</button>
 				   <a href="${pageContext.request.contextPath}/sign/openLectureList"></a><br>
 			</c:when>
@@ -83,8 +83,8 @@
            	 	 <c:forEach var="a" items="${signList}">
 	           	 	 <tr>
 						<td>
-							<a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?userId=${loginUser.userId}&lecture=${a.lecture_no}">${a.subject_name}</a>
-						</td>     	 	 
+							<a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?userId=${loginUser.userId}&lectureNo=${a.lecture_no}">${a.subject_name}</a>
+						</td>     	 	
 						<td>
 							<c:choose>
 								<c:when test="${a.lecture_day eq 1}">월요일</c:when>

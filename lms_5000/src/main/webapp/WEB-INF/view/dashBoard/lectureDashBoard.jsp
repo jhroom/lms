@@ -70,12 +70,16 @@
 			           <h1 class="card-title"><Strong>게시판</Strong></h1><br>
 			           <table border="1">
 			           	 <thead>
-				          
+				         	 <tr>
+				         	 	<td></td>
+				         	 	<td></td>
+				         	 	<td></td>
+				          	</tr>
 			           	 </thead>
 			           	 <tbody>
 			           	 </tbody>
 					   </table>
-			           <a href="#" class="card-link">Card link</a>
+			          <a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard" >게시판 생성</a>
 			           <a href="#" class="card-link">Another link</a>
 			        </div>
 			    </div><!-- /.card -->
@@ -90,11 +94,11 @@
 			           	 <thead>
 				         
 					   </table>
-					   <c:choose>
-					   		<c:when test="${loginUser.userLevel eq 2 }">
-					           	 <a href="${pageContext.request.contextPath}/dashBoard/insertBoard }" >강좌 게시판 생성</a>
-					   		</c:when>
-			           </c:choose>
+<%-- 					   <c:choose> --%>
+<%-- 					   		<c:when test="${loginUser.userLevel eq 2 }"> --%>
+					           	 <a href="${pageContext.request.contextPath}/dashBoard/addform" >과제 제출 게시판 생성</a>
+<%-- 					   		</c:when> --%>
+<%-- 			           </c:choose> --%>
 			           <a href="#" class="card-link">Another link</a>
 			        </div>
 			    </div><!-- /.card -->

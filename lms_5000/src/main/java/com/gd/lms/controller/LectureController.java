@@ -16,6 +16,7 @@ import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
 import com.gd.lms.vo.User;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,14 +26,14 @@ public class LectureController {
 	
   @GetMapping ("/sign/openLectureList")
    public String selectLectureListForSign(Model model, Sign sign, SignCancel signCancel, HttpSession session) {
-//	  // 로그인 상태가 아니면 로그인페이지
-//	  if(session.getAttribute("user") == null) { 
-//		  return "redirect:/lms/user/login";
-//	  }
-//	  // 권한이 학생 아니면 인덱스 페이지
-//	  else if (Integer.parseInt((String) session.getAttribute("level")) != 3 || Integer.parseInt((String) session.getAttribute("level")) != 1) {
-//		  return "redirect:/lms/index";
-//	  }
+//		  // 로그인 상태가 아니면 로그인페이지
+//		  if(session.getAttribute("user") == null) { 
+//			  return "redirect:/lms/user/login";
+//		  }
+//		  // 권한이 학생 아니면 인덱스 페이지
+//		  else if (Integer.parseInt((String) session.getAttribute("level")) != 3 || Integer.parseInt((String) session.getAttribute("level")) != 1) {
+//			  return "redirect:/lms/index";
+//		  }z
 	 
 	  	
 	  // 개설강좌 목록 불러오기

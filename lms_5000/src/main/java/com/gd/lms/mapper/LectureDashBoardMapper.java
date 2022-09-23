@@ -7,10 +7,16 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.Board;
 import com.gd.lms.vo.BoardPost;
-import com.gd.lms.vo.Sign;
 
 @Mapper
 public interface LectureDashBoardMapper {
+	
+	//////////////////일반 개신판///////////////////////////
+	// 강좌 개시판 생성
+	int insertSubBoard(Board board);
+	
+	
+	//////////////////과제 제출 관련/////////////////////////
 	// 과제 제출 게시판 생성
 	int insertBoard(Board board);
 	// 과제 제출 게시판 리스트

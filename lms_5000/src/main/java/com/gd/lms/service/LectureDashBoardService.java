@@ -17,6 +17,16 @@ import lombok.extern.slf4j.Slf4j;
 public class LectureDashBoardService implements ILectureDashBoadService {
 	@Autowired LectureDashBoardMapper lectureDashBoardMapper;
 	
+	//////////////////////////기타 게시판 /////////////////////////////
+	// 기타 게시판 생성
+	@Override
+	public int addSubBoard(Board board) {
+		int addSubBoard = lectureDashBoardMapper.insertSubBoard(board);
+		// 과제 제출 게시판 작동 확인
+		log.debug(TeamColor.YHW + "-- addSubBoard-service--"+ addSubBoard );
+		return addSubBoard;
+	}
+	////////////////////////// 과제관련 게시판 /////////////////////////////
 	// 과제 제출 게시판 생성
 	@Override
 	public int addAssignmentBoard(Board board) {
@@ -34,6 +44,8 @@ public class LectureDashBoardService implements ILectureDashBoadService {
 		log.debug(TeamColor.YHW + "-- getAssignment-service--"+ getAssignment );
 		return getAssignment;
 	}
+
+	
 
 
 }

@@ -6,7 +6,10 @@ import java.util.Map;
 import com.gd.lms.vo.Board;
 
 public interface ILectureDashBoadService {
-	
+	////////////////////////// 기타 게시판 /////////////////////////////
+	// 기타 게시판 생성
+	int addSubBoard(Board board);
+	////////////////////////// 과제관련 게시판 /////////////////////////////
 	// 과제 제출 게시판 생성
 	int addAssignmentBoard(Board board);
 	// 과제 제출 게시판

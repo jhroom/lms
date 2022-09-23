@@ -23,16 +23,18 @@ public class LcDashController {
 	@Autowired IMainDashService studentService;
 	
 	// 강의중 수강 목록 출력
-	@GetMapping("/dashBoard/stDash")
-	public String dashboard(Sign sign, Model model, HttpSession session){
+	@GetMapping("/sign/stDash")
+	public String dashboard(Sign sign,Sign lectureNo, Model model, HttpSession session){
 		  String userId = ((User)session.getAttribute("loginUser")).getUserId();
 	 	  sign.setUserId(userId);
 	 	  List<Map<String,Object>> signList = studentService.selectStudentSignList(sign);
 	 	  // 수강신청 목록 확인
 	 	  log.debug(TeamColor.YHW + signList + "-- addSign-controller");
 	 	  // model에 담아 전달
+	 	  System.out.println("강좌번호 : "+lectureNo);
+	 	  session.setAttribute("lectureNo", lectureNo);
 	 	  model.addAttribute("signList",signList);
-		 return "/dashBoard/stDash";
+		 return "/sign/stDash";
 		
 	}
 	
