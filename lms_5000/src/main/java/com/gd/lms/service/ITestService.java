@@ -12,7 +12,7 @@ public interface ITestService {
 	List<Map<String, Object>> testLecture();
 	
 	//강좌별 시험 리스트 생성 기능
-	List<Map<String, Object>> getTestList(String userId, int lectureNo);
+	List<Map<String, Object>> getTestList(int userLv,String userId, int lectureNo);
 	
 	//시험별 문제 리스트 생성 기능
 	List<Question> getTestQuestionList(int testNo);
@@ -32,5 +32,13 @@ public interface ITestService {
 	//시험 응시 학생 리스트 생성 기능
 	List<Map<String, Object>> getTestStudnet(int lectureNo, int testNo);
 	
+	//전체 학생 채점 기능
+	int updateScore(int testNo);
 	
+	//수정용 문제 선택 기능
+	List<Map<String, Object>> getTestModifyForm(int questionNo);
+	
+	//문제 수정 기능
+	int modifyQuestion(String [] choiceContents, Question question);
+
 }

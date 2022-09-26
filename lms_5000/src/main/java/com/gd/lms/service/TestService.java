@@ -30,18 +30,39 @@ public class TestService implements ITestService {
 	
 	//강좌별 시험 리스트 생성 메서드 
 	@Override
-	public List<Map<String, Object>> getTestList(String userId, int lectureNo) {
+	public List<Map<String, Object>> getTestList(int userLv, String userId, int lectureNo) {
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 lectureNo : "+ lectureNo );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 userLv : "+ userLv );
+		
+
+		//리턴값 세팅
+		List<Map<String,Object>> list = null;
+		
+		//유저가 학생일 경우
+		if(userLv == 3) {
 		
 		//수강 정보 확인
 		int signNo = testMapper.selectSignNo(userId, lectureNo);
 		
 		
 		//리턴 값 세팅
-		List<Map<String,Object>> list = testMapper.selectTestList(lectureNo, signNo);
+		list = testMapper.selectTestList(lectureNo, signNo);
 		
 		//리턴
+		return list;
+		
+		//유저가 학생이 아닐 경우
+		} else if(userLv != 3) {
+			
+			//리턴 값 세팅
+			list = testMapper.selectTestListAdmin(lectureNo);
+			
+			//리턴
+			return list;
+			
+		}
+		
 		return list;
 	}
 
@@ -239,6 +260,64 @@ public class TestService implements ITestService {
 		
 		//리턴
 		return list;
+	}
+
+	@Override
+	public int updateScore(int testNo) {
+		
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 testNo : "+ testNo );
+				
+		
+		//쿼리 실행
+		int row = testMapper.updateTestScoreCorrect(testNo);
+		row =+ testMapper.updateTestScoreWrong(testNo);
+		
+		//리턴
+		return row;
+	}
+
+	@Override
+	public List<Map<String, Object>> getTestModifyForm(int questionNo) {
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 questionNo : "+ questionNo );
+		
+		//쿼리 실행		
+		List<Map<String, Object>> list = testMapper.selectTestModifyForm(questionNo);
+		
+		
+		return list;
+	}
+
+	@Override
+	public int modifyQuestion(String []  choiceContents, Question question) {
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 choiceContents : "+ choiceContents );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 리스트 question : "+ question );
+				
+		
+		//문제 수정 쿼리 실행
+		int row = testMapper.updateQuestion(question);
+		
+		//문제 번호 추출
+		int qusetionNo = question.getQuestionNo();
+		
+		for(int i = 0;i<4;i++) {
+			//임시 객체 생성
+			MultiChoice temp = new MultiChoice();
+			temp.setQuestionNo(qusetionNo);
+			temp.setChoiceNo(i+1);
+			temp.setChoiceContent(choiceContents[i]);
+			
+			//임시 객체 디버깅
+			log.debug(TeamColor.KHJ + "임시 객체 값 확인 리스트 temp : "+ temp );
+			
+			//객체
+			row += testMapper.updateMultiChoice(temp);
+		}
+		
+		//리턴
+		return row;
 	}
 
 }

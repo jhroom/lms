@@ -1,5 +1,6 @@
 package com.gd.lms.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -40,16 +41,20 @@ public class TestController {
 	//시험 게시판 폼 전송 메서드
 	@GetMapping ("/test/board")
 	public String testBoard(HttpSession session, int lectureNo, Model model) {
-		
+				
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / lectureNo : "+ lectureNo );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / user : "+ (User)session.getAttribute("loginUser") );
+		
 		
 		//세션 아이디 받아오기
-		//String userId = ((User)session.getAttribute("loginUser")).getUserId();
-		String userId = "tt";
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		
+		//세션 권한 받아오기
+		int userLv = ((User)session.getAttribute("loginUser")).getUserLevel();
 		
 		//넘겨줄 값 세팅
-		List<Map<String, Object>>  list = testService.getTestList(userId, lectureNo);
+		List<Map<String, Object>>  list = testService.getTestList(userLv, userId, lectureNo);
 		
 		
 		//값 넘겨주기
@@ -120,8 +125,8 @@ public class TestController {
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / testNo : "+ testNo );
 		
 		//세션 아이디 받아오기
-		//String userId = ((User)session.getAttribute("loginUser")).getUserId();
-		String userId = "tt";
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+
 				
 		
 		//응시여부 확인
@@ -143,7 +148,7 @@ public class TestController {
 	
 	//시험 응시
 	@PostMapping("test/submit")
-	public String testSubmit(int testNo, Answer answer, int lectureNo) {
+	public String testSubmit(HttpSession session, int testNo, Answer answer, int lectureNo) {
 		//결과 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / testNo : "+ testNo );
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / answer : "+ answer );
@@ -154,8 +159,7 @@ public class TestController {
 
 		
 		//세션 아이디 받아오기
-		//String userId = ((User)session.getAttribute("loginUser")).getUserId();
-		String userId = "tt";
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		
 		//실행
 		int row = testService.testSubmit(userId, testNo, answers, questions);
@@ -177,13 +181,14 @@ public class TestController {
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / TestNo : " + testNo);
 		
 		//값 확인
-		
 		List<Map<String, Object>> list = testService.getTestStudnet(lectureNo, testNo);
 		
 		
 		//값 넘겨주기
 		model.addAttribute("testStudentList", list);
 		model.addAttribute("testNo", testNo);
+		model.addAttribute("lectureNo", lectureNo);
+		
 		
 		
 		
@@ -193,15 +198,84 @@ public class TestController {
 	
 	
 	//시험 채점
-	@GetMapping("test/Score")
+	@GetMapping("test/score")
 	public String testScore(int testNo, int lectureNo) {
-		//
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / lectureNo : " + lectureNo);
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / TestNo : " + testNo);
+		
+		//서비스 실행
+		int row= testService.updateScore(testNo);
+		
+		//값 
+		log.debug(TeamColor.KHJ + "실행 값 확인 / row : " + row);
 		
 		//리턴값
 		return "redirect:/test/student?testNo="+testNo+"&lectureNo="+lectureNo;
 	}
 
 	//시험 수정
+	@GetMapping("test/modify/form")
+	public String directTestModifyForm(int testNo, int lectureNo, Model model){
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / lectureNo : " + lectureNo);
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / TestNo : " + testNo);
+		
+		
+		
+		//넘겨줄 값 세팅
+		List<Question>  list = testService.getTestQuestionList(testNo);
+		List<MultiChoice>  list2 = testService.getTestChoiceList(testNo);
+		
+		//값 넘겨주기
+		model.addAttribute("questionList",list);
+		model.addAttribute("choiceList",list2);
+		model.addAttribute("testNo",testNo);
+		model.addAttribute("lectureNo",lectureNo);
+
+		
+		return "test/testModifyForm";
+	}
+	
+	@GetMapping("test/modify/form2")
+	public String directTestModifyForm2(int testNo, int lectureNo, int questionNo, Model model) {
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / questionNo : " + questionNo);
+		
+		//쿼리 실행
+		List<Map<String, Object>> list = testService.getTestModifyForm(questionNo);
+				
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "결과 값 확인 / list : " + list);
+		
+		//값 넘기기
+		model.addAttribute("questionList", list);
+		model.addAttribute("testNo", testNo);
+		model.addAttribute("lectureNo", lectureNo);
+		
+		
+		return "test/testModifyFormDetail";
+	}
+	
+	@PostMapping("test/modifyTest")
+	public String modifyTest(int testNo, int lectureNo, MultiChoice multiChoice, Question question) {
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / question : " + question);
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / multiChoice : " + multiChoice);
+		
+		//배열 추출
+		String []  choiceContents = multiChoice.getChoiceContents();
+		
+		//추출 배열 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "배열 값 확인 / choiceContents : " + Arrays.toString(choiceContents));
+				
+		
+		//서비스 실행
+		int row = testService.modifyQuestion(choiceContents, question);
+		
+		//리턴
+		return "redirect:/test/modify/form?testNo="+testNo+"&lectureNo="+lectureNo;
+	}
 	
 	
 }

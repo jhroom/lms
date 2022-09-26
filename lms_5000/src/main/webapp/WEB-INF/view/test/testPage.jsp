@@ -58,7 +58,7 @@
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
       <form  action="${pageContext.request.contextPath}/test/submit" method="post">
       <input type="hidden" name="testNo" value="${testNo}">
-      <input type="text" name="lectureNo" value="${lectureNo}">
+      <input type="hidden" name="lectureNo" value="${lectureNo}">
       
 	<table>
 		<thead>

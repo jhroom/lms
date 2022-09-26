@@ -12,7 +12,7 @@
 		ORDER BY l.subject_no
 	</select>
 	
-	<!-- 강좌별 시험리스트 생성 쿼리 -->
+	<!-- 강좌별 시험리스트 생성 쿼리_학생 -->
 	<select id="selectTestList" resultType="com.gd.lms.vo.Test">
 		SELECT 
 			t.test_no testNo
@@ -33,6 +33,22 @@
 		WHERE lecture_no = #{lectureNo}
 				
 	</select>	
+	
+	<!-- 강좌별 시험리스트 생성 쿼리_운영자 -->
+	<select id="selectTestListAdmin" resultType="com.gd.lms.vo.Test">
+		SELECT 
+			t.test_no testNo
+			, t.test_name testName
+			, t.test_starttime testStarttime
+			, t.test_endtime testEndtime
+			, t.test_createdate testCreatedate
+			, t.test_updatedate testUpdatedate
+			, t.lecture_no lectureNo
+		FROM test t
+		WHERE lecture_no = #{lectureNo}
+	
+	</select>
+	
 	
 	<!-- 시험별 문제 리스트 생성 쿼리 -->
 	<select id="selectTestQuestion" resultType="com.gd.lms.vo.Question">
@@ -176,6 +192,72 @@
 	WHERE s.lecture_no = #{lectureNo};
 	</select>
 	
+	<!-- 응시 학생 전체 채점 쿼리_정답 처리 -->
+	<update id="updateTestScoreWrong">
+	UPDATE answer a
+	SET answer_score = 0
+	WHERE question_no IN (
+		SELECT question_no
+		FROM question
+		WHERE test_no = #{testNo}
+		)
+	AND answer_select != (
+		SELECT question_answer
+		FROM question q
+		WHERE q.question_no = a.question_no
+		)
+	
+	</update>
+	
+	
+	<!--응시 학생 전체 채점 쿼리_오답 처리 -->
+	<update id="updateTestScoreCorrect">
+	UPDATE answer a
+	SET answer_score = 1
+	WHERE question_no IN (
+		SELECT question_no
+		FROM question
+		WHERE test_no = #{testNo}
+		)
+	AND answer_select = (
+		SELECT question_answer
+		FROM question q
+		WHERE q.question_no = a.question_no
+		)
+	</update>
 
+
+	<!-- 문제 수정 폼 전송용 쿼리 -->
+	<select id="selectTestModifyForm" resultType="map">
+	SELECT 
+		q.question_no questionNo
+		, q.question_content questionContent
+		, q.question_answer questionAnswer
+		, m.choice_no choiceNo
+		, m.choice_content choiceContent
+	from question q
+	INNER JOIN
+	multi_choice m
+	ON q.question_no = m.question_no
+	WHERE q.question_no = ${questionNo}
+	</select>
+	
+	
+	<!-- 문제 수정 쿼리 -->
+	<update id="updateQuestion" parameterType="com.gd.lms.vo.Question">
+	update question 
+	set 
+		question_content=#{questionContent}
+		, question_answer=#{questionAnswer}
+	where question_no=#{questionNo}
+	</update>
+	
+	<!-- 보기 수정 쿼리 -->
+	<update id="updateMultiChoice" parameterType="com.gd.lms.vo.MultiChoice">
+	update multi_choice 
+	set choice_content=#{choiceContent}
+	where choice_no=#{choiceNo} 
+	and question_no=#{questionNo}
+	</update>
 	
 </mapper>
