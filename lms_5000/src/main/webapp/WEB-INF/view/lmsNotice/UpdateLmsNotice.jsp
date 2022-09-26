@@ -62,10 +62,12 @@
 		<table border="1" bordercolor="green">
 			<tbody>
 				<tr>
+					<input type="hidden" name="lmsNoticeNo" value="${noticeOne.lmsNoticeNo}">
+				</tr>
+				<tr>
 					<th>번호</th>
 					<td>
-						
-						<input type="hidden" name="lmsNoticeNo" value="${noticeOne.lmsNoticeNo}">
+						${noticeOne.lmsNoticeNo}
 					</td>
 				</tr>
 				<tr>
