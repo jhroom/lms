@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.lms.mapper.SubjectMapper">
+
+<!-- 강좌 리스트 -->
+	<select id="selectSubjectList" resultType="com.gd.lms.vo.Subject">
+		SELECT
+			s.subject_no subjectNo,
+			s.subject_name subjectName,
+			s.subject_point subjectPoint,
+			s.subject_grade subjectGrade,
+			m.major_no majorNo
+		FROM subject s
+		LEFT OUTER JOIN major m
+		ON s.major_no = m.major_no
+
+	</select>
+	
+<!-- 강좌 보기 -->
+	<select id="selectSubjectOne" resultType="map">
+		SELECT
+			s.subject_no subjectNo,
+			s.subject_name subjectName,
+			s.subject_point subjectPoint,
+			s.subject_grade subjectGrade,
+			m.major_no majorNo
+		FROM subject s
+		LEFT OUTER JOIN major m
+		ON s.major_no = m.major_no
+		WHERE s.subject_no=#{subjectNo}
+	
+	
+	</select>
+	
+<!-- 강좌 추가 -->
+	<insert id="addSubject" parameterType="com.gd.lms.vo.Subject">
+		INSERT INTO subject(
+			subject_no,
+			subject_name,
+			subject_point,
+			subject_grade,
+			major_no
+		) VALUES (
+			#{subjectNo},
+			#{subjectName},
+			#{subjectPoint},
+			#{subjectGrade},
+			#{majorNo}
+		)
+	</insert>
+	
+<!-- 강좌 수정 -->
+	<update id="updateSubject" parameterType="com.gd.lms.vo.Subject">
+		UPDATE subject
+		SET
+			subject_name = #{subjectName},
+			subject_point = #{subjectPoint},
+			subject_grade = #{subjectGrade}
+		WHERE subject_no = #{subjectNo}
+	</update>
+	
+<!-- 강좌 삭제 -->
+	<delete id="deleteSubject" parameterType="com.gd.lms.vo.Subject">
+		DELETE FROM subject
+		WHERE subject_no=#{subjectNo}
+	
+	</delete>
+
+
+
+
+
+
+</mapper>
