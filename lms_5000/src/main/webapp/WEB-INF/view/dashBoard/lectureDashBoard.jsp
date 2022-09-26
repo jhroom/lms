@@ -144,17 +144,15 @@
 		         <div class="card-body">
 		           <h1 class="card-title"><Strong>출결현황</Strong></h1><br>
 		           <table border="1">
-		           	 <thead>
-		           	    <tr>
-			          		<th>주차</th>
-			          		<th>출석상태</th>
-			          	</tr>
-		           	 </thead>
-		           	 	
-		           	 <tbody>
-		           	 	<c:forEach var="stuAtt" items="${stuAtt}">
-		           	 	<tr>
-			           		<td>${stuAtt.week}</td>
+		          	
+		          		
+			          		<tr><td>주차</td>
+			          		<c:forEach var="stuAtt" items="${stuAtt}">
+			          		<td>${stuAtt.week}</td>
+			          		</c:forEach>
+			          		</tr>			     
+			        		<tr><td>출석상태</td>
+			        		<c:forEach var="stuAtt" items="${stuAtt}">
 			           		<td>
 			           		<c:if test="${stuAtt.attendState eq 0}">
 			           			결석
@@ -169,9 +167,9 @@
 			           			출석
 			           		</c:if>
 			           		</td>
-			           </tr>
-						 </c:forEach>
-		           	 </tbody>
+			           		 </c:forEach>
+			           		</tr>
+
 				   </table>
 		           <a href="#" class="card-link">Card link</a>
 		           <a href="#" class="card-link">Another link</a>
