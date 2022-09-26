@@ -11,4 +11,20 @@
 		FROM lecture l INNER JOIN subject s ON l.subject_no = s.subject_no
 		WHERE l.lecture_no
 	</select>
+	
+	<!-- 강좌별 수강신청 인원 -->
+	<select id="selectStudentListByLecture" resultType="map" parameterType="com.gd.lms.vo.Sign">
+		SELECT
+			l.lecture_no,
+			s.subject_name,
+			s.subject_grade,
+			m.major_name,
+			t.user_id,
+			t.st_name
+		FROM lecture l INNER JOIN subject s ON l.subject_no = s.subject_no
+		INNER JOIN sign i ON l.lecture_no = i.lecture_no
+		INNER JOIN student t ON i.user_id = t.user_id
+		INNER JOIN major m ON t.major_no = m.major_no
+		WHERE l.lecture_no =1
+	</select>
 </mapper>

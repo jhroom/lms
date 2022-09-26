@@ -55,6 +55,7 @@ public class LectureController {
  	  
  	  
  	  // 수강 취소 리스트 
+ 	  signCancel.setUserId(userId);
  	  List<Map<String,Object>> cancelSignList = lectureService.selectCancelSignList(signCancel);
 	   //디버깅
 	  log.debug(TeamColor.YHW + "-- cancelSignList-controller -- "+ cancelSignList );

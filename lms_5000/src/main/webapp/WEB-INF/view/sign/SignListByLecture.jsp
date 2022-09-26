@@ -47,7 +47,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">강좌 목록(운영자용 페이지)</h1>
+            <h1 class="m-0 text-dark">수강신청 인원 리스트(운영자용 페이지)</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -65,27 +65,36 @@
 	<div class = "container">
 		  <div class="card card-primary card-outline">
               <div class="card-body">
-                <h1 class="card-title"><Strong>개설 강좌 리스트</Strong></h1><br>
-                <table border="1">
-					<thead>
-						<tr>
-							<th>강좌번호(lectureNo)</th>
-							<th>과목이름(subjectName)</th>
-							<th>신청 가능 학년(subjectGrade)</th>
-							<th>강의실(classNo)</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="l" items="${slectureList}">
+				<c:forEach var="g" items="${getStudentList}">
+	                <h1 class="card-title"><Strong>${g.subject_name} 수강신청 학생 리스트</Strong></h1><br>
+	                <input type="hidden" name="lecture_no" id="lecture_no" value="${lecture_no}">
+	                <table border="1">
+						<thead>
 							<tr>
-								<td>${l.lecture_no}</td>
-								<td><a href="${pageContext.request.contextPath}/sign/SignListByLecture?lectureNo=${l.lecture_no}">${l.subject_name}</a></td>
-								<td>${l.subject_grade}학년</td>
-								<td>${l.classroom_no}호 강의실</td>
+								<th>전공(major_name) - 수강 가능 학과(${g.major_name})  </th>
+								<th>학년(lectureNo) - 수강 가능 학년(${g.grade_no}학년)  </th>
+								<th>학생ID(userId)</th>
+								<th>학생이름(userName)</th>
+								<th>상태 변경</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+								<tr>
+									<td>${g.major_name}</td>
+									<td>${g.grade_no}</td>
+									<td>${g.user_id}</td>
+									<td>${g.st_name}</td>
+									<td>
+										<select class="form-control" id="check" name="check" value="${g.sign_state}">
+											<option value="0">수강 대기</option>
+											<option value="1">수강 신청 완료</option>
+											<option value="2">수강 불가</option>
+										</select>
+									 </td>
+								</tr>
+						</tbody>
+					</table>
+				</c:forEach>
                 <a href="#" class="card-link">Card link</a>
                 <a href="#" class="card-link">Another link</a>
               </div>

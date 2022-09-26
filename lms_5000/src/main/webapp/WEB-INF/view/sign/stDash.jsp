@@ -58,7 +58,7 @@
 				<h3>${loginUser.userName}님 환영합니다.</h3>
 				<br>
 					<button  onclick="window.open('${pageContext.request.contextPath}/sign/openLectureList'
-					, '새창', 'width=700px, height=600px' , 'location=no' , 'toolbar=yes'); return false">수강신청
+					, '새창', 'width=700px, height=600px' , 'location=no' , 'toolbar=yes'); return false" id="cyw">수강신청
 					</button>
 				   <a href="${pageContext.request.contextPath}/sign/openLectureList"></a><br>
 			</c:when>
@@ -139,4 +139,37 @@
 <%@include file="../import/script.jsp" %>
 
 </body>
+<script>
+//Date date = new DATE();
+
+let a = 'ddd';
+console.log(a);
+
+let date = new Date();
+console.log(date);
+console.log(date.getFullYear()); // 년도
+console.log(date.getMonth()+1); // 월
+console.log(date.getDate()); // 일
+console.log(date.getHours()); // 시간
+console.log(date.getMinutes()); // 분
+console.log(date.getSeconds()); // 초
+
+let dataMonth = (date.getMonth()+1)
+if(dataMonth < 10){
+	dataMonth = '0'+(date.getMonth()+1) 
+}
+
+let nowDate = ''+date.getFullYear()+dataMonth+date.getDate()+date.getHours()+date.getMinutes()+'00';
+console.log(nowDate);
+
+let chooseDate = '202209030000'; //  지정데이터 (지정된 시간을 넣을 변수)
+console.log(document.getElementById('cyw'));
+if(chooseDate > nowDate){
+	document.getElementById('cyw').style.display="none";
+}else{
+	document.getElementById('cyw').style.display="block";
+}
+
+
+</script>
 </html>
