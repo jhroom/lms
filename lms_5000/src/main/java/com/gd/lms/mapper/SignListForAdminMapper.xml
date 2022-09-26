@@ -18,6 +18,7 @@
 			l.lecture_no,
 			s.subject_name,
 			s.subject_grade,
+			i.sign_state,
 			m.major_name,
 			t.user_id,
 			t.st_name
@@ -25,6 +26,14 @@
 		INNER JOIN sign i ON l.lecture_no = i.lecture_no
 		INNER JOIN student t ON i.user_id = t.user_id
 		INNER JOIN major m ON t.major_no = m.major_no
-		WHERE l.lecture_no =1
+		WHERE l.lecture_no = #{lectureNo}
 	</select>
+	
+	<!-- 학생 수강 상태 변경 -->
+	<update id="updateSignState" parameterType="com.gd.lms.vo.Sign">
+		UPDATE sign
+		SET sign_state = #{signState}
+		WHERE lecture_no = #{lectureNo} 
+		AND user_id = #{userId}
+	</update>
 </mapper>

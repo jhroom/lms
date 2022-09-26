@@ -14,4 +14,7 @@ public interface SignListForAdminMapper {
 	
 	// 강좌별 수강신청 리스트
 	List<Map<String, Object>> selectStudentListByLecture(Sign sign);
+	
+	// 학생 수강신청 상태 변경
+	public int updateSignState(Sign sign);
 }

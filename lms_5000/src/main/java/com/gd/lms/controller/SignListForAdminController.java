@@ -3,10 +3,13 @@ package com.gd.lms.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ISignListforAdminService;
@@ -38,6 +41,15 @@ public class SignListForAdminController {
 		// 서비스에서 넘어온 값 확인
 		log.debug(TeamColor.YHW + "-- getStudentList - Controller--"+ getStudentList );
 		model.addAttribute("getStudentList",getStudentList);
+		return "/sign/SignListByLecture";
+	}
+	
+	// 학생 수강상태 변경
+	@PostMapping("/sign/SignListByLecture")
+	public String modyfySignState(Sign sign, HttpSession session) {
+		int signState = signListforAdminService.modifySignState(sign);
+		// 서비스에서 넘어온 값 확인
+		log.debug(TeamColor.YHW + "-- signState - Controller--"+ signState );
 		return "/sign/SignListByLecture";
 		
 	}

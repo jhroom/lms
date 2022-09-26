@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.SignListForAdminMapper;
 import com.gd.lms.vo.Sign;
+import com.gd.lms.vo.SignCancel;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +34,21 @@ public class SignListforAdminService implements ISignListforAdminService{
 		// 디버깅
 		log.debug(TeamColor.YHW + "-- mapper에서 넘어온 수강신청 리스트 -service--"+ getStudentListByLecture );
 		return getStudentListByLecture;
+	}
+
+	// 학생 수강상태 변경
+	@Override
+	public int modifySignState(Sign sign) {
+		int modifySignState = signListForAdminMapper.updateSignState(sign);
+		// 디버깅
+		log.debug(TeamColor.YHW + "-- mapper에서 넘어온 수강상태 변경 -service--"+ modifySignState );
+		return modifySignState;
+	}
+
+	@Override
+	public int modifySignState(Sign sign, SignCancel signCancel) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	
