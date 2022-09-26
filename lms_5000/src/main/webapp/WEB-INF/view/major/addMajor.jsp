@@ -8,8 +8,8 @@
 </head>
 <body>
 	<h3>학과 추가</h3>
-	<form action="${pageContext.request.contextPath}/lmsMajor/MajorList/add" method="post">
-	<input type="hidden" name="majorNo" id="majorNo" value="${majorNo}">
+	<form action="${pageContext.request.contextPath}/lmsMajor/MajorList/add" method="get">
+	
 	<table border="1" bordercolor="green">
 		<tbody>
 			<tr>
@@ -18,11 +18,11 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td>${userId}<td>
+				<td><input type="text" name="userId" id="userId" value="${userId}" readonly="readonly"><td>
 			</tr>
 		</tbody>
 		</table>
-		<button type="button">추가하기</button>
+		<button type="submit">추가하기</button>
 		
 		
 	</form>

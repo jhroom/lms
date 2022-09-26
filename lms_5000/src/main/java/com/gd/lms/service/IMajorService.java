@@ -1,6 +1,7 @@
 package com.gd.lms.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.gd.lms.vo.Major;
 
@@ -18,5 +19,6 @@ public interface IMajorService {
 	// 학과 삭제
 	public int deleteMajor(int majorNo);
 	
-	
+	// 학과 상세보기
+	public Map<String, Object> getMajorOne(int majorNo);
 }
