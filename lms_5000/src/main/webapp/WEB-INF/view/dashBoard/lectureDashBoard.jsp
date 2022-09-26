@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -70,16 +69,12 @@
 			           <h1 class="card-title"><Strong>게시판</Strong></h1><br>
 			           <table border="1">
 			           	 <thead>
-				         	 <tr>
-				         	 	<td></td>
-				         	 	<td></td>
-				         	 	<td></td>
-				          	</tr>
+				          
 			           	 </thead>
 			           	 <tbody>
 			           	 </tbody>
 					   </table>
-			          <a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard" >게시판 생성</a>
+			           <a href="#" class="card-link">Card link</a>
 			           <a href="#" class="card-link">Another link</a>
 			        </div>
 			    </div><!-- /.card -->
@@ -94,11 +89,11 @@
 			           	 <thead>
 				         
 					   </table>
-<%-- 					   <c:choose> --%>
-<%-- 					   		<c:when test="${loginUser.userLevel eq 2 }"> --%>
-					           	 <a href="${pageContext.request.contextPath}/dashBoard/addform" >과제 제출 게시판 생성</a>
-<%-- 					   		</c:when> --%>
-<%-- 			           </c:choose> --%>
+					   <c:choose>
+					   		<c:when test="${loginUser.userLevel eq 2 }">
+					           	 <a href="${pageContext.request.contextPath}/dashBoard/insertBoard }" >강좌 게시판 생성</a>
+					   		</c:when>
+			           </c:choose>
 			           <a href="#" class="card-link">Another link</a>
 			        </div>
 			    </div><!-- /.card -->
@@ -150,11 +145,32 @@
 		           <h1 class="card-title"><Strong>출결현황</Strong></h1><br>
 		           <table border="1">
 		           	 <thead>
-			          
+		           	    <tr>
+			          		<th>주차</th>
+			          		<th>출석상태</th>
+			          	</tr>
 		           	 </thead>
-		           	 <tbody>
-			           	 	
 		           	 	
+		           	 <tbody>
+		           	 	<c:forEach var="stuAtt" items="${stuAtt}">
+		           	 	<tr>
+			           		<td>${stuAtt.week}</td>
+			           		<td>
+			           		<c:if test="${stuAtt.attendState eq 0}">
+			           			결석
+			           		</c:if>
+			           		<c:if test="${stuAtt.attendState eq 1}">
+			           			지각
+			           		</c:if>
+			           		<c:if test="${stuAtt.attendState eq 2}">
+			           			조퇴
+			           		</c:if>
+			           		<c:if test="${stuAtt.attendState eq 3}">
+			           			출석
+			           		</c:if>
+			           		</td>
+			           </tr>
+						 </c:forEach>
 		           	 </tbody>
 				   </table>
 		           <a href="#" class="card-link">Card link</a>

@@ -139,5 +139,4 @@ public class UserListController {
 		return "/user/updatePw";
 	}
 	
-
 }
