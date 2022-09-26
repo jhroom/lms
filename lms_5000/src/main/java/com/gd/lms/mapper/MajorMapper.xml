@@ -3,14 +3,14 @@
 <mapper namespace="com.gd.lms.mapper.MajorMapper">
 <!-- 학과 리스트 -->
 	<select id="selectMajorList" resultType="com.gd.lms.vo.Major">
-	select
+	SELECT
 		m.major_no majorNo,
 		m.major_name majorName,
 		m.major_createdate majorCreatedate,
 		u.user_id userId
-	from major	m
-	left outer join user u
-	on m.user_id = u.user_id
+	FROM major	m
+	LEFT OUTER JOIN user u
+	ON m.user_id = u.user_id
 	<!-- 보수 필요 예정 -->	
 	</select>
 	
@@ -41,7 +41,7 @@
 	<update id="updateMajor" parameterType="com.gd.lms.vo.Major">
 		UPDATE major
 		SET
-		major_name = #{majorName}
+			major_name = #{majorName}
 		WHERE major_no = #{majorNo}
 	</update>
 	
@@ -53,8 +53,8 @@
 		m.major_createdate majorCreatedate,
 		u.user_id userId
 		FROM major m
-		left outer join user u
-		on m.user_id = u.user_id
+		LEFT OUTER JOIN user u
+		ON m.user_id = u.user_id
 		WHERE m.major_no=#{majorNo} 
 	
 	</select>

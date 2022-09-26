@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>학과 상세보기</title>
 </head>
 <body>
 <div>
@@ -13,7 +13,7 @@
 		<tbody>
 			<tr>
 				<th>학과 번호</th>
-				<td>${majorOne.majorNo}</td>	
+				<td>${majorOne.majorNo}번</td>	
 			</tr>
 			<tr>
 				<th>학과 이름</th>
@@ -29,9 +29,9 @@
 			</tr>
 		</tbody>
 	</table>
-	
-	<a href="${pageContext.request.contextPath}/lmsMajor/deleteMajor?majorNo=${majorNo}" class="btn btn-info" role="button">삭제</a>
+
 	<a href="${pageContext.request.contextPath}/lmsMajor/updateMajor/form?majorNo=${majorNo}" class="btn btn-info" role="button">수정</a>
+	<a href="${pageContext.request.contextPath}/lmsMajor/deleteMajor?majorNo=${majorNo}" class="btn btn-info" role="button">삭제</a>
 	
 </div>
 </body>

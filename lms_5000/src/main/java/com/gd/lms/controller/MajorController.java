@@ -64,7 +64,7 @@ public class MajorController {
 	public String addMajor(Major major) {
 		majorService.addMajor(major);
 		
-		log.debug(TeamColor.SSH + "학과이름 : " + major);
+		log.debug(TeamColor.SSH + "학과 추가 : " + major);
 		
 		return "redirect:/lmsMajor/MajorList";
 		
@@ -85,15 +85,18 @@ public class MajorController {
 	//학과 상세보기
 	@GetMapping("/lmsMajor/majorOne")
 	public String getselectMajorOne(int majorNo, String majorName, Model model) {
-	
+		
+		// 상세보기 값 가지고 오기
 		Map<String, Object> majorOne = majorService.getMajorOne(majorNo);
 		
+		// 그리고 구현하기
 		model.addAttribute("majorOne", majorOne);
 		
 		model.addAttribute("majorNo", majorNo);
 		model.addAttribute("majorName", majorName);
 		
-		log.debug(TeamColor.SSH + "삭제 결과" + majorOne);
+		//디버깅
+		log.debug(TeamColor.SSH + "결과확인" + majorOne);
 		log.debug(TeamColor.SSH + "결과확인 / 포워딩");
 		
 		return "major/MajorOne";
