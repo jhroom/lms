@@ -1,6 +1,7 @@
 package com.gd.lms.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,7 +82,6 @@ public class UserListService implements IUserListService {
 		log.debug(TeamColor.JCH + this.getClass() + "휴면계정 변경");
 		return userListMapper.updateUserActiveByLastLogin();
 	}
-
 
 	
 }

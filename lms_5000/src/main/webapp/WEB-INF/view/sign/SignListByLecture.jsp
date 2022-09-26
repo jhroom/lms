@@ -66,13 +66,13 @@
 		  <div class="card card-primary card-outline">
               <div class="card-body">
 				<c:forEach var="g" items="${getStudentList}">
-	                <h1 class="card-title"><Strong>${g.subject_name} 수강신청 학생 리스트</Strong></h1><br>
+	                <h1 class="card-title"><br><Strong>${g.subject_name} 수강신청 학생 </Strong></h1><hr>
 	                <input type="hidden" name="lecture_no" id="lecture_no" value="${lecture_no}">
 	                <table border="1">
 						<thead>
 							<tr>
-								<th>전공(major_name) - 수강 가능 학과(${g.major_name})  </th>
-								<th>학년(lectureNo) - 수강 가능 학년(${g.grade_no}학년)  </th>
+								<th>전공(major_name) </th>
+								<th>학년(lectureNo) - 수강 가능 학년(${g.subject_grade}학년)  </th>
 								<th>학생ID(userId)</th>
 								<th>학생이름(userName)</th>
 								<th>상태 변경</th>
@@ -85,11 +85,28 @@
 									<td>${g.user_id}</td>
 									<td>${g.st_name}</td>
 									<td>
-										<select class="form-control" id="check" name="check" value="${g.sign_state}">
-											<option value="0">수강 대기</option>
-											<option value="1">수강 신청 완료</option>
-											<option value="2">수강 불가</option>
-										</select>
+										<form action="${pageContext.request.contextPath}/sign/SignListByLecture?lectureNo=${g.lecture_no}&userId=${g.user_id}" method="post">
+											<select name="signState" >
+												<c:choose>
+													<c:when test="${g.sign_state eq '0'}">
+														<option value="0" selected>승인 대기</option>
+														<option value="1">신청 완료</option>
+														<option value="2">수강 불가</option>
+													</c:when>
+													<c:when test="${g.sign_state eq '1'}">
+														<option value="0" >승인 대기</option>
+														<option value="1" selected>신청 완료</option>
+														<option value="2" >수강 불가</option>
+													</c:when>
+													<c:when test="${g.sign_state eq '2'}">
+														<option value="0" >승인 대기</option>
+														<option value="1" >신청</option>
+														<option value="2" selected>수강 불가</option>
+													</c:when>
+												</c:choose>											
+											</select>
+											<button type="submit">상태 변경</button>
+										</form>
 									 </td>
 								</tr>
 						</tbody>

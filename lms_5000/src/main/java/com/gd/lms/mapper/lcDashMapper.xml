@@ -13,7 +13,7 @@
 		FROM sign g 
 		INNER JOIN lecture l ON l.lecture_no = g.lecture_no
 		INNER JOIN subject s ON s.subject_no = l.subject_no 
-		WHERE g.user_id= #{userId} AND g.sign_state = 1
+		WHERE g.user_id= #{userId} AND g.sign_state = "1"
 	</select>
 
 </mapper>

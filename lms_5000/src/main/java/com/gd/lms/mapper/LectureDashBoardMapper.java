@@ -23,4 +23,7 @@ public interface LectureDashBoardMapper {
 	List<Map<String, Object>> assignmentBoardList(Board lectureNo);
 	// 과제 제출 상세 게시판
 	int insertBoardPost(BoardPost boardPost);
+	
+	//학생 출석현황 리스트
+	List<Map<String,Object>> sutAttendance(int lectureNo,  String userId);
 }

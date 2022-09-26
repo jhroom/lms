@@ -23,14 +23,44 @@
 			user_id
 		) VALUES (
 			#{majorNo},
-			#{majorTitle},
+			#{majorName},
 			now(),
-			#{user_id}
+			#{userId}
 		)
 	
-	
-	
 	</insert>
+	
+<!-- 학과 삭제 -->
+	<delete id="deleteMajor" parameterType="com.gd.lms.vo.Major">
+		DELETE FROM major
+		WHERE major_no=#{majorNo}
+	
+	</delete>
+	
+<!-- 학과 수정 -->
+	<update id="updateMajor" parameterType="com.gd.lms.vo.Major">
+		UPDATE major
+		SET
+		major_name = #{majorName}
+		WHERE major_no = #{majorNo}
+	</update>
+	
+<!-- 학과 상세보기 -->
+	<select id="selectMajorOne" resultType="map">
+		SELECT
+		m.major_no majorNo,
+		m.major_name majorName,
+		m.major_createdate majorCreatedate,
+		u.user_id userId
+		FROM major m
+		left outer join user u
+		on m.user_id = u.user_id
+		WHERE m.major_no=#{majorNo} 
+	
+	</select>
+	
 
+	
+	
 
 </mapper>

@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILectureDashBoadService;
 import com.gd.lms.vo.Board;
+import com.gd.lms.vo.Sign;
+import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class LectureDashBoadController {
 	@Autowired ILectureDashBoadService lectureDashBoardService;
-	
 	//////////////////////////////////////기타 게시판////////////////////////////////
 	// 기타 게시판 추가
 	@GetMapping("/dashBoard/addSubBoardForm")
@@ -60,12 +60,20 @@ public class LectureDashBoadController {
 	
 	// 과제제출 게시판 리스트
 	@GetMapping("/dashBoard/lectureDashBoard")
-	public String AssignmentBoard (Board board, Model model, Board lectureNo) {
+	public String AssignmentBoard (Board board, Model model, Board lectureNo, HttpSession session , Sign sign) {
 		List<Map<String, Object>> assignMentBoard = lectureDashBoardService.getAssignment(lectureNo);
 		// 게시판 확인
 		log.debug(TeamColor.YHW + "-- assignMentBoard-controller--"+ assignMentBoard );
 		// model에 값 담기
 		model.addAttribute("assignMentBoard", assignMentBoard);
+		
+		//session값에 userId를 담고 강좌번호 + 유저id를 가지고 해당 강좌를 듣는 유저의 출결현황을 출력해준다.
+		log.debug(TeamColor.JCH + "출석현황 리스트 ");
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		sign.setUserId(userId);
+		List<Map<String,Object>> stuAtt = lectureDashBoardService.stuAttendance(board.getLectureNo() , userId);
+		model.addAttribute("stuAtt" , stuAtt);
+
 	return "/dashBoard/lectureDashBoard";
 	}
 	//////////////////////////////////////   AssignmentBoard crud end///////////////////////////////////

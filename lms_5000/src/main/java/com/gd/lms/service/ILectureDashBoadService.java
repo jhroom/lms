@@ -14,4 +14,6 @@ public interface ILectureDashBoadService {
 	int addAssignmentBoard(Board board);
 	// 과제 제출 게시판
 	List<Map<String, Object>> getAssignment(Board lectureNo);
+	//출결현황 출력
+	List<Map<String,Object>> stuAttendance(int lectureNo, String userId);
 }

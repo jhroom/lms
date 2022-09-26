@@ -25,7 +25,9 @@
 		<c:forEach var= "a" items="${MajorList}">
 			<tr>
 				<td>${a.majorNo}</td>
-				<td>${a.majorName}</td>
+				<td>
+					<a href="${pageContext.request.contextPath}/lmsMajor/majorOne?majorNo=${a.majorNo}&majorName=${a.majorName}">${a.majorName}</a>
+				</td>
 				<td>${a.majorCreatedate}</td>
 				<td>${a.userId}</td>
 			</tr>
