@@ -1,12 +1,14 @@
 package com.gd.lms.mapper;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.Board;
 import com.gd.lms.vo.BoardPost;
+import com.gd.lms.vo.Lecture;
 
 @Mapper
 public interface LectureDashBoardMapper {
@@ -26,4 +28,11 @@ public interface LectureDashBoardMapper {
 	
 	//학생 출석현황 리스트
 	List<Map<String,Object>> sutAttendance(int lectureNo,  String userId);
+	
+	//교수의 강의대시보드 출결리스트
+	List<Map<String,Object>> weekList(int lectureNo);
+	
+	//교수의 해당강좌 학생리스트
+	List<Map<String,Object>> selectStudentListForAtt(Lecture lecture);
+	
 }

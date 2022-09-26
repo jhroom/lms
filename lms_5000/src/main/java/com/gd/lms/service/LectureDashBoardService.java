@@ -10,6 +10,8 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.LectureDashBoardMapper;
 import com.gd.lms.mapper.UserListMapper;
 import com.gd.lms.vo.Board;
+import com.gd.lms.vo.Lecture;
+import com.gd.lms.vo.Week;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,7 +61,14 @@ public class LectureDashBoardService implements ILectureDashBoadService {
 		return stuAtt;
 	}
 
+	@Override
+	public List<Map<String,Object>> weekList(int lectureNo) {
+		return lectureDashBoardMapper.weekList(lectureNo);
+	}
 	
-
+	@Override
+	public List<Map<String, Object>> getStudentListForAtt(Lecture lecture) {
+		return lectureDashBoardMapper.selectStudentListForAtt(lecture);
+	}
 
 }

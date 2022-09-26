@@ -15,5 +15,52 @@
 		INNER JOIN subject s ON s.subject_no = l.subject_no 
 		WHERE g.user_id= #{userId} AND g.sign_state = "1"
 	</select>
+	
+	<!-- 강좌 대시보드에서 교수가 수업한 리스트 -->
+	<select id="selectProfessorLectureList" parameterType="string" resultType="map">
+		SELECT
+			se.semester_startdate semesterStartDate,
+			se.semester_enddate semesterEndDate,
+			sub.subject_name subjectName,
+			sub.subject_grade subjectGrade,
+			l.lecture_day lectureDay,
+			l.lecture_no lectureNo
+			
+		FROM
+			lecture l INNER JOIN semester se
+			ON l.semester_no = se.semester_no
+				INNER JOIN subject sub
+				ON l.subject_no = sub.subject_no
+					INNER JOIN professor p
+					ON l.user_id = p.user_id
+					
+		WHERE p.user_id = #{userId}
+		GROUP BY sub.subject_name
+	</select>
+	
+	<!-- 강좌 대시보드에서 학생의 수업 리스트 -->
+	<select id="selectStudentLectureList" parameterType="string" resultType="map">
+		SELECT
+			se.semester_startdate semesterStartDate,
+			se.semester_enddate semesterEndDate,
+			sub.subject_name subjectName,
+			sub.subject_grade subjectGrade,
+			l.lecture_day lectureDay,
+			l.lecture_no lectureNo
+			
+		FROM
+			lecture l INNER JOIN semester se
+			ON l.semester_no = se.semester_no
+				INNER JOIN subject sub
+				ON l.subject_no = sub.subject_no
+					INNER JOIN professor p
+					ON l.user_id = p.user_id
+					 	INNER JOIN sign s
+				 		ON l.lecture_no = s.lecture_no
+				 			INNER JOIN student stu
+				 			ON s.user_id = stu.user_id
+				 			
+		WHERE stu.user_id = #{userId}
+	</select>
 
 </mapper>

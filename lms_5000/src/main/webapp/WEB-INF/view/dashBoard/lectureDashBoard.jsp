@@ -13,6 +13,35 @@
 <%@include file="../import/reference.jsp" %>
 
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+
+	function listView(lectureNo, week){
+		console.log(lectureNo);
+		console.log(week);
+	    let f = document.createElement('form');
+	    
+	    let obj;
+	    obj = document.createElement('input');
+	    obj.setAttribute('type', 'hidden');
+	    obj.setAttribute('name', 'lectureNo');
+	    obj.setAttribute('value', lectureNo);
+	
+		let obj2;
+	    obj = document.createElement('input');
+	    obj.setAttribute('type', 'hidden');
+	    obj.setAttribute('name', 'week');
+	    obj.setAttribute('value', week);
+	    
+	    f.appendChild(obj,obj2);
+	    f.setAttribute('method', 'post');
+	    f.setAttribute('action', '/lms/dashBoard/lectureAttendance');
+	    document.body.appendChild(f);
+	    f.submit();
+	}
+
+
+</script>
 <body class="hold-transition sidebar-mini">
 
 <!-- 전체 페이지 래퍼 -->
@@ -139,42 +168,77 @@
 			</div>
 			
 			<br><br>
-			
-			<div class="card card-primary card-outline">
-		         <div class="card-body">
-		           <h1 class="card-title"><Strong>출결현황</Strong></h1><br>
-		           <table border="1">
-		          	
-		          		
-			          		<tr><td>주차</td>
-			          		<c:forEach var="stuAtt" items="${stuAtt}">
-			          		<td>${stuAtt.week}</td>
-			          		</c:forEach>
-			          		</tr>			     
-			        		<tr><td>출석상태</td>
-			        		<c:forEach var="stuAtt" items="${stuAtt}">
-			           		<td>
-			           		<c:if test="${stuAtt.attendState eq 0}">
-			           			결석
-			           		</c:if>
-			           		<c:if test="${stuAtt.attendState eq 1}">
-			           			지각
-			           		</c:if>
-			           		<c:if test="${stuAtt.attendState eq 2}">
-			           			조퇴
-			           		</c:if>
-			           		<c:if test="${stuAtt.attendState eq 3}">
-			           			출석
-			           		</c:if>
-			           		</td>
-			           		 </c:forEach>
-			           		</tr>
-
-				   </table>
-		           <a href="#" class="card-link">Card link</a>
-		           <a href="#" class="card-link">Another link</a>
-		        </div>
-		    </div><!-- /.card -->
+				<c:choose>
+	      		<c:when test="${loginUser.userLevel == 3 }">	
+					<div class="card card-primary card-outline">
+				         <div class="card-body">
+				           <h1 class="card-title"><Strong>출결현황</Strong></h1><br>
+				           <table border="1">
+					          		<tr><td>주차</td>
+					          		<c:forEach var="stuAtt" items="${stuAtt}">
+					          		<td>${stuAtt.week}</td>
+					          		</c:forEach>
+					          		</tr>			     
+					        		<tr><td>출석상태</td>
+					        		<c:forEach var="stuAtt" items="${stuAtt}">
+					           		<td>
+					           		<c:if test="${stuAtt.attendState eq 0}">
+					           			결석
+					           		</c:if>
+					           		<c:if test="${stuAtt.attendState eq 1}">
+					           			지각
+					           		</c:if>
+					           		<c:if test="${stuAtt.attendState eq 2}">
+					           			조퇴
+					           		</c:if>
+					           		<c:if test="${stuAtt.attendState eq 3}">
+					           			출석
+					           		</c:if>
+					           		</td>
+					           		 </c:forEach>
+					           		</tr>
+						   </table>
+				           <a href="#" class="card-link">Card link</a>
+				           <a href="#" class="card-link">Another link</a>
+				        </div>
+				    </div><!-- /.end 출결현황 card -->
+			    </c:when>
+			    <c:when test="${loginUser.userLevel == 2 }">
+			    	<div class="card card-primary card-outline">
+				         <div class="card-body">
+				           <h1 class="card-title"><Strong>출결현황</Strong></h1><br>
+				           <table border="1">
+				           		<tr>
+				           			<td>주차</td>
+				           			<c:forEach var="w" items="${weekList}">
+					           			<c:if test="${w.nowWeek == 'Y' }">
+					           				<td style="color: red; padding: 10px;">
+					           				<%-- <a id="weekBtn2" href="javascript:listView('${lectureNo},${w.week }')">${w.week }</a> --%>
+					           				<form action="${pageContext.request.contextPath}/dashBoard/lectureAttendance" method="post">
+					           					<input type="hidden" name="lectureNo" value="${lectureNo}">
+					           					<input type="hidden" name="week" value="${w.week}">
+					           					<button type="submit">${w.week}</button>
+					           				</form>
+					           				</td>
+					           			</c:if>
+					           			<c:if test="${w.nowWeek == 'N' }">
+					           				<td style="color: green; padding: 10px;">
+					           				<form action="${pageContext.request.contextPath}/dashBoard/lectureAttendance" method="post">
+					           					<input type="hidden" name="lectureNo" value="${lectureNo}">
+					           					<input type="hidden" name="week" value="${w.week}">
+					           					<button type="submit">${w.week}</button>
+					           				</form>
+					           				</td>
+					           			</c:if>
+				           			</c:forEach>
+				           		</tr>
+						   </table>
+				           <a href="#" class="card-link">Card link</a>
+				           <a href="#" class="card-link">Another link</a>
+				        </div>
+				    </div><!-- /.end 출결현황 card -->
+			    </c:when>
+			    </c:choose>
 			</div>
 		        <!-- /.row -->
 	    </div><!-- /.container-fluid -->
