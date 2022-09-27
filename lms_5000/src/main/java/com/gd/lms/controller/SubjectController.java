@@ -72,4 +72,5 @@ public class SubjectController {
 		
 		return "redirect:/subject/SubjectList";
 	}
+	
 }

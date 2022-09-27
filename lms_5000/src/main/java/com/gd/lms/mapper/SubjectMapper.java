@@ -24,4 +24,5 @@ public interface SubjectMapper {
 	
 	// 강좌 삭제
 	public int deleteSubject(int subjectNo);
+	
 }

@@ -12,7 +12,7 @@
 		전체 강좌 리스트
 	</h3>
 	<div>
-		<a href="${pageContext.request.contextPath}/">추가하기(ㄱㄷ)</a>
+		<a href="${pageContext.request.contextPath}/lmsSubject/addSubject">추가하기(ㄱㄷ)</a>
 	</div>
 	<table border="1" bordercolor="green">
 		<tr>
