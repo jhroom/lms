@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>학과 추가</title>
 </head>
 <body>
 	<h3>학과 추가</h3>

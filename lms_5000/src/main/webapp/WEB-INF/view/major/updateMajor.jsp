@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>학과 수정</title>
 </head>
 <body>
 <div>
@@ -18,7 +18,7 @@
 			<tr>
 				<th>학과 번호</th>
 				<td>
-					${majorOne.majorNo}
+					${majorOne.majorNo}번
 				</td>
 			</tr>
 			<tr>
