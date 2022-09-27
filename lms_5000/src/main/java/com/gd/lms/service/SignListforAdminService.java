@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.mapper.LectureMapper;
 import com.gd.lms.mapper.SignListForAdminMapper;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class SignListforAdminService implements ISignListforAdminService{
 	@Autowired SignListForAdminMapper signListForAdminMapper;
+	@Autowired LectureMapper lecutreMapper;
 	
 	// 강좌 리스트
 	@Override
@@ -38,19 +40,16 @@ public class SignListforAdminService implements ISignListforAdminService{
 
 	// 학생 수강상태 변경
 	@Override
-	public int modifySignState(Sign sign) {
+	public int modifySignState(Sign sign, SignCancel signCancel) {
 		int modifySignState = signListForAdminMapper.updateSignState(sign);
+		// 운영자가 수강 취소할 경우 signcancel테이블에 담기
+		if(sign.getSignState().equals("2")) {
+			modifySignState = lecutreMapper.insertCancelSign(signCancel);
+			// 디버깅
+			log.debug(TeamColor.YHW + "-- 운영자가 수강 취소 했다면 -service--"+ modifySignState );
+		}
 		// 디버깅
 		log.debug(TeamColor.YHW + "-- mapper에서 넘어온 수강상태 변경 -service--"+ modifySignState );
 		return modifySignState;
 	}
-
-	@Override
-	public int modifySignState(Sign sign, SignCancel signCancel) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	
-
 }

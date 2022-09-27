@@ -433,7 +433,7 @@ public class BoardController {
 		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 상세페이지로 포워딩");
 		
 		//넘겨주는 값 인코딩
-		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
+		String encodedboardName=URLEncoder.encode(boardName, "UTF-8");
 		
 		
 		return "redirect:/board/post/one?boardPostNo="+comment.getBoardPostNo() + "&boardName=" + encodedboardName + "&boardNo=" + boardNo;

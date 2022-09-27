@@ -46,8 +46,8 @@ public class SignListForAdminController {
 	
 	// 학생 수강상태 변경
 	@PostMapping("/sign/SignListByLecture")
-	public String modyfySignState(Sign sign, HttpSession session) {
-		int signState = signListforAdminService.modifySignState(sign);
+	public String modyfySignState(Sign sign) {
+		int signState = signListforAdminService.modifySignState(sign, null);
 		// 서비스에서 넘어온 값 확인
 		log.debug(TeamColor.YHW + "-- signState - Controller--"+ signState );
 		return "/sign/SignListByLecture";

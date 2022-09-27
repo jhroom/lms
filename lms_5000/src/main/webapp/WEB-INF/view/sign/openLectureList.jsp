@@ -30,7 +30,7 @@
   <c:choose>
 			<c:when test="${loginUser != null}">
 				<p>${loginUser.userName}님 환영합니다.</p>
-				<c:if test="${loginUser.userLevel eq 3}">
+				<c:if test="${loginUser.userLevel eq 1 || loginUser.userLevel eq 3}">
 				<a href="${pageContext.request.contextPath}/index">권한제한</a>
 				</c:if>
 			</c:when>

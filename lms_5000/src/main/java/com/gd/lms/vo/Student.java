@@ -8,6 +8,8 @@ public class Student {
 	private String userId;
 	// 학생이름
 	private String stName;
+	// 학생 학년
+	private int st_grade;
 	// 학생 이메일
 	private String stEmail;
 	// 학생 전화번호

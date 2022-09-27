@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILectureService;
+import com.gd.lms.service.ISignListforAdminService;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
 import com.gd.lms.vo.User;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class LectureController {
   @Autowired ILectureService lectureService;
+  @Autowired ISignListforAdminService signListforAdminService;
 	
   @GetMapping ("/sign/openLectureList")
    public String selectLectureListForSign(Model model, Sign sign, SignCancel signCancel, HttpSession session) {
@@ -86,8 +88,11 @@ public class LectureController {
 		   String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		   signCancel.setUserId(userId);
 		   int addSignCancel = lectureService.addCancleSign(signCancel);
+		   int SignCancel = signListforAdminService.modifySignState(null, signCancel);
 		   //디버깅
 		   log.debug(TeamColor.YHW + "-- addSignCancel-controller -- "+ addSignCancel );
+		   //디버깅
+		   log.debug(TeamColor.YHW + "-- SignCancel-controller -- "+ SignCancel );
 		   
 		   int lectureNo = signCancel.getLectureNo();
 		   int signNo = signCancel.getSignNo();

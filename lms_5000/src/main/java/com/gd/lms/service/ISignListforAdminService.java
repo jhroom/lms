@@ -13,8 +13,8 @@ public interface ISignListforAdminService {
 	// 강좌별 수강신청 리스트
 	List<Map<String, Object>> getStudentListByLecture(Sign sign);
 	
-	// 학생 수강상태 변경
+	// 학생 수강신청 상태 변경
 	int modifySignState(Sign sign, SignCancel signCancel);
+	
 
-	int modifySignState(Sign sign);
 }

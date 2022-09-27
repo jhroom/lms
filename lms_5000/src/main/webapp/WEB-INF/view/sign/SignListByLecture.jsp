@@ -65,9 +65,9 @@
 	<div class = "container">
 		  <div class="card card-primary card-outline">
               <div class="card-body">
-				<c:forEach var="g" items="${getStudentList}">
-	                <h1 class="card-title"><br><Strong>${g.subject_name} 수강신청 학생 </Strong></h1><hr>
+	                <h1 class="card-title"><Strong> ${subjectName} 수강신청 학생 </Strong></h1>
 	                <input type="hidden" name="lecture_no" id="lecture_no" value="${lecture_no}">
+	                <br>
 	                <table border="1">
 						<thead>
 							<tr>
@@ -79,6 +79,7 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach var="g" items="${getStudentList}">
 								<tr>
 									<td>${g.major_name}</td>
 									<td>${g.grade_no}</td>
@@ -109,9 +110,9 @@
 										</form>
 									 </td>
 								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
-				</c:forEach>
                 <a href="#" class="card-link">Card link</a>
                 <a href="#" class="card-link">Another link</a>
               </div>

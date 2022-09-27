@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.Sign;
+import com.gd.lms.vo.SignCancel;
 
 @Mapper
 public interface SignListForAdminMapper {
@@ -16,5 +17,8 @@ public interface SignListForAdminMapper {
 	List<Map<String, Object>> selectStudentListByLecture(Sign sign);
 	
 	// 학생 수강신청 상태 변경
-	public int updateSignState(Sign sign);
+	int updateSignState(Sign sign);
+	
+	// 취소된 내용 signcancel테이블에 담기
+	int signCancel(SignCancel userId);
 }

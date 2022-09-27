@@ -19,9 +19,11 @@
 			s.subject_name,
 			s.subject_grade,
 			i.sign_state,
+			i.sign_no,
 			m.major_name,
 			t.user_id,
-			t.st_name
+			t.st_name,
+			t.st_grade
 		FROM lecture l INNER JOIN subject s ON l.subject_no = s.subject_no
 		INNER JOIN sign i ON l.lecture_no = i.lecture_no
 		INNER JOIN student t ON i.user_id = t.user_id
@@ -36,4 +38,20 @@
 		WHERE lecture_no = #{lectureNo} 
 		AND user_id = #{userId}
 	</update>
+	
+	<!-- 취소된 내용 signcancel테이블에 담기 -->
+	<insert id="signCancel" parameterType="com.gd.lms.vo.SignCancel">
+		INSERT INTO sign_cancel(
+		    sign_no,
+			user_id, 
+			cancel_date,
+			lecture_no
+			) 
+		VALUES (
+			#{signNo},
+			#{userId}, 
+			NOW(),
+			#{lectureNo}
+			) 
+	</insert>
 </mapper>
