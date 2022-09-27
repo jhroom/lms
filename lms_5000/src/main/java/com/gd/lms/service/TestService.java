@@ -19,15 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class TestService implements ITestService {
 	@Autowired TestMapper testMapper;
-	@Override
-	// 시험 볼 과목 리스트
-	public List<Map<String, Object>> testLecture() {
-		List<Map<String,Object>> testLecture = testMapper.selectTestLecture();
-		//디버깅
-		log.debug(TeamColor.YHW + "-- testLecture -controller --    "+ testLecture );
-		return testLecture;
-	}
-	
+
 	//강좌별 시험 리스트 생성 메서드 
 	@Override
 	public List<Map<String, Object>> getTestList(int userLv, String userId, int lectureNo) {
@@ -43,7 +35,7 @@ public class TestService implements ITestService {
 		if(userLv == 3) {
 		
 		//수강 정보 확인
-		int signNo = testMapper.selectSignNo(userId, lectureNo);
+		int signNo = testMapper.selectSignNoByLecture(userId, lectureNo);
 		
 		
 		//리턴 값 세팅
@@ -220,7 +212,14 @@ public class TestService implements ITestService {
 		int row = 0;
 		
 		//학생의 수강 번호 불어오기
-		int signNo = testMapper.selectSignNo(userId, testNo);
+		int signNo = testMapper.selectSignNoByTest(userId, testNo);
+		
+		if(signNo == 0) {
+			//수강 정보가 없을 시 0리턴
+			log.debug(TeamColor.KHJ + "값 확인 signNo : "+ signNo );
+			
+			return 0;
+		}
 		
 		
 		//반복문 배열 생성
@@ -318,6 +317,18 @@ public class TestService implements ITestService {
 		
 		//리턴
 		return row;
+	}
+
+	@Override
+	public int getSignNo(String uesrId, int lectureNo) {
+		//학생 수강 여부 확인		
+		return testMapper.selectSignNoByLecture(uesrId, lectureNo);
+	}
+
+	@Override
+	public String getProId(int lectureNo) {
+		// 교수 아이디 추출 쿼리
+		return testMapper.selectPro(lectureNo);
 	}
 
 }
