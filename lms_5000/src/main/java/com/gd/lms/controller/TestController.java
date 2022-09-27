@@ -27,28 +27,40 @@ import lombok.extern.slf4j.Slf4j;
 public class TestController {
 	@Autowired ITestService testService;
 	
-	@GetMapping("/test/testLecture")
-	// 시험볼 과목 리스트
-	public String TestLectureList(Model model) {
-		List<Map<String, Object>> testLectureList = testService.testLecture();
-		//디버깅
-		log.debug(TeamColor.YHW + "-- TestLectureList -controller --    "+ testLectureList );
-		// 과목 목록을 출력 위해 view에 값 전달
-		model.addAttribute("testLectureList",testLectureList);
-		return "test/testLecture";
-	}
+
 	
 	//시험 게시판 폼 전송 메서드
 	@GetMapping ("/test/board")
 	public String testBoard(HttpSession session, int lectureNo, Model model) {
+		//로그인이 안되어있을 경우 로그인 창으로 보내기
+		if(session.getAttribute("loginUser") == null) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 / 로그인 창을 포워딩");			
+			
+			//리턴
+			return "redirect:/index/login";			
+		}
+		
+		//세션 아이디 받아오기
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		
+		//수강생이 아닐 경우 / 해당 강좌의 교사가 아닐 경우 인덱스로 보내기
+		if(testService.getSignNo(userId, lectureNo) == 0&&!(testService.getProId(lectureNo).equals(userId))) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 userId / " +userId);			
+		
+			//리턴
+			return "redirect:/index";	
+		}
+		
 				
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / lectureNo : "+ lectureNo );
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / user : "+ (User)session.getAttribute("loginUser") );
 		
-		
-		//세션 아이디 받아오기
-		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+
 		
 		//세션 권한 받아오기
 		int userLv = ((User)session.getAttribute("loginUser")).getUserLevel();
@@ -68,7 +80,29 @@ public class TestController {
 	
 	
 	@GetMapping ("/test/page")
-	public String testPage(int testNo, int lectureNo, Model model) {
+	public String testPage(HttpSession session, int testNo, int lectureNo, Model model) {
+		//로그인이 안되어있을 경우 로그인 창으로 보내기
+		if(session.getAttribute("loginUser") == null) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 / 로그인 창을 포워딩");			
+			
+			//리턴
+			return "redirect:/index/login";			
+		}
+		
+		//세션 아이디 받아오기
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		
+		//수강생이 아닐 경우 / 해당 강좌의 교사가 아닐 경우 인덱스로 보내기
+		if(testService.getSignNo(userId, lectureNo) == 0&&!(testService.getProId(lectureNo).equals(userId))) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 userId / " +userId);			
+		
+			//리턴
+			return "redirect:/index";	
+		}
 		
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / testNo : "+ testNo );
@@ -92,10 +126,33 @@ public class TestController {
 	
 	//시험 생성 폼으로 보내기
 	@GetMapping("test/addTest")
-	public String directAddTestForm(int lectureNo, Model model) {
+	public String directAddTestForm(HttpSession session, int lectureNo, Model model) {
+		//로그인이 안되어있을 경우 로그인 창으로 보내기
+		if(session.getAttribute("loginUser") == null) {
 		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 / 로그인 창을 포워딩");			
+			
+			//리턴
+			return "redirect:/index/login";			
+		}
 		
+		//세션 아이디 받아오기
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		
+		//수강생이 아닐 경우 / 해당 강좌의 교사가 아닐 경우 인덱스로 보내기
+		if(testService.getSignNo(userId, lectureNo) == 0&&!(testService.getProId(lectureNo).equals(userId))) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 userId / " +userId);			
+		
+			//리턴
+			return "redirect:/index";	
+		}
+		
+		//값 넘겨주기
 		model.addAttribute("lectureNo", lectureNo);
+		
 		//바로 포워딩
 		return "test/addTest";
 	}
@@ -114,20 +171,39 @@ public class TestController {
 		//결과 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "결과 값 확인 / row : "+ row );
 				
-		
+		//리턴
 		return "redirect:/test/board?lectureNo=" + test.getLectureNo();
 	}
 	
 	//시험 장 입장
 	@GetMapping ("test/enter")
 	public String testEnter(HttpSession session, int testNo, int lectureNo) {
-		//파라미터 값 확인 디버깅
-		log.debug(TeamColor.KHJ + "파라미터 값 확인 / testNo : "+ testNo );
+		//로그인이 안되어있을 경우 로그인 창으로 보내기
+		if(session.getAttribute("loginUser") == null) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 / 로그인 창을 포워딩");			
+			
+			//리턴
+			return "redirect:/index/login";			
+		}
 		
 		//세션 아이디 받아오기
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
-
-				
+		
+		//수강생이 아닐 경우 / 해당 강좌의 교사가 아닐 경우 인덱스로 보내기
+		if(testService.getSignNo(userId, lectureNo) == 0&&!(testService.getProId(lectureNo).equals(userId))) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 userId / " +userId);			
+		
+			//리턴
+			return "redirect:/index";	
+		}
+		
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / testNo : "+ testNo );
+		
 		
 		//응시여부 확인
 		boolean check = testService.testCheck(userId, testNo);
@@ -149,21 +225,42 @@ public class TestController {
 	//시험 응시
 	@PostMapping("test/submit")
 	public String testSubmit(HttpSession session, int testNo, Answer answer, int lectureNo) {
-		//결과 값 확인 디버깅
-		log.debug(TeamColor.KHJ + "파라미터 값 확인 / testNo : "+ testNo );
-		log.debug(TeamColor.KHJ + "파라미터 값 확인 / answer : "+ answer );
+		//로그인이 안되어있을 경우 로그인 창으로 보내기
+		if(session.getAttribute("loginUser") == null) {
 		
-		//배열 갑 받아오기
-		int [] answers = answer.getAnswerSelects();
-		int [] questions = answer.getQuestionNos();
-
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 / 로그인 창을 포워딩");			
+			
+			//리턴
+			return "redirect:/index/login";			
+		}
 		
 		//세션 아이디 받아오기
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		
+		//수강생이 아닐 경우 / 해당 강좌의 교사가 아닐 경우 인덱스로 보내기
+		if(testService.getSignNo(userId, lectureNo) == 0&&!(testService.getProId(lectureNo).equals(userId))) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 userId / " +userId);			
+		
+			//리턴
+			return "redirect:/index";	
+		}
+		
+		//결과 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / testNo : "+ testNo );
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / answer : "+ answer );
+		
+		
+		//배열 갑 받아오기
+		int [] answers = answer.getAnswerSelects();
+		int [] questions = answer.getQuestionNos();
+		
 		//실행
 		int row = testService.testSubmit(userId, testNo, answers, questions);
 				
+
 		//결과 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "결과 값 확인 / row : "+ row );
 		
@@ -175,10 +272,35 @@ public class TestController {
 	
 	//응시 학생 리스트 폼으로 가기
 	@GetMapping("test/student")
-	public String testSutdentForm(int lectureNo, int testNo, Model model) {
+	public String testSutdentForm(HttpSession session, int lectureNo, int testNo, Model model) {
+		//로그인이 안되어있을 경우 로그인 창으로 보내기
+		if(session.getAttribute("loginUser") == null) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 / 로그인 창을 포워딩");			
+			
+			//리턴
+			return "redirect:/index/login";			
+		}
+		
+		//세션 아이디 받아오기
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		
+		//수강생이 아닐 경우 / 해당 강좌의 교사가 아닐 경우 인덱스로 보내기
+		if(testService.getSignNo(userId, lectureNo) == 0&&!(testService.getProId(lectureNo).equals(userId))) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 userId / " +userId);			
+		
+			//리턴
+			return "redirect:/index";	
+		}
+		
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / lectureNo : " + lectureNo);
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / TestNo : " + testNo);
+		
+		
 		
 		//값 확인
 		List<Map<String, Object>> list = testService.getTestStudnet(lectureNo, testNo);
@@ -190,8 +312,6 @@ public class TestController {
 		model.addAttribute("lectureNo", lectureNo);
 		
 		
-		
-		
 		//리턴
 		return "test/testStudent";
 	}
@@ -199,7 +319,30 @@ public class TestController {
 	
 	//시험 채점
 	@GetMapping("test/score")
-	public String testScore(int testNo, int lectureNo) {
+	public String testScore(HttpSession session, int testNo, int lectureNo) {
+		//로그인이 안되어있을 경우 로그인 창으로 보내기
+		if(session.getAttribute("loginUser") == null) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 / 로그인 창을 포워딩");			
+			
+			//리턴
+			return "redirect:/index/login";			
+		}
+		
+		//세션 아이디 받아오기
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		
+		//수강생이 아닐 경우 / 해당 강좌의 교사가 아닐 경우 인덱스로 보내기
+		if(testService.getSignNo(userId, lectureNo) == 0&&!(testService.getProId(lectureNo).equals(userId))) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 userId / " +userId);			
+		
+			//리턴
+			return "redirect:/index";	
+		}
+		
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / lectureNo : " + lectureNo);
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / TestNo : " + testNo);
@@ -216,11 +359,33 @@ public class TestController {
 
 	//시험 수정
 	@GetMapping("test/modify/form")
-	public String directTestModifyForm(int testNo, int lectureNo, Model model){
+	public String directTestModifyForm(HttpSession session, int testNo, int lectureNo, Model model){
+		//로그인이 안되어있을 경우 로그인 창으로 보내기
+		if(session.getAttribute("loginUser") == null) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 / 로그인 창을 포워딩");			
+			
+			//리턴
+			return "redirect:/index/login";			
+		}
+		
+		//세션 아이디 받아오기
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		
+		//수강생이 아닐 경우 / 해당 강좌의 교사가 아닐 경우 인덱스로 보내기
+		if(testService.getSignNo(userId, lectureNo) == 0&&!(testService.getProId(lectureNo).equals(userId))) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 userId / " +userId);			
+		
+			//리턴
+			return "redirect:/index";	
+		}
+		
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / lectureNo : " + lectureNo);
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / TestNo : " + testNo);
-		
 		
 		
 		//넘겨줄 값 세팅
@@ -238,9 +403,33 @@ public class TestController {
 	}
 	
 	@GetMapping("test/modify/form2")
-	public String directTestModifyForm2(int testNo, int lectureNo, int questionNo, Model model) {
+	public String directTestModifyForm2(HttpSession session, int testNo, int lectureNo, int questionNo, Model model) {
+		//로그인이 안되어있을 경우 로그인 창으로 보내기
+		if(session.getAttribute("loginUser") == null) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 / 로그인 창을 포워딩");			
+			
+			//리턴
+			return "redirect:/index/login";			
+		}
+		
+		//세션 아이디 받아오기
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		
+		//수강생이 아닐 경우 / 해당 강좌의 교사가 아닐 경우 인덱스로 보내기
+		if(testService.getSignNo(userId, lectureNo) == 0&&!(testService.getProId(lectureNo).equals(userId))) {
+		
+			//파라미터 값 확인 디버깅
+			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 userId / " +userId);			
+		
+			//리턴
+			return "redirect:/index";	
+		}
+		
 		//파라미터 값 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 값 확인 / questionNo : " + questionNo);
+		
 		
 		//쿼리 실행
 		List<Map<String, Object>> list = testService.getTestModifyForm(questionNo);

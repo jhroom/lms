@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.lms.mapper.TestMapper">
-	<select id="selectTestLecture" resultType="map">
-		SELECT
-			l.lecture_no,
-			l.semester_no,
-			p.pro_name,
-			s.subject_name
-		FROM lecture l INNER JOIN subject s ON l.subject_no = s.subject_no
-		INNER JOIN professor p ON p.user_id = l.user_id
-		ORDER BY l.subject_no
-	</select>
+
 	
 	<!-- 강좌별 시험리스트 생성 쿼리_학생 -->
 	<select id="selectTestList" resultType="com.gd.lms.vo.Test">
@@ -145,8 +136,8 @@
 	</select>
 	
 	<!-- 학생 수강 -->
-	<select id="selectSignNo" resultType="int">
-	SELECT sign_no
+	<select id="selectSignNoByTest" resultType="int">
+	SELECT count(sign_no) cnt
 		from sign
 		WHERE 
 			user_id = #{userId}  
@@ -154,9 +145,31 @@
 			lecture_no=(
 				SELECT lecture_no
 					FROM test s
-					WHERE test_no = #{testNo})
+					WHERE test_no = #{testNo}
+			)
+		AND 
+			sign_state = '1'
 	</select>
 	
+		<!-- 학생 수강 -->
+	<select id="selectSignNoByLecture" resultType="int">
+	SELECT count(sign_no) cnt
+		from sign
+		WHERE 
+			user_id = #{userId}  
+		AND 
+			lecture_no=#{lectureNo}
+		AND 
+			sign_state = '1'
+	</select>
+	
+	<!-- 교수 아이디 추출 쿼리 -->
+	<select id="selectPro" resultType="String">
+	select
+		user_id
+		FROM lecture
+		WHERE lecture_no = #{lectureNo}
+	</select>
 	
 	<!-- 학생 답안 제출 쿼리-->
 	<insert id="insertAnswer">

@@ -8,8 +8,7 @@ import com.gd.lms.vo.Question;
 import com.gd.lms.vo.Test;
 
 public interface ITestService {
-	// 시험과목 리스트 
-	List<Map<String, Object>> testLecture();
+
 	
 	//강좌별 시험 리스트 생성 기능
 	List<Map<String, Object>> getTestList(int userLv,String userId, int lectureNo);
@@ -40,5 +39,11 @@ public interface ITestService {
 	
 	//문제 수정 기능
 	int modifyQuestion(String [] choiceContents, Question question);
+	
+	//학생 수강 여부 확인
+	int getSignNo(String uesrId, int lectureNo);
+	
+	//교수 아이디 확인
+	String getProId(int lectureNo);
 
 }

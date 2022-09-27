@@ -26,7 +26,7 @@
 <%@include file="../import/sidebar.jsp" %>
 
 
-<div>
+
   <!-- Content Wrapper. Contains page content -->
   <!-- 메인 컨텐츠 래퍼 -->
   <div class="content-wrapper">
@@ -53,29 +53,36 @@
     <!-- 메인 콘텐츠 -->
     <div class="content">
       <div class="container-fluid">
-		<form action="${pageContext.request.contextPath}/user/message" method="post">
-			보낸이
-			<c:choose>
-          	<c:when test="${loginUser.userId != null}">
-          		 ${loginUser.userId}님
-          	</c:when>
-          	<c:otherwise>
-          		Guest님
-          	</c:otherwise>
-          	</c:choose>
-          	<br>
-			받는이
-			<input type="text" name="receiveId">
-			
-			<br>
-			<!-- 같은 강의 듣는사람 강의 교수 리스트 선택할수 있거나 검색하는방법으로 -->
-			 내용 
-			<textarea rows="20" cols="20" name="messageContent"></textarea>
-			
-			<button type="submit">메시지 전송</button>
-		</form>
+	<div>
+		<a href="${pageContext.request.contextPath}/user/messageList">전체 메시지 리스트</a>
+		<a href="${pageContext.request.contextPath}/user/sendmessageList">보낸 메시지 리스트</a>
+		<a href="${pageContext.request.contextPath}/user/receivemessageList">받은 메시지 리스트</a>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>보낸 사람</th>
+					<th>받는 사람</th>
+					<th>메시지 제목</th>
+					<th>받은 시간</th>
+					<th>확인 여부</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="list" items="${list}">
+					<tr>
+						<td>${list.sendId}</td>
+						<td>${list.receiveId}</td>
+						<td>${list.messageTitle}</td>
+						<td>${list.createTime}</td>
+						<td>${list.messageState}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<a href="${pageContext.request.contextPath}/user/message">메세지보내기</a><br>
 	</div>
-</div><!-- /.container-fluid -->
+	
+	   </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
   </div>
@@ -101,5 +108,6 @@
 
 <!-- 페이지 삽입 - 필수적인 script -->
 <%@include file="../import/script.jsp" %>
+	
 </body>
 </html>

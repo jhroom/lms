@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class Message {
 	//메시지 번호
-	private int messageNo;				
+	private int messageNo;	
+	//메시지 제목
+	private String messageTitle;
 	//메시지 내용
 	private String messageContent;		
 	//생성일
