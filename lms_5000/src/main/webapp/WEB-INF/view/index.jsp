@@ -404,7 +404,8 @@ function change() {
 				<a href="${pageContext.request.contextPath}/sign/stDash">강좌대시보드</a><br>
 				<a href="${pageContext.request.contextPath}/board/list?lectureNo=1">게시판</a><br>
 				<a href="${pageContext.request.contextPath}/index/mypage">마이페이지</a><br>
-				<a href="${pageContext.request.contextPath}/lmsMajor/MajorList">학과 리스트</a>
+				<a href="${pageContext.request.contextPath}/lmsMajor/MajorList">학과 리스트</a><br>
+				<a href="${pageContext.request.contextPath}/lmsSubject/SubjectList">강좌리스트</a><br>
 				<button  onclick="window.open('${pageContext.request.contextPath}/user/messageList'
 				, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false">메세지</button>
 				
