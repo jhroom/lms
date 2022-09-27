@@ -36,16 +36,16 @@
 	<insert id="addSubject" parameterType="com.gd.lms.vo.Subject">
 		INSERT INTO subject(
 			subject_no,
+			major_no,
 			subject_name,
 			subject_point,
-			subject_grade,
-			major_no
+			subject_grade
 		) VALUES (
-			#{subjectNo},
+			#{subjectNo},	
+			#{majorNo},
 			#{subjectName},
 			#{subjectPoint},
-			#{subjectGrade},
-			#{majorNo}
+			#{subjectGrade}
 		)
 	</insert>
 	
@@ -55,7 +55,8 @@
 		SET
 			subject_name = #{subjectName},
 			subject_point = #{subjectPoint},
-			subject_grade = #{subjectGrade}
+			subject_grade = #{subjectGrade},
+			major_no = #{majorNo}
 		WHERE subject_no = #{subjectNo}
 	</update>
 	
@@ -65,5 +66,13 @@
 		WHERE subject_no=#{subjectNo}
 	
 	</delete>
+	
+	
+<!-- 학과 넘버 불러오기 -->
+	<select id = "getMajorList" resultType="com.gd.lms.vo.Major">
+		SELECT *
+		FROM Major
+	
+	</select>
 
 </mapper>

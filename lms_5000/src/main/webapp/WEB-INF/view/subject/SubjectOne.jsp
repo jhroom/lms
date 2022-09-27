@@ -29,13 +29,18 @@
 			</tr>
 			<tr>
 				<th>학과번호</th>
-				<td>${subjectOne.majorNo}</td>
+				
+				<td>
+				
+				${subjectOne.majorNo}${subjectOne.majorName}
+				
+				</td>
 			</tr>
 		</tbody>
 	</table>
 	
-	<a href="${pageContext.request.contextPath}/">수정(ㄱㄷ)</a>
-	<a href="${pageContext.request.contextPath}/">삭제(ㄱㄷ)</a>
+	<a href="${pageContext.request.contextPath}/lmsSubject/updateSubject/form?subjectNo=${subjectNo}" class="btn btn-info" role="button">수정</a>
+	<a href="${pageContext.request.contextPath}/lmsSubject/deleteSubject?subjectNo=${subjectNo}" class="btn btn-info" role="button">삭제</a>
 	 
 </div>
 

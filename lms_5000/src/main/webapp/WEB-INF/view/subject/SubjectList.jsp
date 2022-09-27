@@ -12,7 +12,7 @@
 		전체 강좌 리스트
 	</h3>
 	<div>
-		<a href="${pageContext.request.contextPath}/lmsSubject/addSubject">추가하기(ㄱㄷ)</a>
+		<a href="${pageContext.request.contextPath}/lmsSubject/addSubject">추가하기</a>
 	</div>
 	<table border="1" bordercolor="green">
 		<tr>
@@ -24,13 +24,14 @@
 		</tr>
 		<c:forEach var="s" items="${SubjectList}">
 			<tr>
-				<td>${s.subjectNo}</td>
+				<td>${s.subjectNo}번</td>
 				<td>
 					<a href="${pageContext.request.contextPath}/lmsSubject/subjectOne?subjectNo=${s.subjectNo}">${s.subjectName}</a>
 				</td>				
-				<td>${s.subjectPoint}</td>
-				<td>${s.subjectGrade}</td>
-				<td>${s.majorNo}</td>
+				<td>${s.subjectPoint}점</td>
+				<td>${s.subjectGrade}학년</td>
+				<td>${s.majorNo}</td> 
+				
 			</tr>
 		
 		

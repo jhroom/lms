@@ -19,17 +19,11 @@
 				<tr>
 					<th>학과번호</th>
 					<td>
-						<select name="majorNo">
-							<c:forEach var="m" items="${majorList}">
-								<option value="${m.majorNo}">(${m.majorNo})</option>
-							
+						<select name="majorNo" id="majorNo">
+							<option selected>학과번호</option>
+							<c:forEach var="m" items="${getMajorList}">
+								<option value="${m.majorNo}">${m.majorNo}. ${m.majorName}</option>
 							</c:forEach>
-							
-						
-						
-						
-						
-						
 						</select>
 					</td>
 				</tr>
@@ -63,6 +57,7 @@
 				</tr>
 			</tbody>
 		</table>
+		<button type="submit">추가하기</button>
 		</form>
 	</div>
 

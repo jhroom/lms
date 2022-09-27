@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.lms.vo.Major;
 import com.gd.lms.vo.Subject;
 
 @Mapper
@@ -25,4 +26,6 @@ public interface SubjectMapper {
 	// 강좌 삭제
 	public int deleteSubject(int subjectNo);
 	
+	// 학과 리스트 받아오기
+	public List<Major> getMajorList();
 }
