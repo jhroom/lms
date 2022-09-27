@@ -1,6 +1,9 @@
 package com.gd.lms.controller;
 
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 
@@ -13,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.service.ILmsNoticeService;
+import com.gd.lms.service.IMainDashService;
 import com.gd.lms.service.IUserListService;
 import com.gd.lms.service.IUserLoginService;
+import com.gd.lms.vo.LmsNotice;
 import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,11 +31,29 @@ public class UserController {
 	
 	@Autowired IUserLoginService userLoginService;
 	@Autowired IUserListService userListService;
+	@Autowired IMainDashService mainDashService; //강좌 리스트 서비스
+	@Autowired ILmsNoticeService lmsNoticeService; //공지사항 서비스
 	
 	//메인페이지
 	@GetMapping("/index")
-	public String index() {
+	public String index(HttpSession session, Model model) {
 
+		//세션 로그인 정보 추출
+		User user = (User)session.getAttribute("loginUser");
+		
+		
+		//대시보드 강좌 리스트
+		List<Map<String, Object>> lectureList = mainDashService.getUserLectureList(user.getUserId(), user.getUserLevel());
+		
+		//대시보드 lms 공지사항 리스트
+		List<LmsNotice> LmsNoticeList = lmsNoticeService.getLmsNoticeList();
+
+			
+		//넘겨주기
+		model.addAttribute("lectureList", lectureList);
+		model.addAttribute("lmsNoticeList", LmsNoticeList);
+		
+		
 		return "index";
 	}
 	
@@ -108,7 +132,7 @@ public class UserController {
 		// 세션 무효화			
 		session.invalidate();			
 					
-		return "redirect:/index";			
+		return "redirect:/index/login";			
 	}
 	
 	// 운영자 가입 폼으로가기

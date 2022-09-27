@@ -184,7 +184,7 @@ function change() {
 	            <div class="card">
 	            
 	              <div class="card-header">
-	                <h3 class="card-title">수강중인 게시판</h3>
+	                <h3 class="card-title"><c:if test="${loginUser.userLevel eq 3}">수강중인 강좌 목록</c:if><c:if test="${loginUser.userLevel eq 2}">강의중인 과목 목록</c:if></h3>
 	                
 	                <div class="card-tools">
 	                	<!-- 감추거나 지우는 버튼들 -->
@@ -198,7 +198,32 @@ function change() {
 	              </div><!-- End header -->
 	              
 	              <div class="card-body">
-	                Start creating your amazing application! 내용?
+	              <!-- 표 시작 -->
+					<table border="1">
+						<thead>
+							<tr>
+								<th>강좌이름</th>
+								<th>대상학년</th>
+								<th>수업요일</th>
+								<th>강좌 개강일</th>
+								<th>강좌 종료일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="lc" items="${lectureList}">
+							<tr>
+								<td><a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?userId=${loginUser.userId}&lectureNo=${lc.lectureNo}">${lc.subjectName}</a></td>
+								<td>${lc.subjectGrade}</td>
+								<td>${lc.lectureDay}</td>
+								<%-- <td><a href="${pageContext.request.contextPath}
+								/board/post/one?boardPostNo=${b.boardPostNo}&boardNo=${b.boardNo}&boardName=${b.boardName}">
+								${b.boardPostName}</a></td> --%>
+								<td>${lc.semesterStartDate}</td>
+								<td>${lc.semesterEndDate}</td>
+							</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 	              </div>
 	              <!-- /.card-body -->
 	              <div class="card-footer">
@@ -236,7 +261,28 @@ function change() {
 	              </div><!-- End header -->
 	              
 	              <div class="card-body">
-	               	공지사항 내용 n개 만 보여주고 더보기 링크 클릭하면 리스트페이지로? 
+	              <!-- LMS공지사항 리스트 -->
+					<table border="1" bordercolor="green">
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>내용</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>조회수</th>
+							
+						</tr>
+						<c:forEach var="a" items="${lmsNoticeList}" begin="1" end="5">
+							<tr>
+								<td>${a.lmsNoticeNo}</td>
+								<td><a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeOne?lmsNoticeNo=${a.lmsNoticeNo}&lmsNoticeTitle=${a.lmsNoticeTitle}">${a.lmsNoticeTitle}</a></td>
+								<td>${a.lmsNoticeContent}</td>
+								<td>${a.lmsNoticeName}</td>
+								<td>${a.lmsNoticeCreatetime}</td>
+								<td>${a.count}</td>
+							</tr>
+						</c:forEach>
+					</table>
 	              </div><!-- /.card-body -->
 	              
 	              <div class="card-footer">
