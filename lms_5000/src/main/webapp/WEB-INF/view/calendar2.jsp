@@ -65,11 +65,11 @@
                 <div class="card-body">
                   <!-- the events -->
                   <div id="external-events">
-                    <div class="external-event bg-success">a</div>
-                    <div class="external-event bg-warning">b</div>
-                    <div class="external-event bg-info">c</div>
-                    <div class="external-event bg-primary">d</div>
-                    <div class="external-event bg-danger">e</div>
+                    <div class="external-event bg-success">일정 추가1</div>
+                    <div class="external-event bg-warning">일정 추가2</div>
+                    <div class="external-event bg-info">일정 추가3</div>
+                    <div class="external-event bg-primary">일정 추가4</div>
+                    <div class="external-event bg-danger">일정 추가5</div>
                     <div class="checkbox">
                       <label for="drop-remove">
                         <input type="checkbox" id="drop-remove">
@@ -234,6 +234,17 @@
 
     var calendar = new Calendar(calendarEl, {
       plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
+      
+/*       dateClick: function(info) {
+			alert('선택한 날짜: ' + info.dateStr);
+			alert('좌표 위치 ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+			alert('Current view: ' + info.view.type);
+			// change the day's background color just for fun
+			info.dayEl.style.backgroundColor = 'red';
+			}, */
+      
+
+
       header    : {
         left  : 'prev,next today',
         center: 'title',
@@ -245,11 +256,14 @@
       //년 , 월 , 일 , 시 , 분
       //2022년이면 2022 그대로 , 월은 0~11 까지0이 1월 11이 12월 인거같음.
       //일은 그냥 1~31 인듯 시간은 24시간으로 . 자동으로 am , pm이 설정됨. 
+      
+	  	
+      
       events    : [
         {
           title          : "일정1",
-          start          : new Date(y, 8, 1),
-          end			 : new Date(y, 8, 3),
+          start          : new Date(y, m, 1),
+          end			 : new Date(y, m, 3),
           backgroundColor: '#f56954', //red
           borderColor    : '#f56954', //red
           allDay         : true
@@ -292,7 +306,10 @@
           backgroundColor: '#3c8dbc', //Primary (light-blue)
           borderColor    : '#3c8dbc' //Primary (light-blue)
         }
+        
+       
       ],
+        	
       editable  : true,
       droppable : true, // this allows things to be dropped onto the calendar !!!
       					// ㄴ 달력에 드래그해서 일정을 추가 할 수 있게 해주는 역할
@@ -305,7 +322,18 @@
           // 체크를 한 후에 일정을 옮기면 삭제하면서 달력에 일정을 추가할수있고, 그렇지않다면 Events 칸에 일정이 계속 남아있음.
           info.draggedEl.parentNode.removeChild(info.draggedEl);
         }
-      }    
+      },  
+      
+/*       eventClick: function(info) {
+    	    alert('일정 :  ' + info.event.title);
+    	    alert('일정 시작 시간 : ' + info.event.start);
+    	    alert('일정 종료 시간 : ' + info.event.end);
+
+    	    // change the border color just for fun
+    	    info.el.style.borderColor = 'black';
+    	  }, */
+      
+    	  eventClick: function()
     });
 
     calendar.render();
