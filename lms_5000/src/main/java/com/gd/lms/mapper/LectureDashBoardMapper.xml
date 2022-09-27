@@ -73,15 +73,16 @@
 		INNER JOIN lecture l  ON l.lecture_no = w.lecture_no
 		INNER JOIN attendance a ON a.week = w.week
 		INNER JOIN sign s ON a.sign_no = s.sign_no
-		WHERE s.lecture_no = #{lectureNo} AND s.user_id = #{userId}
+		WHERE l.lecture_no = #{lectureNo} AND s.user_id = #{userId}
 	 </select>
 	 
 	 <!-- 교수가 보는 출결현황 리스트 -->
 	 <select id="weekList" parameterType="int" resultType="map">
 	 	SELECT
 			lecture_no lectureNo,
-			week,
-			if(dATE(NOW()) BETWEEN w.start_date AND w.end_date,'Y','N') nowWeek
+			w.week week,
+			if(dATE(NOW()) BETWEEN w.start_date AND w.end_date,'Y','N') nowWeek,
+			if( TIMESTAMPDIFF(DAY,w.start_date ,DATE(NOW()) ) > 0 ,'Y','N' ) access
 		FROM week w
 		WHERE lecture_no = #{lectureNo}
 	 </select>
@@ -101,4 +102,47 @@
 		WHERE
 			l.lecture_no = #{lectureNo} AND p.user_id = #{userId}
 	 </select>
+	 
+	 <!-- 해당 주차의 해당강좌의 해당 학생이 출석데이터가 있는지 조회 -->
+	 <select id="selectStudentAttData" parameterType="com.gd.lms.vo.AttendanceForm" resultType="Integer">
+	 	SELECT
+	 		a.week week
+		FROM
+			attendance a INNER JOIN sign s
+			ON a.sign_no = s.sign_no
+		WHERE a.week = #{week} AND s.user_id = #{studentId2} AND s.lecture_no = #{lectureNo}
+	 </select>
+	 
+	 <!-- 출석하는데 출석 정보가 없을시 -->
+	 <insert id="insertStudentAttendance" parameterType="com.gd.lms.vo.AttendanceForm">
+		 INSERT INTO
+			attendance (
+				week,
+				sign_no,
+				attend_state,
+				create_date,
+				update_date
+			) VALUES (
+				#{week},
+				(SELECT sign_no FROM sign WHERE user_id = #{studentOne} AND lecture_no = #{lectureNo}),
+				#{attStateOne},
+				NOW(),
+				NOW()
+			)
+	 </insert>
+	 
+	 <!-- 출석하는데 출석 정보가 이미 있다면 -->
+	 <update id="updateStudentAttendance" parameterType="com.gd.lms.vo.AttendanceForm">
+		UPDATE
+		 	attendance
+		SET 
+			attend_state = #{attStateOne} , update_date = NOW()
+		WHERE
+			week = #{week}
+			AND
+			sign_no =(SELECT sign_no
+						FROM sign
+						WHERE user_id = #{studentOne} AND lecture_no = #{lectureNo})
+	
+	 </update>
 </mapper>

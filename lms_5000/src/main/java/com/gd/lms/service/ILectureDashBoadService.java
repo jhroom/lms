@@ -1,11 +1,12 @@
 package com.gd.lms.service;
 
 import java.util.List;
+
 import java.util.Map;
 
+import com.gd.lms.vo.AttendanceForm;
 import com.gd.lms.vo.Board;
 import com.gd.lms.vo.Lecture;
-import com.gd.lms.vo.Week;
 
 public interface ILectureDashBoadService {
 	////////////////////////// 기타 게시판 /////////////////////////////
@@ -22,4 +23,7 @@ public interface ILectureDashBoadService {
 	List<Map<String,Object>> weekList(int lectureNo);
 	//교수의 해당강좌 수강생리스트
 	List<Map<String, Object>> getStudentListForAtt(Lecture lecture);
+	
+	//출석 데이터 입력
+	boolean addStudentAttendance(AttendanceForm attForm);
 }

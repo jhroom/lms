@@ -13,14 +13,7 @@
 <%@include file="../import/reference.jsp" %>
 
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script>
-	$(document).ready(function(){
-		$('#btn').click(function(){
-			$('#form').submit();
-		});
-	});
-</script>
+
 <body class="hold-transition sidebar-mini">
 
 <!-- 전체 페이지 래퍼 -->
@@ -44,7 +37,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">출석체크</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -63,63 +56,32 @@
       <div class="container-fluid">
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
-      
-      
-		<%-- <form action="${pageContext.request.contextPath}/dashBoard/addAttendance" method="post">
+		<div>
+			<div>수강생    /    출석</div>
 			
-			<table>
-				<thead>
-					<tr>
-						<th>수강생이름</th>
-						<th>출석</th>
-					</tr>
-				</thead>
-				
-				<tbody>
-				<c:forEach var="s" items="${studentList}">
-					<tr>
-						<td>${s.studentId }</td>
-						<td><input type="checkbox" value="${s.studentId}" name="userId"></td>
-						<td>
-						<select name="attendState">
+			<div>
+				<form id="attendForm" action="${pageContext.request.contextPath}/dashBoard/addAttendance" method="post">
+					<input type="hidden" value="${week}" name="week">
+					<input type="hidden" value="${lectureNo}" name="lectureNo">
+					
+					
+					<c:forEach var="s" items="${studentList}" varStatus="status">
+						<div>
+						<input type="text" value="${s.studentId}" name="studentId[${status.index}]">
+					
+						<select name="attendState[${status.index}]">
+							<!-- <option value="">-- 선택 --</option> -->
 							<option value="0">결석</option>						
 							<option value="1">지각</option>
 							<option value="2">조퇴</option>
 							<option value="3">출석</option>
 						</select>
-						</td>
-						
-					</tr>
-				</c:forEach>
-				</tbody>
-				
-			</table>
-				<input type="hidden" value="${week}" name="week">
-			<button type="submit">제출</button>
-		</form>  --%>
-		<div class="row">
-			<div>
-				수강생  /  출석
+						</div>
+					</c:forEach>
+					
+					<button type="submit">제출</button>
+				</form>
 			</div>
-			
-			<div>
-				<c:forEach var="s" items="${studentList}">
-					<form id="form" action="${pageContext.request.contextPath}/dashBoard/addAttendance" method="post">
-						<input type="text" value="${s.studentId}" name="userId">
-						
-						<span>
-							<select name="attendState">
-								<option value="0">결석</option>						
-								<option value="1">지각</option>
-								<option value="2">조퇴</option>
-								<option value="3">출석</option>
-							</select>
-						</span>
-					</form>
-				</c:forEach>
-			</div>
-			
-			<button id="btn" type="button">출석</button>
 		</div>
 
       </div><!-- /.container-fluid -->

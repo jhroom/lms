@@ -1,5 +1,7 @@
 package com.gd.lms.controller;
 
+import java.util.Arrays;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILectureDashBoadService;
-import com.gd.lms.vo.Attendance;
+import com.gd.lms.vo.AttendanceForm;
 import com.gd.lms.vo.Board;
 import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Sign;
@@ -76,50 +78,62 @@ public class LectureDashBoadController {
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		sign.setUserId(userId);
 		List<Map<String,Object>> stuAtt = lectureDashBoardService.stuAttendance(board.getLectureNo() , userId);
+		log.debug(TeamColor.JCH + "출석현황 리스트 /stuAtt " + stuAtt);
 		model.addAttribute("stuAtt" , stuAtt);
 		
+		//강의 번호
 		int lectureNoForWeek = lectureNo.getLectureNo();
+		
+		//해당 강의의 주차 리스트 가져오기
 		List<Map<String,Object>> weekList = lectureDashBoardService.weekList(lectureNoForWeek);
 		log.debug(TeamColor.AJH + "해당강좌의 weekList :  " + weekList);
+		
+		//모델 값 부여
 		model.addAttribute("weekList",weekList);
 		model.addAttribute("lectureNo",lectureNo.getLectureNo());
 
 	return "/dashBoard/lectureDashBoard";
 	}
 	//////////////////////////////////////   AssignmentBoard crud end///////////////////////////////////
-	//해당 주차를 눌렀을 떄 해당 강좌의 수강생 리스트 보여주기
-	/*
-	 * @GetMapping("/dashBoard/lectureAttendance") public String
-	 * attendance(HttpSession session, Lecture lecture, Model model) {
-	 * lecture.setUserId(((User)session.getAttribute("loginUser")).getUserId());
-	 * //get 방식의 lecture No 와 세션의 아이디로 해당강좌 수강생 리스트 받아오기 List<Map<String, Object>>
-	 * list = lectureDashBoardService.getStudentListForAtt(lecture);
-	 * log.debug(TeamColor.AJH +"교수 id의 해당 강의 수강생 리스트 : " + list);
-	 * model.addAttribute("studentList",list); return "dashBoard/addAttendance"; }
-	 */
 	
+	//해당 주차를 눌렀을 떄 해당 강좌의 수강생 리스트 보여주기
 	@PostMapping("/dashBoard/lectureAttendance")
 	public String attendanceList(HttpSession session, Lecture lecture, Model model,@RequestParam (value="lectureNo",required =false) int lectureNo,@RequestParam (value="week",required =false) int week) {
 		
-		  System.out.println("lecture : " + lectureNo);
-		  System.out.println("lecture : " + week);
+		log.debug(TeamColor.AJH +"파라미터 값 확인 / lectureNo : " + lectureNo);
+		log.debug(TeamColor.AJH +"파리미터 값 확인 / week : " + week);
 		 
 		lecture.setUserId(((User)session.getAttribute("loginUser")).getUserId());
+		
 		//get 방식의 lecture No 와 세션의 아이디로 해당강좌 수강생 리스트 받아오기
 		List<Map<String, Object>> list = lectureDashBoardService.getStudentListForAtt(lecture);
-		log.debug(TeamColor.AJH +"교수 id의 해당 강의 수강생 리스트 : " + list);
+		log.debug(TeamColor.AJH +"db 값 확인 수강생리스트 : " + list);
+		
+		//출석에 필요한 정보 모델값 부여
 		model.addAttribute("studentList",list);
 		model.addAttribute("week",week);
 		model.addAttribute("lectureNo",lecture.getLectureNo());
 		
-		System.out.println("자스 포스트 테스트");
 		return "dashBoard/addAttendance";
 	}
 	
+	//addAttendance.jsp에서 출석 제출 할시 사용 메서드
 	@PostMapping("dashBoard/addAttendance")
-	public String attendance(Sign sign, Attendance att) {
-		System.out.println("att 파라미터 값 확인 : " + att);
-		System.out.println("sign 파라미터 값 확인 : " + sign);
-		return "index";
+	public String attendance(AttendanceForm attForm, Model model, HttpSession session) {
+		
+		log.debug(TeamColor.AJH + "파라미터 값 / week : " + attForm.getWeek());
+		log.debug(TeamColor.AJH + "파라미터 값 / lectureNo : " + attForm.getLectureNo());
+		log.debug(TeamColor.AJH + "파라미터 값 / studentId : " +
+		Arrays.toString(attForm.getStudentId())); log.debug(TeamColor.AJH +
+		"파라미터 값 / attendState : " + Arrays.toString(attForm.getAttendState()));
+		
+		//출석 insert update중 한번이라도 실패하면 false 리턴
+		if(!lectureDashBoardService.addStudentAttendance(attForm)) {
+			model.addAttribute("errMsg", "출석 입력 업데이트 과정중 오류 발생하였습니다");
+		}
+		
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		
+		return "redirect:/dashBoard/lectureDashBoard?userId="+userId+"&lectureNo="+attForm.getLectureNo();
 	}
 }

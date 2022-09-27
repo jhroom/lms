@@ -2,10 +2,12 @@ package com.gd.lms.mapper;
 
 import java.util.List;
 
+
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.lms.vo.AttendanceForm;
 import com.gd.lms.vo.Board;
 import com.gd.lms.vo.BoardPost;
 import com.gd.lms.vo.Lecture;
@@ -34,5 +36,14 @@ public interface LectureDashBoardMapper {
 	
 	//교수의 해당강좌 학생리스트
 	List<Map<String,Object>> selectStudentListForAtt(Lecture lecture);
+	
+	//해당(강좌,주차) 학생의 출석정보유무 조회
+	Integer selectStudentAttData(int week, String studentId2, int lectureNo);
+	
+	//출석하는데 정보가 없을시
+	int insertStudentAttendance(AttendanceForm attForm);
+	
+	//출석하는데 이미 정보가 잇다면
+	int updateStudentAttendance(AttendanceForm attForm);
 	
 }
