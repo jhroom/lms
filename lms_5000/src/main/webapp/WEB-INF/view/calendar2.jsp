@@ -322,7 +322,7 @@
           // 체크를 한 후에 일정을 옮기면 삭제하면서 달력에 일정을 추가할수있고, 그렇지않다면 Events 칸에 일정이 계속 남아있음.
           info.draggedEl.parentNode.removeChild(info.draggedEl);
         }
-      },  
+      }  
       
 /*       eventClick: function(info) {
     	    alert('일정 :  ' + info.event.title);
@@ -333,7 +333,7 @@
     	    info.el.style.borderColor = 'black';
     	  }, */
       
-    	  eventClick: function()
+    	
     });
 
     calendar.render();

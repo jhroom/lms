@@ -26,7 +26,7 @@
 <%@include file="../import/sidebar.jsp" %>
 
 
-<div>
+
   <!-- Content Wrapper. Contains page content -->
   <!-- 메인 컨텐츠 래퍼 -->
   <div class="content-wrapper">
@@ -36,7 +36,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">메시지 내용 보기</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -53,29 +53,28 @@
     <!-- 메인 콘텐츠 -->
     <div class="content">
       <div class="container-fluid">
-		<form action="${pageContext.request.contextPath}/user/message" method="post">
-			보낸이
-			<c:choose>
-          	<c:when test="${loginUser.userId != null}">
-          		 ${loginUser.userId}님
-          	</c:when>
-          	<c:otherwise>
-          		Guest님
-          	</c:otherwise>
-          	</c:choose>
-          	<br>
-			받는이
-			<input type="text" name="receiveId">
-			
-			<br>
-			<!-- 같은 강의 듣는사람 강의 교수 리스트 선택할수 있거나 검색하는방법으로 -->
-			 내용 
-			<textarea rows="20" cols="20" name="messageContent"></textarea>
-			
-			<button type="submit">메시지 전송</button>
-		</form>
-	</div>
-</div><!-- /.container-fluid -->
+      
+      <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
+      <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
+    	<c:forEach var="list" items="${list}">
+    	보낸사람 : 
+    	<input type="text" value="${list.sendId}" readonly>
+    	받는사람 :
+    	<input type="text" value="${list.receiveId}" readonly>
+    	메시지 제목 :
+    	<input type="text" value="${list.messageTitle}" readonly>
+    	<br>
+    	내용 :
+    	<br>
+    	<textarea rows="20" cols="100" name="messageContent">
+    	${list.messageContent}
+    	</textarea>
+    	</c:forEach>
+
+		<a href="${pageContext.request.contextPath}/user/messageList">
+		<button type="button">리스트로 돌아가기</button></a>
+
+      </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
   </div>
@@ -101,5 +100,7 @@
 
 <!-- 페이지 삽입 - 필수적인 script -->
 <%@include file="../import/script.jsp" %>
+
 </body>
 </html>
+
