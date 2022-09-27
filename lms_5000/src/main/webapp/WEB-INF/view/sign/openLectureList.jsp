@@ -144,7 +144,7 @@
 										<c:when test="${s.sign_state eq 1}">수강 신청 완료</c:when>
 									</c:choose>
 								</td>
-								<td><a href="${pageContext.request.contextPath}/sign/cancelSign?userId=${loginUser.userId}&signNo=${s.sign_no}&lectureNo=${s.lecture_no}">수강취소</a></td>
+								<td><a href="${pageContext.request.contextPath}/sign/cancelSign?userId=${loginUser.userId}&signNo=${s.sign_no}&lectureNo=${s.lecture_no}&cancelId=${loginUser.userId}">수강취소</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -165,7 +165,8 @@
 						<tr>
 							<th>강좌번호(lectureNo)</th>
 							<th>취소 과목 이름(subjectName)</th>
-							<th>취소 과목 주체(userId)</th>
+							<th>학생 ID(userId)</th>
+							<th>취소 주체(cancelId)</th>
 							<th>취소 사유(Content)</th>
 							<th>취소 시간(cancelDate)</th>
 						</tr>
@@ -175,17 +176,21 @@
 							<tr>
 								<td>${c.lecture_no}</td>
 								<td>${c.subject_name}</td>
+								<td>${c.user_id}</td>
 								<td>	
-									${c.user_id}
+									${c.cancel_id}
 									<c:choose >
-										<c:when test="${loginUser.userLevel eq 1 }">(운영자)</c:when>
-										<c:when test="${loginUser.userLevel eq 3 }">(학생)</c:when>
+										<c:when test="${c.user_id eq c.cancel_id }">(학생)</c:when>
+										<c:when test="${c.user_id ne c.cancel_id}">(운영자)</c:when>
+										<c:otherwise>
+											(운영자)
+										</c:otherwise>
 									</c:choose>
 								</td>
 								<td>	
 									<c:choose >
-										<c:when test="${loginUser.userLevel eq 1 }">수강 기준 부합(운영자)</c:when>
-										<c:when test="${loginUser.userLevel eq 3 }">학생 개인 사유</c:when>
+										<c:when test="${c.user_id eq c.cancel_id }">학생 개인 사유</c:when>
+										<c:when test="${c.user_id ne c.cancel_id}">수강 기준 부합</c:when>
 									</c:choose>
 								</td>	
 								<td>${c.cancel_date}</td>

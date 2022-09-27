@@ -24,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class LectureController {
   @Autowired ILectureService lectureService;
-  @Autowired ISignListforAdminService signListforAdminService;
 	
   @GetMapping ("/sign/openLectureList")
    public String selectLectureListForSign(Model model, Sign sign, SignCancel signCancel, HttpSession session) {
@@ -84,19 +83,16 @@ public class LectureController {
   	   
 	  // 수강신청 취소 이력 추가
 	   @GetMapping("/sign/cancelSign") 
-	   public String cancelSign(SignCancel signCancel, HttpSession session) {
+	   public String cancelSign(SignCancel signCancel, HttpSession session, Model model) {
 		   String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		   signCancel.setUserId(userId);
 		   int addSignCancel = lectureService.addCancleSign(signCancel);
-		   int SignCancel = signListforAdminService.modifySignState(null, signCancel);
 		   //디버깅
 		   log.debug(TeamColor.YHW + "-- addSignCancel-controller -- "+ addSignCancel );
 		   //디버깅
-		   log.debug(TeamColor.YHW + "-- SignCancel-controller -- "+ SignCancel );
-		   
 		   int lectureNo = signCancel.getLectureNo();
 		   int signNo = signCancel.getSignNo();
-		   return "redirect:/sign/removeSign?lectureNo="+lectureNo+"&signNo="+signNo+"&userId="+userId;
+		   return "redirect:/sign/removeSign?lectureNo="+lectureNo+"&signNo="+signNo+"&userId="+userId+"&cancelId"+userId;
 	   }
 
 	   

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ISignListforAdminService;
 import com.gd.lms.vo.Sign;
+import com.gd.lms.vo.SignCancel;
+import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
 	
@@ -46,8 +48,9 @@ public class SignListForAdminController {
 	
 	// 학생 수강상태 변경
 	@PostMapping("/sign/SignListByLecture")
-	public String modyfySignState(Sign sign) {
-		int signState = signListforAdminService.modifySignState(sign, null);
+	public String modyfySignState(Sign sign, SignCancel signCancel, HttpSession session) {
+		
+		int	signState = signListforAdminService.modifySignState(sign, signCancel, null);
 		// 서비스에서 넘어온 값 확인
 		log.debug(TeamColor.YHW + "-- signState - Controller--"+ signState );
 		return "/sign/SignListByLecture";

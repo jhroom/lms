@@ -66,13 +66,14 @@
 		  <div class="card card-primary card-outline">
               <div class="card-body">
 	                <h1 class="card-title"><Strong> ${subjectName} 수강신청 학생 </Strong></h1>
-	                <input type="hidden" name="lecture_no" id="lecture_no" value="${lecture_no}">
+	             
+	                
 	                <br>
 	                <table border="1">
 						<thead>
 							<tr>
-								<th>전공(major_name) </th>
-								<th>학년(lectureNo) - 수강 가능 학년(${g.subject_grade}학년)  </th>
+								<th>전공(major_name) </th>;
+								<th>학년(lectureNo) - 수강 가능 학년(${subject_grade}학년)  </th>
 								<th>학생ID(userId)</th>
 								<th>학생이름(userName)</th>
 								<th>상태 변경</th>
@@ -87,6 +88,9 @@
 									<td>${g.st_name}</td>
 									<td>
 										<form action="${pageContext.request.contextPath}/sign/SignListByLecture?lectureNo=${g.lecture_no}&userId=${g.user_id}" method="post">
+										    <input type="text" name="lectureNo" id="lectureNo" value="${g.lecture_no}">
+							                <input type="text" name="signNo" id="signNo" value="${g.sign_no}">
+							                <input type="text" name="cancelId" id="cancelId" value="${loginUser.userId}">
 											<select name="signState" >
 												<c:choose>
 													<c:when test="${g.sign_state eq '0'}">
