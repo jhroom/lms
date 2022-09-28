@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.lms.mapper.TotalGradeMapper">
+
+	<!-- 학생 리스트 추출 쿼리 -->
+	<select id="selectTotalgradePro" resultType="map">
+		SELECT 
+			t.sign_no signNo
+			, t.total_grade totalGrade
+			, t.grade_total gradeTotal
+			, t.grade_rank gradeRank
+			, t.grade_test gradeTest
+			, t.grade_att gradeAtt
+			, t.grade_paper gradePaper
+			, s.user_id userId
+		from totalgrade t
+		inner JOIN sign s
+		ON t.sign_no = s.sign_no
+		WHERE s.lecture_no = 1
+	</select>
+	
+	<!-- 학생 수강정보 출력 -->
+	<select id="selectSignNo" resultType="int">
+		SELECT sign_no
+		FROM sign
+		WHERE lecture_no = #{lectureNo}
+	</select>
+	
+	<!-- 특정 강좌의 총 문제수 출력 쿼리 -->
+	<select id="selectQuestionCnt" resultType="int">
+		SELECT 
+			COUNT(q.question_no) questionCnt
+		FROM question q
+		INNER JOIN test t
+		ON q.test_no = t.test_no
+		INNER JOIN lecture l
+		ON t.lecture_no = l.lecture_no
+		WHERE t.lecture_no = #{lectureNo}
+	</select>
+	
+	<!-- 특정 학생의 시험점수 확인 쿼리 -->
+	<select id="selectTestGrade" resultType="int">
+		SELECT 
+			SUM(a.answer_score)/#{questionCnt}*100 score
+			, COUNT(q.question_no) questionCnt
+			, COUNT(a.answer_score) scoreCnt
+		FROM answer a
+		INNER JOIN question q
+		ON a.question_no = q.question_no
+		INNER JOIN test t
+		ON q.test_no = t.test_no
+		INNER JOIN sign s
+		ON s.sign_no = a.sign_no
+		WHERE t.lecture_no = #{lectureNo}
+		AND s.sign_no = #{signNo}
+	</select>
+	
+	<!-- 특정 학생의 출석 점수 확인 쿼리 -->
+	<select id="selectAttGrade" resultType="int">
+		SELECT ifNull(sum(attend_state)/(16*3) * 100,0) score
+		from attendance
+		WHERE sign_no = #{signNo};
+	</select>
+	
+	<!-- 학생 기본 점수 업데이트 쿼리 -->
+	<update id="updateGrade" parameterType="com.gd.lms.vo.Totalgrade">
+		UPDATE totalgrade t
+		SET 
+			t.grade_test = #{gradeTest}
+			, t.grade_att = #{gradeAtt}
+			, t.grade_paper = #{gradePaper}
+			, t.grade_total = #{gradeTotal}
+		WHERE t.sign_no = #{signNo}
+	</update>
+	
+	
+	
+	
+</mapper>
