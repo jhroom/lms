@@ -73,6 +73,15 @@
 		WHERE t.sign_no = #{signNo}
 	</update>
 	
+	<!-- 랭크 출력 쿼리 -->
+	<select id="gradeRank" parameterType="com.gd.lms.vo.Totalgrade">
+	SELECT sign_no, grade_total
+		,  @RANK:= IF(@LAST > grade_total, @RANK := @RANK + 1, @RANK)  AS RANK
+		,  @LAST := grade_total AS totalgrade
+	FROM totalgrade,(SELECT @RANK := 1) xx
+	ORDER BY grade_total desc
+	</select>
+	
 	
 	
 	

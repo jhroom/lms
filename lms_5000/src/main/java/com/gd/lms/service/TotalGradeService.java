@@ -1,6 +1,7 @@
 package com.gd.lms.service;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +85,6 @@ public class TotalGradeService implements ITotalGradeService{
 			
 			//등수 세팅
 			
-			
 			//학점 세팅
 			
 			
@@ -100,6 +100,12 @@ public class TotalGradeService implements ITotalGradeService{
 				
 		//리턴
 		return row;
+	}
+
+	@Override
+	public int gradeRank(int SignNo, Totalgrade gradeTotal) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

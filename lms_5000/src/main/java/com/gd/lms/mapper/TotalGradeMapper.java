@@ -29,4 +29,7 @@ public interface TotalGradeMapper {
 	//학생 성적 기본 점수 업데이트 쿼리
 	int updateGrade(Totalgrade totalgrade);
 	
+	//성적 순위 출력 쿼리
+	int gradeRank(int signNo, Totalgrade totalgrade);
+	
 }

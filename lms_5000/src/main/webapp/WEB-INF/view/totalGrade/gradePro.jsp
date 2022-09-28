@@ -65,14 +65,25 @@
 	      <table border="1">
 		      <thead>
 			      <tr>
-			      	<th>학생 이름</th><th>학생 아이디</th><th>시험점수</th><th>과제 점수<button id="paperTogleBtn" type="button">수정</button></th><th>출석 점수</th><th>총점</th><th>등수</th><th>학점</th>
+			      	<th>학생 이름</th>
+			      	<th>학생 아이디</th>
+			      	<th>시험점수</th>
+			      	<th>과제 점수<button id="paperTogleBtn" type="button">수정</button></th>
+			      	<th>출석 점수</th>
+			      	<th>총점</th>
+			      	<th>등수</th>
+			      	<th>학점</th>
 			      </tr>
 		      </thead>
 		      <tbody>
 			      <c:forEach items="${stuGradeList}" var="s">
 			      
 				      <tr>
-				      	<td>${s.userId}</td><td>${s.userId}</td><td>${s.gradeTest}</td><td><input type="number" min="0" max="100" class="paper" name="paper" value="${s.gradePaper}" readonly></td><td>${s.gradeAtt}</td><td>${s.gradeTotal}</td><td>${s.gradeRank}</td><td>${s.totalGrade}</td>
+				      	<td>${s.userId}</td>
+				      	<td>${s.userId}</td>
+				      	<td>${s.gradeTest}</td>
+				      	<td><input type="number" min="0" max="100" class="paper" name="paper" value="${s.gradePaper}" readonly></td>
+				      	<td>${s.gradeAtt}</td><td>${s.gradeTotal}</td><td>${s.gradeRank}</td><td>${s.totalGrade}</td>
 				      </tr>
 				  </c:forEach>
 		      </tbody>
