@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.LectureMapper;
+import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
 
@@ -70,6 +71,37 @@ public class LectureService implements ILectureService {
 		//디버깅
 		log.debug(TeamColor.YHW + "-- CancelList-service -- "+ CancelList );
 		return CancelList;
+	}
+//////////////////////////////////////////////////////////////////////////////////////// 승현 등장
+	@Override
+	public List<Lecture> getLectureList() {
+		
+		
+		return null;
+	}
+
+	@Override
+	public int addLecture(Lecture lecture) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateLecture(int lectureNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteLecture(int lectureNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Map<String, Object> getLectureOne(int lectureNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

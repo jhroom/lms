@@ -109,4 +109,12 @@ public class LectureController {
 		   int signNo = signCancel.getSignNo();
 		   return "redirect:/sign/openLectureList?lectureNo="+lectureNo+"&signNo="+signNo+"&userId="+userId;
 	   }
+	   
+	   ////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   
+	   
+	   
+	   
+	   
+	   
 }
