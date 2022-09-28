@@ -65,13 +65,25 @@ public class MessageService implements IMessageService {
 
 	//메시지 확인시 확인여부를 N에서 Y로 업데이트.
 	@Override
-	public int updateMessageState(String id) {
+	public int updateMessageState(Message message) {
 		
-		int row = messageMapper.updateMessageState(id);
 		
-		//디버그
+		int row = messageMapper.updateMessageState(message.getReceiveId() , message.getMessageNo());
+		
+		System.out.println(message.getReceiveId());
+		//디버그, messageNo
 		log.debug(TeamColor.JCH + this.getClass() + "메시지 확인여부 업데이트.");
 		
+		return row;
+	}
+
+	@Override
+	public int insertMessage(Message message) {
+		
+		int row = messageMapper.insertMessage(message);
+		
+		//디버그
+		log.debug(TeamColor.JCH + this.getClass() + "메시지 보내기 ( 메시지 insert ) ");
 		return row;
 	}
 

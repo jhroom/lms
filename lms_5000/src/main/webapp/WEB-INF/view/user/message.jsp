@@ -13,6 +13,7 @@
 <%@include file="../import/reference.jsp" %>
 
 </head>
+
 <body class="hold-transition sidebar-mini">
 
 <!-- 전체 페이지 래퍼 -->
@@ -55,6 +56,7 @@
       <div class="container-fluid">
 		<form action="${pageContext.request.contextPath}/user/message" method="post">
 			보낸이
+			<input type="hidden" value="${loginUser.userId}" name="sendId">
 			<c:choose>
           	<c:when test="${loginUser.userId != null}">
           		 ${loginUser.userId}님
@@ -66,11 +68,16 @@
           	<br>
 			받는이
 			<input type="text" name="receiveId">
-			
+			<c:if test="${msg !=null}">
+			<p>${msg}</p>
+			</c:if>
+			<br>
+			메시지 제목
+			<input type="text" name="messageTitle">
 			<br>
 			<!-- 같은 강의 듣는사람 강의 교수 리스트 선택할수 있거나 검색하는방법으로 -->
 			 내용 
-			<textarea rows="20" cols="20" name="messageContent"></textarea>
+			<textarea rows="20" cols="100" name="messageContent"></textarea>
 			
 			<button type="submit">메시지 전송</button>
 		</form>

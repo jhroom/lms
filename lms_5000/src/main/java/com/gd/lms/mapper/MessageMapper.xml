@@ -57,7 +57,23 @@
 		SET
 			message_state = 'Y'
 		WHERE
-			receive_id = #{receiveId} AND message_state = 'N'
+			receive_id = #{receiveId} AND message_state = 'N' AND message_no = #{messageNo};
 	
 	</update>
+	
+	<insert id="insertMessage" parameterType="com.gd.lms.vo.Message">
+		INSERT INTO message (
+			send_id,
+			receive_id,
+			message_title,
+			message_content,
+			create_time
+		) VALUES (
+			#{sendId},
+			#{receiveId},
+			#{messageTitle},
+			#{messageContent},
+			NOW()
+		)
+	</insert>
 </mapper>

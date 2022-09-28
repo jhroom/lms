@@ -20,5 +20,8 @@ public interface IMessageService {
 	public List<Message> selectMessageOne(int messageNo);
 	
 	//메시지 확인여부 업데이트
-	public int updateMessageState(String id);
+	public int updateMessageState(Message message);
+	
+	//메시지 보내기
+	public int insertMessage(Message message);
 }

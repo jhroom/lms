@@ -23,5 +23,10 @@ public interface MessageMapper {
 	public List<Message> selectMessageOne(int messageNo);
 	
 	//메시지 읽음표시 업데이트
-	public int updateMessageState(String id);
+	public int updateMessageState(Message message);
+	public int updateMessageState(String receiveId, int messageNo);
+	
+	//메시지 보내기
+	public int insertMessage(Message message);
+	
 }

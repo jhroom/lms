@@ -73,6 +73,7 @@
 						<td>${list.sendId}</td>
 						<td>${list.receiveId}</td>
 						<td>
+						<input type="hidden" value="${list.receiveId}"> 
 						<input type="hidden" value="${list.messageNo}">
 						<a href="${pageContext.request.contextPath}/user/messageOne?messageNo=${list.messageNo}">${list.messageTitle}</a>
 						</td>

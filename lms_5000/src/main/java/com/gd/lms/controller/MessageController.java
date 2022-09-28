@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.IMessageService;
@@ -65,7 +66,6 @@ public class MessageController {
 		String id = ((User)session.getAttribute("loginUser")).getUserId();
 		user.setUserId(id);
 		
-		System.out.println(id);
 		//리스트 불러오기
 		List<Message> list = messageService.selectReceiveMessageList(id);
 		model.addAttribute("list",list);
@@ -78,23 +78,34 @@ public class MessageController {
 	
 	//메시지 상세보기 ( 내용보기 )
 	@GetMapping("/user/messageOne")
-	public String messageOne(Model model , HttpSession session , int messageNo , User user) {
+	public String messageOne(Model model , HttpSession session , int messageNo , User user , Message message) {
 		//id값 받아오기
 		String id = ((User)session.getAttribute("loginUser")).getUserId();
 		user.setUserId(id);
 		
+		message.setReceiveId(id);
+		
 		List<Message> list = messageService.selectMessageOne(messageNo);
 		model.addAttribute("list", list);
 		
-		int row = messageService.updateMessageState(id);
+		int row = messageService.updateMessageState(message);
 		
 		return "user/messageOne";
 	}
+	
+	//메시지 보내는 페이지.
 	@GetMapping("/user/message")
 	public String message(Model model) {
-		List<User> list = userListService.selectUserList();
-		model.addAttribute("list", list);
+		//메시지 리스트 출력하기
+		
 		
 		return "user/message";
+	}
+	
+	@PostMapping("user/message")
+	public String insertMessage(Model model , Message message) {	
+		int row = messageService.insertMessage(message);
+
+		return "redirect:/user/messageList";
 	}
 }
