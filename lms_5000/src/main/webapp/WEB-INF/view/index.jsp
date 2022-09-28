@@ -406,6 +406,7 @@ function change() {
 				<a href="${pageContext.request.contextPath}/index/mypage">마이페이지</a><br>
 				<a href="${pageContext.request.contextPath}/lmsMajor/MajorList">학과 리스트</a><br>
 				<a href="${pageContext.request.contextPath}/lmsSubject/SubjectList">강좌리스트</a><br>
+				<a href="${pageContext.request.contextPath}/lmsSemester/SemesterList">학기 리스트</a><br>
 				<button  onclick="window.open('${pageContext.request.contextPath}/user/messageList'
 				, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false">메세지</button>
 				
