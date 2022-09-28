@@ -30,4 +30,7 @@ public interface ILectureDashBoadService {
 	
 	//강좌 출석페이지의 강좌정보
 	Map<String, Object> getLectureInfo(Lecture lecture);
+	
+	//최신 게시글 10건 불러오기
+	List<Map<String,Object>> getRecentBoard(int lectureNo);
 }

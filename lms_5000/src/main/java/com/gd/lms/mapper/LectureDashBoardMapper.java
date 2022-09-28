@@ -49,4 +49,7 @@ public interface LectureDashBoardMapper {
 	//출석페이지의 강좌 정보
 	Map<String, Object> selectLectureInfo(Lecture lecture);
 	
+	//최신 게시판 10건 불러오는 쿼리
+	List<Map<String,Object>> selectRecentBoard(int lectureNo);
+	
 }

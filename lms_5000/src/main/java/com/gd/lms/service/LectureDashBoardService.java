@@ -126,5 +126,19 @@ public class LectureDashBoardService implements ILectureDashBoadService {
 	public Map<String, Object> getLectureInfo(Lecture lecture) {
 		return lectureDashBoardMapper.selectLectureInfo(lecture);
 	}
+	
+	//최근 개시글 리스트 10건 
+	@Override
+	public List<Map<String, Object>> getRecentBoard(int lectureNo) {
+		//파라미터 값 확인 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 lectureNo : " + lectureNo);
+		
+		//리스트 생성
+		List<Map<String, Object>> list = lectureDashBoardMapper.selectRecentBoard(lectureNo);
+		
+		
+		//리턴
+		return list;
+	}
 
 }

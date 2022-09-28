@@ -73,6 +73,11 @@ public class LectureDashBoadController {
 		// model에 값 담기
 		model.addAttribute("assignMentBoard", assignMentBoard);
 		
+		
+		//최신 리스트 10건 찾고 값 부여
+		List<Map<String, Object>> recentList = lectureDashBoardService.getRecentBoard(lectureNo.getLectureNo());
+		model.addAttribute("recentList", recentList);
+		
 		//session값에 userId를 담고 강좌번호 + 유저id를 가지고 해당 강좌를 듣는 유저의 출결현황을 출력해준다.
 		log.debug(TeamColor.JCH + "출석현황 리스트 ");
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();

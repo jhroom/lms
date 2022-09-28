@@ -166,4 +166,21 @@
 		WHERE 
 			l.lecture_no = #{lectureNo} AND l.user_id = #{userId}
 	 </select>
+	 
+	 <!-- 최신 게시글 10건 불러오는 쿼리 -->
+	 <select id="selectRecentBoard" resultType="map">
+		SELECT 
+			bp.board_post_title boardPostTitle
+			, bp.board_post_writer boardPostWriter
+			, bp.board_post_no boardPostNo
+			, bp.board_post_createdate boardPostCreatedate
+			, b.board_name boardName
+			, b.board_type boardType
+		FROM board_post bp
+		INNER JOIN board b
+		ON bp.board_no = b.board_no
+		WHERE b.lecture_no = 1
+		ORDER BY board_post_createdate DESC
+		LIMIT 0, 10;
+	 </select>
 </mapper>
