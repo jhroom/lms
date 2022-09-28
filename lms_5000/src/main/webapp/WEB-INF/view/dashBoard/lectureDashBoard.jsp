@@ -16,19 +16,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
-		console.log('test');
-		$("[id='form1']").click(function(){
-			if( $("[id='access1']").val() == 'N' ){
-				alert('접근 불가');
+		
+		$("[id='btn1']").click(function(){
+				$("[id='form1']").submit();
 				return;
-			};
 		});
-		$("[id='form2']").click(function(){
-			console.log($("[id='access2']").val());
-			if( $("[id='access2']").val() == 'N' ){
-				alert('접근 불가');
+		
+		$("[id='btn2']").click(function(){
+				$("[id='form2']").submit();
 				return;
-			};
 		});
 	});
 </script>
@@ -205,23 +201,25 @@
 				           			<c:forEach var="w" items="${weekList}">
 				           			
 					           			<c:if test="${w.nowWeek == 'Y' }">
-					           				<td style="color: red; padding: 10px;">
+					           				<td style="padding: 15px;">
 					           				<form id="form1" action="${pageContext.request.contextPath}/dashBoard/lectureAttendance" method="post">
 					           					<input type="hidden" name="lectureNo" value="${lectureNo}">
 					           					<input type="hidden" name="week" value="${w.week}">
-					           					<input type="hidden" id="access1" value="${w.access}">
-					           					<button type="submit">${w.week}</button>
+					           					<input type="hidden" name="access" value="${w.access}">
+					           					<%-- <button type="submit">${w.week}</button> --%>
+					           					<a href="#" id="btn1" style="color:blue;">${w.week}</a>
 					           				</form>
 					           				</td>
 					           			</c:if>
 					           			
 					           			<c:if test="${w.nowWeek == 'N' }">
-					           				<td style="color: green; padding: 10px;">
+					           				<td style="padding: 15px;">
 					           				<form id="form2" action="${pageContext.request.contextPath}/dashBoard/lectureAttendance" method="post">
 					           					<input type="hidden" name="lectureNo" value="${lectureNo}">
 					           					<input type="hidden" name="week" value="${w.week}">
-					           					<input type="hidden" id="access2" value="${w.access}">
-					           					<button type="submit">${w.week}</button>
+					           					<input type="hidden" name="access" value="${w.access}">
+					           					<%-- <button type="submit">${w.week}</button> --%>
+					           					<a href="#" id="btn2" style="color:green;">${w.week}</a>
 					           				</form>
 					           				</td>
 					           			</c:if>

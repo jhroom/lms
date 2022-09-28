@@ -98,10 +98,15 @@ public class LectureDashBoadController {
 	
 	//해당 주차를 눌렀을 떄 해당 강좌의 수강생 리스트 보여주기
 	@PostMapping("/dashBoard/lectureAttendance")
-	public String attendanceList(HttpSession session, Lecture lecture, Model model,@RequestParam (value="lectureNo",required =false) int lectureNo,@RequestParam (value="week",required =false) int week) {
+	public String attendanceList(HttpSession session, Lecture lecture, Model model, int lectureNo, int week, String access) {
 		
 		log.debug(TeamColor.AJH +"파라미터 값 확인 / lectureNo : " + lectureNo);
 		log.debug(TeamColor.AJH +"파리미터 값 확인 / week : " + week);
+		log.debug(TeamColor.AJH +"파리미터 값 확인 / access : " + access);
+		
+		if(access.equals("N")) {
+			return "redirect:/dashBoard/lectureDashBoard?userId="+((User)session.getAttribute("loginUser")).getUserId()+"&lectureNo="+lectureNo;
+		}
 		 
 		lecture.setUserId(((User)session.getAttribute("loginUser")).getUserId());
 		
