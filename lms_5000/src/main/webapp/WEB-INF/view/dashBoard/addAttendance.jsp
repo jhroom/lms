@@ -37,7 +37,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">출석체크</h1>
+            <h1 class="m-0 text-dark">${lectureInfo.majorName} ${lectureInfo.subjectName} ${week}주차 출석체크</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -56,32 +56,55 @@
       <div class="container-fluid">
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
-		<div>
-			<div>수강생    /    출석</div>
+		<div class="row">
+			<div class="col-sm-3"></div>
 			
-			<div>
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-6">학생</div>
+					<div class="col-sm-3">출석상태</div>
+					<div class="col-sm-3">출석</div>
+				</div>
+			
+			<div class="container-fluid">
+				
 				<form id="attendForm" action="${pageContext.request.contextPath}/dashBoard/addAttendance" method="post">
 					<input type="hidden" value="${week}" name="week">
 					<input type="hidden" value="${lectureNo}" name="lectureNo">
 					
-					
 					<c:forEach var="s" items="${studentList}" varStatus="status">
-						<div>
-						<input type="text" value="${s.studentId}" name="studentId[${status.index}]">
-					
-						<select name="attendState[${status.index}]">
-							<!-- <option value="">-- 선택 --</option> -->
-							<option value="0">결석</option>						
-							<option value="1">지각</option>
-							<option value="2">조퇴</option>
-							<option value="3">출석</option>
-						</select>
+						<div class="row">
+						<div class="col-sm-6">
+							<input type="hidden" value="${s.studentId}" name="studentId[${status.index}]">
+							<input type="text" value="${s.studentName}">
+						</div>
+						<div class="col-sm-3">
+							<c:choose>
+								<c:when test="${s.attendState eq 0}">결석</c:when>
+								<c:when test="${s.attendState eq 1}">지각</c:when>
+								<c:when test="${s.attendState eq 2}">조퇴</c:when>
+								<c:when test="${s.attendState eq 3}">출석</c:when>
+							</c:choose>
+						</div>
+						<div class="col-sm-3">
+							<select  name="attendState[${status.index}]">
+								<!-- <option value="">-- 선택 --</option> -->
+								<option value="0">결석</option>						
+								<option value="1">지각</option>
+								<option value="2">조퇴</option>
+								<option value="3">출석</option>
+							</select>
+						</div>
 						</div>
 					</c:forEach>
 					
 					<button type="submit">제출</button>
 				</form>
 			</div>
+			
+			</div>
+			
+			<div class="col-sm-3"></div>
 		</div>
 
       </div><!-- /.container-fluid -->

@@ -2,6 +2,7 @@ package com.gd.lms.controller;
 
 import java.util.Arrays;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILectureDashBoadService;
@@ -103,21 +103,30 @@ public class LectureDashBoadController {
 		log.debug(TeamColor.AJH +"파라미터 값 확인 / lectureNo : " + lectureNo);
 		log.debug(TeamColor.AJH +"파리미터 값 확인 / week : " + week);
 		log.debug(TeamColor.AJH +"파리미터 값 확인 / access : " + access);
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		
+		//접근 가능한 주간이 아닐 때 강으 대시보드로 이동
 		if(access.equals("N")) {
-			return "redirect:/dashBoard/lectureDashBoard?userId="+((User)session.getAttribute("loginUser")).getUserId()+"&lectureNo="+lectureNo;
+			return "redirect:/dashBoard/lectureDashBoard?userId="+userId+"&lectureNo="+lectureNo;
 		}
-		 
+		
+		// lectureNo 담겨있는 lecture 객체에 세션의 아이디 담기
 		lecture.setUserId(((User)session.getAttribute("loginUser")).getUserId());
 		
-		//get 방식의 lecture No 와 세션의 아이디로 해당강좌 수강생 리스트 받아오기
-		List<Map<String, Object>> list = lectureDashBoardService.getStudentListForAtt(lecture);
-		log.debug(TeamColor.AJH +"db 값 확인 수강생리스트 : " + list);
+		// 강좌 정보
+		Map<String, Object> lectureInfo = lectureDashBoardService.getLectureInfo(lecture);
+		log.debug(TeamColor.AJH +"db 값 확인 강좌 정보 : " + lectureInfo);
+		
+		//lectureNo와 세션id(강사자)로 해당강좌 수강생 리스트 받아오기
+		List<Map<String, Object>> studentList = lectureDashBoardService.getStudentListForAtt(lecture, week);
+		log.debug(TeamColor.AJH +"db 값 확인 수강생리스트 : " + studentList);
+		log.debug(TeamColor.AJH +"db 값 해당주차 출석정보 null(size) 유무 : " + studentList.size());
 		
 		//출석에 필요한 정보 모델값 부여
-		model.addAttribute("studentList",list);
+		model.addAttribute("studentList",studentList);
 		model.addAttribute("week",week);
 		model.addAttribute("lectureNo",lecture.getLectureNo());
+		model.addAttribute("lectureInfo",lectureInfo);
 		
 		return "dashBoard/addAttendance";
 	}

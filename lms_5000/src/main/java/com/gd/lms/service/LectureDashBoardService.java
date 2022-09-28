@@ -1,6 +1,7 @@
 package com.gd.lms.service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
@@ -68,8 +69,13 @@ public class LectureDashBoardService implements ILectureDashBoadService {
 	}
 	
 	@Override
-	public List<Map<String, Object>> getStudentListForAtt(Lecture lecture) {
-		return lectureDashBoardMapper.selectStudentListForAtt(lecture);
+	public List<Map<String, Object>> getStudentListForAtt(Lecture lecture, int week) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("lectureNo", lecture.getLectureNo());
+		param.put("userId", lecture.getUserId());
+		param.put("week", week);
+		
+		return lectureDashBoardMapper.selectStudentListForAtt(param);
 	}
 	
 	//학생 출석 서비스
@@ -114,6 +120,11 @@ public class LectureDashBoardService implements ILectureDashBoadService {
 			}
 		}
 		return result;
+	}
+	// 교수의 출석페이지의 강의 정보
+	@Override
+	public Map<String, Object> getLectureInfo(Lecture lecture) {
+		return lectureDashBoardMapper.selectLectureInfo(lecture);
 	}
 
 }

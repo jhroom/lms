@@ -263,7 +263,7 @@
         <div class="row">
           <div class="col-8">
             <p class="mb-0">
-        		<a href="${pageContext.request.contextPath}/user/login">이미 회원이신가요?</a>
+        		<a href="${pageContext.request.contextPath}/index/login">이미 회원이신가요?</a>
       		</p>
           </div>
           <!-- /.col -->

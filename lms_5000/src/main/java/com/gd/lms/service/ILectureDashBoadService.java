@@ -21,9 +21,13 @@ public interface ILectureDashBoadService {
 	List<Map<String,Object>> stuAttendance(int lectureNo, String userId);
 	//강의의 출결주차 리스트
 	List<Map<String,Object>> weekList(int lectureNo);
+	
 	//교수의 해당강좌 수강생리스트
-	List<Map<String, Object>> getStudentListForAtt(Lecture lecture);
+	List<Map<String, Object>> getStudentListForAtt(Lecture lecture, int week);
 	
 	//출석 데이터 입력
 	boolean addStudentAttendance(AttendanceForm attForm);
+	
+	//강좌 출석페이지의 강좌정보
+	Map<String, Object> getLectureInfo(Lecture lecture);
 }

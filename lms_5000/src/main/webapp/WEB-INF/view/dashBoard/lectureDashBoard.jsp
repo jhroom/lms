@@ -17,7 +17,7 @@
 <script>
 	$(document).ready(function(){
 		
-		$("[id='btn1']").click(function(){
+		/* $("[id='btn1']").click(function(){
 				$("[id='form1']").submit();
 				return;
 		});
@@ -25,7 +25,9 @@
 		$("[id='btn2']").click(function(){
 				$("[id='form2']").submit();
 				return;
-		});
+		}); */
+		
+		
 	});
 </script>
 <body class="hold-transition sidebar-mini">
@@ -198,33 +200,24 @@
 				           <table border="1">
 				           		<tr>
 				           			<td>주차</td>
-				           			<c:forEach var="w" items="${weekList}">
 				           			
-					           			<c:if test="${w.nowWeek == 'Y' }">
-					           				<td style="padding: 15px;">
-					           				<form id="form1" action="${pageContext.request.contextPath}/dashBoard/lectureAttendance" method="post">
-					           					<input type="hidden" name="lectureNo" value="${lectureNo}">
-					           					<input type="hidden" name="week" value="${w.week}">
-					           					<input type="hidden" name="access" value="${w.access}">
-					           					<%-- <button type="submit">${w.week}</button> --%>
-					           					<a href="#" id="btn1" style="color:blue;">${w.week}</a>
-					           				</form>
-					           				</td>
-					           			</c:if>
-					           			
-					           			<c:if test="${w.nowWeek == 'N' }">
-					           				<td style="padding: 15px;">
-					           				<form id="form2" action="${pageContext.request.contextPath}/dashBoard/lectureAttendance" method="post">
-					           					<input type="hidden" name="lectureNo" value="${lectureNo}">
-					           					<input type="hidden" name="week" value="${w.week}">
-					           					<input type="hidden" name="access" value="${w.access}">
-					           					<%-- <button type="submit">${w.week}</button> --%>
-					           					<a href="#" id="btn2" style="color:green;">${w.week}</a>
-					           				</form>
-					           				</td>
-					           			</c:if>
-					           			
+				           			<c:forEach var="w" items="${weekList}" >
+			           				<td style="padding: 15px;">
+				           				<form action="${pageContext.request.contextPath}/dashBoard/lectureAttendance" method="post">
+				           					<input type="hidden" name="lectureNo" value="${lectureNo}">
+				           					<input type="hidden" name="week" value="${w.week}">
+				           					<input type="hidden" name="access" value="${w.access}">
+				           					
+				           					<c:if test="${w.nowWeek == 'Y'}">
+				           						<button type="submit" style="background-color:transparent; color:blue; border:0px transparent solid;">${w.week}</button>
+				           					</c:if>
+				           					<c:if test="${w.nowWeek == 'N'}">
+				           						<button type="submit" style="background-color:transparent; color:green; border:0px transparent solid;">${w.week}</button>
+				           					</c:if>
+				           				</form>
+			           				</td>
 				           			</c:forEach>
+				           			
 				           		</tr>
 						   </table>
 				           <a href="#" class="card-link">Card link</a>

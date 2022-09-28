@@ -35,7 +35,7 @@ public interface LectureDashBoardMapper {
 	List<Map<String,Object>> weekList(int lectureNo);
 	
 	//교수의 해당강좌 학생리스트
-	List<Map<String,Object>> selectStudentListForAtt(Lecture lecture);
+	List<Map<String,Object>> selectStudentListForAtt(Map<String,Object> map);
 	
 	//해당(강좌,주차) 학생의 출석정보유무 조회
 	Integer selectStudentAttData(int week, String studentId2, int lectureNo);
@@ -45,5 +45,8 @@ public interface LectureDashBoardMapper {
 	
 	//출석하는데 이미 정보가 잇다면
 	int updateStudentAttendance(AttendanceForm attForm);
+	
+	//출석페이지의 강좌 정보
+	Map<String, Object> selectLectureInfo(Lecture lecture);
 	
 }
