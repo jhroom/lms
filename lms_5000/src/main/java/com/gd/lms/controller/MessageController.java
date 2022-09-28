@@ -9,10 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.IMessageService;
 import com.gd.lms.service.IUserListService;
+import com.gd.lms.service.IUserLoginService;
 import com.gd.lms.vo.Message;
 import com.gd.lms.vo.User;
 
@@ -23,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MessageController {
 	@Autowired IMessageService messageService;
 	@Autowired IUserListService userListService;
+	@Autowired IUserLoginService  userLoginService;
+	
 	// 메시지 리스트 (전체)
 	@GetMapping("/user/messageList")
 	public String messageList(Model model, HttpSession session , User user) {
@@ -102,10 +107,16 @@ public class MessageController {
 		return "user/message";
 	}
 	
+	//메시지 보내는 기능.
 	@PostMapping("user/message")
 	public String insertMessage(Model model , Message message) {	
+		
+				
 		int row = messageService.insertMessage(message);
 
 		return "redirect:/user/messageList";
 	}
+	
+
+	
 }
