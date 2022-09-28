@@ -68,9 +68,6 @@
           	<br>
 			받는이
 			<input type="text" name="receiveId">
-			<c:if test="${msg !=null}">
-			<p>${msg}</p>
-			</c:if>
 			<br>
 			메시지 제목
 			<input type="text" name="messageTitle">
