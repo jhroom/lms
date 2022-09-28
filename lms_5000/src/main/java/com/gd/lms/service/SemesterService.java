@@ -19,12 +19,13 @@ import lombok.extern.slf4j.Slf4j;
 public class SemesterService implements ISemeterService{
 	@Autowired SemesterMapper semesterMapper;
 	
+	// 리스트
 	@Override
 	public List<Semester> getSemesterList() {
 		
 		return semesterMapper.selectSemesterList();
 	}
-
+	// 추가
 	@Override
 	public int addSemseter(Semester semester) {
 		
@@ -34,7 +35,7 @@ public class SemesterService implements ISemeterService{
 		
 		return row;
 	}
-
+	// 수정
 	@Override
 	public int updateSemester(Semester semester) {
 		
@@ -43,6 +44,7 @@ public class SemesterService implements ISemeterService{
 		return row;
 	}
 
+	// 삭제
 	@Override
 	public int deleteSemester(int semesterNo) {
 		
@@ -50,7 +52,8 @@ public class SemesterService implements ISemeterService{
 		
 		return row;
 	}
-
+	
+	// 상세보기
 	@Override
 	public Map<String, Object> getSemesterOne(int semesterNo) {
 		
@@ -60,5 +63,7 @@ public class SemesterService implements ISemeterService{
 		
 		return semesterOne;
 	}
+	
+	
 
 }

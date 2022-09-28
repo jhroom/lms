@@ -15,8 +15,8 @@
 	<div>
 		<table border="1" bordercolor="green">
 			<tr>
-				<th>학기번호</th>
-				<th>해당년도</th>
+				<th>번호</th>
+				<th>년도</th>
 				<th>학기</th>
 				<th>개강일</th>
 				<th>종강일</th>

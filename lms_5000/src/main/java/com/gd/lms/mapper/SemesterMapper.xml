@@ -32,5 +32,38 @@
 		)
 	
 	</insert>
+	
+<!-- 학기 상세보기 -->
+	<select id="selectSemesterOne" resultType="map">
+		SELECT
+			semester_no semesterNo,
+			semester_year semesterYear,
+			semester_session semesterSession,
+			semester_startdate semesterStartdate,
+			semester_enddate semesterEnddate
+		FROM semester
+		WHERE semester_no=#{semesterNo}
+	</select>
+	
+<!-- 학기 삭제 -->
+	<delete id="deleteSemester" parameterType="com.gd.lms.vo.Semester">
+		DELETE FROM semester
+		WHERE semester_no=#{semesterNo}
+		
+	
+	</delete>
+	
+<!-- 학기 수정 -->
+	<update id="updateSemester" parameterType="com.gd.lms.vo.Semester">
+		UPDATE semester
+		SET
+			semester_year = #{semesterYear},
+			semester_session = #{semesterSession},
+			semester_startdate = #{semesterStartdate},
+			semester_enddate = #{semesterEnddate}
+		WHERE semester_no = #{semesterNo}
+			
+	</update>
+	
 
 </mapper>
