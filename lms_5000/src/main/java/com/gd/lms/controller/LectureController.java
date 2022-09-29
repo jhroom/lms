@@ -12,19 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILectureService;
-import com.gd.lms.service.ISignListforAdminService;
-import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
 import com.gd.lms.vo.User;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class LectureController {
   @Autowired ILectureService lectureService;
+  
 	
   @GetMapping ("/sign/openLectureList")
    public String selectLectureListForSign(Model model, Sign sign, SignCancel signCancel, HttpSession session) {
@@ -110,30 +108,4 @@ public class LectureController {
 		   int signNo = signCancel.getSignNo();
 		   return "redirect:/sign/openLectureList?lectureNo="+lectureNo+"&signNo="+signNo+"&userId="+userId;
 	   }
-	   
-	   ////////////////////////////////////////////////////승현////////////////////////////////////////////////
-	   
-	   // 강의 리스트
-	   @GetMapping("lmsLecture/LectureList")
-	   public String getLectureList(Model model) {
-		   
-		   //리스트 불러오기
-		   List<Lecture> LectureList = lectureService.getLectureList();
-		   
-		   //구현
-		   model.addAttribute("LectureList", LectureList);
-		   
-		   log.debug(TeamColor.SSH + "강의 리스트 : " + LectureList);
-		   
-		   return "/lecture/LectureList";
-	   }
-	 
-	   // 강의 추가
-	   @GetMapping("lmsLecture/addLecture")
-	   public String addLecture(Model model) {
-		return null;
-		   
-	   }
-	   
-	   
 }

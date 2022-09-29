@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.LectureMapper;
-import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
 
@@ -73,52 +72,7 @@ public class LectureService implements ILectureService {
 		log.debug(TeamColor.YHW + "-- CancelList-service -- "+ CancelList );
 		return CancelList;
 	}
-//////////////////////////////////////////////////////////////////////////////////////// 승현 등장
+
 	
-	// 리스트
-	@Override
-	public List<Lecture> getLectureList() {
-		
-		
-		return lecturemapper.selectLectureList();
-	}
-	// 추가
-	@Override
-	public int addLecture(Lecture lecture) {
-		
-		int row = lecturemapper.addLecture(lecture);
-		
-		
-		return row;
-	}
-
-	// 수정
-	@Override
-	public int updateLecture(Lecture lecture) {
-		
-		int row = lecturemapper.updateLecture(lecture);
-		
-		return row;
-	}
-
-	// 삭제
-	@Override
-	public int deleteLecture(int lectureNo) {
-		
-		int row = lecturemapper.deleteLecture(lectureNo);
-		
-		return row;
-	}
-
-	// 상세보기
-	@Override
-	public Map<String, Object> getLectureOne(int lectureNo) {
-		 
-		Map<String, Object> lectureOne = lecturemapper.selectLectureOne(lectureNo);
-		
-		log.debug(TeamColor.SSH + "상세값 넘기기" + lectureOne);
-		
-		return lectureOne;
-	}
-
+	
 }

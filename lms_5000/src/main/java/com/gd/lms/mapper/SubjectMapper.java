@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.Major;
 import com.gd.lms.vo.Subject;
+import com.gd.lms.vo.User;
 
 @Mapper
 public interface SubjectMapper {
@@ -28,4 +29,7 @@ public interface SubjectMapper {
 	
 	// 학과 리스트 받아오기
 	public List<Major> getMajorList();
+	
+	// 교수 리스트 받아오기
+	public List<User> getUserList();
 }
