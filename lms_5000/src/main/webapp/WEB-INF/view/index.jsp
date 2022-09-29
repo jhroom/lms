@@ -202,7 +202,8 @@ function change() {
 					<table border="1">
 						<thead>
 							<tr>
-								<th>강좌이름</th>
+								<!-- <th>강좌이름</th> -->
+								<th>강좌</th>
 								<th>대상학년</th>
 								<th>수업요일</th>
 								<th>강좌 개강일</th>
@@ -212,7 +213,14 @@ function change() {
 						<tbody>
 							<c:forEach var="lc" items="${lectureList}">
 							<tr>
-								<td><a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?userId=${loginUser.userId}&lectureNo=${lc.lectureNo}">${lc.subjectName}</a></td>
+								<%-- <td><a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?userId=${loginUser.userId}&lectureNo=${lc.lectureNo}">${lc.subjectName}</a></td> --%>
+								<td>
+									<form action="${pageContext.request.contextPath}/dashBoard/lectureDashBoard" method="post">
+										<input type="hidden" name="userId" value="${loginUser.userId}">
+										<input type="hidden" name="lectureNo" value="${lc.lectureNo}">
+										<button type="submit">${lc.subjectName}</button>
+									</form>
+								</td>
 								<td>${lc.subjectGrade}</td>
 								<td>${lc.lectureDay}</td>
 								<%-- <td><a href="${pageContext.request.contextPath}
@@ -394,7 +402,6 @@ function change() {
     기존 링크들은 사이드바로?
 		<c:choose>
 			<c:when test="${loginUser != null}">
-				<p>${loginUser.userName}님 환영합니다.</p>
 				<c:if test="${loginUser.userLevel eq 4}">
 						<!-- loginUser 레벨이 4일경우 승인 페이지로 갈수있는 링크 출력-->
 				<a href="${pageContext.request.contextPath}/user/userList">승인 페이지</a>

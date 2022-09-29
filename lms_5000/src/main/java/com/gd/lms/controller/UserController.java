@@ -37,6 +37,11 @@ public class UserController {
 	//메인페이지
 	@GetMapping("/index")
 	public String index(HttpSession session, Model model) {
+		
+		//세션 정보가 없을 시 로그인페이지로 이동
+		if((User)session.getAttribute("loginUser") == null) {
+			return "user/login";
+		}
 
 		//세션 로그인 정보 추출
 		User user = (User)session.getAttribute("loginUser");
