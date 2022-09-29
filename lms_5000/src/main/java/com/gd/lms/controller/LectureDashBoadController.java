@@ -64,9 +64,43 @@ public class LectureDashBoadController {
 	}
 	
 	
-	// 과제제출 게시판 리스트
-	@GetMapping("/dashBoard/lectureDashBoard")
-	public String AssignmentBoard (Board board, Model model, Board lectureNo, HttpSession session , Sign sign) {
+	// 강좌별 대시보드
+	/*
+	 * @GetMapping("/dashBoard/lectureDashBoard") public String AssignmentBoard
+	 * (Board board, Model model, Board lectureNo, HttpSession session , Sign sign)
+	 * { List<Map<String, Object>> assignMentBoard =
+	 * lectureDashBoardService.getAssignment(lectureNo); // 게시판 확인
+	 * log.debug(TeamColor.YHW + "-- assignMentBoard-controller--"+ assignMentBoard
+	 * ); // model에 값 담기 model.addAttribute("assignMentBoard", assignMentBoard);
+	 * 
+	 * 
+	 * //최신 리스트 10건 찾고 값 부여 List<Map<String, Object>> recentList =
+	 * lectureDashBoardService.getRecentBoard(lectureNo.getLectureNo());
+	 * model.addAttribute("recentList", recentList);
+	 * 
+	 * //session값에 userId를 담고 강좌번호 + 유저id를 가지고 해당 강좌를 듣는 유저의 출결현황을 출력해준다.
+	 * log.debug(TeamColor.JCH + "출석현황 리스트 "); String userId =
+	 * ((User)session.getAttribute("loginUser")).getUserId();
+	 * sign.setUserId(userId); List<Map<String,Object>> stuAtt =
+	 * lectureDashBoardService.stuAttendance(board.getLectureNo() , userId);
+	 * log.debug(TeamColor.JCH + "출석현황 리스트 /stuAtt " + stuAtt);
+	 * model.addAttribute("stuAtt" , stuAtt);
+	 * 
+	 * //강의 번호 int lectureNoForWeek = lectureNo.getLectureNo();
+	 * 
+	 * //해당 강의의 주차 리스트 가져오기 List<Map<String,Object>> weekList =
+	 * lectureDashBoardService.weekList(lectureNoForWeek); log.debug(TeamColor.AJH +
+	 * "해당강좌의 weekList :  " + weekList);
+	 * 
+	 * //모델 값 부여 model.addAttribute("weekList",weekList);
+	 * model.addAttribute("lectureNo",lectureNo.getLectureNo());
+	 * 
+	 * return "/dashBoard/lectureDashBoard"; }
+	 */
+	
+	// 강좌별 대시보드
+	@PostMapping("/dashBoard/lectureDashBoard")
+	public String lectureDashBoard (Board board, Model model, Board lectureNo, HttpSession session , Sign sign) {
 		List<Map<String, Object>> assignMentBoard = lectureDashBoardService.getAssignment(lectureNo);
 		// 게시판 확인
 		log.debug(TeamColor.YHW + "-- assignMentBoard-controller--"+ assignMentBoard );
@@ -99,7 +133,6 @@ public class LectureDashBoadController {
 
 	return "/dashBoard/lectureDashBoard";
 	}
-	//////////////////////////////////////   AssignmentBoard crud end///////////////////////////////////
 	
 	//해당 주차를 눌렀을 떄 해당 강좌의 수강생 리스트 보여주기
 	@PostMapping("/dashBoard/lectureAttendance")

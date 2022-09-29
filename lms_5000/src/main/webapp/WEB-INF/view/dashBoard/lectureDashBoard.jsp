@@ -103,16 +103,7 @@
     <!-- Main content -->
     <!-- 메인 콘텐츠 -->
     <div class="col-sm-03"></div>
-  	<div>
-		<c:choose>
-			<c:when test="${loginUser != null}">
-				<h3>${loginUser.userName}님 환영합니다.</h3>
-			</c:when>
-			<c:otherwise>
-				   <a href="${pageContext.request.contextPath}/index/login"></a>
-			</c:otherwise>
-		</c:choose>
-	</div>
+
     <div class="content">
 	    <div class="container-fluid">
 	    
@@ -261,7 +252,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  </div>
+  
   <!-- Control Sidebar -->
   <!-- 좌측 사이드 바 -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -277,7 +268,7 @@
 <!-- 페이지 삽입 - footer -->
 <%@include file="../import/footer.jsp" %>
 <!-- ./wrapper -->
-
+</div>
 <!-- 페이지 삽입 - 필수적인 script -->
 <%@include file="../import/script.jsp" %>
 
