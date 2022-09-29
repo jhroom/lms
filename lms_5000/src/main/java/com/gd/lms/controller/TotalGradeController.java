@@ -77,8 +77,12 @@ public class TotalGradeController {
 	
 	//학생 성적 폼 전송
 	@GetMapping("/grade/stu/form")
-	public String goGradeStuForm() {
+	public String goGradeStuForm(HttpSession session, Model model,int lectureNo) {
+		// 파라미터 확인 디버깅
+		log.debug(TeamColor.YHW + "파라미터 확인 / lectureNo : " + lectureNo);
 		
+		// 리턴값 셋팅
+		List<Map<String, Object>> gradeList = totalGradeService.
 		
 		return "totalGrade/gradeStu";
 	}

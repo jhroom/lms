@@ -88,9 +88,9 @@
 									<td>${g.st_name}</td>
 									<td>
 										<form action="${pageContext.request.contextPath}/sign/SignListByLecture?lectureNo=${g.lecture_no}&userId=${g.user_id}" method="post">
-										    <input type="text" name="lectureNo" id="lectureNo" value="${g.lecture_no}">
-							                <input type="text" name="signNo" id="signNo" value="${g.sign_no}">
-							                <input type="text" name="cancelId" id="cancelId" value="${loginUser.userId}">
+										    <input type="hidden" name="lectureNo" id="lectureNo" value="${g.lecture_no}">
+							                <input type="hidden" name="signNo" id="signNo" value="${g.sign_no}">
+							                <input type="hidden" name="cancelId" id="cancelId" value="${loginUser.userId}">
 											<select name="signState" >
 												<c:choose>
 													<c:when test="${g.sign_state eq '0'}">

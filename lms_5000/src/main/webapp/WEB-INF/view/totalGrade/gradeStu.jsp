@@ -53,14 +53,27 @@
     <!-- 메인 콘텐츠 -->
     <div class="content">
       <div class="container-fluid">
-      
-      <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
-      <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
-      
-      
-
-
-
+      	<table border="1">
+	      	<thead>
+	      		<tr>
+	      			<th>년도(year)</th>
+	      			<th>학기(semester)</th>
+					<th>강좌번호(lectureNo)</th>      		
+					<th>수업명(subjectName)</th>      		
+					<th>교수명(professorName)</th>      		
+					<th>시험점수(testScore)</th>
+					<th>과제점수(paperScore)</th>      		
+					<th>출석점수(attendance)</th>      		
+	      		</tr>
+	      	</thead>
+	      	<tbody>
+	      		<c:forEach items="" var="">
+		      		<tr>
+	      				<td></td>
+	    	  		</tr>
+	      		</c:forEach>
+	      	</tbody>
+      	</table>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

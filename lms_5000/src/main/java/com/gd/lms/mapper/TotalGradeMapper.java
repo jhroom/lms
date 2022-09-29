@@ -13,6 +13,9 @@ public interface TotalGradeMapper {
 	//교수 학생 성적 리스트 출력
 	List<Map<String, Object>> selectTotalgradePro(int lectureNo);
 	
+	//학생 과목 및 성적 리스트 출력
+	List<Map<String, Object>> selectTotalgradeStu(int lectureNo);
+	
 	//학생 수강 번호 출력쿼리
 	int [] selectSignNo(int lectureNo);
 	

@@ -408,7 +408,8 @@ function change() {
 				</c:if>
 				<br>
 				<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList">공지 리스트</a><br>
-				<a href="${pageContext.request.contextPath}/sign/stDash">강좌대시보드</a><br>
+				<a href="${pageContext.request.contextPath}/sign/stDash">수강신청(학생용)</a><br>
+				<a href="${pageContext.request.contextPath}/sign/SignListForAdmin">수강신청 상태 변경(운영자용)</a><br>
 				<a href="${pageContext.request.contextPath}/board/list?lectureNo=1">게시판</a><br>
 				<a href="${pageContext.request.contextPath}/index/mypage">마이페이지</a><br>
 				<a href="${pageContext.request.contextPath}/lmsMajor/MajorList">학과 리스트</a><br>

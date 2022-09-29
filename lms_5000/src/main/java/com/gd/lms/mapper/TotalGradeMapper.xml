@@ -83,6 +83,11 @@
 	</select>
 	
 	
+	<!-- 학생 과목 및 성적 리스트 출력 -->
+	<select id="">
+	
+	</select>
+	
 	
 	
 </mapper>

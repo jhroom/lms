@@ -31,6 +31,8 @@ public class TotalGradeService implements ITotalGradeService{
 		//리턴
 		return list;
 	}
+	
+	//학생 성적
 
 	//성적 처리 서비스
 	@Override
@@ -104,8 +106,8 @@ public class TotalGradeService implements ITotalGradeService{
 
 	@Override
 	public int gradeRank(int SignNo, Totalgrade gradeTotal) {
-		// TODO Auto-generated method stub
-		return 0;
+		int gradeRank = totalGradeMapper.gradeRank(SignNo, gradeTotal);
+		return gradeRank;
 	}
 
 	
