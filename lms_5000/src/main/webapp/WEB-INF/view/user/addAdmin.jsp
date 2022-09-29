@@ -185,7 +185,7 @@ $(document).ready(function(){
           </div>
         </div>
        	<div class="trueMsg">사용 가능한 아이디입니다.</div>
-		<div class="falseMsg">사용 중인 아이디입니다.</div>
+		<div class="falseMsg">사용 불가능한 아이디입니다.</div>
         
         <!-- Pw입력공간 -->
         <div class="input-group mb-3">

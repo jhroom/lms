@@ -3,6 +3,7 @@ package com.gd.lms.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -197,11 +198,22 @@ public class UserController {
 	@PostMapping("/user/idCheck")
 	@ResponseBody
 	public String userIdCkeck(@RequestParam (value="userId") String userId) {
-		System.out.println(TeamColor.AJH + "id check 진입 "+ userId);
+		// 회원가입 id 정규표현식 영문이나 숫자로 4자 이상 10자이하
+		String idReg = "^[A-za-z0-9]{4,10}$";
+		log.debug(TeamColor.AJH + "아이디 중복검사 파라미터 값 : " + userId);
+		
+		boolean regResult = Pattern.matches(idReg, userId);
+		log.debug(TeamColor.AJH + "아이디 표현식 결과 값 : " + regResult);
+		if(!regResult) {
+			return "false";
+		}
+		//Id 중복검사 서비스 호출
 		if(userLoginService.getUserIdCheck(userId)) {
+			log.debug(TeamColor.AJH + "아이디 중복검사 결과 값 : true" );
 			return "true";
 		}
 		else {
+			log.debug(TeamColor.AJH + "아이디 중복검사 결과 값 : false" );
 			return "false";
 		}
 		
