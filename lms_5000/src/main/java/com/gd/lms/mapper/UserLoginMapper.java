@@ -1,8 +1,12 @@
 package com.gd.lms.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.lms.vo.Admin;
+import com.gd.lms.vo.Major;
+import com.gd.lms.vo.Position;
 import com.gd.lms.vo.Professor;
 import com.gd.lms.vo.Student;
 import com.gd.lms.vo.User;
@@ -36,5 +40,10 @@ public interface UserLoginMapper {
 	//회원가입시 교수 정보 담기
 	int insertProfessor(Professor professor);
 	
+	//학생 교수 회원가입시 학과리스트 받기
+	List<Major> selectMajorList();
+	
+	//직원 회원가입시 직책 리스트 받기
+	List<Position> selectPositionList();
 
 }

@@ -1,6 +1,8 @@
 package com.gd.lms.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.UserLoginMapper;
 import com.gd.lms.vo.Admin;
+import com.gd.lms.vo.Major;
+import com.gd.lms.vo.Position;
 import com.gd.lms.vo.Professor;
 import com.gd.lms.vo.Student;
 import com.gd.lms.vo.User;
@@ -128,6 +132,18 @@ public class UserLoginService implements IUserLoginService {
 	public void modifyUserLastLogin(String userId) {
 		int row = userLoginMapper.updateUserLastLogin(userId);
 		log.debug(TeamColor.AJH + "마지막 로그인 업데이트 결과 : " + row);
+	}
+	
+	//학과리스트 받기
+	@Override
+	public List<Major> getMajorList() {
+		return userLoginMapper.selectMajorList();
+	}
+	
+	//직책리스트 받기
+	@Override
+	public List<Position> getPositionList() {
+		return userLoginMapper.selectPositionList();
 	}
 	
 

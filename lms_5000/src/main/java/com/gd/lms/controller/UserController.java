@@ -21,6 +21,8 @@ import com.gd.lms.service.IMainDashService;
 import com.gd.lms.service.IUserListService;
 import com.gd.lms.service.IUserLoginService;
 import com.gd.lms.vo.LmsNotice;
+import com.gd.lms.vo.Major;
+import com.gd.lms.vo.Position;
 import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -142,7 +144,11 @@ public class UserController {
 	
 	// 운영자 가입 폼으로가기
 	@GetMapping("/user/addAdmin")
-	public String addUser() {
+	public String addUser(Model model) {
+		List<Position> positionList = userLoginService.getPositionList();
+		log.debug(TeamColor.AJH  + "직책 리스트 : " + positionList);
+		model.addAttribute("positionList" ,positionList);
+		
 		return "user/addAdmin";
 	}
 	
@@ -165,7 +171,12 @@ public class UserController {
 	// 학생,교수 가입 폼으로가기
 	@GetMapping("/user/addUser")
 	public String addStudent(Model model) {
-		//학과 리스트 받아서 포워딩해야함
+		
+		//회원가입시 학과리스트
+		List<Major> majorList =  userLoginService.getMajorList();
+		log.debug(TeamColor.AJH + "학과리스트 : " + majorList);
+		model.addAttribute("majorList",majorList);
+		
 		return "user/addUser";
 	}
 	

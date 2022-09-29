@@ -64,6 +64,7 @@ $(document).ready(function(){
 	verifyId = function(){
 		if( $('#userId').val()== "" || idPass == 'no' ){
 			alert('Id를 확인해주세요');
+			$('#userId').focus();
 			return false;
 		}
 		return true;
@@ -80,6 +81,7 @@ $(document).ready(function(){
 	  if (pwVal.match(regExp) == null) {
 		  console.log('비번 검증 실패');
 		  alert('최소 4자 + 한개의 영문자, 한개의 숫자로 입력해주세요');
+		  $("#userPw").focus();
 		  return false;
 	  }
 	  console.log('비번 검증 성공');
@@ -93,6 +95,7 @@ $(document).ready(function(){
 
 	  if ( nameVal == "" ) {
 		  alert('이름을 확인해주세요');
+		  $("#userName").focus();
 		  return false;
 	  }
 	  return true;
@@ -108,6 +111,7 @@ $(document).ready(function(){
 	  if (emailVal.match(regExp) == null) {
 		  console.log('이메일 검증 실패');
 		  alert('이메일형식에 맞지 않습니다');
+		  $("#userEmail").focus();
 		  return false;
 	  }
 	  console.log('이메일 검증 성공');
@@ -123,6 +127,7 @@ $(document).ready(function(){
 
 	  if (telVal.match(regExp) == null) {
 		  alert('전화번호 형식에 맞지 않습니다\r\n000-0000-0000 형식으로 입력해주세요');
+		  $("#userTel").focus();
 		  return false;
 	  }
 	  return true;
@@ -154,18 +159,18 @@ $(document).ready(function(){
   </div>
   <!-- /.login-logo -->
   
-  <div class=row>
-  	<div class="col-sm-6">
+  <div class="card">
+  <div class=" row">
+  	<div class="col-sm-6 text-center" style="background-color:#e9ecef; height: 35px;">
   		<a href="${pageContext.request.contextPath}/user/addUser">학생/교수</a>
   	</div>
-  	<div class="col-sm-6">
+  	<div class="col-sm-6 text-center">
   		<a href="${pageContext.request.contextPath}/user/addAdmin">운영자(직원)</a>
   	</div>
   </div>
   
-  <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">직원 회원가입</p>
+      <p class="login-box-msg"></p>
 
       <form action="${pageContext.request.contextPath}/user/addAdmin" id="form" method="post">
       	
@@ -208,8 +213,13 @@ $(document).ready(function(){
         <!-- 학과 -->
         <div class="input-group mb-3">
           	<select name="positionNo" class="form-control">
-				<option value="1">학생관리자</option>
-				<option value="2">직원관리자</option>
+				<c:forEach items="${positionList}" var="p">
+				<c:choose>
+					<c:when test="${p.positionName eq 1}"><option value="${p.positionNo}">사원</option> </c:when>
+					<c:when test="${p.positionName eq 2}"><option value="${p.positionNo}">대리</option> </c:when>
+					<c:when test="${p.positionName eq 3}"><option value="${p.positionNo}">과장</option> </c:when>
+				</c:choose>
+				</c:forEach>
 			</select>
           <div class="input-group-append">
             <div class="input-group-text">

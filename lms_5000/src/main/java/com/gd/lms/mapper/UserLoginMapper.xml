@@ -145,4 +145,21 @@
 		)
 	</insert>
 	
+	<!-- 학생/교수 회원가입페이지 학과리스트 -->
+	<select id="selectMajorList" resultType="com.gd.lms.vo.Major">
+		SELECT 
+			major_no majorNo,
+			major_name majorName
+		FROM
+			major
+	</select>
+	
+	<!-- 직원 가입시  -->
+	<select id="selectPositionList" resultType="com.gd.lms.vo.Position">
+		SELECT
+			position_no positionNo,
+			position_name positionName
+		FROM
+			position
+	</select>
 </mapper>
