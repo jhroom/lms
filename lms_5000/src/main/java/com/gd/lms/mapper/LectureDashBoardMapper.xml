@@ -67,13 +67,15 @@
 	 
 	 <!-- 학생 출석현황 리스트 출력. -->
 	 <select id="sutAttendance" resultType="com.gd.lms.vo.Attendance">
-		SELECT
-				w.week , a.attend_state attendState
+		SELECT DISTINCT
+				w.week ,
+				a.attend_state attendState,
+				s.sign_no signNo
 		FROM week w
 		INNER JOIN lecture l  ON l.lecture_no = w.lecture_no
 		INNER JOIN attendance a ON a.week = w.week
 		INNER JOIN sign s ON a.sign_no = s.sign_no
-		WHERE l.lecture_no = #{lectureNo} AND s.user_id = #{userId}
+		WHERE s.lecture_no = #{lectureNo} AND s.user_id = #{userId};
 	 </select>
 	 
 	 <!-- 교수가 보는 출결현황 리스트 -->

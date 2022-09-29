@@ -56,9 +56,9 @@ public class LectureDashBoardService implements ILectureDashBoadService {
 	public List<Map<String, Object>> stuAttendance(int lectureNo, String userId) {
 		//디버깅
 		log.debug(TeamColor.JCH + this.getClass() + "학생 출결 리스트 확인");
-
-		List<Map<String,Object>> stuAtt = lectureDashBoardMapper.sutAttendance(lectureNo , userId);
 		
+		List<Map<String,Object>> stuAtt = lectureDashBoardMapper.sutAttendance(lectureNo , userId);
+		System.out.println(stuAtt);
 		System.out.println(lectureNo + "수강 번호 확인");
 		return stuAtt;
 	}

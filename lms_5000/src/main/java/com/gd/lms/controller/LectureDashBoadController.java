@@ -116,6 +116,7 @@ public class LectureDashBoadController {
 		log.debug(TeamColor.JCH + "출석현황 리스트 ");
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		sign.setUserId(userId);
+		
 		List<Map<String,Object>> stuAtt = lectureDashBoardService.stuAttendance(board.getLectureNo() , userId);
 		log.debug(TeamColor.JCH + "출석현황 리스트 /stuAtt " + stuAtt);
 		model.addAttribute("stuAtt" , stuAtt);
