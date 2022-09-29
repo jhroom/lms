@@ -82,7 +82,7 @@ public class TotalGradeController {
 		log.debug(TeamColor.YHW + "파라미터 확인 / lectureNo : " + lectureNo);
 		
 		// 리턴값 셋팅
-		List<Map<String, Object>> gradeList = totalGradeService.
+		
 		
 		return "totalGrade/gradeStu";
 	}
