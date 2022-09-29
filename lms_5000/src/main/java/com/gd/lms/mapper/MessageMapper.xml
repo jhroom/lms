@@ -11,7 +11,8 @@
 			create_time createTime,
 			message_state messageState
 		FROM message
-		WHERE send_id= #{sendId} or receive_id =#{receiveId};
+		WHERE send_id= #{sendId} or receive_id =#{receiveId}
+		ORDER BY create_time DESC;
 	</select>
 	
 	<select id="selectSendMessageList" resultType="com.gd.lms.vo.Message">
@@ -24,7 +25,8 @@
 			create_time createTime,
 			message_state messageState
 		FROM message
-		WHERE send_id= #{sendId};
+		WHERE send_id= #{sendId}
+		ORDER BY create_time DESC;
 	</select>
 	
 	<select id="selectReceiveMessageList" resultType="com.gd.lms.vo.Message">
@@ -37,7 +39,8 @@
 			create_time createTime,
 			message_state messageState
 		FROM message
-		WHERE receive_id =#{receiveId};
+		WHERE receive_id =#{receiveId}
+		ORDER BY create_time DESC;
 	</select>
 	
 	<select id="selectMessageOne" resultType="com.gd.lms.vo.Message">
@@ -76,6 +79,5 @@
 			NOW()
 		)
 	</insert>
-	
 
 </mapper>
