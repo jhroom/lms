@@ -76,4 +76,66 @@
 	   INNER JOIN subject s ON l.subject_no = s.subject_no 
 	   WHERE sc.user_id =#{userId}
 	</select>
+	
+<!-- /////////////////////////////승현/////////////////////////////// -->
+
+	<!-- 강의 리스트 -->
+	<select id="selectLectureList" resultType="com.gd.lms.vo.Lecture">
+		SELECT
+			l.lecture_no lectureNo,
+			l.lecture_time lectureTime,
+			l.lecture_starttime lectureStarttime,
+			l.lecture_endtime lectureEndtime,
+			l.lecture_day lectureDay,
+			s.subject_no subjectNo,
+			l.classroom_no classroomNo,
+			u.user_id userId,
+			e.semester_no semesterNo
+		FROM lecture l
+		LEFT OUTER JOIN subject s
+		ON l.subject_no = s.subject_no
+		LEFT OUTER JOIN user u
+		ON l.user_id = u.user_id
+		LEFT OUTER JOIN semester e
+		ON l.semester_no = e.semester_no
+			
+	
+	</select>
+	
+	<!--강좌리스트 받아오기-->
+	<select id = "getSubjectList" resultType="com.gd.lms.vo.Subject">
+		SELECT *
+		FROM Subject
+	</select>
+	
+	
+	<!-- 강의 추가 -->
+	<insert id="addLecture" parameterType="com.gd.lms.vo.Lecture">
+		INSERT INTO lecture(
+			lecture_no,
+			lectureTime,
+			lectureStarttime,
+			lectureEndtime,
+			lectureDay,
+			subjectNo,
+			classroomNo,
+			userId,
+			semesterNo		
+		) VALUES (
+			#{lectureNo},
+			#{lectureTime},
+			#{lectureStarttime},
+			#{lectureEndttime},
+			#{lectureDay},
+			#{subjectNo},
+			#{classroomNo},
+			#{userId},
+			#{semesterNo}
+		)
+	</insert>
+	
+	
+	
+	
+	
 </mapper>

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
+import com.gd.lms.vo.Subject;
 
 
 @Mapper
@@ -42,5 +43,7 @@ public interface LectureMapper {
 	// 강의 상세보기
 	public Map<String, Object> selectLectureOne(int selectNo);
 	
+	// 강좌 리스트 받아오기
+	public List<Subject> getSubjectList();
 	
 }

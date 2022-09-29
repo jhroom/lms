@@ -31,7 +31,7 @@ public interface ILectureService {
 	public int addLecture(Lecture lecture);
 	
 	// 강의 수정
-	public int updateLecture(int lectureNo);
+	public int updateLecture(Lecture lecture);
 	
 	// 강의 삭제
 	public int deleteLecture(int lectureNo);

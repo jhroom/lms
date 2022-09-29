@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LectureService implements ILectureService {
 	@Autowired LectureMapper lecturemapper;
 	
+	
 	@Override
 	// 수강신청을 위한 개설강좌 목록
 	public List<Map<String, Object>> selectLectureListForSign() {
@@ -73,35 +74,51 @@ public class LectureService implements ILectureService {
 		return CancelList;
 	}
 //////////////////////////////////////////////////////////////////////////////////////// 승현 등장
+	
+	// 리스트
 	@Override
 	public List<Lecture> getLectureList() {
 		
 		
-		return null;
+		return lecturemapper.selectLectureList();
 	}
-
+	// 추가
 	@Override
 	public int addLecture(Lecture lecture) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int row = lecturemapper.addLecture(lecture);
+		
+		
+		return row;
 	}
 
+	// 수정
 	@Override
-	public int updateLecture(int lectureNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateLecture(Lecture lecture) {
+		
+		int row = lecturemapper.updateLecture(lecture);
+		
+		return row;
 	}
 
+	// 삭제
 	@Override
 	public int deleteLecture(int lectureNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int row = lecturemapper.deleteLecture(lectureNo);
+		
+		return row;
 	}
 
+	// 상세보기
 	@Override
 	public Map<String, Object> getLectureOne(int lectureNo) {
-		// TODO Auto-generated method stub
-		return null;
+		 
+		Map<String, Object> lectureOne = lecturemapper.selectLectureOne(lectureNo);
+		
+		log.debug(TeamColor.SSH + "상세값 넘기기" + lectureOne);
+		
+		return lectureOne;
 	}
 
 }
