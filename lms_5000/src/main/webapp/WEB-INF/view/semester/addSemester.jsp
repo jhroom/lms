@@ -30,7 +30,7 @@
 				<th>학기</th>
 				<td>
 					<select name="semesterSession" id="semesterSession">
-						<option value="dafualt">학기를 선택하세요</option>
+						<option value="defualt">학기를 선택하세요</option>
 						<option value="1">1학기</option>
 						<option value="2">2학기</option>
 						
