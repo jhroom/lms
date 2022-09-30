@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ITotalGradeService;
 import com.gd.lms.vo.Totalgrade;
+import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -78,9 +79,16 @@ public class TotalGradeController {
 		// 파라미터 확인 디버깅
 		log.debug(TeamColor.YHW + "파라미터 확인 / lectureNo : " + lectureNo);
 		
+		//로그인 아이디 추출
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		
 		// 리턴값 셋팅
+		Map<String, Object>  grade = totalGradeService.getTotalgradeForStu(userId, lectureNo);
 		
+		//모델값 전송
+		model.addAttribute("grade", grade);
 		
+		//리턴
 		return "totalGrade/gradeStu";
 	}
 

@@ -36,7 +36,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">학생 성적 확인 페이지</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -51,27 +51,47 @@
 
     <!-- Main content -->
     <!-- 메인 콘텐츠 -->
+    <h3>강좌명 : ${grade.subject_name}</h3>
     <div class="content">
       <div class="container-fluid">
       	<table border="1">
 	      	<thead>
-	      		<tr>
-	      			<th>년도(year)</th>
-	      			<th>학기(semester)</th>
-					<th>강좌번호(lectureNo)</th>      		
-					<th>수업명(subjectName)</th>      		
-					<th>교수명(professorName)</th>      		
-					<th>시험점수(testScore)</th>
-					<th>과제점수(paperScore)</th>      		
-					<th>출석점수(attendance)</th>      		
-	      		</tr>
+	      		<tr>  		
+					<th>분류</th>     
+					<th>점수</th> 	
+				</tr>
 	      	</thead>
 	      	<tbody>
-	      		<c:forEach items="" var="">
-		      		<tr>
-	      				<td></td>
-	    	  		</tr>
-	      		</c:forEach>
+	      		<tr>  		
+					<th>학생 이름(studentName)</th>     
+					<td>${grade.user_name}</td> 	
+				</tr>
+		      	<tr>	
+					<th>시험점수(testScore)</th>
+					<td>${grade.gradeTest}</td>
+				</tr>
+		      	<tr>
+					<th>과제점수(paperScore)</th>      	
+					<td>${grade.gradePaper}</td>
+				</tr>
+		      	<tr>	
+					<th>출석점수(attendance)</th>      
+					<td>${grade.gradeAtt}</td>
+				</tr>
+		      	<tr>
+					<th>총 점수(grdeTotal)</th>      
+					<td>${grade.gradeTotal}</td>
+				</tr>
+		      	<tr>
+					<th>등수(rank)</th>      
+					<td>${grade.gradeRank}</td>
+				</tr>
+		      	<tr>
+					<th>최종 학점(totalGrade)</th>      
+					<td>${grade.totalGrade}</td>
+
+	      				
+	    	  	</tr>
 	      	</tbody>
       	</table>
       </div><!-- /.container-fluid -->

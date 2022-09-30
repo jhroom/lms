@@ -122,4 +122,17 @@ public class TotalGradeService implements ITotalGradeService{
 		}
 		return row;
 	}
+
+	@Override
+	public Map<String, Object>  getTotalgradeForStu(String userId, int lectureNo) {
+		// 파라미터 확인
+		log.debug(TeamColor.KHJ + "파라미터 확인 / userId : " + userId);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / lectureNo : " + lectureNo);
+		
+		
+		//쿼리 실행
+		Map<String, Object>  grade = totalGradeMapper.selectTotalgradeForStu(userId, lectureNo);
+		
+		return grade;
+	}
 }

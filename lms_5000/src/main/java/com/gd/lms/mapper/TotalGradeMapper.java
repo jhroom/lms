@@ -38,4 +38,7 @@ public interface TotalGradeMapper {
 	// 랭크 및 학점 업데이트
 	int updateRank(Totalgrade totalgrade);
 	
+	//특정 학생 점수 확인 쿼리
+	Map<String, Object> selectTotalgradeForStu(String userId, int lectureNo);
+	
 }

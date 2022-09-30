@@ -112,4 +112,31 @@
 		,total_grade = #{totalGrade}
 		WHERE sign_no = #{signNo}
 	</update>
+	
+	
+	<!-- 특정 학생의 성적 출력 쿼리 -->
+	<select id="selectTotalgradeForStu" resultType="map">
+		SELECT 
+			sb.subject_name
+			, u.user_name 
+			, t.sign_no signNo
+			, t.total_grade totalGrade
+			, t.grade_total gradeTotal
+			, t.grade_rank gradeRank
+			, t.grade_test gradeTest
+			, t.grade_att gradeAtt
+			, t.grade_paper gradePaper
+		FROM totalgrade t
+		INNER JOIN sign s
+		on t.sign_no = s.sign_no
+		INNER JOIN user u
+		ON u.user_id = s.user_id
+		INNER JOIN lecture l
+		ON s.lecture_no = l.lecture_no
+		INNER JOIN subject sb
+		ON l.subject_no = sb.subject_no
+		WHERE s.user_id = 'tt'
+		AND s.lecture_no = 1
+
+	</select>
 </mapper>
