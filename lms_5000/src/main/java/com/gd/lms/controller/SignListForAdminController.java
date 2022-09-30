@@ -3,6 +3,7 @@ package com.gd.lms.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class SignListForAdminController {
 		List<Map<String, Object>> getStudentList = signListforAdminService.getStudentListByLecture(sign);
 		// 서비스에서 넘어온 값 확인
 		log.debug(TeamColor.YHW + "-- getStudentList - Controller--"+ getStudentList );
+		// 뷰로 넘길 값 model에 대입
 		model.addAttribute("getStudentList",getStudentList);
 		return "/sign/SignListByLecture";
 	}

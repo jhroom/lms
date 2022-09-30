@@ -66,14 +66,13 @@
 		  <div class="card card-primary card-outline">
               <div class="card-body">
 	                <h1 class="card-title"><Strong> ${subjectName} 수강신청 학생 </Strong></h1>
-	             
 	                
 	                <br>
 	                <table border="1">
 						<thead>
 							<tr>
-								<th>전공(major_name) </th>;
-								<th>학년(lectureNo) - 수강 가능 학년(${subject_grade}학년)  </th>
+								<th>전공(major_name) </th>
+								<th>학년(lectureNo) - 수강 가능 학년(${student.subject_grade}학년)  </th>
 								<th>학생ID(userId)</th>
 								<th>학생이름(userName)</th>
 								<th>상태 변경</th>
@@ -83,7 +82,7 @@
 							<c:forEach var="g" items="${getStudentList}">
 								<tr>
 									<td>${g.major_name}</td>
-									<td>${g.grade_no}</td>
+									<td>${g.st_grade}학년</td>
 									<td>${g.user_id}</td>
 									<td>${g.st_name}</td>
 									<td>
