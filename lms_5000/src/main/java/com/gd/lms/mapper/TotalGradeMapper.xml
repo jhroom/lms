@@ -109,7 +109,7 @@
 	<update id="updateRank" parameterType="com.gd.lms.vo.Totalgrade">
 		UPDATE totalgrade SET
 		grade_rank = #{gradeRank}
-		,grade_grade=#{gradeTotal}
-		WHERE lecutre_no=#{lectureNo}
+		,total_grade = #{totalGrade}
+		WHERE sign_no = #{signNo}
 	</update>
 </mapper>

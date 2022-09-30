@@ -57,12 +57,10 @@ public class TotalGradeController {
 	
 	//최종 등수 및 학점 기능
 	@GetMapping("/grade/pro/final")
-	public String calFinalGrade(HttpSession sesssion, Model model, int lectureNo, Totalgrade totalgrade) {
-		
-		
-		
+	public String calFinalGrade(Model model, int lectureNo) {
+		int row = totalGradeService.getRank();
 		//파라미터 확인 디버깅
-		log.debug(TeamColor.YHW + "랭크정보 : " + lectureNo);
+		log.debug(TeamColor.YHW + "랭크정보 : " + row);
 		//다시 폼으로 전송
 		return "redirect:/grade/pro/form?lectureNo="+lectureNo;		
 	}

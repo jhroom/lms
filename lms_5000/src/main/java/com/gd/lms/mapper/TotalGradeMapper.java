@@ -36,6 +36,6 @@ public interface TotalGradeMapper {
 	List<Map<String,Object>> selectRank();
 	
 	// 랭크 및 학점 업데이트
-	int updateRank(int gradeRank, double totalGrade);
+	int updateRank(Totalgrade totalgrade);
 	
 }

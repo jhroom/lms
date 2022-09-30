@@ -14,5 +14,5 @@ public interface ITotalGradeService {
 	int calGrade(int lectureNo, int [] paper);
 	
 	// 가상테이블에 랭크 및 학점 출력
-	List<Map<String, Object>> getRank();
+	int getRank();
 }

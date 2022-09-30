@@ -93,27 +93,33 @@ public class TotalGradeService implements ITotalGradeService{
 			row += totalGradeMapper.updateGrade(temp);
 			
 		}
-		
-
-				
 		//리턴
 		return row;
 	}
 
 	// 가상테이블에 랭크 및 학점 출력
 	@Override
-	public List<Map<String, Object>> getRank() {
+	public int getRank() {
 		List<Map<String, Object>> table = totalGradeMapper.selectRank();
 		log.debug(TeamColor.YHW + "가상테이블 정보 확인 : " + table);
+		
+		// 리턴값 셋팅
+		int row = 0;
+		
 		// 랭크와 학점을 담을 map
 		for(Map<String, Object> map : table) {
-		
-			log.debug(TeamColor.YHW + "등수 정보 확인 : " + map.get("RANK"));
-			log.debug(TeamColor.YHW + "등수 정보 확인 : " + map.get("RANK"));
-			log.debug(TeamColor.YHW + "학점 정보 확인 : " + map.get("POINT"));
+			Totalgrade update = new Totalgrade();
+			update.setSignNo((Integer)map.get("sign_no"));
+			// 등수 셋팅
+			update.setGradeRank(Integer.parseInt((String)map.get("RANK")));
+			log.debug(TeamColor.YHW + "등수 정보 확인 : " + update.getGradeRank());
+			// 학점 셋팅
+			update.setTotalGrade(Double.parseDouble(String.valueOf(map.get("POINT"))));
+			log.debug(TeamColor.YHW + "학점 정보 확인 : " + update.getTotalGrade());
 			
+			//업데이트
+			row += totalGradeMapper.updateRank(update);
 		}
-		return table;
+		return row;
 	}
-
 }
