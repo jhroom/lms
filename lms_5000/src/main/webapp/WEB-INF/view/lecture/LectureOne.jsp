@@ -50,6 +50,8 @@
 			
 		</tbody>
 	</table>
+	<a href="${pageContext.request.contextPath}/lmsLecture/updateLecture/form?lectureNo=${lectureNo}">수정</a>
+	<a href="${pageContext.request.contextPath}/lmsLecture/deleteLecture?lectureNo=${lectureNo}">삭제</a>
 </div>
 
 </body>

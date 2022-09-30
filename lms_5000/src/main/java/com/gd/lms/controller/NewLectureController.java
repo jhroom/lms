@@ -1,5 +1,6 @@
 package com.gd.lms.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.INewLectureService;
@@ -110,32 +112,29 @@ public class NewLectureController {
 		   
 		   model.addAttribute("lectureOne", lectureOne);
 		   model.addAttribute("getSubjectList", getSubjectList);
-		   //model.addAttribute("lectureDay", lectureDay);
+		   model.addAttribute("lectureNo", lectureNo);
 		   
-		   
-		   
-//		   String lectureDays=Integer.toString(lectureDay);
-//		   
+//		   String ds = "";
 //		   switch (lectureDays) {
-//		  case "1":
-//			lectureDay="월";
+//		  case 1:
+//			ds="월";
 //			break;
-//		  case "2":
-//			lectureDay="화";
+//		  case 2:
+//			ds="화";
 //			break;
-//		  case "3":
-//			lectureDay="수";
+//		  case 3:
+//			ds="수";
 //			break;
-//		  case "4":
-//			lectureDay="목";
+//		  case 4:
+//			ds="목";
 //			break;
-//		  case "5":
-//			lectureDay="금";
+//		  case 5:
+//			ds="금";
 //			break;
 //		
 //		}
-		   
-		   
+//		   model.addAttribute("ds", ds);
+//		   
 		   
 		   
 		   return "lecture/LectureOne"; 
@@ -144,27 +143,29 @@ public class NewLectureController {
 	   //강의 수정 폼
 	   @GetMapping("/lmsLecture/updateLecture/form")
 	   public  String updateLecture(int lectureNo, Model model) {
-		   //먼저 상세값을 가지고 오기
+		
+		//먼저 상세값을 가지고 오기
 		   Map<String, Object> lectureOne = newlectureService.getLectureOne(lectureNo);
 		   //값 구현
 		   model.addAttribute("lectureOne", lectureOne);
+		   model.addAttribute("lectureNo", lectureNo);
 		   //디버깅
 		   log.debug(TeamColor.SSH + "수정 넘겨주기 : " + lectureOne);
 		   
 		   
-		   //교수 리스트 가져오기
+		//교수 리스트 가져오기
 		   List<Professor> getProList = newlectureService.getProList();
 		   //리스트 구현
 		   model.addAttribute("getProList", getProList);
 		   //디버깅
 		   log.debug(TeamColor.SSH + "교수 리스트 : " + getProList);
 		   
-		   //학기 값 가져오기
+		//학기 값 가져오기
 		   List<Semester> getSemesterList = semesterService.getSemesterList();
 		   model.addAttribute("getSemesterList", getSemesterList);
 		   log.debug(TeamColor.SSH + "학기 리스트 : " + getSemesterList);
 		   
-		   //강좌 값 가져오기
+		//강좌 값 가져오기
 		   List<Subject> getSubjectList = subjectService.getSubjectList();
 		   //리스트 구현
 		   model.addAttribute("getSubjectList", getSubjectList);
@@ -177,7 +178,28 @@ public class NewLectureController {
 		   return "lecture/updateLecture";
 	   }
 	   
+	   // 수정 액션
+	   @PostMapping("/lmsLecture/updateLecture")
+	   public String updateLecture(Lecture lecture) throws UnsupportedEncodingException{
+		   newlectureService.updateLecture(lecture);
+		   
+		   //디버깅
+		   log.debug(TeamColor.SSH + "변경 값 : " + lecture);
+		   
+		   return "redirect:/lmsLecture/LectureList";
+	   }
 	   
+	   
+	   // 강의 삭제
+	   @GetMapping("/lmsLecture/deleteLecture")
+	   public String deleteLecture(int lectureNo) {
+		   int row = newlectureService.deleteLecture(lectureNo);
+		   
+		   //디버깅
+		   log.debug(TeamColor.SSH + "삭제 값 : " + row);
+		   
+		   return "redirect:/lmsLecture/LectureList";
+	   }
 	   
 	   
 	   

@@ -106,4 +106,10 @@
 	</update>
 	
 	
+	<!-- 강의 삭제 -->
+	<delete id="deleteLecture" parameterType="com.gd.lms.vo.Lecture">
+		DELETE FROM lecture
+		WHERE lecture_no = #{lectureNo}
+	</delete>
+	
 </mapper>
