@@ -71,6 +71,7 @@
 						<tr>
 							<th>강좌번호(lectureNo)</th>
 							<th>과목이름(subjectName)</th>
+							<th>교수 이름</th>
 							<th>신청 가능 학년(subjectGrade)</th>
 							<th>강의실(classNo)</th>
 						</tr>
@@ -80,6 +81,7 @@
 							<tr>
 								<td>${l.lecture_no}</td>
 								<td><a href="${pageContext.request.contextPath}/sign/SignListByLecture?lectureNo=${l.lecture_no}">${l.subject_name}</a></td>
+								<td>${l.user_name}(${l.user_id})</td>
 								<td>${l.subject_grade}학년</td>
 								<td>${l.classroom_no}호 강의실</td>
 							</tr>

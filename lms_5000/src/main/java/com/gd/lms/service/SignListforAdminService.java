@@ -40,13 +40,27 @@ public class SignListforAdminService implements ISignListforAdminService{
 
 	// 학생 수강상태 변경
 	@Override
-	public int modifySignState(Sign sign, SignCancel signCancel, Model model) {
+	public int modifySignState(Sign sign, SignCancel signCancel) {
+		
+		//수정 쿼리 실행
 		int modifySignState = signListForAdminMapper.updateSignState(sign);
-		// 운영자가 수강 취소할 경우 signcancel테이블에 담기
+		
+		// 취소 주체에 따른 cancle 핸들링
+		//운영자가 수강 취소할 경우 signcancel테이블에 추가하기
 		if(sign.getSignState().equals("2")) {
-			modifySignState = signListForAdminMapper.signCancel(signCancel);
+			//삽입 쿼리 실행
+			modifySignState = signListForAdminMapper.insertSignCancel(signCancel);
 			// 디버깅
 			log.debug(TeamColor.YHW + "-- 운영자가 수강 취소 했다면 -service--"+ modifySignState );
+			
+		//운영자가 수강취소가 아닐 경우 cancel 테이블에서 행 제거
+		} else {
+			//삭제 커리 실행
+			modifySignState = signListForAdminMapper.deleteSignCancel(signCancel);
+			
+			// 디버깅
+			log.debug(TeamColor.YHW + "-- 운영자가 수강 취소 말고 다른걸 했다면 -service--"+ modifySignState );
+						
 		}
 		// 디버깅
 		log.debug(TeamColor.YHW + "-- mapper에서 넘어온 수강상태 변경 -service--"+ modifySignState );

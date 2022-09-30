@@ -5,11 +5,17 @@
 	<select id="selectLectureList" resultType="map">
 		SELECT 
 		    l.lecture_no,
-			s.subject_no,
+			l.subject_no,
 			l.classroom_no,
+			l.user_id,
+			u.user_name, 
 			s.subject_name,
 			s.subject_grade
-		FROM subject s left outer JOIN lecture l ON s.subject_no = l.subject_no
+		FROM subject s 
+		inner JOIN lecture l 
+		ON s.subject_no = l.subject_no
+		inner join user u
+		on l.user_id = u.user_id
 	
 	</select>
 	
@@ -42,18 +48,26 @@
 	
 	
 	<!-- 취소된 내용 signcancel테이블에 담기 -->
-	<insert id="signCancel" parameterType="com.gd.lms.vo.SignCancel">
+	<insert id="insertSignCancel" parameterType="com.gd.lms.vo.SignCancel">
 		INSERT INTO sign_cancel(
+			sign_no,
 			user_id, 
 			cancel_date,
 			lecture_no,
 			cancel_id
 			) 
 		VALUES (
+			#{signNo}, 
 			#{userId}, 
 			NOW(),
 			#{lectureNo},
 			#{cancelId}
 			) 
 	</insert>
+	
+	<delete id="deleteSignCancel" parameterType="com.gd.lms.vo.SignCancel">
+		delete
+		from sign_cancel
+		where sign_no = #{signNo}
+	</delete>
 </mapper>

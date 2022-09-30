@@ -49,11 +49,17 @@ public class SignListForAdminController {
 	// 학생 수강상태 변경
 	@PostMapping("/sign/SignListByLecture")
 	public String modyfySignState(Sign sign, SignCancel signCancel, HttpSession session) {
+		//파라미터 확인
+		log.debug(TeamColor.KHJ + "파라미터값 확인 / sign : "+ sign );
+		log.debug(TeamColor.KHJ + "파라미터값 확인 / signCancel : "+ signCancel );
 		
-		int	signState = signListforAdminService.modifySignState(sign, signCancel, null);
+		//돌아갈 구멍 만들기
+		int lectureNo = sign.getLectureNo();
+		
+		int	signState = signListforAdminService.modifySignState(sign, signCancel);
 		// 서비스에서 넘어온 값 확인
 		log.debug(TeamColor.YHW + "-- signState - Controller--"+ signState );
-		return "/sign/SignListByLecture";
+		return "redirect:/sign/SignListByLecture?lectureNo="+lectureNo;
 		
 	}
 }

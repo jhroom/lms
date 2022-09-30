@@ -20,5 +20,9 @@ public interface SignListForAdminMapper {
 	int updateSignState(Sign sign);
 	
 	// 취소된 내용 signcancel테이블에 담기
-	int signCancel(SignCancel userId);
+	int insertSignCancel(SignCancel userId);
+	
+	//취소가 아닐 경우 signcancel테이블 삭제
+	int deleteSignCancel(SignCancel userId);
+	
 }

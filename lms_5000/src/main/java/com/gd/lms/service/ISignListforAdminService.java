@@ -17,7 +17,7 @@ public interface ISignListforAdminService {
 	List<Map<String, Object>> getStudentListByLecture(Sign sign);
 	
 	// 학생 수강신청 상태 변경
-	int modifySignState(Sign sign, SignCancel signCancel, Model model);
+	int modifySignState(Sign sign, SignCancel signCancel);
 	
 
 }
