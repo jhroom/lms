@@ -56,7 +56,8 @@
       
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
-      <a href="">최종 학점 산출 버튼</a>
+      <a href="${pageContext.request.contextPath}/grade/pro/final?lectureNo=${lectureNo}">최종 학점 산출 버튼</a>
+	  <input type="hidden" name="lectureNo" value="${lectureNo}">
       <form action="${pageContext.request.contextPath}/grade/pro/cal" method="post">
 	  <input type="hidden" name="lectureNo" value="${lectureNo}">
 	  <button type="submit">성적 산출 버튼</button>

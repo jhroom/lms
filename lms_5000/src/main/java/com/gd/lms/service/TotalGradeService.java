@@ -1,6 +1,7 @@
 package com.gd.lms.service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -85,11 +86,6 @@ public class TotalGradeService implements ITotalGradeService{
 			//총 점수 세팅
 			temp.setGradeTotal(temp.getGradePaper() + temp.getGradeTest() + temp.getGradeAtt());
 			
-			//등수 세팅
-			
-			//학점 세팅
-			
-			
 			//출력값 확인 디버깅
 			log.debug(TeamColor.KHJ + "출력값 확인 / temp : " + temp);
 			
@@ -104,15 +100,20 @@ public class TotalGradeService implements ITotalGradeService{
 		return row;
 	}
 
+	// 가상테이블에 랭크 및 학점 출력
 	@Override
-	public int gradeRank(int SignNo, Totalgrade gradeTotal) {
-		int gradeRank = totalGradeMapper.gradeRank(SignNo, gradeTotal);
-		return gradeRank;
+	public List<Map<String, Object>> getRank() {
+		List<Map<String, Object>> table = totalGradeMapper.selectRank();
+		log.debug(TeamColor.YHW + "가상테이블 정보 확인 : " + table);
+		// 랭크와 학점을 담을 map
+		for(Map<String, Object> map : table) {
+		
+			log.debug(TeamColor.YHW + "등수 정보 확인 : " + map.get("RANK"));
+			log.debug(TeamColor.YHW + "등수 정보 확인 : " + map.get("RANK"));
+			log.debug(TeamColor.YHW + "학점 정보 확인 : " + map.get("POINT"));
+			
+		}
+		return table;
 	}
 
-	
-
-	
-	
-	
 }

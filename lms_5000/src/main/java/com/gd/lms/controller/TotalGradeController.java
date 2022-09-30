@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ITotalGradeService;
+import com.gd.lms.vo.Totalgrade;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,14 +57,12 @@ public class TotalGradeController {
 	
 	//최종 등수 및 학점 기능
 	@GetMapping("/grade/pro/final")
-	public String calFinalGrade(HttpSession sesssion, Model model, int lectureNo) {
+	public String calFinalGrade(HttpSession sesssion, Model model, int lectureNo, Totalgrade totalgrade) {
+		
+		
+		
 		//파라미터 확인 디버깅
-		log.debug(TeamColor.KHJ + "파라미터 확인 / lectureNo : " + lectureNo);
-		
-		
-		
-		
-		
+		log.debug(TeamColor.YHW + "랭크정보 : " + lectureNo);
 		//다시 폼으로 전송
 		return "redirect:/grade/pro/form?lectureNo="+lectureNo;		
 	}

@@ -73,21 +73,43 @@
 		WHERE t.sign_no = #{signNo}
 	</update>
 	
-	<!-- 랭크 출력 쿼리 -->
-	<select id="gradeRank" parameterType="com.gd.lms.vo.Totalgrade">
-	SELECT sign_no, grade_total
-		,  @RANK:= IF(@LAST > grade_total, @RANK := @RANK + 1, @RANK)  AS RANK
-		,  @LAST := grade_total AS totalgrade
-	FROM totalgrade,(SELECT @RANK := 1) xx
-	ORDER BY grade_total desc
+	<!-- 가상테이블에 랭크 및 학점 출력 -->
+	<select id="selectRank" parameterType="com.gd.lms.vo.Totalgrade" resultType="map">
+		  SELECT 
+	         t.sign_no
+	         , s.lecture_no
+	         , t.grade_total
+	         , @RANK:= IF(
+	            @LAST > grade_total
+	            , @RANK := @RANK + 1
+	            , @RANK
+	         )  AS RANK
+	         , @LAST := grade_total AS totalgrade
+	         , @RANK / (SELECT COUNT(sign_no) FROM sign WHERE lecture_no = 1) * 100 AS persent
+	         , (SELECT
+	            case
+	               when <![CDATA[persent <= 10]]> then 4.5
+	               when <![CDATA[persent <= 25]]> then 4.0
+	               when <![CDATA[persent <= 45]]> then 3.5
+	               when <![CDATA[persent <= 85]]> then 3.0
+	               when <![CDATA[persent <= 95]]> then 2.5
+	               when <![CDATA[persent <= 100]]> then 2.0
+	            END
+	         ) POINT
+	      FROM totalgrade t
+	      INNER JOIN sign s
+	      ON s.sign_no = t.sign_no
+	      ,(SELECT @RANK := 1) xx
+	      WHERE s.lecture_no = 1
+	      ORDER BY grade_total desc
 	</select>
 	
 	
-	<!-- 학생 과목 및 성적 리스트 출력 -->
-	<select id="">
-	
-	</select>
-	
-	
-	
+	<!-- 랭크 및 학점 업데이트 -->
+	<update id="updateRank" parameterType="com.gd.lms.vo.Totalgrade">
+		UPDATE totalgrade SET
+		grade_rank = #{gradeRank}
+		,grade_grade=#{gradeTotal}
+		WHERE lecutre_no=#{lectureNo}
+	</update>
 </mapper>

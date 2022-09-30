@@ -13,7 +13,6 @@ public interface ITotalGradeService {
 	//성적 처리 서비스
 	int calGrade(int lectureNo, int [] paper);
 	
-	//등수 서비스
-	int gradeRank(int SignNo, Totalgrade gradeTotal);
-
+	// 가상테이블에 랭크 및 학점 출력
+	List<Map<String, Object>> getRank();
 }

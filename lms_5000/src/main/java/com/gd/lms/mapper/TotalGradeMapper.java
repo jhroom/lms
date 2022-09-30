@@ -32,7 +32,10 @@ public interface TotalGradeMapper {
 	//학생 성적 기본 점수 업데이트 쿼리
 	int updateGrade(Totalgrade totalgrade);
 	
-	//성적 순위 출력 쿼리
-	int gradeRank(int signNo, Totalgrade totalgrade);
+	// 가상테이블에 랭크 및 학점 출력
+	List<Map<String,Object>> selectRank();
+	
+	// 랭크 및 학점 업데이트
+	int updateRank(int gradeRank, double totalGrade);
 	
 }
