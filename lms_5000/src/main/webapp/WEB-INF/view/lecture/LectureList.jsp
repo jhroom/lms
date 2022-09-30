@@ -26,8 +26,11 @@
 		</tr>
 	<c:forEach var="l" items="${LectureList}">
 		<tr>
-			<td>${l.lectureNo}번</td>
-			<td>${l.lectureTime}</td>
+			
+			<td>
+				<a href="${pgae.Context.request.contextPath}/lmsLecture/lectureOne?lectureNo=${l.lectureNo}">${l.lectureNo}</a>
+			</td>
+			<td>${l.lectureTime}시간</td>
 			<td>${l.lectureStarttime}</td>
 			<td>${l.lectureEndtime}</td>
 			<td>${l.lectureDay}</td>

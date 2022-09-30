@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.lms.mapper.NewLectureMapper">
+
+	<!-- 강의 리스트 -->
+	<select id="selectLectureList" resultType="com.gd.lms.vo.Lecture">
+		SELECT
+			l.lecture_no lectureNo,
+			l.lecture_time lectureTime,
+			l.lecture_starttime lectureStarttime,
+			l.lecture_endtime lectureEndtime,
+			l.lecture_day lectureDay,
+			s.subject_no subjectNo,
+			l.classroom_no classroomNo,
+			u.user_id userId,
+			e.semester_no semesterNo
+		FROM lecture l
+		LEFT OUTER JOIN subject s
+		ON l.subject_no = s.subject_no
+		LEFT OUTER JOIN user u
+		ON l.user_id = u.user_id
+		LEFT OUTER JOIN semester e
+		ON l.semester_no = e.semester_no
+			
+	
+	</select>
+	
+	<!--강좌리스트 받아오기-->
+	<select id = "getSubjectList" resultType="com.gd.lms.vo.Subject">
+		SELECT *
+		FROM subject
+	</select>
+	
+	<!-- 교수 리스트 가져오기 -->
+	<select id ="getProList" resultType="com.gd.lms.vo.Professor">
+		SELECT
+		user_id userID,
+		pro_name proName
+		FROM professor
+	</select>
+	
+	
+	
+	
+	
+	<!-- 강의 추가 -->
+	<insert id="addLecture" parameterType="com.gd.lms.vo.Lecture">
+		INSERT INTO lecture(
+			lecture_no,
+			lecture_time,
+			lecture_starttime,
+			lecture_endtime,
+			lecture_day,
+			subject_no,
+			classroom_no,
+			user_id,
+			semester_no		
+		) VALUES (
+			#{lectureNo},
+			#{lectureTime},
+			#{lectureStarttime},
+			#{lectureEndtime},
+			#{lectureDay},
+			#{subjectNo},
+			#{classroomNo},
+			#{userId},
+			#{semesterNo}
+		)
+	</insert>
+	
+	<!-- 강의 상세보기 -->
+	<select id="selectLectureOne" resultType="map">
+		SELECT
+			l.lecture_no lectureNo,
+			l.lecture_time lectureTime,
+			l.lecture_starttime lectureStarttime,
+			l.lecture_endtime lectureEndtime,
+			l.lecture_day lectureDay,
+			s.subject_no subjectNo,
+			l.classroom_no classroomNo,
+			u.user_id userId,
+			e.semester_no semesterNo
+		FROM lecture l
+		LEFT OUTER JOIN subject s
+		ON l.subject_no = s.subject_no
+		LEFT OUTER JOIN user u
+		ON l.user_id = u.user_id
+		LEFT OUTER JOIN semester e
+		ON l.semester_no = e.semester_no
+		WHERE l.lectureNo =#{lectureNo}
+	</select>
+	
+	
+	
+</mapper>
