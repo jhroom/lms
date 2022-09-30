@@ -24,5 +24,8 @@ public interface IMessageService {
 	
 	//메시지 보내기
 	public int insertMessage(Message message);
+	
+	//메시지 삭제
+	public int deleteMessage();
 
 }

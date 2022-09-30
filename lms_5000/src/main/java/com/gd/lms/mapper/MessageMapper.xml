@@ -79,5 +79,12 @@
 			NOW()
 		)
 	</insert>
-
+	
+	<delete id="deleteMessage" parameterType="com.gd.lms.vo.Message">
+		DELETE
+		FROM 
+			message
+		WHERE 
+			DATEDIFF(NOW() ,create_time ) >= 60 ;
+	</delete>
 </mapper>

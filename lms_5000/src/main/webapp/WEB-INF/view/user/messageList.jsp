@@ -84,6 +84,9 @@
 			</tbody>
 		</table>
 		<a href="${pageContext.request.contextPath}/user/message">메세지보내기</a><br>
+		<div style="position: absolute; right: 0px; bottom :60px;">
+			메시지는 60일 보관이후 삭제됩니다.
+		</div>
 	</div>
 	
 	   </div><!-- /.container-fluid -->

@@ -87,6 +87,12 @@ public class MessageService implements IMessageService {
 		return row;
 	}
 
+	@Override
+	public int deleteMessage() {
+		log.debug(TeamColor.JCH + this.getClass() + "메시지 삭제 ");
+		return messageMapper.deleteMessage();
+	}
+
 
 
 }
