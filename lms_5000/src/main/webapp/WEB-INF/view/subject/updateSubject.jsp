@@ -30,6 +30,7 @@
 				<th>이수학점</th>
 				<td>
 					<select name="subjectPoint" id="subjectPoint" onchange="subjectPoint(this)">
+						<option value="${subjectOne.subjectPoint}">${subjectOne.subjectPoint}학점</option>
 						<option value="1">1학점</option>
 						<option value="2">2학점</option>
 						<option value="3">3학점</option>
@@ -41,6 +42,7 @@
 				<th>대상학년</th>
 				<td>
 					<select name="subjectGrade" id="subjectGrade" onchange="subjectGrade(this)">
+						<option value="${subjectOne.subjectGrade}">${subjectOne.subjectGrade}학년</option>
 						<option value="1">1학년</option>
 						<option value="2">2학년</option>
 						<option value="3">3학년</option>

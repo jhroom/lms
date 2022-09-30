@@ -29,13 +29,13 @@
 			<tr>
 				<th>시작시간</th>
 				<td>
-					<input type="datetime-local" name="lectureStarttime">
+					<input type="time" name="lectureStarttime">
 				</td>
 			</tr>
 			<tr>
 				<th>종료시간</th>
 				<td>
-					<input type="datetime-local" name="lectureEndtime">
+					<input type="time" name="lectureEndtime">
 				</td>
 			</tr>
 			<tr>

@@ -23,6 +23,7 @@
 						<th>년도</th>
 						<td>
 							<select name="semesterYear" onchange="semesterYear(this)">
+								<option value="${semesterOne.semesterYear}">${semesterOne.semesterYear}년</option>
 								<option value="2022">2022년</option>
 								<option value="2023">2023년</option>
 								<option value="2024">2024년</option>
@@ -34,6 +35,7 @@
 						<th>학기</th>
 						<td>
 							<select name="semesterSession" onchange="semesterSession(this)">
+								<option value="${semesterOne.semesterSession}">${semesterOne.semesterSession}학기</option>
 								<option value="1">1학기</option>
 								<option value="2">2학기</option>
 							</select>
