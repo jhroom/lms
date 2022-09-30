@@ -1,5 +1,9 @@
 package com.gd.lms.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +35,24 @@ public class LectureService implements ILectureService {
 	@Override
 	// 학생 선택 과목 add
 	public int addSign(Sign sign){
-		int addSign = lecturemapper.insertSign(sign);
+		//파라미터 값 확인
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / sign : "+ sign );
+				
+		//리턴값 세팅
+		int addSign = 0;
+		
+		// 수강 신청 여부 확인
+		int check = lecturemapper.selectSignHistory(sign);
+		
+		
+		//수강 신청 이력이 없을 경우에만 삽입 실행
+		if(check == 0) {		
+			//삽입 쿼리 실행
+			addSign = lecturemapper.insertSign(sign);
+			
+		}
+
+		
 		//디버깅
 		log.debug(TeamColor.YHW + "-- addSign-service -- "+ addSign );
 		return addSign;
@@ -71,6 +92,80 @@ public class LectureService implements ILectureService {
 		//디버깅
 		log.debug(TeamColor.YHW + "-- CancelList-service -- "+ CancelList );
 		return CancelList;
+	}
+
+	@Override
+	public int getSignTime(Sign sign) {
+		// 리턴값 세팅
+		int time = lecturemapper.selectSignTime(sign);
+		
+		
+		//리턴
+		return time;
+	}
+
+	//학기 기간에 따른 수강 페이지 진입 여부 결정 값 생성 서비스
+	@Override
+	public boolean getSemesterCheck() {
+		//
+		
+		//오늘 날짜 생성
+		Calendar today = Calendar.getInstance();
+		
+		//디버깅
+		log.debug(TeamColor.KHJ + "캘린더 객체 확인 "+ today);
+		
+		//학기 구분값 입력
+		int month = today.get(Calendar.MONTH)<6? 1:2;
+		int year =  today.get(Calendar.YEAR);
+
+		
+		//학기 시작 시간 추출 쿼리 실행
+		String semester = lecturemapper.selectSemester(year, month);
+		
+		//디버깅
+		log.debug(TeamColor.KHJ + "학기 확인 "+ semester);
+		
+
+		
+		//연산 확인
+		try {
+			
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); 
+			
+			//학기 시작 날짜 객체 입력
+			Date date = formatter.parse(semester);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			
+			//학기 시작 날짜 -7 객체 입력
+			Calendar cal2 = Calendar.getInstance();
+			cal2.setTime(date);
+			cal2.add(Calendar.DATE, -7);
+			
+			//디버깅
+			log.debug(TeamColor.KHJ + "학기 시작일 확인 "+ cal);
+			log.debug(TeamColor.KHJ + "학기 시작일 -7 확인 "+ cal2);
+
+			
+			//리턴
+			//기간일 경우 true리턴
+			if(today.before(cal)&&today.after(cal2)) {
+				return true;
+			
+			//기간이 아닐 경우 false 리턴
+			} else {
+				return false;
+			}
+			
+		//오류 시 false 리턴
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} 
+
+		
 	}
 
 	

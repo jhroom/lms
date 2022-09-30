@@ -48,6 +48,9 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0 text-dark">수강신청 페이지</h1>
+            
+
+            
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -68,6 +71,7 @@
 	<div class="card card-primary card-outline">
          <div class="card-body">
            <h1 class="card-title"><Strong>개설 강좌 목록</Strong></h1><br>
+           <h3>신청 가능 학점 : 21점 / <b>현수강 학점 : ${signTime}</b> </h3>
            <table border="1">
 			<thead>
 				<tr>
@@ -89,7 +93,13 @@
 						<td>${m.subject_grade}학년</td>
 						<td>${m.major_name}</td>
 						<td>
-						   <a href="${pageContext.request.contextPath}/sign/addSign?lectureNo=${m.lecture_no}&userId=${loginUser.userId}">수강신청</a>
+							<c:if test="${signTime < 21}">
+						   		<a href="${pageContext.request.contextPath}/sign/addSign?lectureNo=${m.lecture_no}&userId=${loginUser.userId}">수강신청</a>
+						   </c:if>
+						   <c:if test="${signTime >= 21}">
+						   		<p style="color:red">초과 등록 불가</p>
+						   </c:if>
+						   
 						</td>
 					</tr>
 				</c:forEach>
@@ -119,6 +129,7 @@
 					</thead>
 					<tbody>
 						<c:forEach var="s" items="${singList}">
+						<c:if test="${s.sign_state ne 2}">
 							<tr>
 								<td>${s.lecture_no}</td>
 								<td>${s.subject_name}</td>
@@ -146,6 +157,7 @@
 								</td>
 								<td><a href="${pageContext.request.contextPath}/sign/cancelSign?userId=${loginUser.userId}&signNo=${s.sign_no}&lectureNo=${s.lecture_no}&cancelId=${loginUser.userId}">수강취소</a></td>
 							</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>

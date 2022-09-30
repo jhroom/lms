@@ -1,5 +1,6 @@
 package com.gd.lms.service;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,11 @@ public interface ILectureService {
 	// 수강 취소 리스트
 	List<Map<String, Object>> selectCancelSignList(SignCancel userId);
 	
+	//수강 신청 학점 추출 서비스
+	int getSignTime(Sign sign);
+	
+	//학기 정보 확인
+	boolean getSemesterCheck();
 	
 	
 	

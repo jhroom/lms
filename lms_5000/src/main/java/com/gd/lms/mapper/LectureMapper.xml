@@ -8,7 +8,7 @@
 			   l.lecture_day, l.classroom_no, l.semester_no,
 			   s.subject_no, s.subject_name, s.subject_point, s.subject_grade,
 	 		   m.major_no, m.major_name
-		FROM lecture l right outer JOIN subject s ON s.subject_no = l.subject_no
+		FROM lecture l inner join subject s ON s.subject_no = l.subject_no
 		INNER JOIN major m ON m.major_no = s.major_no
 		ORDER BY l.lecture_no
 	</select>	
@@ -77,4 +77,32 @@
 	   WHERE sc.user_id =#{userId}
 	</select>
 	
+	<!-- 수강 이력 확인 -->
+	<select id="selectSignHistory" resultType="int">
+	SELECT count(sign_no)
+	FROM sign
+	WHERE 
+		sign.user_id = #{userId} 
+		AND sign.lecture_no = #{lectureNo}
+	</select>
+	
+	<!-- 신청 강의 시간 계산 쿼리 -->
+	<select id="selectSignTime" resultType="int">
+		SELECT 
+			SUM(l.lecture_time) lectureTime
+		FROM sign s
+		INNER JOIN lecture l
+		ON s.lecture_no = l.lecture_no
+		WHERE s.user_id = #{userId}
+		AND s.sign_state = '1'
+	</select>
+	
+	<!-- 학기 확인 쿼리 -->
+	<select id="selectSemester" resultType="String">
+	SELECT 
+		s.semester_startdate
+	from semester s
+	WHERE s.semester_year = #{year}
+	AND s.semester_session = #{session}
+	</select>
 </mapper>

@@ -23,6 +23,15 @@ public interface LectureMapper {
 	int insertCancelSign(SignCancel signCancel);
 	// 수강 취소 리스트
 	List<Map<String, Object>> selectCancelSignList(SignCancel userId);
+	
+	//중복 신청 방지용 수강신청 정보 확인
+	int selectSignHistory(Sign sign);
+	
+	//현재 신청 학점 확인 쿼리
+	int selectSignTime(Sign sign);
+	
+	//학기 정보 확인
+	String selectSemester(int year, int session);
 		
 	
 }

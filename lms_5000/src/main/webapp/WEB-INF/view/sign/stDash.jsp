@@ -58,9 +58,12 @@
 				<h3>${loginUser.userName}님 환영합니다.</h3>
 				<br>
 					<button  onclick="window.open('${pageContext.request.contextPath}/sign/openLectureList'
-					, '새창', 'width=700px, height=600px' , 'location=no' , 'toolbar=yes'); return false" id="cyw">수강신청
+					, '새창', 'width=1280px, height=900px' , 'location=center' , 'toolbar=yes'); return false" id="cyw">수강신청
 					</button>
 				   <a href="${pageContext.request.contextPath}/sign/openLectureList"></a><br>
+				   
+				   <a href="">test</a>
+				   
 			</c:when>
 		</c:choose>
 	</div>

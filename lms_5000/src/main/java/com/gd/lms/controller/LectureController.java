@@ -33,8 +33,23 @@ public class LectureController {
 //		  // 권한이 학생 아니면 인덱스 페이지
 //		  else if (Integer.parseInt((String) session.getAttribute("level")) != 3 || Integer.parseInt((String) session.getAttribute("level")) != 1) {
 //			  return "redirect:/lms/index";
-//		  }z
+//		  }
 	 
+	  // 학기 확인하기
+	  boolean test = lectureService.getSemesterCheck();
+	  
+	  //수강신청 기간이 아닐 시
+	  if(!test) {
+		  log.debug(TeamColor.KHJ + "수강신청 일자가 아닙니다 -- "+ test );
+		  
+		  //수강신청 오류 페이지로 보내기
+		  return "/sign/outOfSignDate";
+		    
+	  }
+	  
+
+	  log.debug(TeamColor.KHJ + "test -- "+ test );
+ 	  
 	  	
 	  // 개설강좌 목록 불러오기
 	  List<Map<String,Object>> lectureList = lectureService.selectLectureListForSign();
@@ -62,6 +77,12 @@ public class LectureController {
 	   
 	  // view에 전달
 	  model.addAttribute("cancelSignList",cancelSignList);
+	  
+	  //신청 학점 조회
+	  int signTime = lectureService.getSignTime(sign);
+	  //신청 학점 model에 담기
+ 	  model.addAttribute("signTime",signTime);
+	  
 	   
       return "/sign/openLectureList";
 	  }
