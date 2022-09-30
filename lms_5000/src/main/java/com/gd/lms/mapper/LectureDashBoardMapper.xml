@@ -185,4 +185,24 @@
 		ORDER BY board_post_createdate DESC
 		LIMIT 0, 10;
 	 </select>
+	 
+	 <!-- 강좌별 대시보드 학생 유효성 검사 -->
+	 <select id="selectSignInfoCheckStu" parameterType="com.gd.lms.vo.Sign" resultType="map">
+	 	SELECT 
+			sign_no signNo
+		FROM
+			sign
+		WHERE
+			lecture_no = #{lectureNo} AND user_id = #{userId}
+	 </select>
+	 
+	 <!-- 강좌별 대시보드 교수 유효성 검사 -->
+	 <select id="selectLectureInfoCheckPro" parameterType="com.gd.lms.vo.Lecture" resultType="map">
+	 	SELECT
+	 		lecture_no lectureNo
+		FROM
+			lecture
+		WHERE
+			lecture_no = #{lectureNo} AND user_id = #{userId}
+	 </select>
 </mapper>

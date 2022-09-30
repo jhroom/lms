@@ -14,6 +14,7 @@ import com.gd.lms.mapper.LectureDashBoardMapper;
 import com.gd.lms.vo.AttendanceForm;
 import com.gd.lms.vo.Board;
 import com.gd.lms.vo.Lecture;
+import com.gd.lms.vo.Sign;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -139,6 +140,35 @@ public class LectureDashBoardService implements ILectureDashBoadService {
 		
 		//리턴
 		return list;
+	}
+	
+	//강좌별 대시보드 진입시 사용여부 검사
+	@Override
+	public boolean getDashBoardCheck(String userId, int lectureNo, int userLevel) {
+		
+		boolean result = false;
+		Map<String,Object> row = null;
+		
+		if(userLevel == 1) {
+			result = true;
+		} else if(userLevel == 2) {
+			Lecture setLecture = new Lecture();
+			setLecture.setLectureNo(lectureNo);
+			setLecture.setUserId(userId);
+			row = lectureDashBoardMapper.selectLectureInfoCheckPro(setLecture);
+			log.debug(TeamColor.AJH + "교수 대시보드 유효 검사 : " + row);
+		}
+		else if(userLevel == 3) {
+			Sign sign = new Sign();
+			sign.setLectureNo(lectureNo);
+			sign.setUserId(userId);
+			row = lectureDashBoardMapper.selectSignInfoCheckStu(sign);
+			log.debug(TeamColor.AJH + "학생 대시보드 유효 검사 : " + row);
+		}
+		if(row != null) {
+			result = true;
+		}
+		return result;
 	}
 
 }

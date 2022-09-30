@@ -2,6 +2,7 @@ package com.gd.lms.service;
 
 import java.util.List;
 
+
 import java.util.Map;
 
 import com.gd.lms.vo.AttendanceForm;
@@ -33,4 +34,7 @@ public interface ILectureDashBoadService {
 	
 	//최신 게시글 10건 불러오기
 	List<Map<String,Object>> getRecentBoard(int lectureNo);
+	
+	//강좌별 대시보드 진입시 사용여부 검사
+	boolean getDashBoardCheck(String userId, int lectureNo, int userLevel);
 }

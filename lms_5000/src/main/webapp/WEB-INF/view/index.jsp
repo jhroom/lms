@@ -213,19 +213,10 @@ function change() {
 						<tbody>
 							<c:forEach var="lc" items="${lectureList}">
 							<tr>
-								<%-- <td><a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?userId=${loginUser.userId}&lectureNo=${lc.lectureNo}">${lc.subjectName}</a></td> --%>
-								<td>
-									<form action="${pageContext.request.contextPath}/dashBoard/lectureDashBoard" method="post">
-										<input type="hidden" name="userId" value="${loginUser.userId}">
-										<input type="hidden" name="lectureNo" value="${lc.lectureNo}">
-										<button type="submit">${lc.subjectName}</button>
-									</form>
-								</td>
+								<td><a href="${pageContext.request.contextPath}
+								/dashBoard/lectureDashBoard?lectureNo=${lc.lectureNo}">${lc.subjectName}</a></td>
 								<td>${lc.subjectGrade}</td>
 								<td>${lc.lectureDay}</td>
-								<%-- <td><a href="${pageContext.request.contextPath}
-								/board/post/one?boardPostNo=${b.boardPostNo}&boardNo=${b.boardNo}&boardName=${b.boardName}">
-								${b.boardPostName}</a></td> --%>
 								<td>${lc.semesterStartDate}</td>
 								<td>${lc.semesterEndDate}</td>
 							</tr>

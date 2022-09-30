@@ -1,8 +1,6 @@
 package com.gd.lms.controller;
 
 import java.util.Arrays;
-
-
 import java.util.List;
 import java.util.Map;
 
@@ -65,40 +63,61 @@ public class LectureDashBoadController {
 	
 	
 	// 강좌별 대시보드
-	/*
-	 * @GetMapping("/dashBoard/lectureDashBoard") public String AssignmentBoard
-	 * (Board board, Model model, Board lectureNo, HttpSession session , Sign sign)
-	 * { List<Map<String, Object>> assignMentBoard =
-	 * lectureDashBoardService.getAssignment(lectureNo); // 게시판 확인
-	 * log.debug(TeamColor.YHW + "-- assignMentBoard-controller--"+ assignMentBoard
-	 * ); // model에 값 담기 model.addAttribute("assignMentBoard", assignMentBoard);
-	 * 
-	 * 
-	 * //최신 리스트 10건 찾고 값 부여 List<Map<String, Object>> recentList =
-	 * lectureDashBoardService.getRecentBoard(lectureNo.getLectureNo());
-	 * model.addAttribute("recentList", recentList);
-	 * 
-	 * //session값에 userId를 담고 강좌번호 + 유저id를 가지고 해당 강좌를 듣는 유저의 출결현황을 출력해준다.
-	 * log.debug(TeamColor.JCH + "출석현황 리스트 "); String userId =
-	 * ((User)session.getAttribute("loginUser")).getUserId();
-	 * sign.setUserId(userId); List<Map<String,Object>> stuAtt =
-	 * lectureDashBoardService.stuAttendance(board.getLectureNo() , userId);
-	 * log.debug(TeamColor.JCH + "출석현황 리스트 /stuAtt " + stuAtt);
-	 * model.addAttribute("stuAtt" , stuAtt);
-	 * 
-	 * //강의 번호 int lectureNoForWeek = lectureNo.getLectureNo();
-	 * 
-	 * //해당 강의의 주차 리스트 가져오기 List<Map<String,Object>> weekList =
-	 * lectureDashBoardService.weekList(lectureNoForWeek); log.debug(TeamColor.AJH +
-	 * "해당강좌의 weekList :  " + weekList);
-	 * 
-	 * //모델 값 부여 model.addAttribute("weekList",weekList);
-	 * model.addAttribute("lectureNo",lectureNo.getLectureNo());
-	 * 
-	 * return "/dashBoard/lectureDashBoard"; }
-	 */
+	
+	@GetMapping("/dashBoard/lectureDashBoard")
+	public String AssignmentBoard (Board board, Model model, Board lectureNo, HttpSession session , Sign sign) {
+		
+		//강의 번호
+		int lcNo = lectureNo.getLectureNo();
+		//세션의 user Id
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		//세션의 user Level
+		int userLevel = ((User)session.getAttribute("loginUser")).getUserLevel();
+		
+		//진입시 세션의 Id와 주소의 lectureNo get 으로 대시보드 검사
+		boolean result = lectureDashBoardService.getDashBoardCheck(userId, lcNo, userLevel);
+		log.debug(TeamColor.AJH + "대시보드 사용 여부 서비스 결과 값 : " + result);
+		
+		if(!result) {
+			return "redirect:/index?invalid Access";
+		}
+		
+		
+		List<Map<String, Object>> assignMentBoard = lectureDashBoardService.getAssignment(lectureNo);
+		// 게시판 확인
+		log.debug(TeamColor.YHW + "-- assignMentBoard-controller--"+ assignMentBoard );
+		// model에 값 담기
+		model.addAttribute("assignMentBoard", assignMentBoard);
+		
+		
+		//최신 리스트 10건 찾고 값 부여
+		List<Map<String, Object>> recentList = lectureDashBoardService.getRecentBoard(lectureNo.getLectureNo());
+		model.addAttribute("recentList", recentList);
+		
+		//session값에 userId를 담고 강좌번호 + 유저id를 가지고 해당 강좌를 듣는 유저의 출결현황을 출력해준다.
+		log.debug(TeamColor.JCH + "출석현황 리스트 ");
+		sign.setUserId(userId);
+		
+		List<Map<String,Object>> stuAtt = lectureDashBoardService.stuAttendance(board.getLectureNo() , userId);
+		log.debug(TeamColor.JCH + "출석현황 리스트 /stuAtt " + stuAtt);
+		model.addAttribute("stuAtt" , stuAtt);
+		
+		
+		
+		//해당 강의의 주차 리스트 가져오기
+		List<Map<String,Object>> weekList = lectureDashBoardService.weekList(lcNo);
+		log.debug(TeamColor.AJH + "해당강좌의 weekList :  " + weekList);
+		
+		//모델 값 부여
+		model.addAttribute("weekList",weekList);
+		model.addAttribute("lectureNo",lectureNo.getLectureNo());
+
+	return "/dashBoard/lectureDashBoard";
+	}
+	
 	
 	// 강좌별 대시보드
+	/*
 	@PostMapping("/dashBoard/lectureDashBoard")
 	public String lectureDashBoard (Board board, Model model, Board lectureNo, HttpSession session , Sign sign) {
 		List<Map<String, Object>> assignMentBoard = lectureDashBoardService.getAssignment(lectureNo);
@@ -134,6 +153,7 @@ public class LectureDashBoadController {
 
 	return "/dashBoard/lectureDashBoard";
 	}
+	*/
 	
 	//해당 주차를 눌렀을 떄 해당 강좌의 수강생 리스트 보여주기
 	@PostMapping("/dashBoard/lectureAttendance")
@@ -142,11 +162,11 @@ public class LectureDashBoadController {
 		log.debug(TeamColor.AJH +"파라미터 값 확인 / lectureNo : " + lectureNo);
 		log.debug(TeamColor.AJH +"파리미터 값 확인 / week : " + week);
 		log.debug(TeamColor.AJH +"파리미터 값 확인 / access : " + access);
-		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		
-		//접근 가능한 주간이 아닐 때 강으 대시보드로 이동
+		//접근 가능한 주간이 아닐 때 강의 대시보드로 이동
 		if(access.equals("N")) {
-			return "redirect:/dashBoard/lectureDashBoard?userId="+userId+"&lectureNo="+lectureNo;
+			log.debug(TeamColor.AJH +"접근가능한 주간이 아닙니다. : " + access);
+			return "redirect:/dashBoard/lectureDashBoard?lectureNo="+lectureNo;
 		}
 		
 		// lectureNo 담겨있는 lecture 객체에 세션의 아이디 담기
@@ -176,17 +196,14 @@ public class LectureDashBoadController {
 		
 		log.debug(TeamColor.AJH + "파라미터 값 / week : " + attForm.getWeek());
 		log.debug(TeamColor.AJH + "파라미터 값 / lectureNo : " + attForm.getLectureNo());
-		log.debug(TeamColor.AJH + "파라미터 값 / studentId : " +
-		Arrays.toString(attForm.getStudentId())); log.debug(TeamColor.AJH +
-		"파라미터 값 / attendState : " + Arrays.toString(attForm.getAttendState()));
+		log.debug(TeamColor.AJH + "파라미터 값 / studentId : " + Arrays.toString(attForm.getStudentId()));
+		log.debug(TeamColor.AJH + "파라미터 값 / attendState : " + Arrays.toString(attForm.getAttendState()));
 		
 		//출석 insert update중 한번이라도 실패하면 false 리턴
 		if(!lectureDashBoardService.addStudentAttendance(attForm)) {
 			model.addAttribute("errMsg", "출석 입력 업데이트 과정중 오류 발생하였습니다");
 		}
 		
-		String userId = ((User)session.getAttribute("loginUser")).getUserId();
-		
-		return "redirect:/dashBoard/lectureDashBoard?userId="+userId+"&lectureNo="+attForm.getLectureNo();
+		return "redirect:/dashBoard/lectureDashBoard?lectureNo="+attForm.getLectureNo();
 	}
 }

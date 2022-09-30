@@ -11,6 +11,7 @@ import com.gd.lms.vo.AttendanceForm;
 import com.gd.lms.vo.Board;
 import com.gd.lms.vo.BoardPost;
 import com.gd.lms.vo.Lecture;
+import com.gd.lms.vo.Sign;
 
 @Mapper
 public interface LectureDashBoardMapper {
@@ -51,5 +52,11 @@ public interface LectureDashBoardMapper {
 	
 	//최신 게시판 10건 불러오는 쿼리
 	List<Map<String,Object>> selectRecentBoard(int lectureNo);
+	
+	//학생 강좌별 대시보드 진입시 사용가능 검사
+	Map<String,Object> selectSignInfoCheckStu(Sign sign);
+	
+	//교수 강좌별 대시보드 진입시
+	Map<String,Object> selectLectureInfoCheckPro(Lecture lecture);
 	
 }
