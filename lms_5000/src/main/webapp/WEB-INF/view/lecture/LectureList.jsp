@@ -28,7 +28,7 @@
 		<tr>
 			
 			<td>
-				<a href="${pgae.Context.request.contextPath}/lmsLecture/lectureOne?lectureNo=${l.lectureNo}">${l.lectureNo}</a>
+				<a href="${pageContext.request.contextPath}/lmsLecture/lectureOne?lectureNo=${l.lectureNo}">${l.lectureNo}</a>
 			</td>
 			<td>${l.lectureTime}시간</td>
 			<td>${l.lectureStarttime}</td>

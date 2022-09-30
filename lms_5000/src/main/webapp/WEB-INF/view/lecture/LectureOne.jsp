@@ -33,7 +33,7 @@
 			</tr>
 			<tr>
 				<th>강좌번호</th>
-				<td>${subjectOne.subjectNo}</td>
+				<td>${lectureOne.subjectNo}</td>
 			</tr>
 			<tr>
 				<th>강의실</th>
@@ -41,11 +41,11 @@
 			</tr>
 			<tr>
 				<th>담당교수</th>
-				<td>${professorOne.userId}</td>
+				<td>${lectureOne.userId}</td>
 			</tr>
 			<tr>
 				<th>학기</th>
-				<td>${sessionOne.sessionNo}</td>
+				<td>${lectureOne.semesterNo}</td>
 			</tr>
 			
 		</tbody>

@@ -87,9 +87,23 @@
 		ON l.user_id = u.user_id
 		LEFT OUTER JOIN semester e
 		ON l.semester_no = e.semester_no
-		WHERE l.lectureNo =#{lectureNo}
+		WHERE l.lecture_no =#{lectureNo}
 	</select>
 	
+	<!-- 강의 수정 -->
+	<update id="updateLecture" parameterType="com.gd.lms.vo.Lecture">
+		UPDATE lecture
+		SET
+			lecture_time = #{lectureTime},
+			lecture_starttime = #{lectureStarttime},
+			lecture_endtime = #{lectureEndtime},
+			lecture_day = #{lectureDay},
+			subject_no = #{subjectNo},
+			classroom_no = #{classroomNo},
+			user_id = #{userId},
+			semester_no = #{semesterNo}
+		WHERE lecture_no = #{lectureNo}	
+	</update>
 	
 	
 </mapper>
