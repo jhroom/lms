@@ -45,6 +45,26 @@
 		from board_post
 		where board_No = #{boardNo}
 	</select>
+	
+		<!-- 선택한 게시판의 게시글 리스트 생성 쿼리 --> 
+	<select id="selectBoardPostList2" resultType="com.gd.lms.vo.BoardPost">
+		select
+			bp.board_post_no boardPostNo
+			, b.board_no boardNo
+			, b.board_name boardName
+			, bp.board_post_Title boardPostTitle
+			, bp.board_post_content boardPostContent
+			, bp.board_post_writer boardPostWriter
+			, bp.board_post_createdate boardPostCreatedate
+			, bp.board_post_updatedate boardPostUpdatedate
+			, bp.count count
+		from board_post bp
+		INNER JOIN board b
+		ON bp.board_no = b.board_no
+		WHERE b.board_type = #{boardType}
+		AND b.lecture_no = #{lectureNo}
+	</select>
+	
 
 	
 	<!-- 게시글 상세 조회 쿼리 -->

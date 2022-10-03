@@ -18,6 +18,10 @@ public interface BoardMapper {
 	//선택 게시판의 게시글 리스트 생성 쿼리
 	public List<BoardPost> selectBoardPostList(int boardNo);
 	
+	//선택 게시판의 게시글 리스트 생성 쿼리
+	public List<BoardPost> selectBoardPostList2(Board board);
+		
+	
 	//게시판 추가 쿼리
 	public int insertBoard(Board board);
 	

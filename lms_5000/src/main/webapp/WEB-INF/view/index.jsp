@@ -199,7 +199,7 @@ function change() {
 	              
 	              <div class="card-body">
 	              <!-- 표 시작 -->
-					<table border="1">
+					<table class="table table-hover text-nowrap">
 						<thead>
 							<tr>
 								<!-- <th>강좌이름</th> -->
@@ -242,7 +242,7 @@ function change() {
 	      <div class="container-fluid">
 	        <div class="row">
 	<!-- 하단 구역 왼쪽 공지사랑 시작 -->
-	          <div class="col-6">
+	          <div class="col-8">
 	            <!-- Default box -->
 	            <div class="card">
 	              <div class="card-header">
@@ -261,7 +261,7 @@ function change() {
 	              
 	              <div class="card-body">
 	              <!-- LMS공지사항 리스트 -->
-					<table border="1" bordercolor="green">
+					<table class="table table-hover text-nowrap">
 						<tr>
 							<th>번호</th>
 							<th>제목</th>
@@ -271,7 +271,7 @@ function change() {
 							<th>조회수</th>
 							
 						</tr>
-						<c:forEach var="a" items="${lmsNoticeList}" begin="1" end="5">
+						<c:forEach var="a" items="${lmsNoticeList}" begin="1" end="6">
 							<tr>
 								<td>${a.lmsNoticeNo}</td>
 								<td><a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeOne?lmsNoticeNo=${a.lmsNoticeNo}&lmsNoticeTitle=${a.lmsNoticeTitle}">${a.lmsNoticeTitle}</a></td>
@@ -291,7 +291,7 @@ function change() {
 	          </div><!-- End col.6 -->
 	          
 	<!-- 하단구역 오른쪽 달력 시작-->
-	          <div class="col-6">
+	          <div class="col-4">
 	            <!-- Default box -->
 	            <div class="card">
 	              <div class="card-header">
@@ -307,7 +307,7 @@ function change() {
 	                </div>
 	              </div><!-- End header -->
 	              
-	              <div class="card-body">
+	              <div class="card-body" style="padding:0px">
 <div class="calendar">
 	<div class="title">
 		<form name="frm" method="post">
@@ -380,9 +380,7 @@ function change() {
 </div>
 	              </div><!-- /.card-body -->
 	              
-	              <div class="card-footer">
-	                Footer 취향것
-	              </div><!-- /.card-footer-->
+
 	            </div><!-- /.card -->
 	          </div><!-- End col.6 -->
 	        </div><!-- End row -->

@@ -121,6 +121,35 @@ public class BoardController {
 	}
 	
 	
+	//게시판 게시글 출력 메서드2
+	@GetMapping("/board/post2")
+	public String getBoardPostList2(Board board,  Model model) {
+		
+		//파라미터 확인 디버깅
+		log.debug(TeamColor.KHJ + "값 확인 / board : " + board);
+
+		
+		//넘겨줄 리스트(게시판)
+		List<BoardPost> list = boardService.getBoardPostList2(board);
+		
+		//값 넘겨주기
+		model.addAttribute("boardPostList",list);
+		model.addAttribute("boardName",board.getBoardName());
+		model.addAttribute("boardNo",board.getBoardNo());
+		model.addAttribute("lectureNo",board.getLectureNo());
+		
+		
+		//디버깅
+		log.debug(TeamColor.KHJ + "값 확인 / boardPost list : " + list);
+		log.debug(TeamColor.KHJ + "boardPost 리스트 생성 및 포워딩");
+		
+		
+		//포워딩
+		return "board/boardPost";
+		
+	}
+	
+	
 	//게시글 상세 페이지 출력 메서드
 	@GetMapping("/board/post/one")
 	public String getBoardPostOne(int boardPostNo, String boardName, int boardNo, Model model) {

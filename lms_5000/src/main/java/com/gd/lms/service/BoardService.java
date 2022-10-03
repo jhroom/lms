@@ -79,6 +79,20 @@ public class BoardService implements IBoardService{
 		return list;
 	}
 	
+
+
+	@Override
+	public List<BoardPost> getBoardPostList2(Board board) {
+		//리턴 값(list) 세팅
+		List<BoardPost> list = boardMapper.selectBoardPostList2(board);
+		
+		//디버깅
+		System.out.println("[boardSvc] BoardPost list : " + list);
+		
+		return list;
+	}
+
+	
 	
 	
 	//게시글의 상세 조회 서비스

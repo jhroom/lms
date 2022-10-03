@@ -23,6 +23,10 @@ public interface IBoardService {
 	//선택 게시판의 게시글 리스트 생성 서비스
 	public List<BoardPost> getBoardPostList(int boardNo);
 	
+	//선택 게시판의 게시글 리스트 생성 서비스
+	public List<BoardPost> getBoardPostList2(Board board);
+	
+	
 	//게시글의 상세 조회 서비스
 	public Map<String, Object> getBoardPostOne(int boardPostNo);
 	
