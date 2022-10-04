@@ -1,6 +1,7 @@
 package com.gd.lms.service;
 
 import java.util.List;
+
 import java.util.Map;
 
 import com.gd.lms.vo.User;
@@ -19,8 +20,8 @@ public interface IMypageService {
 	int modifyUserPw(User user);
 	
 	// 게시글 리스트
-	List<Map<String, Object>> getboardWriteList(String userId);
+	List<Map<String, Object>> getboardWriteList(String userId, int userLevel, int nowPage, int rowPerPage);
 	
 	// 댓글 리스트
-	List<Map<String, Object>> getCommentWriteList(String userId);
+	List<Map<String, Object>> getCommentWriteList(String userId, int userLevel);
 }

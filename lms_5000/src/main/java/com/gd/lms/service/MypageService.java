@@ -1,6 +1,7 @@
 package com.gd.lms.service;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,14 +93,29 @@ public class MypageService implements IMypageService {
 	}
 	//게시글 리스트
 	@Override
-	public List<Map<String, Object>> getboardWriteList(String userId) {
+	public List<Map<String, Object>> getboardWriteList(String userId, int userLevel, int nowPage, int rowPerPage) {
+		int beginRow = (nowPage-1)*rowPerPage;
 		
-		return mypageMapper.selectboardWriteList(userId);
+		List<Map<String, Object>> row = null;
+		
+		switch(userLevel) {
+		case 1 : row = mypageMapper.selectAdminBoardList(userId, beginRow, rowPerPage);break;
+		case 2 :
+		case 3 : row = mypageMapper.selectboardWriteList(userId, beginRow, rowPerPage);break;
+		}
+		return row;
 	}
 	//댓글리스트
 	@Override
-	public List<Map<String, Object>> getCommentWriteList(String userId) {
-		return mypageMapper.selectCommentWriteList(userId);
+	public List<Map<String, Object>> getCommentWriteList(String userId, int userLevel) {
+		List<Map<String, Object>> row = null;
+		
+		switch(userLevel) {
+		case 1 :
+		case 2 :
+		case 3 : row = mypageMapper.selectCommentWriteList(userId);break;
+		}
+		return row;
 	}
 
 }

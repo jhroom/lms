@@ -85,12 +85,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">마이페이지</h1>
+            <h1 class="m-0 text-dark">My info</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index/mypage">mypage</a></li>
+              <li class="breadcrumb-item active">My Info</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -108,15 +108,15 @@
 			</c:when>
 		</c:choose>
 		
-		<div>아이디</div>
+		<div><strong>아이디</strong></div>
 		<div>${userInfo.userId }</div>
 		<hr>
 		
-		<div>비밀번호</div>
+		<div><strong>비밀번호</strong></div>
 		<div><a href="${pageContext.request.contextPath}/user/updatePw">변경</a></div>
 		<hr>
 		
-		<div>계정 유형</div>
+		<div><strong>계정 유형</strong></div>
 		<div>
 			<c:choose>
 				<c:when test="${userInfo.userLevel == 1}">운영자</c:when>
@@ -141,11 +141,11 @@
 				<%-- <c:when test="${userInfo.userLevel == 4}">시스템관리자</c:when> --%>
 		</c:choose>
 		
-		<div>이름</div>
+		<div><strong>이름</strong></div>
 		<div>${userInfo.userName}</div>
 		<hr>
 		
-		<div>메일</div>
+		<div><strong>메일</strong></div>
 		<div>
 			${userInfo.userEmail}
 			<form action="${pageContext.request.contextPath}/index/mypage/changeUserInfo" id="emailForm" method="post">
@@ -155,7 +155,7 @@
 		</div>
 		<hr>
 		
-		<div>휴대폰 번호</div>
+		<div><strong>휴대폰 번호</strong></div>
 		<div>
 			${userInfo.userTel}
 			<form action="${pageContext.request.contextPath}/index/mypage/changeUserInfo" id="telForm" method="post">
@@ -165,19 +165,19 @@
 		</div>
 		<hr>
 		
-		<div>성별</div>
+		<div><strong>성별</strong></div>
 		<div>${userInfo.userGender}</div>
 		<hr>
 		
-		<div>생성 날짜</div>
+		<div><strong>생성 날짜</strong></div>
 		<div>${userInfo.createDate}</div>
 		<hr>
 		
-		<div>정보 수정 날짜</div>
+		<div><strong>정보 수정 날짜</strong></div>
 		<div>${userInfo.updateDate}</div>
 		<hr>
 		
-		<div>마지막 로그인 날짜</div>
+		<div><strong>마지막 로그인 날짜</strong></div>
 		<div>${userInfo.lastloginDate}</div>
 		<hr>
 	</div>

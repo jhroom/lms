@@ -52,10 +52,13 @@ public interface MypageMapper {
 	//비밀번호 변경
 	int modifyUserPw(User user);
 	
-	//Id로 게시글 작성 리스트 가져오기
-	List<Map<String, Object>> selectboardWriteList(String userId);
+	//학생,교수Id로 게시글 작성 리스트 가져오기
+	List<Map<String, Object>> selectboardWriteList(String userId, int beginRow, int rowPerPage);
 	
-	//Id로 댓글 작성 리스트 가져오기
+	//학생,교수Id로 댓글 작성 리스트 가져오기
 	List<Map<String, Object>> selectCommentWriteList(String userId);
-
+	
+	//운영자id로 게시글 작성 리스트
+	List<Map<String, Object>> selectAdminBoardList(String userId, int beginRow, int rowPerPage);
+	
 }
