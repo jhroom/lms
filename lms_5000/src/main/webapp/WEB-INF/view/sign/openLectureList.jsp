@@ -54,8 +54,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pagaContext.request.contextPath}/lms/sign/stDash">수강목록</a></li>
+              <li class="breadcrumb-item active">수강신청</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -67,20 +67,21 @@
     <!-- 메인 콘텐츠 -->
     <div class="content">
     <div class="container-fluid">
-	<div class="container">
-	<div class="card card-primary card-outline">
-         <div class="card-body">
+	<div class="card">
+		 <div class="card-header">
            <h1 class="card-title"><Strong>개설 강좌 목록</Strong></h1><br>
            <h3>신청 가능 학점 : 21점 / <b>현수강 학점 : ${signTime}</b> </h3>
-           <table border="1">
+         </div>
+         <div class="card-body table-responsice p-0">
+           <table class="table table-hover text-nowrap">
 			<thead>
 				<tr>
-					<th>강좌번호(lectureNo)</th>
-					<th>과목이름(subjectName)</th>
-					<th>과목학점(subjectPoint)</th>
-					<th>학기(semester_no)</th>
-					<th>신청 가능 학년(subjectGrade)</th>
-					<th>신청 가능 학과(majorName)</th>
+					<th>강좌번호</th>
+					<th>과목이름</th>
+					<th>과목학점</th>
+					<th>학기</th>
+					<th>신청 가능 학년</th>
+					<th>신청 가능 학과</th>
 				</tr> 
 			</thead>
 			<tbody>
@@ -105,122 +106,113 @@
 				</c:forEach>
 				</tbody>
 			</table>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
           </div>
           </div><!-- /.card -->
 	</div>
 	<br>
-	<div class = "container">
-		  <div class="card card-primary card-outline">
-              <div class="card-body">
-                <h1 class="card-title"><Strong>수강신청 과목</Strong></h1><br>
-                <table border="1">
-					<thead>
-						<tr>
-							<th>강좌번호(lectureNo)</th>
-							<th>과목이름(subjectName)</th>
-							<th>과목학점(subjectPoint)</th>
-							<th>신청 가능 학년(subjectGrade)</th>
-							<th>수업진행요일(lectureDay)</th>
-							<th>강의실(classNo)</th>
-							<th>수강 신청 상태(signState)</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="s" items="${singList}">
-						<c:if test="${s.sign_state ne 2}">
-							<tr>
-								<td>${s.lecture_no}</td>
-								<td>${s.subject_name}</td>
-								<td>${s.subject_point}점</td>
-								<td>${s.subject_grade}학년</td>
-								<td>
-									<c:choose>
-										<c:when test="${s.lecture_day eq 1}">월요일</c:when>
-										<c:when test="${s.lecture_day eq 2}">화요일</c:when>
-										<c:when test="${s.lecture_day eq 3}">수요일</c:when>
-										<c:when test="${s.lecture_day eq 4}">목요일</c:when>
-										<c:when test="${s.lecture_day eq 5}">금요일</c:when>
-										<c:when test="${s.lecture_day eq 6}">토요일</c:when>
-										<c:when test="${s.lecture_day eq 7}">일요일</c:when>
-										<c:otherwise>요일을 다시 확인해 주세요</c:otherwise>
-									</c:choose>
-								</td>
-								<td>${s.classroom_no}호 강의실</td>
-								<td>
-									<!-- session 등으로 수강신청 상태 대기 -->
-									<c:choose>
-										<c:when test="${s.sign_state eq 0}">신청 대기</c:when>
-										<c:when test="${s.sign_state eq 1}">수강 신청 완료</c:when>
-									</c:choose>
-								</td>
-								<td><a href="${pageContext.request.contextPath}/sign/cancelSign?userId=${loginUser.userId}&signNo=${s.sign_no}&lectureNo=${s.lecture_no}&cancelId=${loginUser.userId}">수강취소</a></td>
-							</tr>
-							</c:if>
-						</c:forEach>
-					</tbody>
-				</table>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div><!-- /.card -->
-		
-	 </div>
+	<div class="card">
+	   <div class="card-header">
+	        <h1 class="card-title"><Strong>수강신청 과목</Strong></h1><br>
+	   </div>   
+           <div class="card-body table-responsice p-0">
+             <table class="table table-hover text-nowrap">
+			<thead>
+			<tr>
+				<th>강좌번호</th>
+				<th>과목이름</th>
+				<th>과목학점</th>
+				<th>신청 가능 학년</th>
+				<th>수업진행요일</th>
+				<th>강의실</th>
+				<th>수강 신청 상태</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="s" items="${singList}">
+			<c:if test="${s.sign_state ne 2}">
+				<tr>
+					<td>${s.lecture_no}</td>
+					<td>${s.subject_name}</td>
+					<td>${s.subject_point}점</td>
+					<td>${s.subject_grade}학년</td>
+					<td>
+						<c:choose>
+							<c:when test="${s.lecture_day eq 1}">월요일</c:when>
+							<c:when test="${s.lecture_day eq 2}">화요일</c:when>
+							<c:when test="${s.lecture_day eq 3}">수요일</c:when>
+							<c:when test="${s.lecture_day eq 4}">목요일</c:when>
+							<c:when test="${s.lecture_day eq 5}">금요일</c:when>
+							<c:when test="${s.lecture_day eq 6}">토요일</c:when>
+							<c:when test="${s.lecture_day eq 7}">일요일</c:when>
+							<c:otherwise>요일을 다시 확인해 주세요</c:otherwise>
+						</c:choose>
+					</td>
+					<td>${s.classroom_no}호 강의실</td>
+					<td>
+						<!-- session 등으로 수강신청 상태 대기 -->
+						<c:choose>
+							<c:when test="${s.sign_state eq 0}">신청 대기</c:when>
+							<c:when test="${s.sign_state eq 1}">수강 신청 완료</c:when>
+						</c:choose>
+					</td>
+					<td><a href="${pageContext.request.contextPath}/sign/cancelSign?userId=${loginUser.userId}&signNo=${s.sign_no}&lectureNo=${s.lecture_no}&cancelId=${loginUser.userId}">수강취소</a></td>
+				</tr>
+				</c:if>
+			</c:forEach>
+		</tbody>
+		</table>
+     </div>
+     </div><!-- /.card -->
 	 <br>
-	 <div class = "container">
-		  <div class="card card-primary card-outline">
-              <div class="card-body">
-               <h1 class="card-title"><Strong>수강 취소 내역</Strong></h1><br>
-               <table border="1">
-					<thead>
-						<tr>
-							<th>강좌번호(lectureNo)</th>
-							<th>취소 과목 이름(subjectName)</th>
-							<th>학생 ID(userId)</th>
-							<th>취소 주체(cancelId)</th>
-							<th>취소 사유(Content)</th>
-							<th>취소 시간(cancelDate)</th>
-						</tr>
-					</thead>
-					<tbody>
+		<div class="card">
+		  <div class="card-header">   
+           	<h1 class="card-title"><Strong>수강 취소 내역</Strong></h1><br>
+          </div>	
+          <div class="card-body table-responsice p-0">
+           <table class="table table-hover text-nowrap">
+				<thead>
+					<tr>
+						<th>강좌번호</th>
+						<th>취소 과목 이름</th>
+						<th>학생 ID</th>
+						<th>취소 주체</th>
+						<th>취소 사유</th>
+						<th>취소 시간</th>
+					</tr>
+				</thead>
+				<tbody>
 						<c:forEach var="c" items="${cancelSignList}">
-							<tr>
-								<td>${c.lecture_no}</td>
-								<td>${c.subject_name}</td>
-								<td>${c.user_id}</td>
-								<td>	
-									${c.cancel_id}
-									<c:choose >
-										<c:when test="${c.user_id eq c.cancel_id }">(학생)</c:when>
-										<c:when test="${c.user_id ne c.cancel_id}">(운영자)</c:when>
-										<c:otherwise>
-											(운영자)
-										</c:otherwise>
-									</c:choose>
-								</td>
-								<td>	
-									<c:choose >
-										<c:when test="${c.user_id eq c.cancel_id }">학생 개인 사유</c:when>
-										<c:when test="${c.user_id ne c.cancel_id}">수강 기준 부합</c:when>
-									</c:choose>
-								</td>	
-								<td>${c.cancel_date}</td>
-							</tr>
-						</c:forEach>
-					</tbody>		
-				</table>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div><!-- /.card -->
+					<tr>
+						<td>${c.lecture_no}</td>
+					<td>${c.subject_name}</td>
+					<td>${c.user_id}</td>
+					<td>	
+						${c.cancel_id}
+					<c:choose >
+					<c:when test="${c.user_id eq c.cancel_id }">(학생)</c:when>
+					<c:when test="${c.user_id ne c.cancel_id}">(운영자)</c:when>
+					<c:otherwise>
+					(운영자)
+					</c:otherwise>
+					</c:choose>
+					</td>
+					<td>	
+						<c:choose >
+					<c:when test="${c.user_id eq c.cancel_id }">학생 개인 사유</c:when>
+					<c:when test="${c.user_id ne c.cancel_id}">수강 기준 부합</c:when>
+					</c:choose>
+					</td>	
+					<td>${c.cancel_date}</td>
+					</tr>
+					</c:forEach>
+				</tbody>		
+			</table>
+		    </div><!-- /.card -->
 	</div>
 	</div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-    </div>
     <!-- /.content -->
-  </div>
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->

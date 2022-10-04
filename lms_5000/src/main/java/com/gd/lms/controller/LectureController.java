@@ -43,8 +43,7 @@ public class LectureController {
 		  log.debug(TeamColor.KHJ + "수강신청 일자가 아닙니다 -- "+ test );
 		  
 		  //수강신청 오류 페이지로 보내기
-		  return "/sign/outOfSignDate";
-		    
+//		  return "/sign/outOfSignDate";
 	  }
 	  
 

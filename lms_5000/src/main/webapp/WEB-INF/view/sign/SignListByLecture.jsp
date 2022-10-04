@@ -51,8 +51,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/sign/SignListForAdmin">개설 강좌 리스트</a></li>
+              <li class="breadcrumb-item active">수강 신청 학생 리스트</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -63,61 +63,61 @@
     <!-- Main content -->
     <!-- 메인 콘텐츠 -->
 	<div class = "container">
-		  <div class="card card-primary card-outline">
-              <div class="card-body">
-	                <h1 class="card-title"><Strong> ${subjectName} 수강신청 학생 </Strong></h1>
-	                
-	                <br>
-	                <table border="1">
-						<thead>
+		  <div class="card">
+		  	   <div class="card-header">
+	                <h1 class="card-title"><Strong> ${subjectName} 수강신청 학생 명단</Strong></h1>
+              </div>
+             <div class="card-body table-responsice p-0">
+          		 <table class="table table-hover text-nowrap">
+					<thead>
+						<tr>
+							<th>수강 가능 학과</th>
+							<th>신청 학생 학과</th>
+							<th>신청 학생 학년(수강 가능 학년 - )  </th>
+							<th>학생ID</th>
+							<th>학생이름</th>
+							<th>상태 변경</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="g" items="${getStudentList}">
 							<tr>
-								<th>전공(major_name) </th>
-								<th>학년(lectureNo) - 수강 가능 학년(${student.subject_grade}학년)  </th>
-								<th>학생ID(userId)</th>
-								<th>학생이름(userName)</th>
-								<th>상태 변경</th>
+								<td></td>
+								<td>${g.major_name}</td>
+								<td>${g.st_grade}학년</td>
+								<td>${g.user_id}</td>
+								<td>${g.st_name}</td>
+								<td>
+									<form action="${pageContext.request.contextPath}/sign/SignListByLecture?lectureNo=${g.lecture_no}&userId=${g.user_id}" method="post">
+									    <input type="hidden" name="lectureNo" id="lectureNo" value="${g.lecture_no}">
+						                <input type="hidden" name="signNo" id="signNo" value="${g.sign_no}">
+						                <input type="hidden" name="cancelId" id="cancelId" value="${loginUser.userId}">
+										<select name="signState" >
+											<c:choose>
+												<c:when test="${g.sign_state eq '0'}">
+													<option value="0" selected>승인 대기</option>
+													<option value="1">신청 완료</option>
+													<option value="2">수강 불가</option>
+												</c:when>
+												<c:when test="${g.sign_state eq '1'}">
+													<option value="0" >승인 대기</option>
+													<option value="1" selected>신청 완료</option>
+													<option value="2" >수강 불가</option>
+												</c:when>
+												<c:when test="${g.sign_state eq '2'}">
+													<option value="0" >승인 대기</option>
+													<option value="1" >신청</option>
+													<option value="2" selected>수강 불가</option>
+												</c:when>
+											</c:choose>											
+										</select>
+										<button type="submit">상태 변경</button>
+									</form>
+								 </td>
 							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="g" items="${getStudentList}">
-								<tr>
-									<td>${g.major_name}</td>
-									<td>${g.st_grade}학년</td>
-									<td>${g.user_id}</td>
-									<td>${g.st_name}</td>
-									<td>
-										<form action="${pageContext.request.contextPath}/sign/SignListByLecture?lectureNo=${g.lecture_no}&userId=${g.user_id}" method="post">
-										    <input type="hidden" name="lectureNo" id="lectureNo" value="${g.lecture_no}">
-							                <input type="hidden" name="signNo" id="signNo" value="${g.sign_no}">
-							                <input type="hidden" name="cancelId" id="cancelId" value="${loginUser.userId}">
-											<select name="signState" >
-												<c:choose>
-													<c:when test="${g.sign_state eq '0'}">
-														<option value="0" selected>승인 대기</option>
-														<option value="1">신청 완료</option>
-														<option value="2">수강 불가</option>
-													</c:when>
-													<c:when test="${g.sign_state eq '1'}">
-														<option value="0" >승인 대기</option>
-														<option value="1" selected>신청 완료</option>
-														<option value="2" >수강 불가</option>
-													</c:when>
-													<c:when test="${g.sign_state eq '2'}">
-														<option value="0" >승인 대기</option>
-														<option value="1" >신청</option>
-														<option value="2" selected>수강 불가</option>
-													</c:when>
-												</c:choose>											
-											</select>
-											<button type="submit">상태 변경</button>
-										</form>
-									 </td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+						</c:forEach>
+					</tbody>
+				</table>
               </div>
             </div><!-- /.card -->
 	 </div>

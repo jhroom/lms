@@ -65,9 +65,10 @@
 			) 
 	</insert>
 	
+	<!-- 취소가 아닐 경우 signcancel테이블 삭제 -->
 	<delete id="deleteSignCancel" parameterType="com.gd.lms.vo.SignCancel">
-		delete
-		from sign_cancel
-		where sign_no = #{signNo}
+		DELETE
+		FROM sign_cancel
+		WHERE sign_no = #{signNo}
 	</delete>
 </mapper>

@@ -51,8 +51,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">관리자 LMS 메인</a></li>
+              <li class="breadcrumb-item active">개설 과목 리스트</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -63,17 +63,19 @@
     <!-- Main content -->
     <!-- 메인 콘텐츠 -->
 	<div class = "container">
-		  <div class="card card-primary card-outline">
-              <div class="card-body">
+		  <div class="card">
+              <div class="card-header">
                 <h1 class="card-title"><Strong>개설 강좌 리스트</Strong></h1><br>
-                <table border="1">
+              </div>
+          <div class="card-body table-responsice p-0">
+           	  <table class="table table-hover text-nowrap">
 					<thead>
 						<tr>
-							<th>강좌번호(lectureNo)</th>
-							<th>과목이름(subjectName)</th>
+							<th>강좌번호</th>
+							<th>과목이름</th>
 							<th>교수 이름</th>
-							<th>신청 가능 학년(subjectGrade)</th>
-							<th>강의실(classNo)</th>
+							<th>신청 가능 학년</th>
+							<th>강의실</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -88,8 +90,6 @@
 						</c:forEach>
 					</tbody>
 				</table>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
               </div>
             </div><!-- /.card -->
 	 </div>
