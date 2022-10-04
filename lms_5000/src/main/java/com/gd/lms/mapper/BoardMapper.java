@@ -13,7 +13,7 @@ import com.gd.lms.vo.Comment;
 @Mapper
 public interface BoardMapper {
 	//게시판 리스트 생성 쿼리
-	public List<Board> selectBoradList(int lectureNo);
+	public List<Board> selectBoradList(int startNo, int lectureNo);
 	
 	//선택 게시판의 게시글 리스트 생성 쿼리
 	public List<BoardPost> selectBoardPostList(int boardNo);
@@ -54,5 +54,12 @@ public interface BoardMapper {
 	
 	//댓글 수정 쿼리
 	public int updateComment(Comment comment);
+	
+	//강좌번호로 과목 이름 불러오는 쿼리
+	public String selectLectureName(int lectureNo);
 
+	//페이징_마지막 페이지 구하기
+	public int selectRealEndPageForBoard(int lectureNo);
+	
+	
 }

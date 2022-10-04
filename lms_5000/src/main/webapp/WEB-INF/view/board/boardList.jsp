@@ -110,10 +110,25 @@
 						</tbody>
 					</table>
 					<!-- end table -->
+					
+					<!-- 페이징 영역 -->
+					<div>
+
+					
+					</div>
+					<!-- end 페이징 영역 -->
 	              </div>
 	              <!-- end card-body -->
 	              <div class="card-footer">
-	                Footer 취향것
+					  <nav aria-label="Contacts Page Navigation">
+			            <ul class="pagination justify-content-center m-0">
+			            	<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=${currentPage - 10}">이전쪽</a></li>
+								<c:forEach items="${pages}" var="p">
+					              <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=${p}">${p}</a></li>
+								</c:forEach>
+							<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=${currentPage + 10}">다음쪽</a></li>
+			            </ul> 
+			          </nav>
 	              </div>
 	              <!-- /.card-footer-->
 	            </div>

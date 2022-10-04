@@ -45,5 +45,7 @@ public interface ITestService {
 	
 	//교수 아이디 확인
 	String getProId(int lectureNo);
+	
+	
 
 }

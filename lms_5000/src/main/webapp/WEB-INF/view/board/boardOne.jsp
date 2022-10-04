@@ -37,7 +37,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">${boardName} 게시판</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -57,9 +57,24 @@
       
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
-			<div>
+           	    <div class="row">
+	<!-- 하단 구역 왼쪽 공지사랑 시작 -->
+	          <div class="col-12">
+	          	<div class="card">
+	              <div class="card-header">
+	                <h3 class="card-title">과목 게시판</h3>
+	                
+	                <div class="card-tools">
+	                	<!-- 감추거나 지우는 버튼들 -->
+	                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"> <i class="fas fa-minus"></i> </button>
+	                  <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove"> <i class="fas fa-times"></i> </button>
+	                </div>
+	              </div>
+	              <!-- End header -->
+	              
+	              <div class="card-body">
 				<div>
-				<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${boardNo}&boardName=${boardName}">${boardName} 게시판</a></h3>
+
 					<table class="table table-hover text-nowrap">
 						<thead>
 							<tr>
@@ -111,43 +126,99 @@
 						<a href="${pageContext.request.contextPath}/board/removePost?boardPostNo=${boardOne.boardPostNo}&fileName=${boardOne.fileName}&boardName=${boardName}&boardNo=${boardNo}">삭제</a>
 					</c:if>
 				</div>
-				
+
+
+
+
+	              </div>
+	              <!-- end card-body -->
+	              <div class="card-footer">
+	                Footer 취향것
+	              </div>
+	              <!-- /.card-footer-->
+	            </div>
+	            <!-- /.card -->
+	          </div>
+	          <!-- End col12 -->
+		</div>
+		<!-- End row -->
+      
+
+      
+      
+          	    <div class="row">
+	<!-- 하단 구역 왼쪽 공지사랑 시작 -->
+	          <div class="col-12">
+	          	<div class="card">
+	              <div class="card-header">
+	                <h3 class="card-title">댓글</h3>
+	                
+	                <div class="card-tools">
+	                	<!-- 감추거나 지우는 버튼들 -->
+	                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"> <i class="fas fa-minus"></i> </button>
+	                  <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove"> <i class="fas fa-times"></i> </button>
+	                </div>
+	              </div>
+	              <!-- End header -->
+	              
+	              <div class="card-body">
+	              
 				<!-- 댓글 입력 폼 -->
-				<div>
-				<h5>댓글</h5>
+      			<div>
 				<form action="${pageContext.request.contextPath}/board/addComment" method="get">
 					
 					<input type="hidden" name="boardPostNo" value="${boardOne.boardPostNo}">
 					<input type="hidden" name="boardName" value="${boardName}">
 					<input type="hidden" name="boardNo" value="${boardNo}">
 					
-					<textarea name="commentContent"></textarea>
-					<button type="submit">댓글 달기</button>
+					<textarea class="form-control" name="commentContent"></textarea>
+					<button class="btn btn-success"type="submit">댓글 달기</button>
 				</form>
 				
 				</div>
 				
 				<!-- 댓글 리스트 -->
 				<div>
-					<table border="1">
+					<table  class="table table-hover text-nowrap">
 						<thead>
 						<tr>
-							<th>작성자</th><th>내용</th><th></th>
+							<th style="width:20%">작성자</th><th style="width:70%">내용</th><th style="width:10%"></th>
 						</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${commentList}" var="m">
 								<tr>
-									<td></td><td>${m.commentContent}</td><td><a href="${pageContext.request.contextPath}/board/removeComment?commentNo=${m.commentNo}&boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}">삭제</a></td>
+									<td>${m.commentWriter}</td><td>${m.commentContent}</td>
+									<td>
+										<c:if test="${loginUser.userLevel eq 2||writer eq m.commentWriter}">
+											<a href="${pageContext.request.contextPath}/board/removeComment?commentNo=${m.commentNo}&boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}">삭제</a>
+										</c:if>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 				
-				
+				</div>
+
+	              </div>
+	              <!-- end card-body -->
+	              <div class="card-footer">
+	                Footer 취향것
+	              </div>
+	              <!-- /.card-footer-->
+	            </div>
+	            <!-- /.card -->
+	          </div>
+	          <!-- End col12 -->
+		</div>
+		<!-- End row -->
+      
+      
+      
+			<div>
 			
 				
-				</div>
 			</div>
       
       

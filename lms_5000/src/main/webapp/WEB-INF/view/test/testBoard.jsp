@@ -36,7 +36,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">시험 리스트 페이지</h1>
+            <h1 class="m-0 text-dark">${lectureName}시험 리스트 페이지</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -57,8 +57,6 @@
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
 		<div>
-		<h3>강좌별 시험 리스트</h3>
-		<h3>${testList[0].lectureNo} 강좌 시험</h3>
 		
 		<c:if test="${loginUser.userLevel eq 2 }">
 			<a href="${pageContext.request.contextPath}/test/addTest?lectureNo=${lectureNo}">시험 만들기</a>

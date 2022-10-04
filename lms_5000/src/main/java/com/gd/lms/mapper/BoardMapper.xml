@@ -12,6 +12,8 @@
 			, lecture_no lectureNo		
 		from board b
 		where b.lecture_no = #{lectureNo}	
+		AND b.board_type = 3
+		limit #{startNo}, 2
 	</select>
 		
 	<!-- 게시판 생성 쿼리 -->
@@ -138,7 +140,7 @@
 				, comment_updatedate
 				, board_post_no
 			) values (
-				'session_id'
+				#{commentWriter}
 				, #{commentContent}
 				, now()
 				, now()
@@ -200,5 +202,22 @@
 			, comment_updatedate = now()
 		where comment_no = #{commentNo}
 	</update>
+	
+	<!-- 강좌번호로 과목 이름 불러오는 쿼리 -->
+	<select id="selectLectureName" resultType="String">
+		select s.subject_name
+		from lecture l
+		inner join subject s
+		on l.subject_no = s.subject_no
+		where l.lecture_no = #{lectureNo}
+	</select>
+	
+	<!-- 게시판 페이징을 위한 마지막 페이지 찾아내기  -->
+	<select id="selectRealEndPageForBoard" resultType="int">
+		SELECT COUNT(board_no) cnt
+		FROM board
+		WHERE lecture_no = #{lectureNo}
+		AND board_type = 3
+	</select>
 
 </mapper>

@@ -94,7 +94,7 @@
 								</tr>
 								<tr>
 									<th>내용</th>
-									<td><input class="form-control" type="text" name="boardPostContent" value="${boardOne.boardPostContent}"></td>
+									<td><textarea class="form-control" name="boardPostContent" id="boardPostContent"  style="width:100%;height: 6.25em;resize: none;">${boardOne.boardPostContent}</textarea></td>
 								</tr>		
 								<tr>
 									<th>첨부파일</th>

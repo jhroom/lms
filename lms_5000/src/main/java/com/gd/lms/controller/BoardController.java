@@ -8,11 +8,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -34,6 +36,7 @@ import com.gd.lms.vo.Board;
 import com.gd.lms.vo.BoardFile;
 import com.gd.lms.vo.BoardPost;
 import com.gd.lms.vo.Comment;
+import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,10 +50,70 @@ public class BoardController {
 	
 	//게시판 리스트 출력 메서드
 	@GetMapping("/board/list")
-	public String getboardList(int lectureNo, Model model) {
+	public String getboardList(int lectureNo, int currentPage, Model model) {
 		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / lectureNo : " + lectureNo);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / currentPage : " + currentPage);
+		
+		
+		
+
+		
+		//페이징 처리
+		int startPage = 0;
+		int endPage = 0;
+		
+
+		
+		//쿼리로 찐 막 페이지 구하기
+		int realEndPage = boardService.getRealEndPageForBoard(lectureNo);
+		
+		if(realEndPage%2 == 0) {
+			realEndPage = realEndPage/2;
+		} else {
+			realEndPage = realEndPage/2+1;
+		}
+			
+		
+		//현 페이지가 0보다 작으면 1로
+		if(currentPage <= 0) {
+			currentPage = 1;
+		}
+		
+		//현 페이지가 마지막 페이지보다 크면 마지막 페이지로
+		
+		if(currentPage >= realEndPage) {
+			currentPage = realEndPage; 
+		}
+		
+		
+		int startNo = currentPage *2 - 2;
+		
+		//페이지 세팅
+		startPage = currentPage / 2 * 2 +1;
+		endPage = startPage+10;
+		
+		
+		//마지막 페이지 세팅
+		if(endPage > realEndPage) { endPage = realEndPage; }
+		
+		//넘겨줄 배열값 세팅
+		int [] pages = new int[endPage - startPage+1];
+		
+		
+		for(int i = 0;i<pages.length;i++) {
+			pages[i] = startPage + i;
+		}
+		
+		//페이징 디버깅
+		log.debug(TeamColor.KHJ + "파라미터 확인 / startPage : " + startPage);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / endPage : " + endPage);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / realEndPage : " + realEndPage);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / startNo : " + startNo);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / pages : " + Arrays.toString(pages));
+		
+		
 		
 		//일반 변수
 		//공지사항 및 qna 게시판 번호를 위한 변수
@@ -59,7 +122,7 @@ public class BoardController {
 		
 		
 		//넘겨줄 리스트(게시판)
-		List<Board> list = boardService.getBoardList(lectureNo);
+		List<Board> list = boardService.getBoardList(startNo, lectureNo);
 		
 		//변수 세팅
 		for(int i = 0; i<list.size();i++) {
@@ -77,6 +140,13 @@ public class BoardController {
 		
 		model.addAttribute("noticeNo",noticeNo);
 		model.addAttribute("qnaNo",qnaNo);
+		
+		
+		//페이징 넘겨주는 값
+		model.addAttribute("pages",pages);
+		model.addAttribute("currentPage",currentPage);
+		
+
 		
 
 		//디버깅
@@ -296,10 +366,17 @@ public class BoardController {
 	
 	//댓글 달기 기능
 	@GetMapping("board/addComment")
-	public String addComment(Comment comment, String boardName, int boardNo, Model model) throws UnsupportedEncodingException{
+	public String addComment(HttpSession session, Comment comment, String boardName, int boardNo, Model model) throws UnsupportedEncodingException{
 		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / comment : " + comment);
+		
+		User login = (User)session.getAttribute("loginUser");
+		
+		
+		comment.setCommentWriter(login.getUserName()+"(" + login.getUserId()+ ")");
+		
+		
 
 		// 실행
 		int row = boardService.addComment(comment);

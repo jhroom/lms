@@ -43,9 +43,9 @@ public class BoardService implements IBoardService{
 	
 	//게시판 리스트 생성 서비스
 	@Override
-	public List<Board> getBoardList(int lectureNo) {
+	public List<Board> getBoardList(int startNo, int lectureNo) {
 		//리턴 값(list) 세팅
-		List<Board> list = boardMapper.selectBoradList(lectureNo);
+		List<Board> list = boardMapper.selectBoradList(startNo, lectureNo);
 		
 		//디버깅
 		System.out.println("[boardSvc] Borad list : " + list);		
@@ -364,6 +364,24 @@ public class BoardService implements IBoardService{
 		//리턴
 		return row;
 		
+	}
+
+
+	@Override
+	public String getLectureName(int lectureNo) {
+		
+		//리턴값
+		String name = boardMapper.selectLectureName(lectureNo);
+		
+		return name;
+	}
+
+
+	@Override
+	public int getRealEndPageForBoard(int lectureNo) {
+		//리턴값
+		int realEndPage = boardMapper.selectRealEndPageForBoard(lectureNo);
+		return realEndPage;
 	}
 
 

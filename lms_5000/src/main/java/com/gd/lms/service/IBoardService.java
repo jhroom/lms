@@ -15,7 +15,7 @@ import com.gd.lms.vo.Comment;
 
 public interface IBoardService {
 	//게시판 리스트 생성 서비스
-	public List<Board> getBoardList(int lectureNo);
+	public List<Board> getBoardList(int startNo, int lectureNo);
 	
 	//게시판 추가 쿼리
 	public int addBoard(Board board);
@@ -56,5 +56,12 @@ public interface IBoardService {
 	
 	//댓글 수정 서비스
 	public int modifyComment(Comment comment);
+	
+	//강좌 번호로 강의 이름 알아내는 서비스
+	public String getLectureName(int lectureNo);
+	
+	//페이징_게시판을 위한 마지막 게시판을 찾아내는 쿼리
+	public int getRealEndPageForBoard(int lectureNo);
+	
 	
 }

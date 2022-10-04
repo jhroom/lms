@@ -88,8 +88,13 @@
 	              <div class="card-body">
 
 				
-					<a href="${pageContext.request.contextPath}/board/post/add/form?boardNo=${boardNo}&boardName=${boardName}&lectureNo=${lectureNo}">글쓰기</a>
-				
+					<c:if test="${boardType eq 1 && loginUser.userLevel eq 2}">
+						<a href="${pageContext.request.contextPath}/board/post/add/form?boardNo=${boardNo}&boardName=${boardName}&lectureNo=${lectureNo}">글쓰기</a>
+					</c:if>
+					<c:if test="${boardType ne 1 && loginUser.userLevel eq 2|| boardType ne 1 &&  loginUser.userLevel eq 3}">
+						<a href="${pageContext.request.contextPath}/board/post/add/form?boardNo=${boardNo}&boardName=${boardName}&lectureNo=${lectureNo}">글쓰기</a>
+					</c:if>
+					
 					<c:if test="${boardType eq 3 && loginUser.userLevel eq 2}">
 						<a href="${pageContext.request.contextPath}/board/removeBoard?boardNo=${boardNo}&lectureNo=${lectureNo}">게시판 삭제</a>
 					</c:if>

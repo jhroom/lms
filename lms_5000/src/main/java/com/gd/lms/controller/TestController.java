@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.service.IBoardService;
 import com.gd.lms.service.ITestService;
 import com.gd.lms.vo.Answer;
 import com.gd.lms.vo.MultiChoice;
@@ -26,6 +27,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class TestController {
 	@Autowired ITestService testService;
+	@Autowired IBoardService boardService;
+	
+
+	
 	
 
 	
@@ -68,10 +73,15 @@ public class TestController {
 		//넘겨줄 값 세팅
 		List<Map<String, Object>>  list = testService.getTestList(userLv, userId, lectureNo);
 		
+		//넘겨줄 값 세팅
+		String lectureName  = boardService.getLectureName(lectureNo);
+				
 		
 		//값 넘겨주기
 		model.addAttribute("testList",list);
 		model.addAttribute("lectureNo", lectureNo);
+		model.addAttribute("lectureName", lectureName);
+		
 		
 		
 		//리턴
