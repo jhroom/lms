@@ -36,15 +36,16 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">승인 대기 계정</h1>
+            <h1 class="m-0 text-dark">승인 대기</h1>
             	<a href="${pageContext.request.contextPath}/user/userList">계정 승인 페이지</a><br>
 				<a href="${pageContext.request.contextPath}/user/yesUser">승인 완료 계정</a><br>
 				<a href="${pageContext.request.contextPath}/user/hUser">휴면 계정</a>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/user/userList">UserList</a></li>
+              <li class="breadcrumb-item active">WaitList</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

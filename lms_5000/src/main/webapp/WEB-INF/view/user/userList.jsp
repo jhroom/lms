@@ -37,7 +37,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">계정 승인 페이지</h1>
+            <h1 class="m-0 text-dark">계정 승인</h1>
 			<a href="${pageContext.request.contextPath}/user/waitUser">승인 대기 계정</a><br>
 			<a href="${pageContext.request.contextPath}/user/yesUser">승인 완료 계정</a><br>
 			<a href="${pageContext.request.contextPath}/user/hUser">휴면 계정</a>
@@ -45,7 +45,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
-              <li class="breadcrumb-item active">계정 승인 페이지</li>
+              <li class="breadcrumb-item active">UserList</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -60,7 +60,7 @@
 	<!-- 가입승인 대기페이지 ? level값을 y , n 으로 변경하여 활성화처리 -->
 	<!-- 모든 user 정보를 볼 수 있는 페이지. -->
 	<div>
-		<table border="1">
+		<table class="table table-hover text-nowrap">
 			<thead>
 				<tr>
 					<th>ID</th>

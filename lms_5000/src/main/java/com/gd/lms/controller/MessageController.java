@@ -35,6 +35,7 @@ public class MessageController {
 		String id = ((User)session.getAttribute("loginUser")).getUserId();
 		user.setUserId(id);
 		
+		
 		System.out.println(id);
 		//리스트 불러오기
 		List<Message> list = messageService.selectMessageList(id);

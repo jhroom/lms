@@ -36,12 +36,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">비밀번호 찾기</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item active">비밀번호 찾기</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -55,7 +55,6 @@
       <div class="container-fluid">
 	<div>
 		<form action="${pageContext.request.contextPath}/user/findUserPw" method="post">
-		<h3>비밀번호 찾기</h3>
 		<table border="1">
 			<tr>
 				<td>id</td>
@@ -67,10 +66,10 @@
 			</tr>
 			<tr>
 				<td>전화번호</td>
-				<td><input type="text" name="userTel"></td>
+				<td><input type="text" name="userTel" placeholder="ex) 010-1234-5678"></td>
 			</tr>
 		</table>
-		<button type="submit" >입력</button>
+		<button type="submit" class="btn btn-sm btn-primary">입력</button>
 	</form>
 	
 	
@@ -83,8 +82,14 @@
 	</c:if>
 	</div>
 	</div>
-	<a href="${pageContext.request.contextPath}/index/login">로그인 페이지로 돌아가기</a>
-	<a href="${pageContext.request.contextPath}/user/findUserId">아이디 찾으러 가기</a>
+	<br>
+	<a href="${pageContext.request.contextPath}/index/login">
+	<button type="button" class="btn btn-sm btn-outline-primary btn-sm">로그인 하기</button>
+	</a>
+	
+	<a href="${pageContext.request.contextPath}/user/findUserId">
+	<button type="button" class="btn btn-sm btn-outline-primary btn-sm">비밀번호 찾기</button>
+	</a>
      </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

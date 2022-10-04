@@ -27,6 +27,15 @@ public class UserListController {
 	@GetMapping("/user/userList")
 	public String userList(Model model) {
 		
+//		  // 로그인 상태가 아니면 로그인페이지
+//		  if(session.getAttribute("user") == null) { 
+//			  return "redirect:/lms/user/login";
+//		  }
+//		  // 권한이 운영자가 아니면 인덱스 페이지
+//		  else if (Integer.parseInt((String) session.getAttribute("level")) == 1 || Integer.parseInt((String) session.getAttribute("level")) == 2) {
+//			  return "redirect:/lms/index";
+//		  }
+		
 		//리스트 불러오기
 		List<User> list = userService.selectUserList();
 		model.addAttribute("list", list);
@@ -52,6 +61,16 @@ public class UserListController {
 	@GetMapping("/user/waitUser")
 	
 	public String waitUserList(Model model){
+		
+//		  // 로그인 상태가 아니면 로그인페이지
+//		  if(session.getAttribute("user") == null) { 
+//			  return "redirect:/lms/user/login";
+//		  }
+//		  // 권한이 운영자가 아니면 인덱스 페이지
+//		  else if (Integer.parseInt((String) session.getAttribute("level")) == 1 || Integer.parseInt((String) session.getAttribute("level")) == 2) {
+//			  return "redirect:/lms/index";
+//		  }
+		
 		//리스트 불러오기
 		List<User> list = userService.selectWaitUserList();
 		model.addAttribute("list", list);
@@ -78,6 +97,15 @@ public class UserListController {
 	@GetMapping("/user/yesUser")
 	
 	public String yesUserList(Model model){
+//		  // 로그인 상태가 아니면 로그인페이지
+//		  if(session.getAttribute("user") == null) { 
+//			  return "redirect:/lms/user/login";
+//		  }
+//		  // 권한이 운영자가 아니면 인덱스 페이지
+//		  else if (Integer.parseInt((String) session.getAttribute("level")) == 1 || Integer.parseInt((String) session.getAttribute("level")) == 2) {
+//			  return "redirect:/lms/index";
+//		  }
+		
 		//리스트 불러오기
 		List<User> list = userService.selectYesUserList();
 		model.addAttribute("list", list);
@@ -104,6 +132,15 @@ public class UserListController {
 		@GetMapping("/user/hUser")
 		
 		public String hUserList(Model model){
+//			  // 로그인 상태가 아니면 로그인페이지
+//			  if(session.getAttribute("user") == null) { 
+//				  return "redirect:/lms/user/login";
+//			  }
+//			  // 권한이 운영자가 아니면 인덱스 페이지
+//			  else if (Integer.parseInt((String) session.getAttribute("level")) == 1 || Integer.parseInt((String) session.getAttribute("level")) == 2) {
+//				  return "redirect:/lms/index";
+//			  }
+			
 			//리스트 불러오기
 			List<User> list = userService.selectHUserList();
 			model.addAttribute("list", list);

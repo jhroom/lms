@@ -100,12 +100,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">메세지</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/user/messageList">MessageList</a></li>
+              <li class="breadcrumb-item active">Message</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -144,10 +145,10 @@
 			<textarea rows="20" cols="100" name="messageContent"></textarea>
 			
 			<br>
-			<button type="button" id="btn">메시지 전송</button>
+			<button type="button" class="btn btn-sm btn-primary">메시지 전송</button>
       </form>
 		<div style="position: absolute; right: 0px; bottom :60px;">
-		 <a href="${pageContext.request.contextPath}/user/messageList"><button type="submit"> 보관함으로 돌아가기 </button></a>
+		 <a href="${pageContext.request.contextPath}/user/messageList"><button type="submit" class="btn btn-sm btn-primary" > 보관함으로 돌아가기 </button></a>
 		</div>
 	</div>
 	

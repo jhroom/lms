@@ -36,12 +36,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">메시지 내용 보기</h1>
+            <h1 class="m-0 text-dark">메시지</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/user/messageList">MessageList</a></li>
+              <li class="breadcrumb-item active">read</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -70,9 +71,9 @@
     	${list.messageContent}
     	</textarea>
     	</c:forEach>
-
+		<br>
 		<a href="${pageContext.request.contextPath}/user/messageList">
-		<button type="button">리스트로 돌아가기</button></a>
+		<button type="button" class="btn btn-sm btn-primary">리스트로 돌아가기</button></a>
 
       </div><!-- /.container-fluid -->
     </div>

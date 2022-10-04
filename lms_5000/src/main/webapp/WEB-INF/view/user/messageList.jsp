@@ -36,12 +36,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">메세지</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
+              <li class="breadcrumb-item active">MessageList</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -57,7 +57,7 @@
 		<a href="${pageContext.request.contextPath}/user/messageList">전체 메시지 리스트</a>
 		<a href="${pageContext.request.contextPath}/user/sendmessageList">보낸 메시지 리스트</a>
 		<a href="${pageContext.request.contextPath}/user/receivemessageList">받은 메시지 리스트</a>
-		<table border="1">
+		<table class="table table-hover text-nowrap">
 			<thead>
 				<tr>
 					<th>보낸 사람</th>
@@ -83,7 +83,9 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<a href="${pageContext.request.contextPath}/user/message">메세지보내기</a><br>
+		<a href="${pageContext.request.contextPath}/user/message">
+		<button type="button" class="btn btn-sm btn-primary">메세지 보내기</button>
+		</a><br>
 		<div style="position: absolute; right: 0px; bottom :60px;">
 			메시지는 60일 보관이후 삭제됩니다.
 		</div>
