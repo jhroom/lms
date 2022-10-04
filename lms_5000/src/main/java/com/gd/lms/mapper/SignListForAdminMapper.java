@@ -13,11 +13,11 @@ public interface SignListForAdminMapper {
 	// 강좌 리스트 
 	List<Map<String, Object>> selectLectureList();
 	
-	// 강좌별 수강신청 리스트
+	// 강좌별 수강신청 인원 리스트
 	List<Map<String, Object>> selectStudentListByLecture(Sign sign);
 	
-	// 수강신청한 학생 정보
-	List<Map<String, Object>> selectStuInfomation();
+	// 과목 정보
+	List<Map<String, Object>> selectSubjectInfo();
 	
 	// 학생 수강신청 상태 변경
 	int updateSignState(Sign sign);

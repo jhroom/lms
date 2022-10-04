@@ -40,8 +40,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${contextPage.request.contextPath}/lms/dashBoard/lectureDashBoard?lectureNo=${1}">과목 대시보드</a></li>
+              <li class="breadcrumb-item active">성적확인</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

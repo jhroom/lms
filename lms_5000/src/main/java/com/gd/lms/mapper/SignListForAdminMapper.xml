@@ -38,6 +38,16 @@
 		WHERE l.lecture_no = #{lectureNo}
 	</select>
 	
+	<!-- 수강신청한 과목 정보 -->
+	<select id="selectSubjectInfo" resultType="map">
+		SELECT 
+			s.subject_grade,
+			s.subject_name,
+			m.major_name
+		FROM lecture l INNER JOIN subject s ON l.subject_no = s.subject_no
+		INNER JOIN major m ON s.major_no = m.major_no
+	</select>
+	
 	<!-- 학생 수강 상태 변경 -->
 	<update id="updateSignState" parameterType="com.gd.lms.vo.Sign">
 		UPDATE sign

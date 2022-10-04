@@ -3,7 +3,6 @@ package com.gd.lms.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ISignListforAdminService;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
-import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
 	
@@ -37,14 +35,18 @@ public class SignListForAdminController {
 		return "/sign/SignListForAdmin";
 	}
 	
-	// 각 강좌 별 수강 신청 현황
+	// 각 강좌 별 수강 신청 리스트 , 과목 정보
 	@GetMapping("/sign/SignListByLecture")
 	public String SignList(Sign sign, Model model) {
 		List<Map<String, Object>> getStudentList = signListforAdminService.getStudentListByLecture(sign);
-		// 서비스에서 넘어온 값 확인
-		log.debug(TeamColor.YHW + "-- getStudentList - Controller--"+ getStudentList );
+		List<Map<String, Object>> sbInfo = signListforAdminService.getSubjectInfo();
+		// 리스트 확인
+		log.debug(TeamColor.YHW + "-- 학생정보 - Controller--"+ getStudentList );
+		// 강좌 정보
+		log.debug(TeamColor.YHW + "-- 과목정보 - Controller--"+ sbInfo );
 		// 뷰로 넘길 값 model에 대입
 		model.addAttribute("getStudentList",getStudentList);
+		model.addAttribute("sbInfo",sbInfo);
 		return "/sign/SignListByLecture";
 	}
 	

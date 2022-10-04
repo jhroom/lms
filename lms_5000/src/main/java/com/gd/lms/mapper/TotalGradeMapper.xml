@@ -13,21 +13,24 @@
 			, t.grade_att gradeAtt
 			, t.grade_paper gradePaper
 			, s.user_id userId
-		from totalgrade t
-		inner JOIN sign s
+			, st.st_name stName
+		FROM totalgrade t
+		INNER JOIN sign s
 		ON t.sign_no = s.sign_no
-		WHERE s.lecture_no = 1
+		INNER JOIN student st
+		ON s.user_id = st.user_id
+		WHERE s.lecture_no = #{lectureNo}
 	</select>
 	
 	<!-- 학생 수강정보 출력 -->
-	<select id="selectSignNo" resultType="int">
+	<select id="selectSignNo" resultType="Integer">
 		SELECT sign_no
 		FROM sign
 		WHERE lecture_no = #{lectureNo}
 	</select>
 	
 	<!-- 특정 강좌의 총 문제수 출력 쿼리 -->
-	<select id="selectQuestionCnt" resultType="int">
+	<select id="selectQuestionCnt" resultType="Integer">
 		SELECT 
 			COUNT(q.question_no) questionCnt
 		FROM question q
@@ -39,7 +42,7 @@
 	</select>
 	
 	<!-- 특정 학생의 시험점수 확인 쿼리 -->
-	<select id="selectTestGrade" resultType="int">
+	<select id="selectTestGrade" resultType="Integer">
 		SELECT 
 			SUM(a.answer_score)/#{questionCnt}*100 score
 			, COUNT(q.question_no) questionCnt
@@ -100,7 +103,7 @@
 	      INNER JOIN sign s
 	      ON s.sign_no = t.sign_no
 	      ,(SELECT @RANK := 1) xx
-	      WHERE s.lecture_no = 1
+	      WHERE s.lecture_no = #{lectureNo}
 	      ORDER BY grade_total desc
 	</select>
 	
@@ -135,8 +138,8 @@
 		ON s.lecture_no = l.lecture_no
 		INNER JOIN subject sb
 		ON l.subject_no = sb.subject_no
-		WHERE s.user_id = 'tt'
-		AND s.lecture_no = 1
+		WHERE s.user_id = #{userId}
+		AND s.lecture_no = #{lectureNo}
 
 	</select>
 </mapper>

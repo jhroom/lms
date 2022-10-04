@@ -123,6 +123,7 @@ public class TotalGradeService implements ITotalGradeService{
 		return row;
 	}
 
+	// 학생 성적 확인
 	@Override
 	public Map<String, Object>  getTotalgradeForStu(String userId, int lectureNo) {
 		// 파라미터 확인

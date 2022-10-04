@@ -40,8 +40,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href=/grade/pro/form>강좌 대시보드</a></li>
+              <li class="breadcrumb-item active">성적입력 페이지</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -56,20 +56,27 @@
       
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
-      <a href="${pageContext.request.contextPath}/grade/pro/final?lectureNo=${lectureNo}">최종 학점 산출 버튼</a>
+	  <div class="container">
+	  <div class="col-sm-2">
+      	<a href="${pageContext.request.contextPath}/grade/pro/final?lectureNo=${lectureNo}" ><button class="btn btn-block btn-secondary"> 최종 학점 산출 버튼</button></a>
+	  </div>
+      </br>
 	  <input type="hidden" name="lectureNo" value="${lectureNo}">
       <form action="${pageContext.request.contextPath}/grade/pro/cal" method="post">
 	  <input type="hidden" name="lectureNo" value="${lectureNo}">
-	  <button type="submit">성적 산출 버튼</button>
-	  
-	  
-	      <table border="1">
+      <div class="col-sm-2">
+  		 <button type="submit" class="btn btn-block btn-info">성적 산출 버튼</button>
+      </div>
+      </br>
+	  <div class="card">
+	     <div class="card-body table-responsice p-0">
+           <table class="table table-hover text-nowrap">
 		      <thead>
 			      <tr>
 			      	<th>학생 이름</th>
 			      	<th>학생 아이디</th>
 			      	<th>시험점수</th>
-			      	<th>과제 점수<button id="paperTogleBtn" type="button">수정</button></th>
+			      	<th class="col-sm-1">과제 점수<button id="paperTogleBtn" type="button" class="btn btn-block btn-secondary">수정</button></th>
 			      	<th>출석 점수</th>
 			      	<th>총점</th>
 			      	<th>등수</th>
@@ -80,7 +87,7 @@
 			      <c:forEach items="${stuGradeList}" var="s">
 			      
 				      <tr>
-				      	<td>${s.userId}</td>
+				      	<td>${s.stName}</td>
 				      	<td>${s.userId}</td>
 				      	<td>${s.gradeTest}</td>
 				      	<td><input type="number" min="0" max="100" class="paper" name="paper" value="${s.gradePaper}" readonly></td>
@@ -89,11 +96,10 @@
 				  </c:forEach>
 		      </tbody>
 	      </table>
+	       </div>
+	  </div>
       </form>
-      
-
-
-
+      </div>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

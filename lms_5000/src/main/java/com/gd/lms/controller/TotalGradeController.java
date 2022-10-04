@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ITotalGradeService;
+import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.Totalgrade;
 import com.gd.lms.vo.User;
 
@@ -45,13 +46,12 @@ public class TotalGradeController {
 	//각 점수 입력 및 산출 기능
 	@PostMapping("/grade/pro/cal")
 	public String calGrade(HttpSession sesssion, int [] paper, int lectureNo) {
+		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / lectureNo : " + lectureNo);
 		log.debug(TeamColor.KHJ + "파라미터 확인 / paper : " + Arrays.toString(paper));
 		
 		int row = totalGradeService.calGrade(lectureNo, paper);
-		
-		
 		//다시 폼으로 전송
 		return "redirect:/grade/pro/form?lectureNo="+lectureNo;		
 	}
@@ -75,12 +75,14 @@ public class TotalGradeController {
 	
 	//학생 성적 폼 전송
 	@GetMapping("/grade/stu/form")
-	public String goGradeStuForm(HttpSession session, Model model,int lectureNo) {
+	public String goGradeStuForm(HttpSession session, Model model,int lectureNo,Sign sign) {
 		// 파라미터 확인 디버깅
 		log.debug(TeamColor.YHW + "파라미터 확인 / lectureNo : " + lectureNo);
 		
 		//로그인 아이디 추출
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		sign.setUserId(userId);
+		log.debug(TeamColor.YHW + "파라미터 확인 / userId : " + userId);
 		
 		// 리턴값 셋팅
 		Map<String, Object>  grade = totalGradeService.getTotalgradeForStu(userId, lectureNo);
