@@ -36,12 +36,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">공지사항 수정</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList">LmsNotice List</a></li>
+              <li class="breadcrumb-item"><a href="javascript:window.history.back();">LmsNotice One</a></li>
+              <li class="breadcrumb-item active">Update LmsNotice</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -57,9 +59,9 @@
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
       <div>
-		<h3>공지 수정</h3>
+		
 		<form action="${pageContext.request.contextPath}/lmsNotice/updateLmsNotice" method="post">
-		<table border="1" bordercolor="green">
+		<table class="table table-hover text-nowrap">
 			<tbody>
 				<tr>
 					<input type="hidden" name="lmsNoticeNo" value="${noticeOne.lmsNoticeNo}">
@@ -115,9 +117,9 @@
 		
 		
 		
-		<a href="javascript:history.back();">수정취소</a>
+		<a href="javascript:history.back();" class="btn btn-success">수정취소</a>
 		&nbsp; 
-		<button type="submit">수정</button>
+		<button type="submit" class="btn btn-success">수정</button>
 		</form>
 	</div>
       

@@ -36,12 +36,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">공지사항 작성</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList">LmsNotice List</a></li>
+              <li class="breadcrumb-item active">Add LmsNotice</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -53,14 +54,11 @@
     <!-- 메인 콘텐츠 -->
     <div class="content">
       <div class="container-fluid">
-      
-      <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
-      <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
-      <div class="container">
-    <h1>LMS 공지사항 작성</h1>
+          
+    
     <form action="${pageContext.request.contextPath}/lmsNotice/LmsNoticeAddBoard//add" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="boardNo" id="boardNo" value="${lmsNoticeNo}">
-		<table border="1" bordercolor="green">
+		<table class="table table-hover text-nowrap">
 			
 			<tbody>
 				<tr>
@@ -85,11 +83,11 @@
 				</tr>		
 			</tbody>
 		</table>
-		<button type="submit">작성하기</button>
+		<button class="btn btn-success" type="submit">작성하기</button>
 	<!--  	<button type="submit" onclick="javascript:form.action='${pageContext.request.contextPath}/lmsNotice/LmsNoticeList'">글목록</button>-->
 		
 	</form>
-</div>
+
       
 
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILmsNoticeService;
+import com.gd.lms.service.IMypageService;
 import com.gd.lms.vo.LmsNotice;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class LmsNoticeController {
 	@Autowired ILmsNoticeService lmsNoticeService;
+	@Autowired IMypageService mypageService;
 	
 	// 공지 리스트
 	@GetMapping("/lmsNotice/LmsNoticeList")
@@ -40,7 +43,11 @@ public class LmsNoticeController {
 
 	//공지 추가
 	@GetMapping("/lmsNotice/LmsNoticeAddBoard")
-	public String LmsNoticeAddBoard() {
+	public String LmsNoticeAddBoard(HttpSession session, Model model) throws Exception {
+		
+		//String userId=((User)session.getAttribute("loginUser")).getUserId();
+		
+		//model.addAttribute("userId", userId);
 		
 		return "/lmsNotice/LmsNoticeAddBoard";
 		

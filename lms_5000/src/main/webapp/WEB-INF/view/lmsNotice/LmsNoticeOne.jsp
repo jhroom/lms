@@ -36,12 +36,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">공지 상세보기</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList">LmsNotice List</a></li>
+              <li class="breadcrumb-item active">LmsNotice One</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -55,8 +56,7 @@
       <div class="container-fluid">
       
      <div>
-		<h3>공지 상세보기</h3>
-		<table border="1" bordercolor="green">
+		<table class="table table-hover text-nowrap">
 			<tbody>
 				<tr>
 					<th>번호</th>
@@ -97,11 +97,11 @@
 			
 		</table>
 		
-		<a href="${pageContext.request.contextPath}/lmsNotice/deleteLmsNotice?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}" class="btn btn-info" role="button">삭제</a>
+		<a href="${pageContext.request.contextPath}/lmsNotice/deleteLmsNotice?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}" class="btn btn-success" role="button">삭제</a>
 		&nbsp; 
-		<a href="${pageContext.request.contextPath}/lmsNotice/UpdateLmsNotice/form?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}" class="btn btn-info" role="button">수정</a>
+		<a href="${pageContext.request.contextPath}/lmsNotice/UpdateLmsNotice/form?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}" class="btn btn-success" role="button">수정</a>
 		&nbsp; 
-		<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList" class="btn btn-info" role="button">리스트</a>
+		<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList" class="btn btn-success" role="button">리스트</a>
 		
 	</div>
       

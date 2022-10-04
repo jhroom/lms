@@ -44,7 +44,8 @@ public class MajorController {
 	// 학과 추가
 	@GetMapping("/lmsMajor/addMajor")
 	public String addMajor(HttpSession session, Model model) throws Exception {
-		//세션값 중 ID만 가져오기
+	
+		//세션값 중 ID만 가져오기		
 		String userId=((User)session.getAttribute("loginUser")).getUserId();
 		
 		//디버깅 이름 잘 들어왔나?
