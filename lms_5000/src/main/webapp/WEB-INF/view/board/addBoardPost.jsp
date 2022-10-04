@@ -35,7 +35,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">게시글 작성</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -56,12 +56,11 @@
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
 			<div>
-				<h3>게시글 작성</h3>
 				<form action="${pageContext.request.contextPath}/board/post/add" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="boardNo" id="boardNo" value="${boardNo}">
 					<input type="hidden" name="lectureNo" id="lectureNo" value="${lectureNo}">
 					
-					<table border="1">
+					<table class="table table-hover text-nowrap">
 						<thead>
 							<tr>
 								<th>구분</th><th>내용</th>
@@ -70,20 +69,20 @@
 						<tbody>
 							<tr>
 								<th>게시판</th>
-								<td><input type="text" name="boardName" id="boardName" value="${boardName}" readonly></td>
+								<td><input class="form-control" type="text" name="boardName" id="boardName" value="${boardName}" readonly></td>
 							</tr>
 							<tr>
 								<th>제목</th>
-								<td><input type="text" name="boardPostTitle" id="boardPostTitle"></td>
+								<td><input class="form-control" type="text" name="boardPostTitle" id="boardPostTitle"></td>
 							</tr>
 							
 							<tr>
 								<th>작성자</th>
-								<td><input type="text" name="boardPostWriter" id="boardPostWriter" value="세션 id" readonly></td>
+								<td><input class="form-control" type="text" name="boardPostWriter" id="boardPostWriter" value="${loginUser.userName}(${loginUser.userId})" readonly></td>
 							</tr>
 							<tr>
 								<th>내용</th>
-								<td><textarea name="boardPostContent" id="boardPostContent"></textarea></td>
+								<td><textarea class="form-control" name="boardPostContent" id="boardPostContent" style="width:100%;height: 6.25em;resize: none;"></textarea></td>
 							</tr>		
 							<tr>
 								<th>첨부파일</th>
@@ -92,7 +91,7 @@
 							</tr>		
 						</tbody>
 					</table>
-					<button type="submit">제출하기</button>
+					<button class="btn btn-success" type="submit">제출하기</button>
 				</form>
 			</div>
       

@@ -1,0 +1,6 @@
+#robots.txt
+#모든 크롤러로부터
+#모든 디렉토리 크롤링 제한
+
+User-agent: *
+Disallow: /

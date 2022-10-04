@@ -65,7 +65,7 @@
 					<input type="hidden" name="boardPostNo" value="${boardPostNo}">
 					
 					
-						<table border="1">
+						<table class="table table-hover text-nowrap">
 							<thead>
 								<tr>
 									<th>구분</th><th>내용</th>
@@ -74,7 +74,7 @@
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td><input type="text" name="boardPostTitle" value="${boardOne.boardPostTitle}"></td>
+									<td><input class="form-control" type="text" name="boardPostTitle" value="${boardOne.boardPostTitle}"></td>
 								</tr>
 								<tr>
 									<th>작성자</th>
@@ -94,7 +94,7 @@
 								</tr>
 								<tr>
 									<th>내용</th>
-									<td><input type="text" name="boardPostContent" value="${boardOne.boardPostContent}"></td>
+									<td><input class="form-control" type="text" name="boardPostContent" value="${boardOne.boardPostContent}"></td>
 								</tr>		
 								<tr>
 									<th>첨부파일</th>

@@ -89,10 +89,10 @@ public class BoardController {
 		
 	}
 	
-	
+	// 삭제 예정
 	//게시판 게시글 출력 메서드
 	@GetMapping("/board/post")
-	public String getBoardPostList(int boardNo, String boardName, int lectureNo,  Model model) {
+	public String getBoardPostList(Board board, int boardNo, String boardName, int lectureNo,  Model model) {
 		
 		//파라미터 확인 디버깅
 		System.out.println("[boardCtrl] boardNo : " + boardNo);	
@@ -105,9 +105,10 @@ public class BoardController {
 		
 		//값 넘겨주기
 		model.addAttribute("boardPostList",list);
-		model.addAttribute("boardName",boardName);
-		model.addAttribute("boardNo",boardNo);
-		model.addAttribute("lectureNo",lectureNo);
+		model.addAttribute("boardName",board.getBoardName());
+		model.addAttribute("boardNo",board.getBoardNo());
+		model.addAttribute("lectureNo",board.getLectureNo());
+		model.addAttribute("boardType",3);	
 		
 		
 		//디버깅
@@ -136,6 +137,7 @@ public class BoardController {
 		model.addAttribute("boardPostList",list);
 		model.addAttribute("boardName",board.getBoardName());
 		model.addAttribute("boardNo",board.getBoardNo());
+		model.addAttribute("boardType",board.getBoardType());		
 		model.addAttribute("lectureNo",board.getLectureNo());
 		
 		
@@ -182,7 +184,7 @@ public class BoardController {
 	}
 
 	
-	//게시판 추가 메서드
+	//게시판 추가 폼 전송 메서드
 	@GetMapping("/board/add/form")
 	public String directAddBoard(int lectureNo, Model model) {
 		
@@ -239,7 +241,7 @@ public class BoardController {
 	}
 	
 	
-	//게시글 추가 메서드-	확인 필요
+	//게시글 추가 메서드
 	@PostMapping("/board/post/add")
 	public String addBoardPost(Board board, BoardPost boardPost, int lectureNo, MultipartFile[] uploadFile, HttpServletRequest request) throws UnsupportedEncodingException {
 		

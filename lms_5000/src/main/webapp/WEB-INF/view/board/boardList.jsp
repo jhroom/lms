@@ -36,7 +36,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">과목 게시판</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -58,62 +58,78 @@
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
 
 	<!-- 게시판 구역 -->
-	<div>
-		<!-- 공지사항 -->
-		<div>
-			<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${noticeNo}&boardName=공지사항">과목 공지사항</a></h3>
 
-		</div>
+<!-- 		<!-- 공지사항 -->
+<!-- 		<div> -->
+<%-- 			<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${noticeNo}&boardName=공지사항">과목 공지사항</a></h3> --%>
+
+<!-- 		</div> -->
 		
 		
-		<!-- Qna -->
-		<div>
-			<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${qnaNo}&boardName=QNA">과목 Qna</a></h3>
+<!-- 		<!-- Qna --> 
+<!-- 		<div> -
+<%-- 			<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${qnaNo}&boardName=QNA">과목 Qna</a></h3> --%>
 
-		</div>
+<!-- 		</div> -->
 			
-	
-		<!-- 과목 게시판 -->
-		<div>
-			<h3>과목 게시판</h3>
-			<a href="${pageContext.request.contextPath}/board/add/form?lectureNo=${lectureNo}">게시판 만들기</a>
-			<table border="1">
-				<thead>
-					<tr>
-						<th>게시판 번호</th><th>게시판 이름</th><th>게시판 생성일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="n" items="${boardList}">
-						<c:if test="${n.boardType eq 3}">
+			
+
+	        <div class="row">
+	<!-- 하단 구역 왼쪽 공지사랑 시작 -->
+	          <div class="col-12">
+	          	<div class="card">
+	              <div class="card-header">
+	                <h3 class="card-title">과목 게시판</h3>
+	                
+	                <div class="card-tools">
+	                	<!-- 감추거나 지우는 버튼들 -->
+	                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"> <i class="fas fa-minus"></i> </button>
+	                  <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove"> <i class="fas fa-times"></i> </button>
+	                </div>
+	              </div>
+	              <!-- End header -->
+	              
+	              <div class="card-body">
+					<c:if test="${loginUser.userLevel eq 2}">
+						<a href="${pageContext.request.contextPath}/board/add/form?lectureNo=${lectureNo}">게시판 만들기</a>
+					</c:if>
+					<table class="table table-hover text-nowrap">
+						<thead>
 							<tr>
-								<td>${n.boardNo}</td><td><a href="${pageContext.request.contextPath}/board/post?boardNo=${n.boardNo}&boardName=${n.boardName}&lectureNo=${lectureNo}">${n.boardName}</a></td><td>${n.createDate}</td>
+								<th>게시판 번호</th><th>게시판 이름</th><th>게시판 생성일</th>
 							</tr>
-						</c:if>
-					</c:forEach>
-				</tbody>
-			</table>
+						</thead>
+						<tbody>
+							<c:forEach var="n" items="${boardList}">
+								<c:if test="${n.boardType eq 3}">
+									<tr>
+										<td>${n.boardNo}</td><td><a href="${pageContext.request.contextPath}/board/post?boardNo=${n.boardNo}&boardName=${n.boardName}&lectureNo=${lectureNo}">${n.boardName}</a></td><td>${n.createDate}</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</tbody>
+					</table>
+					<!-- end table -->
+	              </div>
+	              <!-- end card-body -->
+	              <div class="card-footer">
+	                Footer 취향것
+	              </div>
+	              <!-- /.card-footer-->
+	            </div>
+	            <!-- /.card -->
+	          </div>
+	          <!-- End col12 -->
 		</div>
-			
-	
-	</div>
+		<!-- End row -->
 
+			
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
-  <!-- Control Sidebar -->
-  <!-- 좌측 사이드 바 -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
   
   
 <!-- 페이지 삽입 - footer -->

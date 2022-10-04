@@ -61,7 +61,7 @@
 			<h3>게시글 작성</h3>
 				<form action="${pageContext.request.contextPath}/board/add" method="get">
 					<input type="hidden" name="lectureNo" id="lectureNo" value="${lectureNo}">
-					<table border="1">
+					<table class="table table-hover text-nowrap">
 						<thead>
 							<tr>
 								<th>구분</th><th>내용</th>
@@ -70,7 +70,7 @@
 						<tbody>
 							<tr>
 								<th>게시판 이름</th>
-								<td><input type="text" name="boardName" id="boardName"></td>
+								<td><input class="form-control" type="text" name="boardName" id="boardName"></td>
 							</tr>
 						</tbody>
 					</table>

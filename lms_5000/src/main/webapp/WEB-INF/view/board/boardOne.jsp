@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -59,7 +60,7 @@
 			<div>
 				<div>
 				<h3><a href="${pageContext.request.contextPath}/board/post?boardNo=${boardNo}&boardName=${boardName}">${boardName} 게시판</a></h3>
-					<table border="1">
+					<table class="table table-hover text-nowrap">
 						<thead>
 							<tr>
 								<th>구분</th><th>내용</th>
@@ -101,9 +102,14 @@
 			
 						</tbody>
 					</table>
-					<a href="${pageContext.request.contextPath}/board/modifyPost/form?boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}">수정(미구현)</a>
-					<a href="${pageContext.request.contextPath}/board/removePost?boardPostNo=${boardOne.boardPostNo}&fileName=${boardOne.fileName}&boardName=${boardName}&boardNo=${boardNo}">삭제(미구현)</a>
 					
+					<!-- 작성자 이름 설정 -->
+					<c:set var="writer" value="${loginUser.userName}(${loginUser.userId})"/>
+					
+					<c:if test="${loginUser.userLevel eq 2 || writer eq boardOne.boardPostWriter}">
+						<a href="${pageContext.request.contextPath}/board/modifyPost/form?boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}">수정</a>
+						<a href="${pageContext.request.contextPath}/board/removePost?boardPostNo=${boardOne.boardPostNo}&fileName=${boardOne.fileName}&boardName=${boardName}&boardNo=${boardNo}">삭제</a>
+					</c:if>
 				</div>
 				
 				<!-- 댓글 입력 폼 -->
