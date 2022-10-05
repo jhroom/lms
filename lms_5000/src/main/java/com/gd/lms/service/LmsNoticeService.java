@@ -180,6 +180,17 @@ public class LmsNoticeService implements ILmsNoticeService {
 		
 		
 	}
+
+
+
+	//페이징 - 마지마 페이지 구하기
+	@Override
+	public int getRealEndPage(int lmsNoticeNo) {
+		
+		int realEndPage = lmsNoticeMapper.selectRealEndPage(lmsNoticeNo);
+		
+		return realEndPage;
+	}
 	
 
 }

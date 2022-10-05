@@ -25,6 +25,8 @@ public interface ILmsNoticeService {
 	public Map<String, Object> getLmsNoticeOne(int lmsNoticeNo);
 	// 공지 파일 다운로드
 	public ResponseEntity<Object> douwnloadFile(String fileName, String realPatth);
+	// 페이징 마지막 페이지 구하기
+	public int getRealEndPage(int lmsNoticeNo);
 	
 	
 	

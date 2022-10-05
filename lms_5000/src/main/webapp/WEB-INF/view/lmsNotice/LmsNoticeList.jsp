@@ -71,7 +71,9 @@
 <!-- End header -->
 	<div class="card-body">		
 	<div>
+		<c:if test="${loginUser.userLevel eq 4}">
 		<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeAddBoard" class="btn btn-primary">글 작성</a>
+		</c:if>
 	</div>
 	<div>
 	
@@ -132,4 +134,3 @@
 
 </body>
 </html>
-

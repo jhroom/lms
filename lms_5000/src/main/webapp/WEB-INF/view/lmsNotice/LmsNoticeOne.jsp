@@ -96,12 +96,13 @@
 			</tbody>
 			
 		</table>
-		
+		<c:if test="${loginUser.userLevel eq 4}">
 		<a href="${pageContext.request.contextPath}/lmsNotice/deleteLmsNotice?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}" class="btn btn-success" role="button">삭제</a>
 		&nbsp; 
 		<a href="${pageContext.request.contextPath}/lmsNotice/UpdateLmsNotice/form?lmsNoticeNo=${lmsNoticeNo}&lmsNotice/lmsNoticeTitle=${lmsNoticeTitle}" class="btn btn-success" role="button">수정</a>
 		&nbsp; 
-		<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList" class="btn btn-success" role="button">리스트</a>
+		</c:if>
+		<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList" class="btn btn-success" role="button">목록으로</a>
 		
 	</div>
       

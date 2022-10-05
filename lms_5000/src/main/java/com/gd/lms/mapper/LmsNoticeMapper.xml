@@ -94,6 +94,14 @@
 		WHERE n.lms_notice_no=#{lmsNoticeNo}
 		<!-- lmsFile이랑 join -->
 	</select>
+	
+	<!-- 페이징 - 마지막 페이지 -->
+	<select id="selectRealEndPage" resultType="int">
+		SELECT COUNT(lms_notice_no) cnt
+		FROM lms_notice
+		WHERE lms_notice_no = #{lmsNoticeNo}
+		
+	</select>
 
 
 

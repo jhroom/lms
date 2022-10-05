@@ -1,6 +1,7 @@
 package com.gd.lms.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -32,11 +33,59 @@ public class LmsNoticeController {
 	@GetMapping("/lmsNotice/LmsNoticeList")
 	public String getLmsNoticeList(Model model) {
 		
+//		//페이징
+//		int startPage=0;
+//		int endPage=0;
+//		
+//		//마지막 페이지 구하기
+//		int realEndPage = lmsNoticeService.getRealEndPage(lmsNoticeNo); 
+//		
+//		if(realEndPage%2==0) {
+//			realEndPage = realEndPage/2;
+//		} else {
+//			realEndPage = realEndPage/2+1;
+//		}
+//		
+//		// 페이지가 0보다 작으면 1로
+//		if(currentPage <= 0) {
+//			currentPage =1;
+//		}
+//		
+//		//현 페이지가 마지막 페이지보다 크면 마지막 페이지로
+//		if(currentPage >= realEndPage) {
+//			currentPage = realEndPage;
+//		}
+//		
+//		int startNo = currentPage * 2 - 2;
+//		
+//		startPage = currentPage / 2 * 2 + 1;
+//		endPage = startPage+10;
+//		
+//		//마지막 페이지 세팅
+//		if(endPage > realEndPage) {endPage=realEndPage;}
+//		
+//		//넘겨줄 배열값 세팅
+//		int [] pages = new int[endPage - startPage+1];
+//		
+//		for(int i=0; i<pages.length; i++) {
+//			pages[i] = startPage + i;
+//		}
+//		
+//		//페이징 디버깅
+//		log.debug(TeamColor.SSH + "startPage: " + startPage);
+//		log.debug(TeamColor.SSH + "endPage" + endPage);
+//		log.debug(TeamColor.SSH + "realEndPage" + realEndPage);
+//		log.debug(TeamColor.SSH + "startNo : " + startNo);
+//		log.debug(TeamColor.SSH + "pages : " + Arrays.toString(pages));
+		
 		
 		
 		//리스트 불러오기
 		List<LmsNotice> LmsNoticeList = lmsNoticeService.getLmsNoticeList();
 		model.addAttribute("lmsNoticeList", LmsNoticeList);
+//		model.addAttribute("lmsNoticeNo", lmsNoticeNo);
+//		model.addAttribute("currentPage", currentPage);
+		
 		return "/lmsNotice/LmsNoticeList";
 		
 	}

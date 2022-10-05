@@ -23,5 +23,7 @@ public interface LmsNoticeMapper {
 	public Map<String, Object> selectLmsNoticeOne(int lmsNoticeNo);
 	//게시글 파일 추가
 	public int insertLmsNoticeFile(LmsFile lmsFile);
+	//페이징 마지막 페이지
+	public int selectRealEndPage(int lmsNoticeNo);
 	
 }
