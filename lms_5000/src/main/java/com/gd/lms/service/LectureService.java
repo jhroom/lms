@@ -26,8 +26,8 @@ public class LectureService implements ILectureService {
 	
 	@Override
 	// 수강신청을 위한 개설강좌 목록
-	public List<Map<String, Object>> selectLectureListForSign() {
-		List<Map<String, Object>> Lecturelist = lecturemapper.selectLectureListForSign();
+	public List<Map<String, Object>> selectLectureListForSign(int beginRow, int rowPerPage) {
+		List<Map<String, Object>> Lecturelist = lecturemapper.selectLectureListForSign(beginRow,rowPerPage);
 		//디버깅
 		log.debug(TeamColor.YHW + "-- Lecturelist-service--"+ Lecturelist );
 		return Lecturelist;

@@ -15,32 +15,9 @@
 
 </head>
 <body class="hold-transition sidebar-mini">
-
-<!-- 전체 페이지 래퍼 -->
-<div class="wrapper">
-
-
 <!-- 페이지 삽입 - nav bar -->
-<%@include file="../import/nav.jsp" %>
-
-<!-- 페이지 삽입 - side bar -->
-<%@include file="../import/sidebar.jsp" %>
 
 
-  <c:choose>
-			<c:when test="${loginUser != null}">
-				<p>${loginUser.userName}님 환영합니다.</p>
-				<c:if test="${loginUser.userLevel eq 1 || loginUser.userLevel eq 3}">
-				<a href="${pageContext.request.contextPath}/index">권한제한</a>
-				</c:if>
-			</c:when>
-			<c:otherwise>
-				<a href="${pageContext.request.contextPath}/index/login">로그인하러가기</a>
-			</c:otherwise>
-		</c:choose>
-  <!-- Content Wrapper. Contains page content -->
-  <!-- 메인 컨텐츠 래퍼 -->
-  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <!-- 메인페이지 헤더(제목 등) -->
     <div class="content-header">
@@ -48,9 +25,6 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0 text-dark">수강신청 페이지</h1>
-            
-
-            
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -100,7 +74,6 @@
 						   <c:if test="${signTime >= 21}">
 						   		<p style="color:red">초과 등록 불가</p>
 						   </c:if>
-						   
 						</td>
 					</tr>
 				</c:forEach>
@@ -108,6 +81,28 @@
 			</table>
           </div>
           </div><!-- /.card -->
+          <div class="card-footer">
+					  <nav aria-label="Contacts Page Navigation">
+			            <ul class="pagination justify-content-center m-0">
+			            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/sign/openLectureList?&currentPage=1">첫페이지</a></li>
+			            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/sign/openLectureList?currentPage=${currentPage - 1}">이전쪽</a></li>
+								<c:forEach items="${pages}" var="p">
+									<c:if test="${p eq currentPage}">
+
+						              <li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/sign/openLectureList?currentPage=${p}">${p}</a></li>
+						            </c:if>
+						            <c:if test="${p ne currentPage}">
+						              <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sign/openLectureList?currentPage=${p}">${p}</a></li>
+						            </c:if>
+								</c:forEach>
+							<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/sign/openLectureList?currentPage=${currentPage + 1}">다음쪽</a></li>
+							<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/sign/openLectureList?currentPage=${realLastPage}">마지막페이지</a></li>
+			            </ul> 
+			          </nav>
+	              </div>
+	              <!-- /.card-footer-->
+	            </div>
+	    
 	</div>
 	<br>
 	<div class="card">
@@ -191,13 +186,10 @@
 					<c:choose >
 					<c:when test="${c.user_id eq c.cancel_id }">(학생)</c:when>
 					<c:when test="${c.user_id ne c.cancel_id}">(운영자)</c:when>
-					<c:otherwise>
-					(운영자)
-					</c:otherwise>
 					</c:choose>
 					</td>
 					<td>	
-						<c:choose >
+					<c:choose >
 					<c:when test="${c.user_id eq c.cancel_id }">학생 개인 사유</c:when>
 					<c:when test="${c.user_id ne c.cancel_id}">수강 기준 부합</c:when>
 					</c:choose>
@@ -209,24 +201,8 @@
 			</table>
 		    </div><!-- /.card -->
 	</div>
-	</div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+    <!-- /.row -->   
     <!-- /.content -->
-  <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <!-- 좌측 사이드 바 -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-  
-  
 <!-- 페이지 삽입 - footer -->
 <%@include file="../import/footer.jsp" %>
 <!-- ./wrapper -->

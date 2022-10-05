@@ -12,7 +12,7 @@ import com.gd.lms.vo.SignCancel;
 @Mapper
 public interface LectureMapper {
 	// 수강신청을 하기위한 개설 강좌 리스트 보기
-	List<Map<String, Object>> selectLectureListForSign();
+	List<Map<String, Object>> selectLectureListForSign(int beginRow, int rowPerPage);
 	
 	// 수강 신청
 	int insertSign(Sign sign);

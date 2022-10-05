@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gd.lms.commons.PageUtil;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILectureService;
 import com.gd.lms.vo.Sign;
@@ -23,10 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class LectureController {
   @Autowired ILectureService lectureService;
-  
+  PageUtil PageUtil = new PageUtil();
 	
   @GetMapping ("/sign/openLectureList")
-   public String selectLectureListForSign(Model model, Sign sign, SignCancel signCancel, HttpSession session, int currentPage) {
+   public String selectLectureListForSign(Model model, Sign sign, SignCancel signCancel, HttpSession session, @RequestParam(required=false, value="currentPage", defaultValue="1")int currentPage) {
 //		  // 로그인 상태가 아니면 로그인페이지
 //		  if(session.getAttribute("user") == null) { 
 //			  return "redirect:/lms/user/login";
@@ -48,66 +50,31 @@ public class LectureController {
 	  }
 	  log.debug(TeamColor.KHJ + "test -- "+ test );
  	  
-	  	
+	  
+	  
+	  //페이징 용 파라미터값 디버깅
+	  log.debug(TeamColor.YHW + "-- currentPage - controller -- "+ currentPage ); 
+	  
+	  // 페이징 변수 설정
+	  Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, currentPage);
+	  
 	  // 개설강좌 목록 불러오기
-	  List<Map<String,Object>> lectureList = lectureService.selectLectureListForSign();
+	  List<Map<String,Object>> lectureList = lectureService.selectLectureListForSign((int)pageVariable.get("beginRow"),(int)pageVariable.get("rowPerPage"));
+	 
 	  // 개설강좌 목록 확인
  	  log.debug(TeamColor.YHW + "-- lectureList - controller -- "+ lectureList );
  	  
- 	  /******페이징******/
- 	  // 한 페이지에 나타낼 강좌 수 
- 	  int num = 10;
+ 	  //페이징 넘겨주는 값
+ 	  model.addAttribute("pages",pageVariable.get("pages"));
+ 	  model.addAttribute("currentPage",pageVariable.get("currentPage"));
+ 	  model.addAttribute("realLastPage",pageVariable.get("realLastPage"));
  	  
- 	  // 개설강좌 총 개수
- 	  int getTotal = lectureService.getTotal();
- 	  
- 	  // 총 개수에 따른 페이지 수 
- 	  int page;
- 	  if (getTotal%num == 0) {
-		page = getTotal/num;
- 	  }else {
- 		page = getTotal/num+1;
- 	  }
- 	  
- 	  // 현재 페이지 설정 ( 0보다 작으면 1로 표시 )
- 	  if (currentPage <= 0) {
-		currentPage = 1;
- 	  }
- 	  
- 	  // 쿼리 시작 수 설정
- 	  int startNo = currentPage*num-num;
- 	  if(startNo < 0) {
- 		  startNo=0;
- 	  }
- 	  
- 	  // 페이지 셋팅
- 	  int startPage = page/10*10+1;
- 	  int endPage = startPage+10;
- 	  
- 	  // 마지막 페이지 세팅
- 	  if(endPage> page) {
- 		  endPage = page;
- 	  }
- 	  
- 	  // 넘겨줄 배열 값 셋팅
- 	  int [] arrPage = new int[endPage - startPage+1];
- 	  
- 	  for(int i=0;i<arrPage.length;i++) {
- 		  arrPage[i] = startPage+i;
- 		  
- 	  }
- 	  
- 	  // 페이징 변수값 디버깅
- 	 log.debug(TeamColor.YHW + "-- startPage-controller -- "+ startPage );
- 	 log.debug(TeamColor.YHW + "-- endPage-controller -- "+ endPage );
- 	 log.debug(TeamColor.YHW + "-- page-controller -- "+ page );
- 	 log.debug(TeamColor.YHW + "-- startNo-controller -- "+ startNo );
- 	 log.debug(TeamColor.YHW + "-- arrPage-controller -- "+ arrPage.toString() );
- 	  
- 	  /***************/
+ 	
  	  // 포워딩
  	  model.addAttribute("lectureList",lectureList);
 	  
+ 	  
+ 	  
  	  
 	  // 수강신청 리스트
  	  String userId = ((User)session.getAttribute("loginUser")).getUserId();
@@ -136,6 +103,9 @@ public class LectureController {
  	  // 포워딩
       return "/sign/openLectureList";
 	  }
+  
+  
+  
   
   
 	  // 수강신청 추가

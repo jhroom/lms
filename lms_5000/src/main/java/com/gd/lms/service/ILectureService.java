@@ -9,10 +9,8 @@ import com.gd.lms.vo.SignCancel;
 
 public interface ILectureService {
 	// 개설강좌 수강신청 보기
-	public List<Map<String, Object>> selectLectureListForSign();
+	public List<Map<String, Object>> selectLectureListForSign(int beginRow, int rowPerPage);
 	
-	// 총 강좌 개수
-	public int getTotal();
 	
 	// 학생 수강 강좌 insert
 	public int addSign(Sign sign);
@@ -35,6 +33,8 @@ public interface ILectureService {
 	//학기 정보 확인
 	public boolean getSemesterCheck();
 	
-	
+	// 총 강좌 개수
+	public int getTotal();
+		
 	
 }
