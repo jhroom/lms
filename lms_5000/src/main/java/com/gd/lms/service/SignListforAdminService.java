@@ -1,5 +1,7 @@
 package com.gd.lms.service;
 
+import java.util.Arrays;
+
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +52,17 @@ public class SignListforAdminService implements ISignListforAdminService{
 		
 		//수정 쿼리 실행
 		int modifySignState = signListForAdminMapper.updateSignState(sign);
+		
+		if(sign.getSignState().equals("1")) {
+			int row = 0;
+			int [] week = signListForAdminMapper.selectLectureWeek(sign.getLectureNo());
+			log.debug("week 결과값 : " + Arrays.toString(week));
+			
+			for(int a : week) {
+				row = signListForAdminMapper.insertAttendance(a, sign.getSignNo());
+				log.debug(a+" 주차 출석 insert 결과값 : " + row);
+			}
+		}
 		
 		// 취소 주체에 따른 cancle 핸들링
 		//운영자가 수강 취소할 경우 signcancel테이블에 추가하기

@@ -1,6 +1,7 @@
 package com.gd.lms.mapper;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -27,5 +28,10 @@ public interface SignListForAdminMapper {
 	
 	//취소가 아닐 경우 signcancel테이블 삭제
 	int deleteSignCancel(SignCancel userId);
+	
+	//관리자가 수강신청으로 변경시 해당 강의 주차 조회
+	int[] selectLectureWeek(int lectureNo);
+	
+	int insertAttendance(int week, int signNo);
 	
 }

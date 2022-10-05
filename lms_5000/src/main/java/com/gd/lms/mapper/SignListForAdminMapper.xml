@@ -81,4 +81,29 @@
 		FROM sign_cancel
 		WHERE sign_no = #{signNo}
 	</delete>
+	
+	<!-- 수강상태 1로 변경시 파라미터 lectureNo로 week조회 -->
+	<select id="selectLectureWeek" resultType="int">
+		SELECT 
+			w.week week
+		FROM week w
+		WHERE w.lecture_no = #{lectureNo}
+	</select>
+	
+	<!-- 수강상태 신청으로 변경시 기본값 결석으로 insert -->
+	<insert id="insertAttendance">
+		INSERT  INTO
+		attendance(
+			week,
+			sign_no,
+			attend_state,
+			create_date,
+			update_date)
+		VALUES(
+			#{week},
+			#{signNo},
+			0,
+			NOW(),
+			NOW())
+	</insert>
 </mapper>
