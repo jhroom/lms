@@ -94,16 +94,34 @@ public class MypageController {
 	}
 	// 마이페이지 글쓴 목록 페이지
 	@GetMapping("index/mypage/postList")
-	public String myPostList(HttpSession session, Model model) {
+	public String myPostList(HttpSession session, Model model,
+			@RequestParam(value="nowPage", required=false) Integer paramNowPage,
+			@RequestParam(value="rowPerPage", required=false) Integer ParamRowPerPage) {
+		int nowPage = 1;
+		
+		if(paramNowPage != null) {
+			nowPage = paramNowPage;
+			log.debug(TeamColor.AJH + "파라미터 nowPage : " + nowPage);
+		}
+		model.addAttribute("nowPage",nowPage);
+		
+		int rowPerPage = 5;
+		if(ParamRowPerPage != null) {
+			rowPerPage = ParamRowPerPage;
+			log.debug(TeamColor.AJH + "파라미터 rowPerPage : " + rowPerPage);
+		}
+		
+		
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
-		System.out.println(TeamColor.AJH + "세션에 저장된 아이디 : " + userId);
+		int userLevel = ((User)session.getAttribute("loginUser")).getUserLevel();
+		
 		//게시글 리스트
-		List<Map<String, Object>> boardList = mypageService.getboardWriteList(userId);
+		List<Map<String, Object>> boardList = mypageService.getboardWriteList(userId, userLevel, nowPage, rowPerPage);
 		log.debug(TeamColor.AJH + "게시글 리스트 값 : " + boardList.toString());
 		model.addAttribute("boardList", boardList);
 		
 		//댓글 리스트
-		List<Map<String, Object>> commentList = mypageService.getCommentWriteList(userId);
+		List<Map<String, Object>> commentList = mypageService.getCommentWriteList(userId, userLevel);
 		log.debug(TeamColor.AJH + "댓글 리스트 값 : " + commentList.toString());
 		model.addAttribute("commentList", commentList);
 		

@@ -151,8 +151,8 @@
 		Where user_id = #{userId}
 	</update>
 	
-	<!-- 유저 아이디로 게시글 리스트 받아오기 -->
-	<select id="selectboardWriteList" parameterType="string" resultType="map">
+	<!-- 학생,교수 아이디로 게시글 리스트 받아오기 -->
+	<select id="selectboardWriteList" resultType="map">
 		SELECT
 			distinct
 			m.major_name majorName,
@@ -162,6 +162,7 @@
  			bp.board_post_no boardPostNo,
  			b.board_no boardNo,
  			bp.board_post_createdate boardPostCreatedate,
+ 			bp.board_post_updatedate boartPostUpdatedate,
  			bp.count count
 		from
 			professor p INNER JOIN lecture l
@@ -175,9 +176,10 @@
 							INNER JOIN board_post bp
 							ON b.board_no = bp.board_no
 		WHERE bp.board_post_writer = #{userId}
+		LIMIT #{beginRow},#{rowPerPage}
 	</select>
 	
-	<!-- 유저 아이디로 작성한 댓글 리스트 -->
+	<!-- 아이디로 작성한 댓글 리스트 -->
 	<select id="selectCommentWriteList" parameterType="string" resultType="map">
 		SELECT distinct 
 			m.major_name majorName,
@@ -202,6 +204,23 @@
 							INNER JOIN comment co
 							ON bp.board_post_no = co.board_post_no
 		WHERE co.comment_writer = #{userId}
+	</select>
+	
+	<!-- 운영자 작성글 리스트 -->
+	<select id="selectAdminBoardList" resultType="map">
+		SELECT
+			lms_notice_no noticeNo,
+			lms_notice_title noticeTitle,
+			lms_notice_content noticeContent,
+			lms_notice_name noticeName,
+			lms_notice_createtime createTime,
+			lms_notice_updatetime updateTime,
+			(SELECT 'Lms공지사랑' FROM DUAL) boardType,
+			count
+		FROM lms_notice 
+		WHERE lms_notice_name = #{userId}
+		LIMIT #{beginRow},#{rowPerPage}
+		
 	</select>
 	
 </mapper>
