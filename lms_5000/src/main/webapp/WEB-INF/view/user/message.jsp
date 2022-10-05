@@ -145,7 +145,7 @@
 			<textarea rows="20" cols="100" name="messageContent"></textarea>
 			
 			<br>
-			<button type="button" class="btn btn-sm btn-primary">메시지 전송</button>
+			<button type="button" id="btn" class="btn btn-sm btn-primary">메시지 전송</button>
       </form>
 		<div style="position: absolute; right: 0px; bottom :60px;">
 		 <a href="${pageContext.request.contextPath}/user/messageList"><button type="submit" class="btn btn-sm btn-primary" > 보관함으로 돌아가기 </button></a>

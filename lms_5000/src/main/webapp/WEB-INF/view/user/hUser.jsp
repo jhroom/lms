@@ -59,7 +59,7 @@
       <div class="container-fluid">
       
 		<div>
-		<table border="1">
+		<table class="table table-hover text-nowrap">
 			<thead>
 				<tr>
 					<th>ID</th>
@@ -131,7 +131,14 @@
 				</tbody>
 			</table>
 	</div>
-
+	          <ul class="pagination">
+              <c:if test="${currentPage > 1}">
+                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/user/hUser?currentPage=${currentPage-1}">이전</a></li>
+             </c:if>
+			 <c:if test="${currentPage < lastPage}">
+			    	<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/user/hUser?currentPage=${currentPage+1}">다음</a></li>
+			</c:if>
+			</ul>	
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

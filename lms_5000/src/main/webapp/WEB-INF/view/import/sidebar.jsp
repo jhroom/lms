@@ -123,6 +123,15 @@
                   <p>강좌 리스트</p>
                 </a>
               </li>
+              <c:if test="${loginUser.userLevel eq 4}">
+	               <li class="nav-item">
+	                <a href="${pageContext.request.contextPath}/user/userList" class="nav-link">
+	                  <i class="far fa-circle nav-icon"></i>
+	                	<p>유저 리스트</p>
+	                </a>
+	              </li>
+              </c:if>
+            
             </ul>
           </li>
           <!-- end 제작 -->
@@ -215,9 +224,10 @@
           
           <!-- 메세지 -->
           <li class="nav-item">
-            <a onclick="window.open('${pageContext.request.contextPath}/user/messageList'
+ <%--            <a onclick="window.open('${pageContext.request.contextPath}/user/messageList'
 				, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-th"></i> --%>
+           <a href="${pageContext.request.contextPath}/user/messageList" class="nav-link">
               <p>
                 메세지
                 <span class="right badge badge-danger">New</span>

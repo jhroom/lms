@@ -91,6 +91,15 @@
 		</div>
 	</div>
 	
+		<ul class="pagination">
+             <c:if test="${currentPage > 1}">
+                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/user/messageList?currentPage=${currentPage-1}">이전</a></li>
+             </c:if>
+			 <c:if test="${currentPage < lastPage}">
+			    	<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/user/messageList?currentPage=${currentPage+1}">다음</a></li>
+			</c:if>
+		</ul>	
+		
 	   </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

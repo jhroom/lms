@@ -11,13 +11,13 @@ import com.gd.lms.vo.Message;
 public interface MessageMapper {
 	
 	//메시지 리스트 출력 ( 전체 )
-	List<Message> selectMessgeList(String id);
+	List<Message> selectMessgeList(String sendId , String receiveId, int beginRow , int rowPerPage);
 
 	//메시지 리스트 출력 ( 발신 )
-	List<Message> selectSendMessageList(String id);
+	List<Message> selectSendMessageList(String sendId , int beginRow , int rowPerPage);
 	
 	//메시지 리스트 출력 ( 수신 )
-	List<Message> selectReceiveMessageList(String id);
+	List<Message> selectReceiveMessageList(String receiveId, int beginRow , int rowPerPage);
 	
 	//메시지 상세보기
 	public List<Message> selectMessageOne(int messageNo);
@@ -31,4 +31,13 @@ public interface MessageMapper {
 	
 	//메시지 삭제
 	public int deleteMessage();
+	
+	//전체 메시지 count
+	public int countMessage(String sendId , String receiveId);
+	
+	//보낸 메시지 count
+	public int countSendMessage(String sendId);
+	
+	//받은 메시지 count
+	public int countReceiveMessage(String receiveId);
 }

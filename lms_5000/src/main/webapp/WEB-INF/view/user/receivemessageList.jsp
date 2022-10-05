@@ -57,7 +57,7 @@
 		<a href="${pageContext.request.contextPath}/user/messageList">전체 메시지 리스트</a>
 		<a href="${pageContext.request.contextPath}/user/sendmessageList">보낸 메시지 리스트</a>
 		<a href="${pageContext.request.contextPath}/user/receivemessageList">받은 메시지 리스트</a>
-		<table border="1">
+		<table class="table table-hover text-nowrap">
 			<thead>
 				<tr>
 					<th>보낸 사람</th>
@@ -81,7 +81,15 @@
 		</table>
 		<a href="${pageContext.request.contextPath}/user/message">메세지보내기</a><br>
 	</div>
-	
+			<ul class="pagination">
+             <c:if test="${currentPage > 1}">
+                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/user/receivemessageList?currentPage=${currentPage-1}">이전</a></li>
+             </c:if>
+			 <c:if test="${currentPage < lastPage}">
+			    	<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/user/receivemessageList?currentPage=${currentPage+1}">다음</a></li>
+			</c:if>
+		</ul>	
+			
 	   </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

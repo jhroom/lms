@@ -4,7 +4,6 @@
 
 <!-- 승인 대기 명단 ( 모든 유저리스트를 보여주고 Y , N 을 조정할것) 가입일자 순으로 내림차순 정렬?
 	최근에 가입한 사람이 위로 올 수 있도록.
-	페이징처리는 나중에.
 -->
 <select id="selectUserList" resultType="com.gd.lms.vo.User">
 	SELECT
@@ -18,7 +17,8 @@
 		user_active userActive,
 		lastlogin_date lastloginDate
 	FROM user
-	ORDER BY create_date DESC;
+	ORDER BY create_date DESC
+	LIMIT #{beginRow} , #{rowPerPage};
 </select>
 
 <update id="updateUserActive" parameterType="com.gd.lms.vo.User">
@@ -45,7 +45,8 @@
 		lastlogin_date lastloginDate
 	FROM user
 	WHERE user_active = 'N'
-	ORDER BY create_date DESC;
+	ORDER BY create_date DESC
+	LIMIT #{beginRow} , #{rowPerPage};
 </select>
 
 <select id="selectYesUserList" resultType="com.gd.lms.vo.User">
@@ -62,7 +63,8 @@
 		lastlogin_date lastloginDate
 	FROM user
 	WHERE user_active = 'Y'
-	ORDER BY create_date DESC;
+	ORDER BY create_date DESC
+	LIMIT #{beginRow} , #{rowPerPage};
 </select>
 
 <select id="selectHUserList" resultType="com.gd.lms.vo.User">
@@ -79,7 +81,8 @@
 		lastlogin_date lastloginDate
 	FROM user
 	WHERE user_active = 'H'
-	ORDER BY create_date DESC;
+	ORDER BY create_date DESC
+	LIMIT #{beginRow} , #{rowPerPage};
 </select>
 
 <update id="updateUserActiveByLastLogin" parameterType="com.gd.lms.vo.User">
@@ -90,4 +93,31 @@
 	WHERE
 		DATEDIFF(NOW(), lastlogin_date ) >= 7 AND user_active = 'Y' AND user_level IN (2,3) 
 </update>
+
+<select id="countUserList" resultType="int">
+	SELECT
+	COUNT (*)
+	FROM user;
+</select>
+
+<select id="countYesUserList" resultType="int">
+	SELECT 
+	COUNT (*)
+	FROM user
+	WHERE user_active = 'Y';
+</select>
+
+<select id="countWaitUserList" resultType="int">
+	SELECT 
+	COUNT (*)
+	FROM user
+	WHERE user_active = 'N';
+</select>
+
+<select id="countHUserList" resultType="int">
+	SELECT 
+	COUNT (*)
+	FROM user
+	WHERE user_active = 'H';
+</select>
 </mapper>

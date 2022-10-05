@@ -21,9 +21,11 @@ public class UserListService implements IUserListService {
 	
 	//전체 유저 리스트
 	@Override
-	public List<User> selectUserList() {
+	public List<User> selectUserList(int currentPage, int rowPerPage) {
+		int beginRow = (currentPage-1)*rowPerPage;
+		
 		//List 세팅
-		List<User> list = userListMapper.selectUserList();
+		List<User> list = userListMapper.selectUserList(beginRow , rowPerPage);
 		
 		//디버그
 		log.debug(TeamColor.JCH + this.getClass() + " selectUserList 체크");
@@ -44,9 +46,11 @@ public class UserListService implements IUserListService {
 
 	//승인 대기 유저
 	@Override
-	public List<User> selectWaitUserList() {
+	public List<User> selectWaitUserList(int currentPage , int rowPerPage) {
+		int beginRow = (currentPage-1)*rowPerPage;
+
 		//List 세팅
-		List<User> list = userListMapper.selectWaitUserList();
+		List<User> list = userListMapper.selectWaitUserList(beginRow , rowPerPage);
 		
 		//디버그
 		log.debug(TeamColor.JCH + this.getClass() + " selectUserList 체크");
@@ -55,9 +59,12 @@ public class UserListService implements IUserListService {
 
 	//승인 완료 유저
 	@Override
-	public List<User> selectYesUserList() {
+	public List<User> selectYesUserList(int currentPage , int rowPerPage) {
+		int beginRow = (currentPage-1)*rowPerPage;
+
+		
 		//List 세팅
-		List<User> list = userListMapper.selectYesUserList();
+		List<User> list = userListMapper.selectYesUserList(beginRow , rowPerPage);
 				
 		//디버그
 		log.debug(TeamColor.JCH + this.getClass() + " selectUserList 체크");
@@ -66,9 +73,12 @@ public class UserListService implements IUserListService {
 	
 	//승인 완료 유저
 	@Override
-	public List<User> selectHUserList() {
+	public List<User> selectHUserList(int currentPage , int rowPerPage) {
+		int beginRow = (currentPage-1)*rowPerPage;
+
+		
 		//List 세팅
-		List<User> list = userListMapper.selectHUserList();
+		List<User> list = userListMapper.selectHUserList(beginRow , rowPerPage);
 				
 		//디버그
 		log.debug(TeamColor.JCH + this.getClass() + " selectUserList 체크");
@@ -82,6 +92,36 @@ public class UserListService implements IUserListService {
 		log.debug(TeamColor.JCH + this.getClass() + "휴면계정 변경");
 		return userListMapper.updateUserActiveByLastLogin();
 	}
+
+	@Override
+	public int lastPage() {
+		//디버깅
+		log.debug(TeamColor.JCH + this.getClass() + "마지막페이지 구하기 위한 전체 갯수 카운팅");
+		return userListMapper.countUserList();
+	}
+
+	@Override
+	public int lastPageYesUser() {
+		//디버깅
+		log.debug(TeamColor.JCH + this.getClass() + "마지막페이지 구하기 위한 승인유저 갯수 카운팅");
+		return userListMapper.countYesUserList();
+	}
+
+	@Override
+	public int lastPageWaitUser() {
+		//디버깅
+		log.debug(TeamColor.JCH + this.getClass() + "마지막페이지 구하기 위한 대기유저 갯수 카운팅");
+		return userListMapper.countWaitUserList();
+	}
+
+	@Override
+	public int lastPageHUser() {
+		//디버깅
+		log.debug(TeamColor.JCH + this.getClass() + "마지막페이지 구하기 위한 휴면유저 갯수 카운팅");
+		return userListMapper.countHUserList();
+	}
+	
+	
 
 	
 }

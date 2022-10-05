@@ -12,7 +12,8 @@
 			message_state messageState
 		FROM message
 		WHERE send_id= #{sendId} or receive_id =#{receiveId}
-		ORDER BY create_time DESC;
+		ORDER BY create_time DESC
+		LIMIT #{beginRow},#{rowPerPage};
 	</select>
 	
 	<select id="selectSendMessageList" resultType="com.gd.lms.vo.Message">
@@ -26,7 +27,8 @@
 			message_state messageState
 		FROM message
 		WHERE send_id= #{sendId}
-		ORDER BY create_time DESC;
+		ORDER BY create_time DESC
+		LIMIT #{beginRow},#{rowPerPage};
 	</select>
 	
 	<select id="selectReceiveMessageList" resultType="com.gd.lms.vo.Message">
@@ -40,7 +42,8 @@
 			message_state messageState
 		FROM message
 		WHERE receive_id =#{receiveId}
-		ORDER BY create_time DESC;
+		ORDER BY create_time DESC
+		LIMIT #{beginRow},#{rowPerPage};
 	</select>
 	
 	<select id="selectMessageOne" resultType="com.gd.lms.vo.Message">
@@ -87,4 +90,24 @@
 		WHERE 
 			DATEDIFF(NOW() ,create_time ) >= 60 ;
 	</delete>
+	
+	<select id="countMessage" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM message
+		WHERE send_id = #{sendId} or receive_id = #{receiveId};
+	</select>
+	<select id="countSendMessage" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM message
+		WHERE send_id = #{sendId};
+	</select>
+	
+	<select id="countReceiveMessage" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM message
+		WHERE receive_id = #{receiveId};
+	</select>
 </mapper>

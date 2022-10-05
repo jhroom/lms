@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.IMypageService;
@@ -25,7 +26,9 @@ public class UserListController {
 	@Autowired IMypageService mypageService;
 	//유저 리스트
 	@GetMapping("/user/userList")
-	public String userList(Model model) {
+	public String userList(Model model,
+			@RequestParam(value="currentPage", required=false) Integer paramcurrentPage,
+			@RequestParam(value="rowPerPage", required=false) Integer ParamRowPerPage) {
 		
 //		  // 로그인 상태가 아니면 로그인페이지
 //		  if(session.getAttribute("user") == null) { 
@@ -36,8 +39,36 @@ public class UserListController {
 //			  return "redirect:/lms/index";
 //		  }
 		
+	
+		//페이징
+		int currentPage = 1;
+			
+			if(paramcurrentPage != null) {
+				currentPage = paramcurrentPage;
+				log.debug(TeamColor.JCH + " 현재페이지 currentPage" + currentPage);
+			}
+			
+			model.addAttribute("currentPage",currentPage);
+			
+		int rowPerPage = 10;
+			if(ParamRowPerPage !=null) {
+				rowPerPage = ParamRowPerPage;
+				log.debug(TeamColor.JCH + "보여지는 페이지 rowPerPage " + rowPerPage);
+			}
+			
+		//마지막 페이지
+		int total = userService.lastPage();
+		int lastPage =0;
+		
+		lastPage = total / rowPerPage;
+		if( total % rowPerPage != 0) {
+			lastPage+=1;
+			System.out.println(total);
+		}
+		model.addAttribute("lastPage" , lastPage);
+		
 		//리스트 불러오기
-		List<User> list = userService.selectUserList();
+		List<User> list = userService.selectUserList(currentPage , rowPerPage);
 		model.addAttribute("list", list);
 		
 		log.debug(TeamColor.JCH + this.getClass()  + " 유저 리스트 출력 ");
@@ -60,7 +91,9 @@ public class UserListController {
 	//승인대기 유저 리스트 페이지
 	@GetMapping("/user/waitUser")
 	
-	public String waitUserList(Model model){
+	public String waitUserList(Model model,
+			@RequestParam(value="currentPage", required=false) Integer paramcurrentPage,
+			@RequestParam(value="rowPerPage", required=false) Integer ParamRowPerPage){
 		
 //		  // 로그인 상태가 아니면 로그인페이지
 //		  if(session.getAttribute("user") == null) { 
@@ -71,8 +104,35 @@ public class UserListController {
 //			  return "redirect:/lms/index";
 //		  }
 		
+		//페이징
+		int currentPage = 1;
+			
+			if(paramcurrentPage != null) {
+				currentPage = paramcurrentPage;
+				log.debug(TeamColor.JCH + " 현재페이지 currentPage" + currentPage);
+			}
+			
+			model.addAttribute("currentPage",currentPage);
+			
+		int rowPerPage = 10;
+			if(ParamRowPerPage !=null) {
+				rowPerPage = ParamRowPerPage;
+				log.debug(TeamColor.JCH + "보여지는 페이지 rowPerPage " + rowPerPage);
+			}
+			
+		//마지막 페이지
+		int total = userService.lastPageWaitUser();
+		int lastPage =0;
+		
+		lastPage = total / rowPerPage;
+		if( total % rowPerPage != 0) {
+			lastPage+=1;
+			System.out.println(total);
+		}
+		model.addAttribute("lastPage" , lastPage);
+		
 		//리스트 불러오기
-		List<User> list = userService.selectWaitUserList();
+		List<User> list = userService.selectWaitUserList(currentPage , rowPerPage);
 		model.addAttribute("list", list);
 		
 		log.debug(TeamColor.JCH + this.getClass()  + " 승인 대기 유저 리스트 출력 ");
@@ -96,7 +156,9 @@ public class UserListController {
 	//승인완료 유저 리스트 페이지
 	@GetMapping("/user/yesUser")
 	
-	public String yesUserList(Model model){
+	public String yesUserList(Model model,
+			@RequestParam(value="currentPage", required=false) Integer paramcurrentPage,
+			@RequestParam(value="rowPerPage", required=false) Integer ParamRowPerPage){
 //		  // 로그인 상태가 아니면 로그인페이지
 //		  if(session.getAttribute("user") == null) { 
 //			  return "redirect:/lms/user/login";
@@ -106,8 +168,35 @@ public class UserListController {
 //			  return "redirect:/lms/index";
 //		  }
 		
+		//페이징
+		int currentPage = 1;
+			
+			if(paramcurrentPage != null) {
+				currentPage = paramcurrentPage;
+				log.debug(TeamColor.JCH + " 현재페이지 currentPage" + currentPage);
+			}
+			
+			model.addAttribute("currentPage",currentPage);
+			
+		int rowPerPage = 10;
+			if(ParamRowPerPage !=null) {
+				rowPerPage = ParamRowPerPage;
+				log.debug(TeamColor.JCH + "보여지는 페이지 rowPerPage " + rowPerPage);
+			}
+			
+		//마지막 페이지
+		int total = userService.lastPageYesUser();
+		int lastPage =0;
+		
+		lastPage = total / rowPerPage;
+		if( total % rowPerPage != 0) {
+			lastPage+=1;
+			System.out.println(total);
+		}
+		model.addAttribute("lastPage" , lastPage);
+		
 		//리스트 불러오기
-		List<User> list = userService.selectYesUserList();
+		List<User> list = userService.selectYesUserList(currentPage , rowPerPage);
 		model.addAttribute("list", list);
 		
 		log.debug(TeamColor.JCH + this.getClass()  + " 승인 대기 유저 리스트 출력 ");
@@ -131,7 +220,9 @@ public class UserListController {
 		//승인완료 유저 리스트 페이지
 		@GetMapping("/user/hUser")
 		
-		public String hUserList(Model model){
+		public String hUserList(Model model,
+				@RequestParam(value="currentPage", required=false) Integer paramcurrentPage,
+				@RequestParam(value="rowPerPage", required=false) Integer ParamRowPerPage){
 //			  // 로그인 상태가 아니면 로그인페이지
 //			  if(session.getAttribute("user") == null) { 
 //				  return "redirect:/lms/user/login";
@@ -141,8 +232,35 @@ public class UserListController {
 //				  return "redirect:/lms/index";
 //			  }
 			
+			//페이징
+			int currentPage = 1;
+				
+				if(paramcurrentPage != null) {
+					currentPage = paramcurrentPage;
+					log.debug(TeamColor.JCH + " 현재페이지 currentPage" + currentPage);
+				}
+				
+				model.addAttribute("currentPage",currentPage);
+				
+			int rowPerPage = 10;
+				if(ParamRowPerPage !=null) {
+					rowPerPage = ParamRowPerPage;
+					log.debug(TeamColor.JCH + "보여지는 페이지 rowPerPage " + rowPerPage);
+				}
+				
+			//마지막 페이지
+			int total = userService.lastPageHUser();
+			int lastPage =0;
+			
+			lastPage = total / rowPerPage;
+			if( total % rowPerPage != 0) {
+				lastPage+=1;
+				System.out.println(total);
+			}
+			model.addAttribute("lastPage" , lastPage);
+			
 			//리스트 불러오기
-			List<User> list = userService.selectHUserList();
+			List<User> list = userService.selectHUserList(currentPage , rowPerPage);
 			model.addAttribute("list", list);
 			
 			log.debug(TeamColor.JCH + this.getClass()  + " 승인 대기 유저 리스트 출력 ");
