@@ -64,8 +64,10 @@ public interface IBoardService {
 	public int getRealEndPageForBoard(int lectureNo);
 	
 	//페이징_게시판 글을 위한 마지막 게시판을 찾아내는 쿼리
-	public int getRealEndPageForBoardPost(int lectureNo, int boardType);
-		
+	public int getRealEndPageForBoardPost(int lectureNo, int boardNo);
 	
+	//페이징_게시판 글을 위한 마지막 게시판을 찾아내는 쿼리
+	public int getRealEndPageForBoardPost2(int lectureNo, int boardType);
+		
 	
 }

@@ -98,14 +98,12 @@ public class BoardController {
 		//파라미터 확인 디버깅
 
 		log.debug(TeamColor.KHJ + "값 확인 / board : " + board);
+		log.debug(TeamColor.KHJ + "값 확인 / currentPage : " + currentPage);
+		
 		
 
 		//페이징 변수 설정
-		Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, boardService.getRealEndPageForBoardPost(board.getLectureNo(), board.getBoardType()));
-		
-		
-
-		
+		Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, boardService.getRealEndPageForBoardPost(board.getLectureNo(), board.getBoardNo()));
 		
 		
 		//넘겨줄 리스트(게시판)
@@ -144,10 +142,9 @@ public class BoardController {
 		log.debug(TeamColor.KHJ + "값 확인 / board : " + board);
 		log.debug(TeamColor.KHJ + "값 확인 / currentPage : " + currentPage);
 		
-		
 
 		//페이징 변수 설정
-		Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, boardService.getRealEndPageForBoardPost(board.getLectureNo(), board.getBoardType()));
+		Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, boardService.getRealEndPageForBoardPost2(board.getLectureNo(), board.getBoardType()));
 
 		
 		//넘겨줄 리스트(게시판)

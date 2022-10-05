@@ -100,14 +100,14 @@
 													<option value="2">수강 불가</option>
 												</c:when>
 												<c:when test="${g.sign_state eq '1'}">
-													<option value="0" >승인 대기</option>
-													<option value="1" selected>신청 완료</option>
-													<option value="2" >수강 불가</option>
+													<option value="0" disabled>승인 대기</option>
+													<option value="1" selected disabled>신청 완료</option>
+													<option value="2" disabled>수강 불가</option>
 												</c:when>
 												<c:when test="${g.sign_state eq '2'}">
-													<option value="0" >승인 대기</option>
-													<option value="1" >신청</option>
-													<option value="2" selected>수강 불가</option>
+													<option value="0" disabled>승인 대기</option>
+													<option value="1" disabled>신청</option>
+													<option value="2" selected disabled>수강 불가</option>
 												</c:when>
 											</c:choose>											
 										</select>

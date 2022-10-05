@@ -386,7 +386,15 @@ public class BoardService implements IBoardService{
 
 
 	@Override
-	public int getRealEndPageForBoardPost(int lectureNo, int boardType) {
+	public int getRealEndPageForBoardPost(int lectureNo, int boardNo) {
+		//리턴값
+		int realEndPage = boardMapper.selectRealEndPageForBoardPost(lectureNo, boardNo);
+		return realEndPage;
+	}
+
+
+	@Override
+	public int getRealEndPageForBoardPost2(int lectureNo, int boardType) {
 		//리턴값
 		int realEndPage = boardMapper.selectRealEndPageForBoardPost(lectureNo, boardType);
 		return realEndPage;

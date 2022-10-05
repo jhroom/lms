@@ -62,8 +62,11 @@ public interface BoardMapper {
 	public int selectRealEndPageForBoard(int lectureNo);
 	
 	//페이징_마지막 페이지 구하기(게시판 글)
-	public int selectRealEndPageForBoardPost(int lectureNo, int boardType);
-		
+	public int selectRealEndPageForBoardPost(int lectureNo, int boardNo);
+	
+	//페이징_마지막 페이지 구하기(게시판 글)
+	public int selectRealEndPageForBoardPost2(int lectureNo, int boardType);
+			
 	
 	
 }

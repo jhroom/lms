@@ -221,15 +221,25 @@
 		WHERE lecture_no = #{lectureNo}
 		AND board_type = 3
 	</select>
-
+	
 	<!-- 게시판 글 페이징을 위한 마지막 페이지 찾아내기  -->
 	<select id="selectRealEndPageForBoardPost" resultType="int">
-	SELECT COUNT(board_post_no) cnt
-	FROM board_post bp
-	INNER JOIN board b
-	ON b.board_no = bp.board_no
-	WHERE lecture_no = #{lectureNo}
-	AND b.board_type = #{boardType}
+		SELECT COUNT(board_post_no) cnt
+		FROM board_post bp
+		INNER JOIN board b
+		ON b.board_no = bp.board_no
+		WHERE lecture_no = #{lectureNo}
+		AND b.board_no = #{boardNo}
+	</select>	
+
+	<!-- 게시판 글 페이징을 위한 마지막 페이지 찾아내기  -->
+	<select id="selectRealEndPageForBoardPost2" resultType="int">
+		SELECT COUNT(board_post_no) cnt
+		FROM board_post bp
+		INNER JOIN board b
+		ON b.board_no = bp.board_no
+		WHERE lecture_no = #{lectureNo}
+		AND b.board_type = #{boardType}
 	</select>
 
 </mapper>

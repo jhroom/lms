@@ -118,22 +118,43 @@
 	              </div>
 	              <!-- end card-body -->
 	              <div class="card-footer">
+
 					  <nav aria-label="Contacts Page Navigation">
-			            <ul class="pagination justify-content-center m-0">
-			            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=1">첫페이지</a></li>
-			            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${currentPage - 1}">이전쪽</a></li>
-								<c:forEach items="${pages}" var="p">
-									<c:if test="${p eq currentPage}">
-										<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${p}">${p}</a></li>
-						            </c:if>
-						            <c:if test="${p ne currentPage}">
-										<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${p}">${p}</a></li>
-						            </c:if>
-								</c:forEach>
-							<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${currentPage +1}">다음쪽</a></li>
-							<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${realLastPage}">막페이지</a></li>
-			            </ul> 
+	             		<c:if test="${boardType eq 3 }">
+				            <ul class="pagination justify-content-center m-0">
+				            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${boardNo}&lectureNo=${lectureNo}&currentPage=1">첫페이지</a></li>
+				            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${boardNo}&lectureNo=${lectureNo}&currentPage=${currentPage - 1}">이전쪽</a></li>
+									<c:forEach items="${pages}" var="p">
+										<c:if test="${p eq currentPage}">
+											<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${boardNo}&lectureNo=${lectureNo}&currentPage=${p}">${p}</a></li>
+							            </c:if>
+							            <c:if test="${p ne currentPage}">
+											<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${boardNo}&lectureNo=${lectureNo}&currentPage=${p}">${p}</a></li>
+							            </c:if>
+									</c:forEach>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${boardNo}&lectureNo=${lectureNo}&currentPage=${currentPage +1}">다음쪽</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${boardNo}&lectureNo=${lectureNo}&currentPage=${realLastPage}">막페이지</a></li>
+				            </ul> 
+			          	</c:if>
+			          	<c:if test="${boardType ne 3 }">
+				            <ul class="pagination justify-content-center m-0">
+				            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=1">첫페이지</a></li>
+				            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${currentPage - 1}">이전쪽</a></li>
+									<c:forEach items="${pages}" var="p">
+										<c:if test="${p eq currentPage}">
+											<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${p}">${p}</a></li>
+							            </c:if>
+							            <c:if test="${p ne currentPage}">
+											<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${p}">${p}</a></li>
+							            </c:if>
+									</c:forEach>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${currentPage +1}">다음쪽</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${realLastPage}">막페이지</a></li>
+				            </ul> 
+			          	</c:if>
+			          	
 			          </nav>
+
 	              </div>
 	              <!-- /.card-footer-->
 	            </div>
