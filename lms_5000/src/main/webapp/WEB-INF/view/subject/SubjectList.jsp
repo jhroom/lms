@@ -58,7 +58,9 @@
 		전체 강좌 리스트
 	</h3>
 	<div>
+	<c:if test="${loginUser.userLevel eq 1}">
 		<a href="${pageContext.request.contextPath}/lmsSubject/addSubject" class="btn btn-primary">추가하기</a>
+	</c:if>
 	</div>
 	<table class="table table-hover text-nowrap">
 		<tr>

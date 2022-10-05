@@ -58,18 +58,26 @@ public class SemesterController {
 	
 	// 학기 상세보기
 	@GetMapping("/lmsSemester/semesterOne")
-	public String getselectSemesterOne(int semesterNo, Model model) {
+	public String getselectSemesterOne(int semesterNo, int semesterDay, Model model) {
 		
 		// 상세보기 값 가지고오기
 		Map<String, Object> semesterOne = semesterService.getSemesterOne(semesterNo);
 		
+		
 		// 가지고온 값 구현
 		model.addAttribute("semesterOne", semesterOne);
-		
 		model.addAttribute("semesterNo", semesterNo);
+		model.addAttribute("semesterDay", semesterDay);
+		
+		
+		
+		
+		
+		
 		
 		
 		//디버깅
+		log.debug(TeamColor.SSH + "총 일수 : " + semesterDay);
 		log.debug(TeamColor.SSH + "결과확인" + semesterOne);
 		log.debug(TeamColor.SSH + "결과확인 / 포워딩");
 		
@@ -121,5 +129,8 @@ public class SemesterController {
 		return "redirect:/lmsSemester/SemesterList";
 		
 	}
+	
+	
+	
 	
 }

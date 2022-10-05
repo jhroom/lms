@@ -95,6 +95,19 @@
 		<!-- lmsFile이랑 join -->
 	</select>
 	
+	
+	<!-- 조회수 증가 -->
+	<update id="updateCount" parameterType="String">
+		UPDATE count
+		SET count=count+1
+		WHERE lms_notice_no=#{lmsNoticeNo}
+	
+	</update>
+	
+	
+	
+	
+	
 	<!-- 페이징 - 마지막 페이지 -->
 	<select id="selectRealEndPage" resultType="int">
 		SELECT COUNT(lms_notice_no) cnt

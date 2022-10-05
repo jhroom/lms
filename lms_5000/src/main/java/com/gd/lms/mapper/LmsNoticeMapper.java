@@ -25,5 +25,7 @@ public interface LmsNoticeMapper {
 	public int insertLmsNoticeFile(LmsFile lmsFile);
 	//페이징 마지막 페이지
 	public int selectRealEndPage(int lmsNoticeNo);
+	//조회수 증가
+	public String updateCount(int lmsNoticeNo);
 	
 }

@@ -64,6 +64,18 @@
 		WHERE semester_no = #{semesterNo}
 			
 	</update>
+
+<!-- 총 일수 구하기 -->
+	<insert id="getSemesterDay" parameterType="com.gd.lms.vo.Semester">
+		INSERT INTO semester(
+		semester_day
+		) VALUE (
+		DATEDIFF ('#{semesterEnddate}'-'#{semesterStartdate}')
+		)
+		where semester_no = #{semesterNo}
+		
 	
+	</insert>
+
 
 </mapper>
