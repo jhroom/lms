@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.lms.vo.Paging;
 import com.gd.lms.vo.User;
 
 @Mapper
@@ -52,13 +53,19 @@ public interface MypageMapper {
 	//비밀번호 변경
 	int modifyUserPw(User user);
 	
-	//학생,교수Id로 게시글 작성 리스트 가져오기
-	List<Map<String, Object>> selectboardWriteList(String userId, int beginRow, int rowPerPage);
+	//운영자id로 게시글 작성 리스트
+	List<Map<String, Object>> selectAdminBoardList(Paging paging);
+	
+	//학생,교수 Id로 게시글 작성 리스트 가져오기
+	List<Map<String, Object>> selectboardWriteList(Paging paging);
+	
+	//학생,교수 Id로 게시글 작성 개수 가져오기
+	int selectBoardCount(String userId);
+	
+	//운영자 게시글 작성 개수
+	int selectNoticeCount(String userId);
 	
 	//학생,교수Id로 댓글 작성 리스트 가져오기
 	List<Map<String, Object>> selectCommentWriteList(String userId);
-	
-	//운영자id로 게시글 작성 리스트
-	List<Map<String, Object>> selectAdminBoardList(String userId, int beginRow, int rowPerPage);
 	
 }

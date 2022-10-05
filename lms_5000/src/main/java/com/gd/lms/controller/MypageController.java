@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.IMypageService;
+import com.gd.lms.vo.Paging;
 import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -94,7 +95,37 @@ public class MypageController {
 	}
 	// 마이페이지 글쓴 목록 페이지
 	@GetMapping("index/mypage/postList")
-	public String myPostList(HttpSession session, Model model,
+	public String myPostList(HttpSession session, Model model, Paging paging,
+			@RequestParam(value="nowPage", required=false) Integer paramNowPage,
+			@RequestParam(value="rowPerPage", required=false) Integer ParamRowPerPage) {
+		
+		if(paramNowPage != null) {
+			paging.setNowPage(paramNowPage);
+		}
+		if(ParamRowPerPage != null) {
+			paging.setRowPerPage(ParamRowPerPage);
+		}
+		paging.setUserId( ((User)session.getAttribute("loginUser")).getUserId() );
+		int userLevel = ((User)session.getAttribute("loginUser")).getUserLevel();
+		
+		log.debug(TeamColor.AJH + "파라미터 nowPage : " + paging.getNowPage());
+		log.debug(TeamColor.AJH + "파라미터 rowPerPage : " + paging.getRowPerPage());
+		
+		//게시글 리스트
+		List<Map<String, Object>> boardList = mypageService.getboardWriteList(userLevel, paging);
+		log.debug(TeamColor.AJH + "게시글 리스트 값 : " + boardList.toString());
+		model.addAttribute("boardList", boardList);
+		
+		Paging getPaging = mypageService.getPostCount(userLevel, paging);
+		log.debug(TeamColor.AJH + "서비스결과 Paging : " + getPaging.toString());
+		model.addAttribute("pg",getPaging);
+		
+		return "user/postList";
+	}
+	
+	// 마이페이지 댓글 목록 페이지
+	@GetMapping("index/mypage/commentList")
+	public String myCommentList(HttpSession session, Model model,
 			@RequestParam(value="nowPage", required=false) Integer paramNowPage,
 			@RequestParam(value="rowPerPage", required=false) Integer ParamRowPerPage) {
 		int nowPage = 1;
@@ -111,21 +142,14 @@ public class MypageController {
 			log.debug(TeamColor.AJH + "파라미터 rowPerPage : " + rowPerPage);
 		}
 		
-		
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
-		int userLevel = ((User)session.getAttribute("loginUser")).getUserLevel();
-		
-		//게시글 리스트
-		List<Map<String, Object>> boardList = mypageService.getboardWriteList(userId, userLevel, nowPage, rowPerPage);
-		log.debug(TeamColor.AJH + "게시글 리스트 값 : " + boardList.toString());
-		model.addAttribute("boardList", boardList);
 		
 		//댓글 리스트
-		List<Map<String, Object>> commentList = mypageService.getCommentWriteList(userId, userLevel);
+		List<Map<String, Object>> commentList = mypageService.getCommentWriteList(userId, nowPage, rowPerPage);
 		log.debug(TeamColor.AJH + "댓글 리스트 값 : " + commentList.toString());
 		model.addAttribute("commentList", commentList);
 		
-		return "user/postList";
+		return "user/commentList";
 	}
 	
 	@PostMapping("rest/pwCheck")

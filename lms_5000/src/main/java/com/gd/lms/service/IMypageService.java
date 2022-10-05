@@ -4,6 +4,7 @@ import java.util.List;
 
 import java.util.Map;
 
+import com.gd.lms.vo.Paging;
 import com.gd.lms.vo.User;
 
 public interface IMypageService {
@@ -20,8 +21,11 @@ public interface IMypageService {
 	int modifyUserPw(User user);
 	
 	// 게시글 리스트
-	List<Map<String, Object>> getboardWriteList(String userId, int userLevel, int nowPage, int rowPerPage);
+	List<Map<String, Object>> getboardWriteList(int userLevel, Paging paging);
+	
+	//게시글 개수 마지막페이지구하기용
+	Paging getPostCount(int userLevel, Paging paging);
 	
 	// 댓글 리스트
-	List<Map<String, Object>> getCommentWriteList(String userId, int userLevel);
+	List<Map<String, Object>> getCommentWriteList(String userId, int nowPage, int rowPerPage);
 }
