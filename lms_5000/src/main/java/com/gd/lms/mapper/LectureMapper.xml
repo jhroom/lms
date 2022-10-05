@@ -10,6 +10,12 @@
 	 		   m.major_no, m.major_name
 		FROM lecture l inner join subject s ON s.subject_no = l.subject_no
 		INNER JOIN major m ON m.major_no = s.major_no
+		where l.semester_no = (
+		SELECT semester_no
+			FROM semester
+			WHERE semester_year = YEAR(NOW())
+			AND semester_session = round(MONTH(NOW())/6)
+		)
 		ORDER BY l.lecture_no
 	</select>	
 	
@@ -112,4 +118,39 @@
 	WHERE s.semester_year = #{year}
 	AND s.semester_session = #{session}
 	</select>
+	
+	<!-- 같은 과목 신청 여부 확인 -->
+	<select id="selectSignHistoryForSubject" resultType="int">
+		SELECT *
+		FROM sign s
+		INNER JOIN lecture l
+		ON s.lecture_no = l.lecture_no
+		INNER JOIN subject sb
+		ON l.subject_no = sb.subject_no
+		WHERE s.user_id = #{userId}
+			AND s.sign_state = 1
+			AND sb.subject_no = (
+				SELECT l.subject_no
+				FROM lecture l
+				WHERE l.lecture_no = #{lectureNo}
+				)
+	</select>
+	
+	<!-- 시간과 요일에 따른 제약조건 확인 -->
+	<select id="selectSignHistoryForTime" resultType="int">
+		SELECT *
+		FROM sign s
+		INNER JOIN lecture l
+		ON s.lecture_no = l.lecture_no
+		WHERE s.user_id = #{userId}
+		AND l.lecture_day = (
+		SELECT lecture_day
+		FROM lecture l
+		WHERE l.lecture_no = #{lectureNo})
+		AND l.lecture_starttime + 3 <![CDATA[<]]>  (
+		SELECT lecture_starttime
+		FROM lecture l
+		WHERE l.lecture_no = #{lectureNo})
+	</select>
+	
 </mapper>

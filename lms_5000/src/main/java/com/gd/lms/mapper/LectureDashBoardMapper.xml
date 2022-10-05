@@ -178,10 +178,11 @@
 			, bp.board_post_createdate boardPostCreatedate
 			, b.board_name boardName
 			, b.board_type boardType
+			, b.board_no boardNo
 		FROM board_post bp
 		INNER JOIN board b
 		ON bp.board_no = b.board_no
-		WHERE b.lecture_no = 1
+		WHERE b.lecture_no = #{lectureNo}
 		ORDER BY board_post_createdate DESC
 		LIMIT 0, 10;
 	 </select>

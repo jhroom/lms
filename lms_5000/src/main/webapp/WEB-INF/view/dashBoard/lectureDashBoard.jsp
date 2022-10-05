@@ -114,15 +114,15 @@
 					<div class="card card-primary card-outline">
 				         <div class="card-body">
 				           <h1 class="card-title"><Strong>출결현황</Strong></h1><br>
-				           <table border="1">
+				           <table class="table table-hover text-nowrap">
 					          		<tr>
-					          			<td>주차</td>
+					          			<th>주차</th>
 						          		<c:forEach var="stuAtt" items="${stuAtt}">
 						          		<td>${stuAtt.week}</td>
 						          		</c:forEach>
 					          		</tr>			     
 					        		<tr>
-					        			<td>출석상태</td>
+					        			<th>출석상태</th>
 					        		<c:forEach var="stuAtt" items="${stuAtt}">
 						           		<td>
 						           		<c:if test="${stuAtt.attendState eq 0}">
@@ -210,7 +210,7 @@
 										           	 	<c:if test="${d.boardType eq 4}">과제</c:if>
 									           	 	</td>
 									           	 	<td>
-									           	 		<a href="">${d.boardPostTitle}</a>
+									           	 		<a href="${pageContext.request.contextPath}/board/post/one?boardPostNo=${d.boardPostNo}&boardNo=${d.boardNo}&boardName=${d.boardName}">${d.boardPostTitle}</a>
 									           	 	</td>
 									           	 	<td>${d.boardPostWriter}</td><td>${d.boardPostCreatedate}</td>
 									           	 </tr>

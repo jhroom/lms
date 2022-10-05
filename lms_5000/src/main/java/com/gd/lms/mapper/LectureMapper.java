@@ -41,4 +41,10 @@ public interface LectureMapper {
 	// 개설 강좌 총 개수
 	int getTotal();
 	
+	//중복 과목 신청 여부 확인
+	int selectSignHistoryForSubject(Sign sign);
+	
+	//시간 / 요일에 따른 제약 조건
+	int selectSignHistoryForTime(Sign sign);
+	
 }
