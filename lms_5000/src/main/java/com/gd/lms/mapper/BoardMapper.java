@@ -13,13 +13,13 @@ import com.gd.lms.vo.Comment;
 @Mapper
 public interface BoardMapper {
 	//게시판 리스트 생성 쿼리
-	public List<Board> selectBoradList(int startNo, int lectureNo);
+	public List<Board> selectBoradList(int beginRow, int rowPerPage, int lectureNo);
 	
 	//선택 게시판의 게시글 리스트 생성 쿼리
-	public List<BoardPost> selectBoardPostList(int startNo, int boardNo);
+	public List<BoardPost> selectBoardPostList(int beginRow, int rowPerPage, int boardNo);
 	
 	//선택 게시판의 게시글 리스트 생성 쿼리
-	public List<BoardPost> selectBoardPostList2(int startNo, Board board);
+	public List<BoardPost> selectBoardPostList2(int beginRow, int rowPerPage, Board board);
 		
 	
 	//게시판 추가 쿼리
