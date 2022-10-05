@@ -43,9 +43,9 @@ public class BoardService implements IBoardService{
 	
 	//게시판 리스트 생성 서비스
 	@Override
-	public List<Board> getBoardList(int startNo, int lectureNo) {
+	public List<Board> getBoardList(int beginRow, int rowPerPage, int lectureNo) {
 		//리턴 값(list) 세팅
-		List<Board> list = boardMapper.selectBoradList(startNo, lectureNo);
+		List<Board> list = boardMapper.selectBoradList(beginRow, rowPerPage, lectureNo);
 		
 		//디버깅
 		System.out.println("[boardSvc] Borad list : " + list);		
@@ -68,9 +68,9 @@ public class BoardService implements IBoardService{
 
 	//선택 게시판의 게시글 리스트 생성 서비스
 	@Override
-	public List<BoardPost> getBoardPostList(int startNo, int boardNo) {
+	public List<BoardPost> getBoardPostList(int beginRow, int rowPerPage, int boardNo) {
 		//리턴 값(list) 세팅
-		List<BoardPost> list = boardMapper.selectBoardPostList(startNo, boardNo);
+		List<BoardPost> list = boardMapper.selectBoardPostList(beginRow, rowPerPage, boardNo);
 		
 		//디버깅
 		System.out.println("[boardSvc] BoardPost list : " + list);
@@ -82,9 +82,9 @@ public class BoardService implements IBoardService{
 
 
 	@Override
-	public List<BoardPost> getBoardPostList2(int startNo, Board board) {
+	public List<BoardPost> getBoardPostList2(int beginRow, int rowPerPage, Board board) {
 		//리턴 값(list) 세팅
-		List<BoardPost> list = boardMapper.selectBoardPostList2(startNo, board);
+		List<BoardPost> list = boardMapper.selectBoardPostList2(beginRow, rowPerPage, board);
 		
 		//디버깅
 		System.out.println("[boardSvc] BoardPost list : " + list);

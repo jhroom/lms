@@ -15,6 +15,12 @@ public class Paging {
 	
 	private int total;
 	
+	private int lastPage;
+	
+	private int startPage;
+	
 	private int endPage;
+	
+	private int cntPage;
 
 }

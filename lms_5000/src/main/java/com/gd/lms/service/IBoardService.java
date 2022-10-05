@@ -15,16 +15,16 @@ import com.gd.lms.vo.Comment;
 
 public interface IBoardService {
 	//게시판 리스트 생성 서비스
-	public List<Board> getBoardList(int startNo, int lectureNo);
+	public List<Board> getBoardList(int beginRow, int rowPerPage, int lectureNo);
 	
 	//게시판 추가 쿼리
 	public int addBoard(Board board);
 	
 	//선택 게시판의 게시글 리스트 생성 서비스
-	public List<BoardPost> getBoardPostList(int startNo, int boardNo);
+	public List<BoardPost> getBoardPostList(int beginRow, int rowPerPage, int boardNo);
 	
 	//선택 게시판의 게시글 리스트 생성 서비스
-	public List<BoardPost> getBoardPostList2(int startNo, Board board);
+	public List<BoardPost> getBoardPostList2(int beginRow, int rowPerPage, Board board);
 	
 	
 	//게시글의 상세 조회 서비스
