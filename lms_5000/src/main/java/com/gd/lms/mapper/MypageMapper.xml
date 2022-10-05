@@ -192,6 +192,7 @@
 							INNER JOIN board_post bp
 							ON b.board_no = bp.board_no
 		WHERE bp.board_post_writer = #{userId}
+		ORDER BY bp.board_post_updatedate DESC
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>
 	
@@ -214,8 +215,8 @@
 	</select>
 	
 	<!-- 아이디로 작성한 댓글 리스트 -->
-	<select id="selectCommentWriteList" parameterType="string" resultType="map">
-		SELECT distinct 
+	<select id="selectCommentWriteList" parameterType="com.gd.lms.vo.Paging" resultType="map">
+		SELECT 
 			m.major_name majorName,
 			s.subject_name subjectName,
  			b.board_name boardName,
@@ -237,6 +238,16 @@
 						ON b.board_no = bp.board_no
 							INNER JOIN comment co
 							ON bp.board_post_no = co.board_post_no
+		WHERE co.comment_writer = #{userId}
+		ORDER BY co.comment_updatedate DESC
+		LIMIT #{beginRow},#{rowPerPage}
+	</select>
+	
+	<!-- 세션의 아이디로 댓글 작성한 개수 구하기 -->
+	<select id="selectCommentCount" resultType="int">
+		SELECT 
+ 			COUNT(*) count
+		from comment co
 		WHERE co.comment_writer = #{userId}
 	</select>
 	

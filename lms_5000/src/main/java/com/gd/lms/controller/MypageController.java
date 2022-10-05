@@ -99,6 +99,7 @@ public class MypageController {
 			@RequestParam(value="nowPage", required=false) Integer paramNowPage,
 			@RequestParam(value="rowPerPage", required=false) Integer ParamRowPerPage) {
 		
+		//현재 페이지나 페이지당 보여줄 개수가 있다면 셋팅
 		if(paramNowPage != null) {
 			paging.setNowPage(paramNowPage);
 		}
@@ -116,6 +117,7 @@ public class MypageController {
 		log.debug(TeamColor.AJH + "게시글 리스트 값 : " + boardList.toString());
 		model.addAttribute("boardList", boardList);
 		
+		//현재 페이지와 페이지당 출력할 줄 개수로 페이징 서비스 처리하기
 		Paging getPaging = mypageService.getPostCount(userLevel, paging);
 		log.debug(TeamColor.AJH + "서비스결과 Paging : " + getPaging.toString());
 		model.addAttribute("pg",getPaging);
@@ -125,29 +127,29 @@ public class MypageController {
 	
 	// 마이페이지 댓글 목록 페이지
 	@GetMapping("index/mypage/commentList")
-	public String myCommentList(HttpSession session, Model model,
+	public String myCommentList(HttpSession session, Model model, Paging paging,
 			@RequestParam(value="nowPage", required=false) Integer paramNowPage,
 			@RequestParam(value="rowPerPage", required=false) Integer ParamRowPerPage) {
-		int nowPage = 1;
 		
+		//현재 페이지나 페이지당 보여줄 개수가 있다면 셋팅
 		if(paramNowPage != null) {
-			nowPage = paramNowPage;
-			log.debug(TeamColor.AJH + "파라미터 nowPage : " + nowPage);
+			paging.setNowPage(paramNowPage);
 		}
-		model.addAttribute("nowPage",nowPage);
-		
-		int rowPerPage = 5;
 		if(ParamRowPerPage != null) {
-			rowPerPage = ParamRowPerPage;
-			log.debug(TeamColor.AJH + "파라미터 rowPerPage : " + rowPerPage);
+			paging.setRowPerPage(ParamRowPerPage);
 		}
-		
-		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		//세션아이디 부여
+		paging.setUserId( ((User)session.getAttribute("loginUser")).getUserId() );
 		
 		//댓글 리스트
-		List<Map<String, Object>> commentList = mypageService.getCommentWriteList(userId, nowPage, rowPerPage);
+		List<Map<String, Object>> commentList = mypageService.getCommentWriteList(paging);
 		log.debug(TeamColor.AJH + "댓글 리스트 값 : " + commentList.toString());
 		model.addAttribute("commentList", commentList);
+		
+		//댓글 리스트 페이징
+		Paging getPaging = mypageService.getCommentCount(paging);
+		log.debug(TeamColor.AJH + "서비스결과 Paging : " + getPaging.toString());
+		model.addAttribute("pg",getPaging);
 		
 		return "user/commentList";
 	}

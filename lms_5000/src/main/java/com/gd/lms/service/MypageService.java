@@ -110,7 +110,7 @@ public class MypageService implements IMypageService {
 		return row;
 	}
 	
-	//학생,교수 게시글 카운트 마지막페이지 구하기
+	//게시글 리스트 페이징 구하기
 	@Override
 	public Paging getPostCount(int userLevel,Paging paging) {
 		
@@ -131,26 +131,57 @@ public class MypageService implements IMypageService {
 		// 현재 페이지에서 링크바 의 마지막 링크 구하기
 		paging.setEndPage((int)Math.ceil(paging.getNowPage()/(double)paging.getCntPage()) *paging.getCntPage());
 		
-		if(paging.getLastPage() < paging.getEndPage()) {
-			paging.setEndPage(paging.getLastPage());
-		}
-		
-		//
 		paging.setStartPage(paging.getEndPage() - paging.getCntPage() + 1);
 		if(paging.getStartPage() < 1) {
 			paging.setStartPage(1);
 		}
+		
+		if(paging.getLastPage() < paging.getEndPage()) {
+			paging.setEndPage(paging.getLastPage());
+		}
+		
+		
 		
 		return paging;
 	}
 	
 	//댓글리스트
 	@Override
-	public List<Map<String, Object>> getCommentWriteList(String userId, int nowPage, int rowPerPage) {
+	public List<Map<String, Object>> getCommentWriteList(Paging paging) {
 		List<Map<String, Object>> row = null;
 		
-		row = mypageMapper.selectCommentWriteList(userId);
+		paging.setBeginRow((paging.getNowPage()-1)*paging.getRowPerPage());
+		log.debug(TeamColor.AJH + "서비스단 파라미터 beginRow : " + paging.getBeginRow());
+		
+		row = mypageMapper.selectCommentWriteList(paging);
 		return row;
+	}
+	
+	//댓글리스트 페이징 구하기
+	@Override
+	public Paging getCommentCount(Paging paging) {
+		
+		int total = mypageMapper.selectCommentCount(paging.getUserId());
+		paging.setTotal(total);
+		
+		paging.setLastPage((int)Math.ceil(paging.getTotal()/(double)paging.getRowPerPage()));
+		
+		// 이전 다음 사이에 표시할 페이지 링크 개수
+		paging.setCntPage(5);
+		
+		// 현재 페이지에서 링크바 의 마지막 링크 구하기
+		paging.setEndPage((int)Math.ceil(paging.getNowPage()/(double)paging.getCntPage()) *paging.getCntPage());
+		
+		paging.setStartPage(paging.getEndPage() - paging.getCntPage() + 1);
+		if(paging.getStartPage() < 1) {
+			paging.setStartPage(1);
+		}
+		
+		if(paging.getLastPage() < paging.getEndPage()) {
+			paging.setEndPage(paging.getLastPage());
+		}
+		
+		return paging;
 	}
 
 }

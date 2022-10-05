@@ -27,5 +27,8 @@ public interface IMypageService {
 	Paging getPostCount(int userLevel, Paging paging);
 	
 	// 댓글 리스트
-	List<Map<String, Object>> getCommentWriteList(String userId, int nowPage, int rowPerPage);
+	List<Map<String, Object>> getCommentWriteList(Paging paging);
+	
+	// 댓글 개수 카운트
+	Paging getCommentCount(Paging paging);
 }

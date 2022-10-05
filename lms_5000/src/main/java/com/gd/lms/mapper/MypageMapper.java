@@ -66,6 +66,9 @@ public interface MypageMapper {
 	int selectNoticeCount(String userId);
 	
 	//학생,교수Id로 댓글 작성 리스트 가져오기
-	List<Map<String, Object>> selectCommentWriteList(String userId);
+	List<Map<String, Object>> selectCommentWriteList(Paging paging);
+	
+	//댓글 작성 개수 카운트 하기
+	int selectCommentCount(String userId);
 	
 }

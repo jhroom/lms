@@ -115,19 +115,33 @@
             </div>
             <!-- /.card -->
             <div>
-	            <ul class="pagination" style="ustify-content: center;">
+	            <ul class="pagination">
 	              <c:choose>
-		              	<c:when test="${nowPage == 1}">
-		              		<li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/postList?nowPage=${nowPage-1}">Previous</a></li>
+		              	<c:when test="${pg.nowPage == 1}">
+		              		<li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/commentList?nowPage=${pg.nowPage-1}">Previous</a></li>
 		              	</c:when>
 		              	<c:otherwise>
-		              		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/postList?nowPage=${nowPage-1}">Previous</a></li>
+		              		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/commentList?nowPage=${pg.nowPage-1}">Previous</a></li>
 		              	</c:otherwise>
 	              </c:choose>
-				    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/postList?nowPage=${nowPage+1}">Next</a></li>
+	              		<c:forEach var="p" begin="${pg.startPage}" end="${pg.endPage}">
+	              			<c:choose>
+	              				<c:when test="${ p == pg.nowPage }">
+	              					<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/commentList?nowPage=${p}">${p}</a></li>
+	              				</c:when>
+	              				<c:otherwise>
+	              					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/commentList?nowPage=${p}">${p}</a></li>
+	              				</c:otherwise>
+	              			</c:choose>
+	              		</c:forEach>
+				  <c:choose>
+				  		<c:when test="${pg.nowPage >= pg.lastPage }">
+				  			<li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/commentList?nowPage=${pg.nowPage+1}">Next</a></li>
+				  		</c:when>
+				  		<c:otherwise>
+				  			<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/commentList?nowPage=${pg.nowPage+1}">Next</a></li>		
+				  		</c:otherwise>
+				  </c:choose>
 				</ul>
 			</div>
           </div>
