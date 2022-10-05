@@ -122,8 +122,24 @@ public class MypageService implements IMypageService {
 			case 3 : total = mypageMapper.selectBoardCount(paging.getUserId());break;
 		}
 		paging.setTotal(total);
-		paging.setEndPage((int)Math.ceil(paging.getTotal()/(double)paging.getRowPerPage()));
 		
+		paging.setLastPage((int)Math.ceil(paging.getTotal()/(double)paging.getRowPerPage()));
+		
+		// 이전 다음 사이에 표시할 페이지 링크 개수
+		paging.setCntPage(5);
+		
+		// 현재 페이지에서 링크바 의 마지막 링크 구하기
+		paging.setEndPage((int)Math.ceil(paging.getNowPage()/(double)paging.getCntPage()) *paging.getCntPage());
+		
+		if(paging.getLastPage() < paging.getEndPage()) {
+			paging.setEndPage(paging.getLastPage());
+		}
+		
+		//
+		paging.setStartPage(paging.getEndPage() - paging.getCntPage() + 1);
+		if(paging.getStartPage() < 1) {
+			paging.setStartPage(1);
+		}
 		
 		return paging;
 	}
