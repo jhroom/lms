@@ -151,8 +151,24 @@
 		Where user_id = #{userId}
 	</update>
 	
+	<!-- 운영자 작성글 리스트 -->
+	<select id="selectAdminBoardList" parameterType="com.gd.lms.vo.Paging" resultType="map">
+		SELECT
+			lms_notice_no noticeNo,
+			lms_notice_title noticeTitle,
+			lms_notice_content noticeContent,
+			lms_notice_name noticeName,
+			lms_notice_createtime createTime,
+			lms_notice_updatetime updateTime,
+			(SELECT 'Lms공지사항' FROM DUAL) boardType,
+			count
+		FROM lms_notice 
+		WHERE lms_notice_name = #{userId}
+		LIMIT #{beginRow},#{rowPerPage}
+	</select>
+	
 	<!-- 학생,교수 아이디로 게시글 리스트 받아오기 -->
-	<select id="selectboardWriteList" resultType="map">
+	<select id="selectboardWriteList" parameterType="com.gd.lms.vo.Paging" resultType="map">
 		SELECT
 			distinct
 			m.major_name majorName,
@@ -177,6 +193,24 @@
 							ON b.board_no = bp.board_no
 		WHERE bp.board_post_writer = #{userId}
 		LIMIT #{beginRow},#{rowPerPage}
+	</select>
+	
+	<!-- id로 게시글 작성 개수 가져오기 -->
+	<select id="selectBoardCount" resultType="int">
+		SELECT
+ 			COUNT(*) postCount
+		from
+			board_post
+		WHERE board_post_writer = #{userId}
+	</select>
+	
+	<!-- 운영자 게시글 작성 개수 가져오기 -->
+	<select id="selectNoticeCount" resultType="int">
+		SELECT
+ 			COUNT(*) postCount
+		from
+			lms_notice
+		WHERE lms_notice_name = #{userId}
 	</select>
 	
 	<!-- 아이디로 작성한 댓글 리스트 -->
@@ -204,23 +238,6 @@
 							INNER JOIN comment co
 							ON bp.board_post_no = co.board_post_no
 		WHERE co.comment_writer = #{userId}
-	</select>
-	
-	<!-- 운영자 작성글 리스트 -->
-	<select id="selectAdminBoardList" resultType="map">
-		SELECT
-			lms_notice_no noticeNo,
-			lms_notice_title noticeTitle,
-			lms_notice_content noticeContent,
-			lms_notice_name noticeName,
-			lms_notice_createtime createTime,
-			lms_notice_updatetime updateTime,
-			(SELECT 'Lms공지사랑' FROM DUAL) boardType,
-			count
-		FROM lms_notice 
-		WHERE lms_notice_name = #{userId}
-		LIMIT #{beginRow},#{rowPerPage}
-		
 	</select>
 	
 </mapper>

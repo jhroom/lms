@@ -57,10 +57,10 @@
       <!-- 여기를 밀어버리고 컨텐츠로 채우시면 됩니다 -->
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
       <div class="row">
-      	<div class="col-12">
+		<div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title"><Strong>게시글 작성 목록</Strong></h3>
+                <h3 class="card-title"><strong>댓글 작성 목록</strong></h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -75,59 +75,40 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
-                <c:choose>
-                	<c:when test="${loginUser.userLevel == 1 }">
-                		<thead>
-		                    <tr>
-		                      <th>게시판</th>
-		                      <th>제목</th>
-		                      <th>조회수</th>
-		                      <th>작성일</th>
-		                      <th>수정일</th>
-		                    </tr>
-		                  </thead>
-		                  <tbody>
-		                    <c:forEach var="b" items="${boardList}">
-							<tr>
-								<td>${b.boardType}</td>
-								<td><a href="${pageContext.request.contextPath}/lmsNotice
-								/LmsNoticeOne?lmsNoticeNo=${b.noticeNo}&lmsNoticeTitle=${b.noticeTitle}">
-								${b.noticeTitle}</a></td>
-								<td>${b.count}</td>
-								<td>${b.createTime}</td>
-								<td>${b.updateTime}</td>
-							</tr>
-							</c:forEach>
-		                  </tbody>
-                	</c:when>
-                	<c:otherwise>
-                		<thead>
-		                    <tr>
-		                      <th>과목</th>
-		                      <th>게시판</th>
-		                      <th>제목</th>
-		                      <th>조회수</th>
-		                      <th>작성일</th>
-		                      <th>수정일</th>
-		                    </tr>
-		                  </thead>
-		                  <tbody>
-		                    <c:forEach var="b" items="${boardList}">
-							<tr>
-								<%-- <td>${b.majorName}</td> --%>
-								<td>${b.subjectName}</td>
-								<td>${b.boardName}</td>
-								<td><a href="${pageContext.request.contextPath}
-								/board/post/one?boardPostNo=${b.boardPostNo}&boardNo=${b.boardNo}&boardName=${b.boardName}">
-								${b.boardPostName}</a></td>
-								<td>${b.count}</td>
-								<td>${b.boardPostCreatedate}</td>
-								<td>${b.boartPostUpdatedate}</td>
-							</tr>
-							</c:forEach>
-		                  </tbody>
-                	</c:otherwise>
-                </c:choose>
+                  <thead>
+                    <tr>
+                      <c:choose>
+						<c:when test="${loginUser.userLevel == 1}">
+							<th>학과</th>
+						</c:when>
+					  </c:choose>
+                      <th>과목</th>
+                      <th>게시판</th>
+                      <th>제목</th>
+                      <th>댓글내용</th>
+                      <th>작성일</th>
+					  <th>수정일</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <c:forEach var="b" items="${commentList}">
+					<tr>
+						<c:choose>
+							<c:when test="${loginUser.userLevel == 1}">
+								<td>${b.majorName}</td>
+							</c:when>
+						</c:choose>
+						<td>${b.subjectName}</td>
+						<td>${b.boardName}</td>
+						<td>${b.boardPostTitle}</td>
+						<td><a href="${pageContext.request.contextPath}
+						/board/post/one?boardPostNo=${b.boardPostNo}&boardNo=${b.boardNo}&boardName=${b.boardName}">
+						${b.commentContent}</a></td>
+						<td>${b.commentCreateDate}</td>
+						<td>${b.commentUpdateDate}</td>
+					</tr>
+					</c:forEach>
+                  </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -136,32 +117,23 @@
             <div>
 	            <ul class="pagination" style="ustify-content: center;">
 	              <c:choose>
-		              	<c:when test="${pg.nowPage == 1}">
-		              		<li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/postList?nowPage=${pg.nowPage-1}">Previous</a></li>
+		              	<c:when test="${nowPage == 1}">
+		              		<li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/postList?nowPage=${nowPage-1}">Previous</a></li>
 		              	</c:when>
 		              	<c:otherwise>
-		              		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/postList?nowPage=${pg.nowPage-1}">Previous</a></li>
+		              		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/postList?nowPage=${nowPage-1}">Previous</a></li>
 		              	</c:otherwise>
 	              </c:choose>
-	              		<c:forEach var="c" begin="1" end="${pg.endPage}">
-	              			
-	              		</c:forEach>
-						    <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
-						    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-						    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-				  <c:choose>
-				  		<c:when test="${pg.nowPage == pg.endPage}">
-				  			<li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/postList?nowPage=${pg.nowPage+1}">Next</a></li>
-				  		</c:when>
-				  		<c:otherwise>
-				  			<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/postList?nowPage=${pg.nowPage+1}">Next</a></li>		
-				  		</c:otherwise>
-				  </c:choose>
+				    <li class="page-item"><a class="page-link" href="#">1</a></li>
+				    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+				    <li class="page-item"><a class="page-link" href="#">3</a></li>
+				    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index/mypage/postList?nowPage=${nowPage+1}">Next</a></li>
 				</ul>
 			</div>
-          </div>  <!-- End col-12 -->
-	  </div>    <!-- End row -->
-      </div>  <!-- /.container-fluid -->
+          </div>
+	  </div>
+
+      </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
   </div>

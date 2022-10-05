@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.MypageMapper;
+import com.gd.lms.vo.Paging;
 import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -91,30 +92,48 @@ public class MypageService implements IMypageService {
 	public int modifyUserPw(User user) {
 		return mypageMapper.modifyUserPw(user);
 	}
+	
 	//게시글 리스트
 	@Override
-	public List<Map<String, Object>> getboardWriteList(String userId, int userLevel, int nowPage, int rowPerPage) {
-		int beginRow = (nowPage-1)*rowPerPage;
+	public List<Map<String, Object>> getboardWriteList(int userLevel, Paging paging) {
 		
 		List<Map<String, Object>> row = null;
 		
+		paging.setBeginRow((paging.getNowPage()-1)*paging.getRowPerPage());
+		log.debug(TeamColor.AJH + "서비스단 파라미터 beginRow : " + paging.getBeginRow());
+		
 		switch(userLevel) {
-		case 1 : row = mypageMapper.selectAdminBoardList(userId, beginRow, rowPerPage);break;
-		case 2 :
-		case 3 : row = mypageMapper.selectboardWriteList(userId, beginRow, rowPerPage);break;
+			case 1 : row = mypageMapper.selectAdminBoardList(paging);break;
+			case 2 :
+			case 3 : row = mypageMapper.selectboardWriteList(paging);break;
 		}
 		return row;
 	}
-	//댓글리스트
+	
+	//학생,교수 게시글 카운트 마지막페이지 구하기
 	@Override
-	public List<Map<String, Object>> getCommentWriteList(String userId, int userLevel) {
-		List<Map<String, Object>> row = null;
+	public Paging getPostCount(int userLevel,Paging paging) {
+		
+		int total = 0;
 		
 		switch(userLevel) {
-		case 1 :
-		case 2 :
-		case 3 : row = mypageMapper.selectCommentWriteList(userId);break;
+			case 1 : total = mypageMapper.selectNoticeCount(paging.getUserId());break;
+			case 2 : 
+			case 3 : total = mypageMapper.selectBoardCount(paging.getUserId());break;
 		}
+		paging.setTotal(total);
+		paging.setEndPage((int)Math.ceil(paging.getTotal()/(double)paging.getRowPerPage()));
+		
+		
+		return paging;
+	}
+	
+	//댓글리스트
+	@Override
+	public List<Map<String, Object>> getCommentWriteList(String userId, int nowPage, int rowPerPage) {
+		List<Map<String, Object>> row = null;
+		
+		row = mypageMapper.selectCommentWriteList(userId);
 		return row;
 	}
 
