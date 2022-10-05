@@ -50,6 +50,9 @@ public class LectureService implements ILectureService {
 		//같은 과목 신청 여부 확인
 		check += lecturemapper.selectSignHistoryForSubject(sign);
 		
+		//요일과 시간이 겹치는 과목이 잇는 지 확인
+		check += lecturemapper.selectSignHistoryForTime(sign);
+		
 		
 		//수강 신청 이력이 없고 & 같은 과목을 신청하지 않은 경우에만 삽입 실행
 		if(check == 0) {		

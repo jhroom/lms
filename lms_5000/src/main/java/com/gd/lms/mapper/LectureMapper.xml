@@ -102,7 +102,7 @@
 	<!-- 신청 강의 시간 계산 쿼리 -->
 	<select id="selectSignTime" resultType="int">
 		SELECT 
-			SUM(l.lecture_time) lectureTime
+			ifnull(SUM(l.lecture_time),0) lectureTime
 		FROM sign s
 		INNER JOIN lecture l
 		ON s.lecture_no = l.lecture_no
@@ -147,10 +147,12 @@
 		SELECT lecture_day
 		FROM lecture l
 		WHERE l.lecture_no = #{lectureNo})
+		<!-- 
 		AND l.lecture_starttime + 3 <![CDATA[<]]>  (
 		SELECT lecture_starttime
 		FROM lecture l
 		WHERE l.lecture_no = #{lectureNo})
+		 -->
 	</select>
 	
 </mapper>

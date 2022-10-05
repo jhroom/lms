@@ -47,7 +47,7 @@ public class LoginFilter extends HttpFilter implements Filter{
 		String uri = req.getRequestURI();
 		
 		//디버깅
-		//log.debug(TeamColor.debuging + "uri 확인 : " + uri + TeamColor.TEXT_RESET);
+		log.debug(TeamColor.debuging + "uri 확인 : " + uri + TeamColor.TEXT_RESET);
 		
 		
 		//로그인, 로그아웃 관련 다이렉션 제외
@@ -63,6 +63,11 @@ public class LoginFilter extends HttpFilter implements Filter{
 				||uri.equals("/lms/plugins/fontawesome-free/webfonts/fa-solid-900.woff")
 				||uri.equals("/lms/plugins/fontawesome-free/webfonts/fa-solid-900.ttf")
 				||uri.equals("/lms/index/logout")
+				||uri.equals("/lms/user/addUser")
+				||uri.equals("/lms/user/addAdmin")
+				||uri.equals("/lms/user/idCheck")
+	
+				
 			) {
 			chain.doFilter(request, response);	
 			return;
