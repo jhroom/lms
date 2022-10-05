@@ -16,10 +16,10 @@ public interface BoardMapper {
 	public List<Board> selectBoradList(int startNo, int lectureNo);
 	
 	//선택 게시판의 게시글 리스트 생성 쿼리
-	public List<BoardPost> selectBoardPostList(int boardNo);
+	public List<BoardPost> selectBoardPostList(int startNo, int boardNo);
 	
 	//선택 게시판의 게시글 리스트 생성 쿼리
-	public List<BoardPost> selectBoardPostList2(Board board);
+	public List<BoardPost> selectBoardPostList2(int startNo, Board board);
 		
 	
 	//게시판 추가 쿼리
@@ -58,8 +58,12 @@ public interface BoardMapper {
 	//강좌번호로 과목 이름 불러오는 쿼리
 	public String selectLectureName(int lectureNo);
 
-	//페이징_마지막 페이지 구하기
+	//페이징_마지막 페이지 구하기(게시판)
 	public int selectRealEndPageForBoard(int lectureNo);
+	
+	//페이징_마지막 페이지 구하기(게시판 글)
+	public int selectRealEndPageForBoardPost(int lectureNo, int boardType);
+		
 	
 	
 }

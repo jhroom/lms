@@ -21,10 +21,10 @@ public interface IBoardService {
 	public int addBoard(Board board);
 	
 	//선택 게시판의 게시글 리스트 생성 서비스
-	public List<BoardPost> getBoardPostList(int boardNo);
+	public List<BoardPost> getBoardPostList(int startNo, int boardNo);
 	
 	//선택 게시판의 게시글 리스트 생성 서비스
-	public List<BoardPost> getBoardPostList2(Board board);
+	public List<BoardPost> getBoardPostList2(int startNo, Board board);
 	
 	
 	//게시글의 상세 조회 서비스
@@ -62,6 +62,10 @@ public interface IBoardService {
 	
 	//페이징_게시판을 위한 마지막 게시판을 찾아내는 쿼리
 	public int getRealEndPageForBoard(int lectureNo);
+	
+	//페이징_게시판 글을 위한 마지막 게시판을 찾아내는 쿼리
+	public int getRealEndPageForBoardPost(int lectureNo, int boardType);
+		
 	
 	
 }

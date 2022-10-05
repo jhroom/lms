@@ -103,7 +103,7 @@
 							<c:forEach var="n" items="${boardList}">
 								<c:if test="${n.boardType eq 3}">
 									<tr>
-										<td>${n.boardNo}</td><td><a href="${pageContext.request.contextPath}/board/post?boardNo=${n.boardNo}&boardName=${n.boardName}&lectureNo=${lectureNo}">${n.boardName}</a></td><td>${n.createDate}</td>
+										<td>${n.boardNo}</td><td><a href="${pageContext.request.contextPath}/board/post?boardNo=${n.boardNo}&boardName=${n.boardName}&lectureNo=${lectureNo}&currentPage=1">${n.boardName}</a></td><td>${n.createDate}</td>
 									</tr>
 								</c:if>
 							</c:forEach>
@@ -122,11 +122,16 @@
 	              <div class="card-footer">
 					  <nav aria-label="Contacts Page Navigation">
 			            <ul class="pagination justify-content-center m-0">
-			            	<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=${currentPage - 10}">이전쪽</a></li>
+			            	<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=1">첫페이지</a></li>
+			            	<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=${currentPage - 10}">-10 쪽</a></li>
+			            	<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=${currentPage - 1}">이전쪽</a></li>
 								<c:forEach items="${pages}" var="p">
 					              <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=${p}">${p}</a></li>
 								</c:forEach>
-							<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=${currentPage + 10}">다음쪽</a></li>
+							<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=${currentPage + 1}">다음쪽</a></li>
+							<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=${currentPage + 10}">+10 쪽</a></li>
+							<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}&currentPage=500">막페이지</a></li>
+							
 			            </ul> 
 			          </nav>
 	              </div>

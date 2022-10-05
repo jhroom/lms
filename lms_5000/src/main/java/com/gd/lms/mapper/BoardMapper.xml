@@ -46,6 +46,7 @@
 			, count count
 		from board_post
 		where board_No = #{boardNo}
+		limit #{startNo}, 2
 	</select>
 	
 		<!-- 선택한 게시판의 게시글 리스트 생성 쿼리 --> 
@@ -63,8 +64,9 @@
 		from board_post bp
 		INNER JOIN board b
 		ON bp.board_no = b.board_no
-		WHERE b.board_type = #{boardType}
-		AND b.lecture_no = #{lectureNo}
+		WHERE b.board_type = #{board.boardType}
+		AND b.lecture_no = #{board.lectureNo}
+		LIMIT #{startNo}, 2
 	</select>
 	
 
@@ -218,6 +220,16 @@
 		FROM board
 		WHERE lecture_no = #{lectureNo}
 		AND board_type = 3
+	</select>
+
+	<!-- 게시판 글 페이징을 위한 마지막 페이지 찾아내기  -->
+	<select id="selectRealEndPageForBoardPost" resultType="int">
+	SELECT COUNT(board_post_no) cnt
+	FROM board_post bp
+	INNER JOIN board b
+	ON b.board_no = bp.board_no
+	WHERE lecture_no = #{lectureNo}
+	AND b.board_type = #{boardType}
 	</select>
 
 </mapper>

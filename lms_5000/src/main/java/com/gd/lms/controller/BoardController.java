@@ -58,41 +58,43 @@ public class BoardController {
 		
 		
 		
-
-		
-		//페이징 처리
-		int startPage = 0;
-		int endPage = 0;
-		
-
+		//>>>>>>>>>>페이징 처리
+		//페이징 하고 싶은 수의 변수
+		int num = 2;
 		
 		//쿼리로 찐 막 페이지 구하기
+		//총 개수
 		int realEndPage = boardService.getRealEndPageForBoard(lectureNo);
 		
-		if(realEndPage%2 == 0) {
-			realEndPage = realEndPage/2;
+		//총 개수에 따른 값 설정
+		if(realEndPage%num == 0) {
+			realEndPage = realEndPage/num;
 		} else {
-			realEndPage = realEndPage/2+1;
+			realEndPage = realEndPage/num+1;
 		}
 			
 		
+		//현제 페이지 설정
 		//현 페이지가 0보다 작으면 1로
 		if(currentPage <= 0) {
 			currentPage = 1;
 		}
 		
 		//현 페이지가 마지막 페이지보다 크면 마지막 페이지로
-		
 		if(currentPage >= realEndPage) {
 			currentPage = realEndPage; 
 		}
 		
 		
-		int startNo = currentPage *2 - 2;
+		//쿼리 시작 수 설정
+		int startNo = currentPage *num - num;
+		if(startNo <0) {
+			startNo=0;
+		}
 		
 		//페이지 세팅
-		startPage = currentPage / 2 * 2 +1;
-		endPage = startPage+10;
+		int startPage = currentPage / 10 * 10 +1;
+		int endPage = startPage+10;
 		
 		
 		//마지막 페이지 세팅
@@ -113,7 +115,7 @@ public class BoardController {
 		log.debug(TeamColor.KHJ + "파라미터 확인 / startNo : " + startNo);
 		log.debug(TeamColor.KHJ + "파라미터 확인 / pages : " + Arrays.toString(pages));
 		
-		
+		//<<<<<<<<<<<페이징 끝
 		
 		//일반 변수
 		//공지사항 및 qna 게시판 번호를 위한 변수
@@ -162,16 +164,99 @@ public class BoardController {
 	// 삭제 예정
 	//게시판 게시글 출력 메서드
 	@GetMapping("/board/post")
-	public String getBoardPostList(Board board, int boardNo, String boardName, int lectureNo,  Model model) {
+	public String getBoardPostList(int currentPage, Board board, Model model) {
 		
 		//파라미터 확인 디버깅
-		System.out.println("[boardCtrl] boardNo : " + boardNo);	
-		System.out.println("[boardCtrl] boardName : " + boardName);	
-		log.debug(TeamColor.KHJ + "값 확인 / boardNo : " + boardNo);
-		log.debug(TeamColor.KHJ + "값 확인 / boardName : " + boardName);
+
+		log.debug(TeamColor.KHJ + "값 확인 / board : " + board);
+		
+
+
+		//>>>>>>>>>>페이징 처리
+				//페이징 하고 싶은 수의 변수
+				int num = 5;
+				
+				//쿼리로 찐 막 페이지 구하기
+				//총 개수
+				int realEndPage = boardService.getRealEndPageForBoardPost(board.getLectureNo(), board.getBoardType());
+				
+				//총 개수에 따른 값 설정
+				if(realEndPage%num == 0) {
+					realEndPage = realEndPage/num;
+				} else {
+					realEndPage = realEndPage/num+1;
+				}
+					
+				
+				//현제 페이지 설정
+				//현 페이지가 0보다 작으면 1로
+				if(currentPage <= 0) {
+					currentPage = 1;
+				}
+				
+				//현 페이지가 마지막 페이지보다 크면 마지막 페이지로
+				if(currentPage >= realEndPage) {
+					currentPage = realEndPage; 
+				}
+				
+				
+				//쿼리 시작 수 설정
+				int startNo = currentPage *num - num;
+				if(startNo <0) {
+					startNo=0;
+				}
+				
+				//페이지 세팅
+				int startPage = 0;
+				
+				if(currentPage % 10 == 0) {
+					startPage = currentPage / 10 * 10-9;
+					log.debug(TeamColor.KHJ + "파라미터 확인 / ddddd");
+
+				} else {
+					startPage = currentPage / 10 * 10 +1;
+					log.debug(TeamColor.KHJ + "파라미터 확인 / ffff");
+
+				}
+				
+				int endPage = startPage+10;
+				
+				
+				//마지막 페이지 세팅
+				if(endPage > realEndPage) { endPage = realEndPage; }
+				
+				
+				//배열 크기 설정
+				int arrLength = endPage - startPage +1;
+				if(arrLength > 10) {
+					arrLength = 10;
+				}
+				
+				//넘겨줄 배열값 세팅
+				int [] pages = new int[arrLength];
+				
+				
+				for(int i = 0;i<pages.length;i++) {
+					pages[i] = startPage + i;
+				}
+				
+				//페이징 디버깅
+				log.debug(TeamColor.KHJ + "파라미터 확인 / startPage : " + startPage);
+				log.debug(TeamColor.KHJ + "파라미터 확인 / endPage : " + endPage);
+
+				
+				log.debug(TeamColor.KHJ + "파라미터 확인 / realEndPage : " + realEndPage);
+				log.debug(TeamColor.KHJ + "파라미터 확인 / startNo : " + startNo);
+				
+				log.debug(TeamColor.KHJ + "파라미터 확인 / pages : " + Arrays.toString(pages));
+				
+				//<<<<<<<<<<<페이징 끝
+
+		
+		
 		
 		//넘겨줄 리스트(게시판)
-		List<BoardPost> list = boardService.getBoardPostList(boardNo);
+		List<BoardPost> list = boardService.getBoardPostList(startNo, board.getBoardNo());
 		
 		//값 넘겨주기
 		model.addAttribute("boardPostList",list);
@@ -180,10 +265,17 @@ public class BoardController {
 		model.addAttribute("lectureNo",board.getLectureNo());
 		model.addAttribute("boardType",3);	
 		
+		//페이징 넘겨주는 값
+		model.addAttribute("pages",pages);
+		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("realEndPage",realEndPage);
+		
+		
 		
 		//디버깅
 		log.debug(TeamColor.KHJ + "값 확인 / boardPost list : " + list);
 		log.debug(TeamColor.KHJ + "boardPost 리스트 생성 및 포워딩");
+		
 		
 		
 		//포워딩
@@ -194,14 +286,95 @@ public class BoardController {
 	
 	//게시판 게시글 출력 메서드2
 	@GetMapping("/board/post2")
-	public String getBoardPostList2(Board board,  Model model) {
+	public String getBoardPostList2(int currentPage, Board board,  Model model) {
 		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "값 확인 / board : " + board);
+		
+		
+		//>>>>>>>>>>페이징 처리
+				//페이징 하고 싶은 수의 변수
+				int num = 5;
+				
+				//쿼리로 찐 막 페이지 구하기
+				//총 개수
+				int realEndPage = boardService.getRealEndPageForBoardPost(board.getLectureNo(), board.getBoardType());
+				
+				//총 개수에 따른 값 설정
+				if(realEndPage%num == 0) {
+					realEndPage = realEndPage/num;
+				} else {
+					realEndPage = realEndPage/num+1;
+				}
+					
+				
+				//현제 페이지 설정
+				//현 페이지가 0보다 작으면 1로
+				if(currentPage <= 0) {
+					currentPage = 1;
+				}
+				
+				//현 페이지가 마지막 페이지보다 크면 마지막 페이지로
+				if(currentPage >= realEndPage) {
+					currentPage = realEndPage; 
+				}
+				
+				
+				//쿼리 시작 수 설정
+				int startNo = currentPage *num - num;
+				if(startNo <0) {
+					startNo=0;
+				}
+				
+				//페이지 세팅
+				int startPage = 0;
+				
+				if(currentPage % 10 == 0) {
+					startPage = currentPage / 10 * 10-9;
+					log.debug(TeamColor.KHJ + "파라미터 확인 / ddddd");
+
+				} else {
+					startPage = currentPage / 10 * 10 +1;
+					log.debug(TeamColor.KHJ + "파라미터 확인 / ffff");
+
+				}
+				
+				int endPage = startPage+10;
+				
+				
+				//마지막 페이지 세팅
+				if(endPage > realEndPage) { endPage = realEndPage; }
+				
+				
+				//배열 크기 설정
+				int arrLength = endPage - startPage +1;
+				if(arrLength > 10) {
+					arrLength = 10;
+				}
+				
+				//넘겨줄 배열값 세팅
+				int [] pages = new int[arrLength];
+				
+				
+				for(int i = 0;i<pages.length;i++) {
+					pages[i] = startPage + i;
+				}
+				
+				//페이징 디버깅
+				log.debug(TeamColor.KHJ + "파라미터 확인 / startPage : " + startPage);
+				log.debug(TeamColor.KHJ + "파라미터 확인 / endPage : " + endPage);
+
+				
+				log.debug(TeamColor.KHJ + "파라미터 확인 / realEndPage : " + realEndPage);
+				log.debug(TeamColor.KHJ + "파라미터 확인 / startNo : " + startNo);
+				
+				log.debug(TeamColor.KHJ + "파라미터 확인 / pages : " + Arrays.toString(pages));
+				
+				//<<<<<<<<<<<페이징 끝
 
 		
 		//넘겨줄 리스트(게시판)
-		List<BoardPost> list = boardService.getBoardPostList2(board);
+		List<BoardPost> list = boardService.getBoardPostList2(startNo, board);
 		
 		//값 넘겨주기
 		model.addAttribute("boardPostList",list);
@@ -209,6 +382,13 @@ public class BoardController {
 		model.addAttribute("boardNo",board.getBoardNo());
 		model.addAttribute("boardType",board.getBoardType());		
 		model.addAttribute("lectureNo",board.getLectureNo());
+		
+		
+		//페이징 넘겨주는 값
+		model.addAttribute("pages",pages);
+		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("realEndPage",realEndPage);
+		
 		
 		
 		//디버깅

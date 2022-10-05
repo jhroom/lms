@@ -75,7 +75,7 @@
 	          <div class="col-12">
 	          	<div class="card">
 	              <div class="card-header">
-	                <h3 class="card-title">과목 게시판</h3>
+	                <h3 class="card-title">게시판</h3>
 	                
 	                <div class="card-tools">
 	                	<!-- 감추거나 지우는 버튼들 -->
@@ -118,7 +118,20 @@
 	              </div>
 	              <!-- end card-body -->
 	              <div class="card-footer">
-	                Footer 취향것
+					  <nav aria-label="Contacts Page Navigation">
+			            <ul class="pagination justify-content-center m-0">
+			            	<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=1">첫페이지</a></li>
+			            	<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${currentPage - 10}">-10 쪽</a></li>
+			            	<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${currentPage - 1}">이전쪽</a></li>
+								<c:forEach items="${pages}" var="p">
+					              <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${p}">${p}</a></li>
+								</c:forEach>
+							<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${currentPage +1}">다음쪽</a></li>
+							<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${currentPage + 10}">+10 쪽</a></li>
+							<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${realEndPage}">막페이지</a></li>
+							
+			            </ul> 
+			          </nav>
 	              </div>
 	              <!-- /.card-footer-->
 	            </div>
