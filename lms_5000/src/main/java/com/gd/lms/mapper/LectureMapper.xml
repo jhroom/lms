@@ -13,6 +13,13 @@
 		ORDER BY l.lecture_no
 	</select>	
 	
+	<!-- 개설 강좌 총 개수 -->
+	<select id="getTotal" resultType="int">
+		SELECT 
+			count(*)
+		FROM subject; 		
+	</select>	
+	
 	<!-- 학생 원하는 수강 과목 insert -->
 	<insert id="insertSign" parameterType="com.gd.lms.vo.Sign">
 		INSERT INTO sign (

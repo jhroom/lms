@@ -14,6 +14,7 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.LectureMapper;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
+import com.gd.lms.vo.Subject;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +32,8 @@ public class LectureService implements ILectureService {
 		log.debug(TeamColor.YHW + "-- Lecturelist-service--"+ Lecturelist );
 		return Lecturelist;
 	}
+	
+	
 
 	@Override
 	// 학생 선택 과목 add
@@ -164,10 +167,13 @@ public class LectureService implements ILectureService {
 			e.printStackTrace();
 			return false;
 		} 
-
-		
 	}
-
 	
-	
+	/////// 페이징 
+	@Override
+	// 강좌 갯수
+	public int getTotal() {
+		int getTotal = lecturemapper.getTotal();
+		return getTotal;
+	}
 }

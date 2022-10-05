@@ -14,6 +14,7 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILectureService;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
+import com.gd.lms.vo.Subject;
 import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class LectureController {
   
 	
   @GetMapping ("/sign/openLectureList")
-   public String selectLectureListForSign(Model model, Sign sign, SignCancel signCancel, HttpSession session) {
+   public String selectLectureListForSign(Model model, Sign sign, SignCancel signCancel, HttpSession session, int currentPage) {
 //		  // 로그인 상태가 아니면 로그인페이지
 //		  if(session.getAttribute("user") == null) { 
 //			  return "redirect:/lms/user/login";
@@ -43,10 +44,8 @@ public class LectureController {
 		  log.debug(TeamColor.KHJ + "수강신청 일자가 아닙니다 -- "+ test );
 		  
 		  //수강신청 오류 페이지로 보내기
-//		  return "/sign/outOfSignDate";
+// 		  return "/sign/outOfSignDate";
 	  }
-	  
-
 	  log.debug(TeamColor.KHJ + "test -- "+ test );
  	  
 	  	
@@ -54,7 +53,59 @@ public class LectureController {
 	  List<Map<String,Object>> lectureList = lectureService.selectLectureListForSign();
 	  // 개설강좌 목록 확인
  	  log.debug(TeamColor.YHW + "-- lectureList - controller -- "+ lectureList );
- 	  //개설강좌 목록 model에 담기
+ 	  
+ 	  /******페이징******/
+ 	  // 한 페이지에 나타낼 강좌 수 
+ 	  int num = 10;
+ 	  
+ 	  // 개설강좌 총 개수
+ 	  int getTotal = lectureService.getTotal();
+ 	  
+ 	  // 총 개수에 따른 페이지 수 
+ 	  int page;
+ 	  if (getTotal%num == 0) {
+		page = getTotal/num;
+ 	  }else {
+ 		page = getTotal/num+1;
+ 	  }
+ 	  
+ 	  // 현재 페이지 설정 ( 0보다 작으면 1로 표시 )
+ 	  if (currentPage <= 0) {
+		currentPage = 1;
+ 	  }
+ 	  
+ 	  // 쿼리 시작 수 설정
+ 	  int startNo = currentPage*num-num;
+ 	  if(startNo < 0) {
+ 		  startNo=0;
+ 	  }
+ 	  
+ 	  // 페이지 셋팅
+ 	  int startPage = page/10*10+1;
+ 	  int endPage = startPage+10;
+ 	  
+ 	  // 마지막 페이지 세팅
+ 	  if(endPage> page) {
+ 		  endPage = page;
+ 	  }
+ 	  
+ 	  // 넘겨줄 배열 값 셋팅
+ 	  int [] arrPage = new int[endPage - startPage+1];
+ 	  
+ 	  for(int i=0;i<arrPage.length;i++) {
+ 		  arrPage[i] = startPage+i;
+ 		  
+ 	  }
+ 	  
+ 	  // 페이징 변수값 디버깅
+ 	 log.debug(TeamColor.YHW + "-- startPage-controller -- "+ startPage );
+ 	 log.debug(TeamColor.YHW + "-- endPage-controller -- "+ endPage );
+ 	 log.debug(TeamColor.YHW + "-- page-controller -- "+ page );
+ 	 log.debug(TeamColor.YHW + "-- startNo-controller -- "+ startNo );
+ 	 log.debug(TeamColor.YHW + "-- arrPage-controller -- "+ arrPage.toString() );
+ 	  
+ 	  /***************/
+ 	  // 포워딩
  	  model.addAttribute("lectureList",lectureList);
 	  
  	  
@@ -82,7 +133,7 @@ public class LectureController {
 	  //신청 학점 model에 담기
  	  model.addAttribute("signTime",signTime);
 	  
-	   
+ 	  // 포워딩
       return "/sign/openLectureList";
 	  }
   
@@ -95,7 +146,7 @@ public class LectureController {
 		   int addSign = lectureService.addSign(sign);
 		   // 수강신청 등록 확인
 		   log.debug(TeamColor.YHW + addSign + "-- addSign-controller");
-		  
+		   // 포워딩
 		   return "redirect:/sign/openLectureList";
   	   } 
   	   
@@ -111,6 +162,7 @@ public class LectureController {
 		   //디버깅
 		   int lectureNo = signCancel.getLectureNo();
 		   int signNo = signCancel.getSignNo();
+		   // 포워딩
 		   return "redirect:/sign/removeSign?lectureNo="+lectureNo+"&signNo="+signNo+"&userId="+userId+"&cancelId"+userId;
 	   }
 
