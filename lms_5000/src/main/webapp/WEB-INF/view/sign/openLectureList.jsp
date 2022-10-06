@@ -64,7 +64,7 @@
 						<td>${m.lecture_no}</td>
 						<td>${m.subject_name}</td>
 						<td>${m.subject_point}점</td>
-						<td>${m.semester_no}학기</td>
+						<td>${m.semester_session}학기</td>
 						<td>${m.subject_grade}학년</td>
 						<td>${m.major_name}</td>
 						<td>
