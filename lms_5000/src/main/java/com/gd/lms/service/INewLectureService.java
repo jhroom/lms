@@ -1,5 +1,6 @@
 package com.gd.lms.service;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +28,5 @@ public interface INewLectureService {
 		public List<Professor> getProList();
 		
 		// 강의 추가시 출석 그거 어어
-		public int addWeek(Week week);
+		public int addWeek(Lecture lecture) throws ParseException;
 	}

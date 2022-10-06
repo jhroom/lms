@@ -1,11 +1,13 @@
 package com.gd.lms.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,48 +78,83 @@ public class NewLectureService implements INewLectureService {
 			return newLectureMapper.getProList();
 		}
 		
+		
+		
 		// 강의 추가시 출석 주차 생성
 		@Override
-		public int addWeek(Week week) {
+		public int addWeek(Lecture lecture) {
+			
+			log.debug(TeamColor.SSH + "lecture :" + lecture);
+			
+			
+			//강의 추가
+			int row = newLectureMapper.addLecture(lecture);
+			
+			log.debug(TeamColor.SSH + "dddd lecture : " + lecture);
+			
+			
+			//학기 정보 확인
+			String semesterDate = newLectureMapper.selectSemesterStartDate(lecture.getSemesterNo());
+			
+			
+			
+			
+			
 
-//			//연산 확인
-//			try {
-//				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//				
-//			//날짜 객체 입력	null=학기 시작날짜
-//			Date date = formatter.parse(null);
-//			Calendar cal = Calendar.getInstance();
-//			cal.setTime(date);
-//			
-//			//리턴값 
-//			int row = 0;
-//			
-//			//for 
-//			int i = 0;
-//			for(i=1; i<16; i++) {
-//			
-//			//마지막날 세팅
-//			String startDay = cal.toString();
-//				
-//			//7일 후 세팅
-//			cal.add(Calendar.DATE, + 7);
-//			
-//			//날짜의 문자열 변환
-//			String endDay = cal.toString();
-//			
-//			//입력
-//			row += newLectureMapper.addWeek(i, lectureNo, startDay, endDay);
-//			
-//		}
-//		
-//		}
-//
-//        }
-//        
-//     //오류 시 false 리턴
-//     } catch (ParseException e) {
-//        e.printStackTrace();
-        return 0;
-     } 
+			//연산 확인
+			try {
+				
+				//날짜 데이터 포멧하기
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				
+				//날짜 객체 입력(학기 시작날짜)
+				Date date = formatter.parse(semesterDate);
+				
+				//날짜 객체 생성 및 세팅
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(date);
+				
+				
+					//for 반복
+					
+					for(int i=1; i<16; i++) {
+					
+					//주차 시작일 세팅
+					//String startDate = cal.toString();
+					
+					String startDate = cal.get(Calendar.YEAR) +  "-" + (cal.get(Calendar.MONTH)+1) +  "-" +cal.get(Calendar.DATE) ;
+					
+					log.debug(TeamColor.SSH + "시작일 세팅" + startDate);
+					
+						
+					//7일 후 세팅
+					cal.add(Calendar.DATE, + 7);
+					
+					//주차 종료일 세팅
+					//String endDate = cal.toString();
+					String endDate = cal.get(Calendar.YEAR) +  "-" + (cal.get(Calendar.MONTH)+1) +  "-" +cal.get(Calendar.DATE) ;
+					
+					
+					
+					log.debug(TeamColor.SSH + "종료일 세팅" + endDate);
+					
+					
+					//입력
+					row += newLectureMapper.addWeekK(i, lecture.getLectureNo(), startDate, endDate);
+					}
+		
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return 0;
+	      }
+			
+			//리턴
+			return row; 
+
+
+        }
+        
+     
+      
   }
   

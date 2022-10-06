@@ -39,6 +39,11 @@ public interface NewLectureMapper {
 		public List<Professor> getProList();
 		
 		// 강의 생성시 출석 주차 자동생성
-		public int addWeek(Week week);
+		public int addWeek(int lectureNo);
 		
+		//학기 정보 추출 쿼리
+		public String selectSemesterStartDate(int semesterNo);
+		
+		//강의 생성시 주차 생성(김현준
+		public int addWeekK(int week, int lectureNo, String startDate, String endDate);
 }

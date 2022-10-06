@@ -1,6 +1,7 @@
 package com.gd.lms.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -91,9 +92,9 @@ public class NewLectureController {
 	   
 	   // 강의 추가 액션
 	   @GetMapping("/lmsLecture/addLecture/add")
-	   public String addLecture(Lecture lecture) {
+	   public String addLecture(Lecture lecture) throws ParseException {
 		   
-		   newlectureService.addLecture(lecture);
+		   newlectureService.addWeek(lecture);
 		   
 		   log.debug(TeamColor.SSH + "강의 추가 : " + lecture);
 		   

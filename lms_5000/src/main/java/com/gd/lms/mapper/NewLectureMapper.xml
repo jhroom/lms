@@ -44,9 +44,8 @@
 	
 	
 	<!-- 강의 추가 -->
-	<insert id="addLecture" parameterType="com.gd.lms.vo.Lecture">
+	<insert id="addLecture" parameterType="com.gd.lms.vo.Lecture"  useGeneratedKeys="true" keyProperty="lectureNo">
 		INSERT INTO lecture(
-			lecture_no,
 			lecture_time,
 			lecture_starttime,
 			lecture_endtime,
@@ -56,7 +55,6 @@
 			user_id,
 			semester_no		
 		) VALUES (
-			#{lectureNo},
 			#{lectureTime},
 			#{lectureStarttime},
 			#{lectureEndtime},
@@ -113,18 +111,24 @@
 	</delete>
 	
 	<!-- 강의 생성시 출석 주차 자동 생성 -->
-	<insert id="addWeek" parameterType="com.gd.lms.vo.Lecture">
+	<insert id="addWeekK" >
 		INSERT INTO week(
-		week
-		, start_date
-		, END_date
-		, lecture_no
-		) VALUE (
-		2
-		, NOW()
-		, NOW()
-		, 1
+		week,
+		start_date,
+		end_date,
+		lecture_no
+		) VALUES (
+		#{week},
+		#{startDate},
+		#{endDate},
+		#{lectureNo}
 		)
 	</insert>
+	
+	<select id="selectSemesterStartDate" resultType="String">
+		select semester_startdate
+		from semester
+		where semester_no = #{semesterNo}
+	</select>
 	
 </mapper>
