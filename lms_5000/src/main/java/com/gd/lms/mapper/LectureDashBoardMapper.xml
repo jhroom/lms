@@ -106,8 +106,7 @@
 				 		LEFT JOIN attendance a
 				 		ON s.sign_no = a.sign_no
 		WHERE
-			l.lecture_no = #{lectureNo} AND p.user_id = #{userId}
-			And a.week = #{week}
+			l.lecture_no = #{lectureNo} And a.week = #{week}
 	 </select>
 	 
 	 <!-- 해당 주차의 해당강좌의 해당 학생이 출석데이터가 있는지 조회 -->
@@ -166,7 +165,7 @@
 					INNER JOIN major m
 					ON s.major_no = m.major_no
 		WHERE 
-			l.lecture_no = #{lectureNo} AND l.user_id = #{userId}
+			l.lecture_no = #{lectureNo}
 	 </select>
 	 
 	 <!-- 최신 게시글 10건 불러오는 쿼리 -->

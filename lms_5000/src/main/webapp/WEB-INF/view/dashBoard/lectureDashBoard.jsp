@@ -146,11 +146,11 @@
 				        </div>
 				    </div><!-- /.end 출결현황 card -->
 			    </c:when>
-			    <c:when test="${loginUser.userLevel == 2 }">
+			    <c:when test="${loginUser.userLevel <= 2 }">
 			    	<div class="card card-primary card-outline">
 				         <div class="card-body">
 				           <h1 class="card-title"><Strong>출결현황</Strong></h1><br>
-				           <table border="1">
+				           <table class="table">
 				           		<tr>
 				           			<td>주차</td>
 				           			

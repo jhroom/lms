@@ -2,6 +2,8 @@ package com.gd.lms.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +50,8 @@ public class MypageController {
 			model.addAttribute("errMsg","로그인 후 이용 가능합니다");
 			return "index/login";
 		}
+		LocalTime now = LocalTime.now();
+		log.debug(TeamColor.AJH + "현재 시간 : " + now);
 		//세션의 유저 아이디
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		//세션의 유저 레벨
@@ -63,6 +67,44 @@ public class MypageController {
 		
 		//주소창 파라미터 값 뷰로 넘겨주기
 		model.addAttribute("msg", msg);
+		
+		return "user/passwordCheck";
+	}
+	
+	@GetMapping("index/mypage/pwCheck")
+	public String passwordCheck(User user) {
+		log.debug(TeamColor.AJH+"user 파라미터 : " + user);
+		
+		
+		return "user/myInfo";
+	}
+	
+	@PostMapping("index/mypage/pwCheck")
+	public String passwordCheck(HttpSession session, Model model, User user) {
+		log.debug(TeamColor.AJH + "파라미터 user : " + user);
+		
+		//사용자 정보가 없는 사람이 마이페이지 갈경우
+		if(session.getAttribute("loginUser") == null) {
+			model.addAttribute("errMsg","로그인 후 이용 가능합니다");
+			return "index/login";
+		}
+		
+		//입력한 비밀번호로 조회사 정보가 없다면 다시 확인 페이지로
+		if(mypageService.getPasswordCheck(user)) {
+			return "user/passwordCheck";
+		}
+		//세션의 유저 아이디
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		//세션의 유저 레벨
+		int userLevel = ((User)session.getAttribute("loginUser")).getUserLevel();
+		
+		// 유저의 가입정보 받아오기
+		Map<String, Object> userInfo = mypageService.getUserInfo(userId, userLevel);
+		
+		// 디버깅
+		log.debug(TeamColor.AJH + "userId의 가입정보 : "+ userInfo);
+		
+		model.addAttribute("userInfo", userInfo);
 		
 		return "user/myInfo";
 	}

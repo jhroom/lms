@@ -9,6 +9,9 @@ import com.gd.lms.vo.User;
 
 public interface IMypageService {
 	
+	//마이페이지 정보조회시 비밀번호 확인
+	boolean getPasswordCheck(User user);
+	
 	//마이페이지 유저 정보받기
 	Map<String, Object> getUserInfo(String userId, int userLevel);
 	

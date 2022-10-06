@@ -22,6 +22,13 @@ public class MypageService implements IMypageService {
 	
 	@Autowired MypageMapper mypageMapper;
 	
+	@Override
+	public boolean getPasswordCheck(User user) {
+		String resultId = mypageMapper.selectPasswordCheck(user);
+		
+		return resultId == null? true : false;
+	}
+	
 	//마이페이지 로그인정보
 	@Override
 	public Map<String, Object> getUserInfo(String userId, int userLevel) {

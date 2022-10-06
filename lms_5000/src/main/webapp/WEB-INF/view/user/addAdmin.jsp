@@ -162,10 +162,14 @@ $(document).ready(function(){
   <div class="card">
   <div class=" row">
   	<div class="col-sm-6 text-center" style="background-color:#e9ecef; height: 35px;">
-  		<a href="${pageContext.request.contextPath}/user/addUser">학생/교수</a>
+  		<div style="padding-top: 10px">
+  			<a href="${pageContext.request.contextPath}/user/addUser">학생/교수</a>
+  		</div>
   	</div>
   	<div class="col-sm-6 text-center">
-  		<a href="${pageContext.request.contextPath}/user/addAdmin">운영자(직원)</a>
+  		<div style="padding-top: 10px">
+  			<a href="${pageContext.request.contextPath}/user/addAdmin">운영자(직원)</a>
+  		</div>
   	</div>
   </div>
   

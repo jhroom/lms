@@ -21,7 +21,8 @@
 		WHERE user_id = #{userId} AND user_pw = password(#{userPw})
 	</select>
 	
-	<!-- 로그인시 ID,PW가 일치하는 정보(아이디,이름,레벨 계정활성화여부)  -->
+	
+	<!-- 휴면 조건에 맞는 id찾기  -->
 	<select id="selectRestUserLogin" parameterType="com.gd.lms.vo.User" resultType="string">
 		SELECT
 			user_id userId

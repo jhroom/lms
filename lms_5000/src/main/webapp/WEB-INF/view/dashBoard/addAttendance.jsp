@@ -36,13 +36,14 @@
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">${lectureInfo.majorName} ${lectureInfo.subjectName} ${week}주차 출석체크</h1>
+          <div class="col-sm-8">
+            <h3 class="m-0 text-dark">${lectureInfo.majorName} ${lectureInfo.subjectName} ${week}주차 출석체크</h3>
           </div><!-- /.col -->
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}
+								/dashBoard/lectureDashBoard?lectureNo=${lectureNo}">Dash Board</a></li>
+              <li class="breadcrumb-item active">Attendance Page</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -59,50 +60,87 @@
 		<div class="row">
 			<div class="col-sm-3"></div>
 			
-			<div class="col-sm-6">
-				<div class="row">
-					<div class="col-sm-6">학생</div>
-					<div class="col-sm-3">출석상태</div>
-					<div class="col-sm-3">출석</div>
-				</div>
+			<div class="col-sm-6 card" style="padding: 3% 5%">
 			
-			<div class="container-fluid">
-				
-				<form id="attendForm" action="${pageContext.request.contextPath}/dashBoard/addAttendance" method="post">
-					<input type="hidden" value="${week}" name="week">
-					<input type="hidden" value="${lectureNo}" name="lectureNo">
-					
-					<c:forEach var="s" items="${studentList}" varStatus="status">
-						<div class="row">
-						<div class="col-sm-6">
-							<input type="hidden" value="${s.studentId}" name="studentId[${status.index}]">
-							<input type="text" value="${s.studentName}">
-						</div>
-						<div class="col-sm-3">
-							<c:choose>
-								<c:when test="${s.attendState eq 0}">결석</c:when>
-								<c:when test="${s.attendState eq 1}">지각</c:when>
-								<c:when test="${s.attendState eq 2}">조퇴</c:when>
-								<c:when test="${s.attendState eq 3}">출석</c:when>
-							</c:choose>
-						</div>
-						<div class="col-sm-3">
-							<select  name="attendState[${status.index}]">
-								<!-- <option value="">-- 선택 --</option> -->
-								<option value="0">결석</option>						
-								<option value="1">지각</option>
-								<option value="2">조퇴</option>
-								<option value="3">출석</option>
-							</select>
-						</div>
-						</div>
-					</c:forEach>
-					
-					<button type="submit">제출</button>
-				</form>
-			</div>
+			<div class="">
 			
-			</div>
+				<c:choose>
+					<c:when test="${loginUser.userLevel == 1 }">
+						<table class="table table-hover text-center">
+							<thead>
+								<tr>
+									<th>학생</th>
+									<th>출석상태</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach  var="s" items="${studentList}">
+								<tr>
+									<td>${s.studentName}</td>
+									<td>
+										<c:choose>
+											<c:when test="${s.attendState eq 0}">결석</c:when>
+											<c:when test="${s.attendState eq 1}">지각</c:when>
+											<c:when test="${s.attendState eq 2}">조퇴</c:when>
+											<c:when test="${s.attendState eq 3}">출석</c:when>
+										</c:choose>
+									</td>
+								</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:when>
+					
+					<c:when test="${loginUser.userLevel == 2 }">
+						<form id="attendForm" action="${pageContext.request.contextPath}/dashBoard/addAttendance" method="post">
+							<input type="hidden" value="${week}" name="week">
+							<input type="hidden" value="${lectureNo}" name="lectureNo">
+							
+							<table class="table table-hover text-center">
+								<thead>
+									<tr>
+										<th>학생</th>
+										<th>출석상태</th>
+										<th>출석</th>
+									</tr>
+								</thead>
+								
+								<tbody>
+									<c:forEach var="s" items="${studentList}" varStatus="status">
+									<tr>
+										<td>
+											<input type="hidden" value="${s.studentId}" name="studentId[${status.index}]">
+											${s.studentName}
+										</td>
+										<td>
+											<c:choose>
+												<c:when test="${s.attendState eq 0}">결석</c:when>
+												<c:when test="${s.attendState eq 1}">지각</c:when>
+												<c:when test="${s.attendState eq 2}">조퇴</c:when>
+												<c:when test="${s.attendState eq 3}">출석</c:when>
+											</c:choose>
+										</td>
+										<td>
+											<select  name="attendState[${status.index}]" class="custom-select custom-select-sm mb-3">
+												<!-- <option value="">-- 선택 --</option> -->
+												<option value="0">결석</option>						
+												<option value="1">지각</option>
+												<option value="2">조퇴</option>
+												<option value="3">출석</option>
+											</select>
+										</td>
+									</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+							<button type="submit" class="btn btn-secondary float-right" >제출</button>
+						</form>
+					</c:when>
+					
+				</c:choose>
+			</div><!-- end container  -->
+			
+			</div><!-- end col-sm-6 -->
 			
 			<div class="col-sm-3"></div>
 		</div>
@@ -112,18 +150,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <!-- 좌측 사이드 바 -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-  
   
 <!-- 페이지 삽입 - footer -->
 <%@include file="../import/footer.jsp" %>

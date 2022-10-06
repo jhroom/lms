@@ -11,6 +11,9 @@ import com.gd.lms.vo.User;
 @Mapper
 public interface MypageMapper {
 	
+	//마이페이지 개인정보 페이지 들어갈시 비밀번호 확인
+	String selectPasswordCheck(User user);
+	
 	//마이페이지 학생 정보
 	Map<String, Object> selectStudentInfo(String userId);
 	

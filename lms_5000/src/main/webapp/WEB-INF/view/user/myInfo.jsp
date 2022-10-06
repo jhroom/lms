@@ -9,9 +9,24 @@
 <!-- 페이지 삽입 - 필수적인 레퍼런스(css, font) -->
 <%@include file="../import/reference.jsp" %><title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<style>
+	.form-control{
+		width: 180px;
+		display: inline;
+	}
+</style>
 </head>
 <script>
 	$(document).ready(function(){
+		$('#mailDiv').hide();
+		$('#telDiv').hide();
+		
+		$('#mailBtn').click(function(){
+			$('#mailDiv').show();
+		});
+		$('#telBtn').click(function(){
+			$('#telDiv').show();
+		});
 		
 		// 이메일 검증 스크립트 작성
 		verifyEmail = function() {
@@ -138,7 +153,6 @@
 					<div>${userInfo.extraInfo}</div>
 					<hr>
 				</c:when>
-				<%-- <c:when test="${userInfo.userLevel == 4}">시스템관리자</c:when> --%>
 		</c:choose>
 		
 		<div><strong>이름</strong></div>
@@ -148,9 +162,12 @@
 		<div><strong>메일</strong></div>
 		<div>
 			${userInfo.userEmail}
+			<button type="button" id="mailBtn" class="btn btn-link">변경하기</button>
+		</div>
+		<div id="mailDiv">
 			<form action="${pageContext.request.contextPath}/index/mypage/changeUserInfo" id="emailForm" method="post">
-				<input type="text" id="email" name="userInfo" placeholder="ex)aaa@example.com">
-				<button type="button" onclick="verifyEmail()">확인</button>
+				<input type="text" id="email" class="form-control" name="userInfo" placeholder="ex)aaa@example.com">
+				<button type="button" class="btn btn-link" onclick="verifyEmail()">확인</button>
 			</form>
 		</div>
 		<hr>
@@ -158,9 +175,12 @@
 		<div><strong>휴대폰 번호</strong></div>
 		<div>
 			${userInfo.userTel}
+			<button type="button" id="telBtn" class="btn btn-link">변경하기</button>
+		</div>
+		<div id="telDiv">
 			<form action="${pageContext.request.contextPath}/index/mypage/changeUserInfo" id="telForm" method="post">
-				<input type="text" id="tel" name="userInfo" placeholder="ex)000-0000-0000">
-				<button type="button" onclick="verifyTel()">확인</button>
+				<input type="text" id="tel" class="form-control" name="userInfo" placeholder="ex)000-0000-0000">
+				<span><button type="button" class="btn btn-link" onclick="verifyTel()">확인</button></span>
 			</form>
 		</div>
 		<hr>

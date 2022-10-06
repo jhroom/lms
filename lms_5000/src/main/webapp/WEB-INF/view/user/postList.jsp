@@ -41,7 +41,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index/mypage">mypage</a></li>
-              <li class="breadcrumb-item active">My Post Page</li>
+              <li class="breadcrumb-item active">My post</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -62,7 +62,7 @@
               <div class="card-header">
                 <h3 class="card-title"><Strong>게시글 작성 목록</Strong></h3>
 
-                <div class="card-tools">
+                <!-- <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
@@ -70,7 +70,7 @@
                       <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
