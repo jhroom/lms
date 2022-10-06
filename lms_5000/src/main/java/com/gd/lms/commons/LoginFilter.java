@@ -66,6 +66,8 @@ public class LoginFilter extends HttpFilter implements Filter{
 				||uri.equals("/lms/user/addUser")
 				||uri.equals("/lms/user/addAdmin")
 				||uri.equals("/lms/user/idCheck")
+				||uri.equals("/lms/user/findUserId")
+				||uri.equals("/lms/user/findUserPw")
 	
 				
 			) {
