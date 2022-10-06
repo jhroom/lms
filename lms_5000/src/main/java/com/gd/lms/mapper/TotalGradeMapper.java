@@ -14,7 +14,7 @@ public interface TotalGradeMapper {
 	List<Map<String, Object>> selectTotalgradePro(int lectureNo);
 	
 	//학생 과목 및 성적 리스트 출력
-	List<Map<String, Object>> selectTotalgradeStu(int lectureNo);
+	//List<Map<String, Object>> selectTotalgradeStu(int lectureNo);
 	
 	//학생 수강 번호 출력쿼리
 	int [] selectSignNo(int lectureNo);
@@ -41,4 +41,8 @@ public interface TotalGradeMapper {
 	//특정 학생 점수 확인 쿼리
 	Map<String, Object> selectTotalgradeForStu(String userId, int lectureNo);
 	
+	//학생 점수 테이블 삽입
+	int insertTotalgrade(int SignNo);
+	
+
 }

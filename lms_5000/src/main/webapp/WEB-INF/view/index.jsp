@@ -387,34 +387,35 @@ function change() {
 	      </div>
 	    </section>
 	<!-- /.end 하단구역-->
-	
-    기존 링크들은 사이드바로?
-		<c:choose>
-			<c:when test="${loginUser != null}">
-				<c:if test="${loginUser.userLevel eq 4}">
-						<!-- loginUser 레벨이 4일경우 승인 페이지로 갈수있는 링크 출력-->
-				<a href="${pageContext.request.contextPath}/user/userList">승인 페이지</a>
-				</c:if>
-				<br>
-				<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList">공지 리스트</a><br>
-				<a href="${pageContext.request.contextPath}/sign/stDash">수강신청(학생용)</a><br>
-				<a href="${pageContext.request.contextPath}/sign/SignListForAdmin">수강신청 상태 변경(운영자용)</a><br>
-				<a href="${pageContext.request.contextPath}/board/list?lectureNo=1">게시판</a><br>
-				<a href="${pageContext.request.contextPath}/index/mypage">마이페이지</a><br>
-				<a href="${pageContext.request.contextPath}/lmsMajor/MajorList">학과 리스트</a><br>
-				<a href="${pageContext.request.contextPath}/lmsSubject/SubjectList">강좌리스트</a><br>
-				<a href="${pageContext.request.contextPath}/lmsSemester/SemesterList">학기 리스트</a><br>
-				<a href="${pageContext.request.contextPath}/lmsLecture/LectureList">강의 리스트</a><br>
-				<button  onclick="window.open('${pageContext.request.contextPath}/user/messageList'
-				, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false">메세지</button>
+
+<!--     기존 링크들은 사이드바로? -->
+<%-- 		<c:choose> --%>
+<%-- 			<c:when test="${loginUser != null}"> --%>
+<%-- 				<c:if test="${loginUser.userLevel eq 4}"> --%>
+<!-- 						loginUser 레벨이 4일경우 승인 페이지로 갈수있는 링크 출력 -->
+<%-- 				<a href="${pageContext.request.contextPath}/user/userList">승인 페이지</a> --%>
+<%-- 				</c:if> --%>
+<!-- 				<br> -->
+<%-- 				<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList">공지 리스트</a><br> --%>
+<%-- 				<a href="${pageContext.request.contextPath}/sign/stDash">수강신청(학생용)</a><br> --%>
+<%-- 				<a href="${pageContext.request.contextPath}/sign/SignListForAdmin">수강신청 상태 변경(운영자용)</a><br> --%>
+<%-- 				<a href="${pageContext.request.contextPath}/board/list?lectureNo=1">게시판</a><br> --%>
+<%-- 				<a href="${pageContext.request.contextPath}/index/mypage">마이페이지</a><br> --%>
+<%-- 				<a href="${pageContext.request.contextPath}/lmsMajor/MajorList">학과 리스트</a><br> --%>
+<%-- 				<a href="${pageContext.request.contextPath}/lmsSubject/SubjectList">강좌리스트</a><br> --%>
+<%-- 				<a href="${pageContext.request.contextPath}/lmsSemester/SemesterList">학기 리스트</a><br> --%>
+<%-- 				<a href="${pageContext.request.contextPath}/lmsLecture/LectureList">강의 리스트</a><br> --%>
+<%-- 				<button  onclick="window.open('${pageContext.request.contextPath}/user/messageList' --%>
+<%-- 				, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false">메세지</button> --%>
 				
-				<p><a href="${pageContext.request.contextPath}/index/logout">로그아웃</a></p>
-			</c:when>
+<%-- 				<p><a href="${pageContext.request.contextPath}/index/logout">로그아웃</a></p> --%>
+<%-- 			</c:when> --%>
 			
-			<c:otherwise>
-				<a href="${pageContext.request.contextPath}/index/login">로그인하러가기</a>
-			</c:otherwise>
-		</c:choose>
+<%-- 			<c:otherwise> --%>
+<%-- 				<a href="${pageContext.request.contextPath}/index/login">로그인하러가기</a> --%>
+<%-- 			</c:otherwise> --%>
+<%-- 		</c:choose> --%>
+
 		
 		
 		</div>

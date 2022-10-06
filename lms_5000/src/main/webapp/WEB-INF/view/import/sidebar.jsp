@@ -217,7 +217,7 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 LMS 공지사항
-                <span class="right badge badge-danger">New</span>
+
               </p>
             </a>
           </li>
@@ -230,7 +230,7 @@
            <a href="${pageContext.request.contextPath}/user/messageList" class="nav-link">
               <p>
                 메세지
-                <span class="right badge badge-danger">New</span>
+
               </p>
             </a>
           </li>
@@ -241,7 +241,7 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 마이페이지
-                <span class="right badge badge-danger">New</span>
+
               </p>
             </a>
           </li>

@@ -61,6 +61,7 @@
 				 			ON s.user_id = stu.user_id
 				 			
 		WHERE stu.user_id = #{userId}
+		and s.sign_state = "1"
 	</select>
 
 </mapper>
