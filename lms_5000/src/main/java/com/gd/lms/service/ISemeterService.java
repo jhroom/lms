@@ -22,6 +22,5 @@ public interface ISemeterService {
 	// 학기 상세보기
 	public Map<String, Object> getSemesterOne(int semesterNo);
 	
-	// 학기 총 일수
-	public int getSemesterDay(int semesterNo);
+	
 }	

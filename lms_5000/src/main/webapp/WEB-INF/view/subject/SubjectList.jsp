@@ -36,7 +36,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">전체 강좌리스트</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -54,9 +54,7 @@
     <!-- 메인 콘텐츠 -->
     <div class="content">
       <div class="container-fluid">
-     <h3>
-		전체 강좌 리스트
-	</h3>
+     
 	<div>
 	<c:if test="${loginUser.userLevel eq 1}">
 		<a href="${pageContext.request.contextPath}/lmsSubject/addSubject" class="btn btn-primary">추가하기</a>

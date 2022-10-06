@@ -79,12 +79,7 @@
 				<th>종강일</th>
 				<td>${semesterOne.semesterEnddate}</td>
 			</tr>
-			<tr>
-				<th>총 일수</th>
-				<td>
-					${semesterOne.semesterDay}일
-				</td>
-			</tr>
+			
 		</tbody>
 	</table>
 	<a href="${pageContext.request.contextPath}/lmsSemester/updateSemester/form?semesterNo=${semesterNo}" class="btn btn-success" role="button">수정</a>

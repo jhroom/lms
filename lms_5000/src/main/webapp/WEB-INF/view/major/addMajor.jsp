@@ -36,7 +36,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">학과 추가</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -55,7 +55,7 @@
     <div class="content">
       <div class="container-fluid">
       
-     <h3>학과 추가</h3>
+     
 	<form action="${pageContext.request.contextPath}/lmsMajor/MajorList/add" method="get">
 	
 	<table class="table table-hover text-nowrap">

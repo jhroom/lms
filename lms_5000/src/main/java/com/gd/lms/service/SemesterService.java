@@ -1,8 +1,5 @@
 package com.gd.lms.service;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -66,12 +63,6 @@ public class SemesterService implements ISemeterService{
 		
 		return semesterOne;
 	}
-	@Override
-	public int getSemesterDay(int semesterNo) {
-		
-		int row = semesterMapper.getSemesterDay(semesterNo);
-		
-		return row;
-	}
+	
 	
 }

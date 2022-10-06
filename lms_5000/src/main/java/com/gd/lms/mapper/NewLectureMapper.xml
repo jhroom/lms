@@ -112,4 +112,19 @@
 		WHERE lecture_no = #{lectureNo}
 	</delete>
 	
+	<!-- 강의 생성시 출석 주차 자동 생성 -->
+	<insert id="addWeek" parameterType="com.gd.lms.vo.Lecture">
+		INSERT INTO week(
+		week
+		, start_date
+		, END_date
+		, lecture_no
+		) VALUE (
+		2
+		, NOW()
+		, NOW()
+		, 1
+		)
+	</insert>
+	
 </mapper>

@@ -1,5 +1,8 @@
 package com.gd.lms.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +13,7 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.NewLectureMapper;
 import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Professor;
+import com.gd.lms.vo.Week;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -71,5 +75,49 @@ public class NewLectureService implements INewLectureService {
 			
 			return newLectureMapper.getProList();
 		}
+		
+		// 강의 추가시 출석 주차 생성
+		@Override
+		public int addWeek(Week week) {
 
-}
+//			//연산 확인
+//			try {
+//				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//				
+//			//날짜 객체 입력	null=학기 시작날짜
+//			Date date = formatter.parse(null);
+//			Calendar cal = Calendar.getInstance();
+//			cal.setTime(date);
+//			
+//			//리턴값 
+//			int row = 0;
+//			
+//			//for 
+//			int i = 0;
+//			for(i=1; i<16; i++) {
+//			
+//			//마지막날 세팅
+//			String startDay = cal.toString();
+//				
+//			//7일 후 세팅
+//			cal.add(Calendar.DATE, + 7);
+//			
+//			//날짜의 문자열 변환
+//			String endDay = cal.toString();
+//			
+//			//입력
+//			row += newLectureMapper.addWeek(i, lectureNo, startDay, endDay);
+//			
+//		}
+//		
+//		}
+//
+//        }
+//        
+//     //오류 시 false 리턴
+//     } catch (ParseException e) {
+//        e.printStackTrace();
+        return 0;
+     } 
+  }
+  

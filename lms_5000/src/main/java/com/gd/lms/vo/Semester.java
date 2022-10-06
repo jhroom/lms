@@ -15,4 +15,6 @@ public class Semester {
 	//학기 종료일
 	private String semesterEnddate;		
 	
+	
+	
 }

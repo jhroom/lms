@@ -36,7 +36,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">강좌 상세보기</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -56,7 +56,7 @@
       <div class="container-fluid">
       
       <div>
-	<h3>강좌 상세보기</h3>
+	
 	<table class="table table-hover text-nowrap">	
 		<tbody>
 			<tr>

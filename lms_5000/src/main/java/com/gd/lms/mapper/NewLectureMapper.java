@@ -9,6 +9,7 @@ import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Professor;
 import com.gd.lms.vo.Semester;
 import com.gd.lms.vo.Subject;
+import com.gd.lms.vo.Week;
 
 @Mapper
 public interface NewLectureMapper {
@@ -36,5 +37,8 @@ public interface NewLectureMapper {
 		
 		// 교수 리스트 가져오기
 		public List<Professor> getProList();
+		
+		// 강의 생성시 출석 주차 자동생성
+		public int addWeek(Week week);
 		
 }

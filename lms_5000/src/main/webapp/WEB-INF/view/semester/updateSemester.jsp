@@ -93,13 +93,13 @@
 					<tr>
 						<th>개강일</th>
 						<td>
-							<input type="datetime-local" name="semesterStartdate" value="semesterStartdate">
+							<input type="date" name="semesterStartdate" value="semesterStartdate">
 						</td>
 					</tr>
 					<tr>
 						<th>종강일</th>
 						<td>
-							<input type="datetime-local" name="semesterEnddate" value="semesterEnddate">
+							<input type="date" name="semesterEnddate" value="semesterEnddate">
 						</td>
 					</tr>
 				</tbody>

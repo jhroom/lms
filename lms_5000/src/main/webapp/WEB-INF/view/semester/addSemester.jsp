@@ -97,6 +97,9 @@
 						<input type="date" name="semesterEnddate" id="semesterEnddate">
 					</td>
 				</tr>
+				<tr>
+					<input type="hidden" name="semesterDay" id="semesterDay">					
+				</tr>
 			</tbody>
 		</table>
 		<button type="submit" class="btn btn-success">추가</button>
