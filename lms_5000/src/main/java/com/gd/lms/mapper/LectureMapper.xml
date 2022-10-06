@@ -17,6 +17,7 @@
 			AND semester_session = round(MONTH(NOW())/6)
 		)
 		ORDER BY l.lecture_no
+		limit #{beginRow}, #{rowPerPage}
 	</select>	
 	
 	<!-- 개설 강좌 총 개수 -->

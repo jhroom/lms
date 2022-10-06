@@ -56,7 +56,7 @@ public class LectureController {
 	  log.debug(TeamColor.YHW + "-- currentPage - controller -- "+ currentPage ); 
 	  
 	  // 페이징 변수 설정
-	  Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, currentPage);
+	  Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, lectureService.getTotal());
 	  
 	  // 개설강좌 목록 불러오기
 	  List<Map<String,Object>> lectureList = lectureService.selectLectureListForSign((int)pageVariable.get("beginRow"),(int)pageVariable.get("rowPerPage"));
@@ -70,7 +70,7 @@ public class LectureController {
  	  model.addAttribute("realLastPage",pageVariable.get("realLastPage"));
  	  
  	
- 	  // 포워딩
+ 	  // 강좌 목록
  	  model.addAttribute("lectureList",lectureList);
 	  
  	  
