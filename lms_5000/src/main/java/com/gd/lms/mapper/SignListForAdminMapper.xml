@@ -16,7 +16,7 @@
 		ON s.subject_no = l.subject_no
 		inner join user u
 		on l.user_id = u.user_id
-	
+		limit #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<!-- 강좌별 수강신청 인원 -->
@@ -106,4 +106,10 @@
 			NOW(),
 			NOW())
 	</insert>
+	
+	<!-- 강좌 총 갯수 -->
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(*)
+		FROM subject
+	</select>
 </mapper>

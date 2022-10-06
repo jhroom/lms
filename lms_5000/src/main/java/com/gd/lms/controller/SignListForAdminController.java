@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gd.lms.commons.PageUtil;
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ISignListforAdminService;
 import com.gd.lms.vo.Sign;
@@ -23,15 +25,25 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class SignListForAdminController {
 	@Autowired ISignListforAdminService signListforAdminService;
-	
+	PageUtil PageUtil = new PageUtil();
+	 
 	// 강좌 리스트 출력
 	@GetMapping("/sign/SignListForAdmin")
-		public String selectureList(Model model){
-			List<Map<String, Object>> slectureList = signListforAdminService.StudentSignList();
+	public String selectureList(Model model,  @RequestParam(required=false, value="currentPage", defaultValue="1")int currentPage){
+		// 페이징 변수
+		Map<String, Object> pageVariable=PageUtil.pageVariable(currentPage, signListforAdminService.getTotal());
+		// 강좌 갯수
+		List<Map<String, Object>> lectureList = signListforAdminService.StudentSignList((int)pageVariable.get("beginRow"),(int)pageVariable.get("rowPerPage"));
+		
 		// 서비스에서 넘어온 값 확인
-		log.debug(TeamColor.YHW + "-- lectureList - Controller--"+ slectureList );
-		// 뷰로 넘길 값 model에 대입
-		model.addAttribute("slectureList",slectureList);
+		log.debug(TeamColor.YHW + "-- lectureList - Controller--"+ lectureList );
+		// 강좌 넘기기
+		model.addAttribute("lectureList",lectureList);
+		//페이징 넘겨주는 값
+	 	  model.addAttribute("pages",pageVariable.get("pages"));
+	 	  model.addAttribute("currentPage",pageVariable.get("currentPage"));
+	 	  model.addAttribute("realLastPage",pageVariable.get("realLastPage"));
+	 	 // 포워딩
 		return "/sign/SignListForAdmin";
 	}
 	

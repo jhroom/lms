@@ -22,8 +22,8 @@ public class SignListforAdminService implements ISignListforAdminService{
 	
 	// 강좌 리스트
 	@Override
-	public List<Map<String, Object>> StudentSignList() {
-		List<Map<String, Object>> StudentSignList = signListForAdminMapper.selectLectureList();
+	public List<Map<String, Object>> StudentSignList(int beginRow, int rowPerPage) {
+		List<Map<String, Object>> StudentSignList = signListForAdminMapper.selectLectureList(beginRow, rowPerPage);
 		// 디버깅
 		log.debug(TeamColor.YHW + "-- 강좌리스트 -service--"+ StudentSignList );
 		return StudentSignList;
@@ -84,6 +84,13 @@ public class SignListforAdminService implements ISignListforAdminService{
 		// 디버깅
 		log.debug(TeamColor.YHW + "-- mapper에서 넘어온 수강상태 변경 -service--"+ modifySignState );
 		return modifySignState;
+	}
+
+	// 강좌 총 갯수
+	@Override
+	public int getTotal() {
+		int getTotal = signListForAdminMapper.getTotal();
+		return getTotal;
 	}
 
 	

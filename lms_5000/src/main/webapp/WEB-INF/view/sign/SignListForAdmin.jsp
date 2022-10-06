@@ -79,7 +79,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="l" items="${slectureList}">
+						<c:forEach var="l" items="${lectureList}">
 							<tr>
 								<td>${l.lecture_no}</td>
 								<td><a href="${pageContext.request.contextPath}/sign/SignListByLecture?lectureNo=${l.lecture_no}">${l.subject_name}</a></td>
@@ -90,17 +90,33 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<div class="card-footer">
+					  <nav aria-label="Contacts Page Navigation">
+			            <ul class="pagination justify-content-center m-0">
+			            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/sign/SignListForAdmin&currentPage=1">첫페이지</a></li>
+			            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/sign/SignListForAdmin?currentPage=${currentPage - 1}">이전쪽</a></li>
+								<c:forEach items="${pages}" var="p">
+									<c:if test="${p eq currentPage}">
+
+						              <li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/sign/SignListForAdmin?currentPage=${p}">${p}</a></li>
+						            </c:if>
+						            <c:if test="${p ne currentPage}">
+						              <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sign/SignListForAdmin?currentPage=${p}">${p}</a></li>
+						            </c:if>
+								</c:forEach>
+							<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/sign/SignListForAdmin?currentPage=${currentPage + 1}">다음쪽</a></li>
+							<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/sign/SignListForAdmin?currentPage=${realLastPage}">마지막페이지</a></li>
+			            </ul> 
+			          </nav>
+	              </div>
               </div>
             </div><!-- /.card -->
-	 </div>
-	</div>
+		 </div>
+		</div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-    </div>
     <!-- /.content -->
-  </div>
   <!-- /.content-wrapper -->
-
   <!-- Control Sidebar -->
   <!-- 좌측 사이드 바 -->
   <aside class="control-sidebar control-sidebar-dark">
