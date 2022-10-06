@@ -64,7 +64,7 @@
 			
 			<tr>
 				<td>전화번호</td>
-				<td><input type="text" name="userTel"></td>
+				<td><input type="text" name="userTel" placeholder="ex ) 010-0000-0000"></td>
 			</tr>
 			
 		</table>
