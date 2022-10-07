@@ -123,7 +123,8 @@
 	
 	<!-- 같은 과목 신청 여부 확인 -->
 	<select id="selectSignHistoryForSubject" resultType="int">
-		SELECT *
+
+		SELECT ifnull(count(*),0)
 		FROM sign s
 		INNER JOIN lecture l
 		ON s.lecture_no = l.lecture_no
@@ -140,7 +141,7 @@
 	
 	<!-- 시간과 요일에 따른 제약조건 확인 -->
 	<select id="selectSignHistoryForTime" resultType="int">
-		SELECT *
+		SELECT ifnull(count(*),0)
 		FROM sign s
 		INNER JOIN lecture l
 		ON s.lecture_no = l.lecture_no
