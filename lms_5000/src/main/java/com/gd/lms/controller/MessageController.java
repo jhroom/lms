@@ -52,7 +52,7 @@ public class MessageController {
 		
 		model.addAttribute("currentPage",currentPage);
 		
-		int rowPerPage = 10;
+		int rowPerPage = 5;
 		if(ParamRowPerPage !=null) {
 			rowPerPage = ParamRowPerPage;
 			log.debug(TeamColor.JCH + "보여지는 페이지 rowPerPage " + rowPerPage);
@@ -105,7 +105,7 @@ public class MessageController {
 		
 		model.addAttribute("currentPage",currentPage);
 		
-		int rowPerPage = 10;
+		int rowPerPage = 5;
 		if(ParamRowPerPage !=null) {
 			rowPerPage = ParamRowPerPage;
 			log.debug(TeamColor.JCH + "보여지는 페이지 rowPerPage " + rowPerPage);
@@ -154,7 +154,7 @@ public class MessageController {
 		
 		model.addAttribute("currentPage",currentPage);
 		
-		int rowPerPage = 10;
+		int rowPerPage = 5;
 		if(ParamRowPerPage !=null) {
 			rowPerPage = ParamRowPerPage;
 			log.debug(TeamColor.JCH + "보여지는 페이지 rowPerPage " + rowPerPage);

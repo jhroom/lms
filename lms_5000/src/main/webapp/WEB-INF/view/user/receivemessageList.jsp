@@ -36,7 +36,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">받은 메일함</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -54,9 +54,6 @@
     <div class="content">
       <div class="container-fluid">
 	<div>
-		<a href="${pageContext.request.contextPath}/user/messageList">전체 메시지 리스트</a>
-		<a href="${pageContext.request.contextPath}/user/sendmessageList">보낸 메시지 리스트</a>
-		<a href="${pageContext.request.contextPath}/user/receivemessageList">받은 메시지 리스트</a>
 		<table class="table table-hover text-nowrap">
 			<thead>
 				<tr>
@@ -72,21 +69,28 @@
 					<tr>
 						<td>${list.sendId}</td>
 						<td>${list.receiveId}</td>
-						<td>${list.messageTitle}</td>
-						<td>${list.createTime}</td>
+						<td>
+						<input type="hidden" value="${list.messageNo}">
+						<a href="${pageContext.request.contextPath}/user/messageOne?messageNo=${list.messageNo}">${list.messageTitle}</a>
+						</td>						<td>${list.createTime}</td>
 						<td>${list.messageState}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<a href="${pageContext.request.contextPath}/user/message">메세지보내기</a><br>
+		<a href="${pageContext.request.contextPath}/user/message">
+		<button type="button" class="btn btn-sm btn-primary">메세지 보내기</button>
+		</a><br>
 	</div>
 			<ul class="pagination">
              <c:if test="${currentPage > 1}">
-                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/user/receivemessageList?currentPage=${currentPage-1}">이전</a></li>
+                    <li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/user/receivemessageList?currentPage=1">첫페이지</a></li>
+             		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/user/receivemessageList?currentPage=${currentPage-1}">이전</a></li>
              </c:if>
 			 <c:if test="${currentPage < lastPage}">
 			    	<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/user/receivemessageList?currentPage=${currentPage+1}">다음</a></li>
+					<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/user/receivemessageList?currentPage=${lastPage}">마지막페이지</a></li>	
+			
 			</c:if>
 		</ul>	
 			

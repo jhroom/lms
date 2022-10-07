@@ -123,14 +123,12 @@
                   <p>강좌 리스트</p>
                 </a>
               </li>
-              <c:if test="${loginUser.userLevel eq 4}">
 	               <li class="nav-item">
 	                <a href="${pageContext.request.contextPath}/user/userList" class="nav-link">
 	                  <i class="far fa-circle nav-icon"></i>
 	                	<p>유저 리스트</p>
 	                </a>
 	              </li>
-              </c:if>
             
             </ul>
           </li>
@@ -223,17 +221,46 @@
           </li>
           
           <!-- 메세지 -->
-          <li class="nav-item">
  <%--            <a onclick="window.open('${pageContext.request.contextPath}/user/messageList'
 				, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false" class="nav-link">
               <i class="nav-icon fas fa-th"></i> --%>
-           <a href="${pageContext.request.contextPath}/user/messageList" class="nav-link">
+		 <li class="nav-item has-treeview menu">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                메세지
-
+                메시지
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          </li>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/user/messageList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>메일함</p>
+                </a>
+                <a href="${pageContext.request.contextPath}/user/message" class="nav-link">
+                	<i class="far fa-circle nav-icon"></i>
+                  	<p>메시지 보내기</p>
+                </a>
+                <a href="${pageContext.request.contextPath}/user/sendmessageList" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                  <p>보낸 메일함</p>
+                </a>
+                <a href="${pageContext.request.contextPath}/user/receivemessageList" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                  <p>받은 메일함</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>  
+              
+     <%--       <a href="${pageContext.request.contextPath}/user/messageList" class="nav-link">
+              <p>
+                메세지
+              </p>
+            </a>
+          </li> --%>
           
           <!-- 마이페이지 -->
           <li class="nav-item">

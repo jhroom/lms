@@ -54,9 +54,6 @@
     <div class="content">
       <div class="container-fluid">
 	<div>
-		<a href="${pageContext.request.contextPath}/user/messageList">전체 메시지 리스트</a>
-		<a href="${pageContext.request.contextPath}/user/sendmessageList">보낸 메시지 리스트</a>
-		<a href="${pageContext.request.contextPath}/user/receivemessageList">받은 메시지 리스트</a>
 		<table class="table table-hover text-nowrap">
 			<thead>
 				<tr>
@@ -90,13 +87,15 @@
 			메시지는 60일 보관이후 삭제됩니다.
 		</div>
 	</div>
-	
+
 		<ul class="pagination">
              <c:if test="${currentPage > 1}">
+             		<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/user/messageList?currentPage=1">첫페이지</a></li>
                     <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/user/messageList?currentPage=${currentPage-1}">이전</a></li>
              </c:if>
 			 <c:if test="${currentPage < lastPage}">
 			    	<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/user/messageList?currentPage=${currentPage+1}">다음</a></li>
+			    	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/user/messageList?currentPage=${lastPage}">마지막페이지</a></li>	
 			</c:if>
 		</ul>	
 		
