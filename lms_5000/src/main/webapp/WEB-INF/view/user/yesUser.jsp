@@ -44,8 +44,8 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
-              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/user/userList">UserList</a></li>
-              <li class="breadcrumb-item active">CompleteList</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/user/userList">유저 리스트</a></li>
+              <li class="breadcrumb-item active">활성화된 유저</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

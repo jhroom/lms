@@ -105,8 +105,8 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
-              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/user/messageList">MessageList</a></li>
-              <li class="breadcrumb-item active">Message</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/user/messageList">메일함</a></li>
+              <li class="breadcrumb-item active">메세지 작성</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -120,7 +120,7 @@
       <div class="container-fluid">
 	<div>
 	  <form action="${pageContext.request.contextPath}/user/message" id="form" method="post">
-	  		보낸이
+	  		보낸이 :
 			<input type="hidden" value="${loginUser.userId}" name="sendId">
 			<c:choose>
           	<c:when test="${loginUser.userId != null}">
@@ -131,18 +131,18 @@
           	</c:otherwise>
           	</c:choose>
           	<br>
-			받는사람
+			받는사람 :
 			<!-- Id입력공간 -->
-          	<input type="text" name="receiveId" id="userId">
+          	<input type="text" name="receiveId" id="userId" placeholder="id를 입력해주세요.">
           	<div class="trueMsg">받는사람 ID를 확인해주세요.</div>
 			<div class="falseMsg"></div>
 			<br>
-			제목
+			제목 :
 			<input type="text" name="messageTitle">
 			<br>
-			<!-- 같은 강의 듣는사람 강의 교수 리스트 선택할수 있거나 검색하는방법으로 -->
-			 내용 
-			<textarea rows="20" cols="100" name="messageContent"></textarea>
+			 내용 :
+			<br>
+			<textarea rows="20" cols="100" name="messageContent" style="resize: none;"></textarea>
 			
 			<br>
 			<button type="button" id="btn" class="btn btn-sm btn-primary">메시지 전송</button>

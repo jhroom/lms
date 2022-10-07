@@ -41,7 +41,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
-              <li class="breadcrumb-item active">MessageList</li>
+              <li class="breadcrumb-item active">메일함</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

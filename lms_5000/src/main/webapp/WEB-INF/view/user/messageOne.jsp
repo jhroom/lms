@@ -67,7 +67,7 @@
     	<br>
     	내용 :
     	<br>
-    	<textarea rows="20" cols="100" name="messageContent" readonly>
+    	<textarea rows="20" cols="100" name="messageContent" style="resize: none;" readonly>
     	${list.messageContent}
     	</textarea>
     	</c:forEach>

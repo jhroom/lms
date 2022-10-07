@@ -40,8 +40,9 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">Home</a></li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/user/messageList">메일함</a>
+              <li class="breadcrumb-item active">보낸 메일함</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
