@@ -142,4 +142,25 @@
 		AND s.lecture_no = #{lectureNo}
 
 	</select>
+	
+	<!-- 학생 성적 테이블 최초 입력 -->
+	<insert id="insertTotalgrade">
+	INSERT INTO totalgrade(
+		sign_no
+		, total_grade
+		, grade_total
+		, grade_rank
+		, grade_test
+		, grade_att
+		, grade_paper
+		) value (
+		#{signNo}
+		, 0
+		, 0
+		, 0
+		, 0
+		, 0
+		, 0
+		)
+	</insert>
 </mapper>

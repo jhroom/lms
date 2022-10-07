@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.mapper.SignListForAdminMapper;
+import com.gd.lms.mapper.TotalGradeMapper;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.SignCancel;
 
@@ -19,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class SignListforAdminService implements ISignListforAdminService{
 	@Autowired SignListForAdminMapper signListForAdminMapper;
+	@Autowired TotalGradeMapper totalGradeMapper;
+	
 	
 	// 강좌 리스트
 	@Override
@@ -53,8 +56,17 @@ public class SignListforAdminService implements ISignListforAdminService{
 		//수정 쿼리 실행
 		int modifySignState = signListForAdminMapper.updateSignState(sign);
 		
+		//수강 신청 완료시
 		if(sign.getSignState().equals("1")) {
+			
+			//수강신청 완료시 출석 테이블에 자동 입력
 			int row = 0;
+			
+			//수강 신청 완료시 학생 성적 테이블 자동 입력
+			row += totalGradeMapper.insertTotalgrade(sign.getSignNo());
+			log.debug(TeamColor.KHJ + "학생 자동 입력 현황 : "+ row );
+			
+			
 			int [] week = signListForAdminMapper.selectLectureWeek(sign.getLectureNo());
 			log.debug("week 결과값 : " + Arrays.toString(week));
 			
@@ -62,6 +74,9 @@ public class SignListforAdminService implements ISignListforAdminService{
 				row = signListForAdminMapper.insertAttendance(a, sign.getSignNo());
 				log.debug(a+" 주차 출석 insert 결과값 : " + row);
 			}
+			
+
+			
 		}
 		
 		// 취소 주체에 따른 cancle 핸들링

@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.mapper.BoardMapper;
 import com.gd.lms.mapper.NewLectureMapper;
+import com.gd.lms.vo.Board;
 import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Professor;
 import com.gd.lms.vo.Week;
@@ -23,6 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class NewLectureService implements INewLectureService {
 	@Autowired NewLectureMapper newLectureMapper;
+	@Autowired BoardMapper boardMapper;
+	
 	
 	// 리스트
 		@Override
@@ -84,21 +88,43 @@ public class NewLectureService implements INewLectureService {
 		@Override
 		public int addWeek(Lecture lecture) {
 			
-			log.debug(TeamColor.SSH + "lecture :" + lecture);
+			log.debug(TeamColor.SSH + "처리 전 lecture :" + lecture);
 			
 			
 			//강의 추가
 			int row = newLectureMapper.addLecture(lecture);
 			
-			log.debug(TeamColor.SSH + "dddd lecture : " + lecture);
+			log.debug(TeamColor.SSH + "처리 후 lecture : " + lecture);
+			
+			
+			//강좌 추가시 자동으로 생성되어야 하는 테이블 - 게시판 3개(공지사항 / 과제 / QNA 게시판)
+			
+			//게시판 타입 배열 생성
+			int [] arr = new int[] {1,2,4};
+			
+			//반복			
+			for(int a : arr) {
+				
+				//게시판 이름 설정
+				String name = (a == 1? "공지사항" : a == 2? "QNA" : "과제");
+				
+				//파라미터 세팅
+				Board temp = new Board();
+				temp.setBoardName(name);
+				temp.setBoardType(a);
+				temp.setLectureNo(lecture.getLectureNo());
+				
+				//쿼리 실행
+				row += boardMapper.inserBasicBoard(temp);
+				
+				//디버깅
+				log.debug(TeamColor.KHJ + "기본 board 객체 확인 : " + temp);
+				
+			}
 			
 			
 			//학기 정보 확인
 			String semesterDate = newLectureMapper.selectSemesterStartDate(lecture.getSemesterNo());
-			
-			
-			
-			
 			
 
 			//연산 확인

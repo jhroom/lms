@@ -32,7 +32,25 @@
 			)
 	</insert>
 	
+	<!-- 기본 게시판 생성 쿼리 -->
+	<insert id="inserBasicBoard" parameterType="com.gd.lms.vo.Board">
+		insert
+			into board (
+				board_name
+				, board_type
+				, create_date
+				, lecture_no
+			) values (
+				#{boardName}
+				, #{boardType}
+				, now()
+				, #{lectureNo}
+			)
+	</insert>
 	
+	
+	
+	<!-- 수저중1!!!!!!!! -->
 	<!-- 선택한 게시판의 게시글 리스트 생성 쿼리 -->
 	<select id="selectBoardPostList" resultType="com.gd.lms.vo.BoardPost">
 		select
@@ -45,28 +63,34 @@
 			, board_post_updatedate boardPostUpdatedate
 			, count count
 		from board_post
-		where board_No = #{boardNo}
+		where board_No = (
+			SELECT board_no
+			FROM board
+			WHERE board_type=#{board.boardType}
+			AND lecture_no = #{board.lectureNo}
+		)
 		limit #{beginRow}, #{rowPerPage}
 	</select>
 	
 		<!-- 선택한 게시판의 게시글 리스트 생성 쿼리 --> 
 	<select id="selectBoardPostList2" resultType="com.gd.lms.vo.BoardPost">
 		select
-			bp.board_post_no boardPostNo
-			, b.board_no boardNo
-			, b.board_name boardName
-			, bp.board_post_Title boardPostTitle
-			, bp.board_post_content boardPostContent
-			, bp.board_post_writer boardPostWriter
-			, bp.board_post_createdate boardPostCreatedate
-			, bp.board_post_updatedate boardPostUpdatedate
-			, bp.count count
-		from board_post bp
-		INNER JOIN board b
-		ON bp.board_no = b.board_no
-		WHERE b.board_type = #{board.boardType}
-		AND b.lecture_no = #{board.lectureNo}
-		LIMIT #{beginRow}, #{rowPerPage}
+			board_post_no boardPostNo
+			, board_no boardNo
+			, board_post_Title boardPostTitle
+			, board_post_content boardPostContent
+			, board_post_writer boardPostWriter
+			, board_post_createdate boardPostCreatedate
+			, board_post_updatedate boardPostUpdatedate
+			, count count
+		from board_post
+		where board_No = (
+			SELECT board_no
+			FROM board
+			WHERE board_type=#{board.boardType}
+			AND lecture_no = #{board.lectureNo}
+		)
+		limit #{beginRow}, #{rowPerPage}
 	</select>
 	
 
@@ -240,6 +264,14 @@
 		ON b.board_no = bp.board_no
 		WHERE lecture_no = #{lectureNo}
 		AND b.board_type = #{boardType}
+	</select>
+	
+	<!-- 타입과 강좌번호로 특정 게시판 번호 찾기 -->
+	<select id="selectBoardNoByLectureNonBoardType" resultType="int">
+		SELECT board_no
+		FROM board
+		WHERE board_type = #{boardType}
+		AND lecture_no = #{lectureNo}	
 	</select>
 
 </mapper>

@@ -68,9 +68,9 @@ public class BoardService implements IBoardService{
 
 	//선택 게시판의 게시글 리스트 생성 서비스
 	@Override
-	public List<BoardPost> getBoardPostList(int beginRow, int rowPerPage, int boardNo) {
+	public List<BoardPost> getBoardPostList(int beginRow, int rowPerPage, Board board) {
 		//리턴 값(list) 세팅
-		List<BoardPost> list = boardMapper.selectBoardPostList(beginRow, rowPerPage, boardNo);
+		List<BoardPost> list = boardMapper.selectBoardPostList(beginRow, rowPerPage, board);
 		
 		//디버깅
 		System.out.println("[boardSvc] BoardPost list : " + list);
@@ -396,8 +396,17 @@ public class BoardService implements IBoardService{
 	@Override
 	public int getRealEndPageForBoardPost2(int lectureNo, int boardType) {
 		//리턴값
-		int realEndPage = boardMapper.selectRealEndPageForBoardPost(lectureNo, boardType);
+		int realEndPage = boardMapper.selectRealEndPageForBoardPost2(lectureNo, boardType);
 		return realEndPage;
+	}
+
+
+	@Override
+	public int getBoardNoByLectureNonBoardType(Board board) {
+		// 리턴값
+		int boardNo = boardMapper.selectBoardNoByLectureNonBoardType(board);
+
+		return boardNo;
 	}
 
 

@@ -63,6 +63,10 @@
 					<input type="hidden" name="boardNo" value="${boardNo}">
 					<input type="hidden" name="boardName" value="${boardName}">
 					<input type="hidden" name="boardPostNo" value="${boardPostNo}">
+					<input type="hidden" name="boardType" value="${boardType}">
+					<input type="hidden" name="lectureNo" value="${lectureNo}">
+					
+					
 					
 					
 						<table class="table table-hover text-nowrap">

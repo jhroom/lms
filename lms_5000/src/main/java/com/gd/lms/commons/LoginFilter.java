@@ -47,7 +47,7 @@ public class LoginFilter extends HttpFilter implements Filter{
 		String uri = req.getRequestURI();
 		
 		//디버깅
-		log.debug(TeamColor.debuging + "uri 확인 : " + uri + TeamColor.TEXT_RESET);
+		//log.debug(TeamColor.debuging + "uri 확인 : " + uri + TeamColor.TEXT_RESET);
 		
 		
 		//로그인, 로그아웃 관련 다이렉션 제외
@@ -77,11 +77,11 @@ public class LoginFilter extends HttpFilter implements Filter{
 		
 		//로그인 정보가 있을때
 		 if (u != null) {
-			log.debug(TeamColor.KHJ + "1 : "  + TeamColor.TEXT_RESET);				
+			//log.debug(TeamColor.KHJ + "1 : "  + TeamColor.TEXT_RESET);				
 			chain.doFilter(request, response);	
 		//로그인 정보가 없을떄
 		 } else {				
-			log.debug(TeamColor.KHJ + "2 : "  + TeamColor.TEXT_RESET);				
+			log.debug(TeamColor.KHJ + "로그인 정보 없음!"  + TeamColor.TEXT_RESET);				
 			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath() + "/index/login");		
 		 }
 		

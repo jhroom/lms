@@ -107,7 +107,7 @@ public class BoardController {
 		
 		
 		//넘겨줄 리스트(게시판)
-		List<BoardPost> list = boardService.getBoardPostList((int)pageVariable.get("beginRow"), (int)pageVariable.get("rowPerPage"), board.getBoardNo());
+		List<BoardPost> list = boardService.getBoardPostList((int)pageVariable.get("beginRow"), (int)pageVariable.get("rowPerPage"), board);
 		
 		//값 넘겨주기
 		model.addAttribute("boardPostList",list);
@@ -145,15 +145,19 @@ public class BoardController {
 
 		//페이징 변수 설정
 		Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, boardService.getRealEndPageForBoardPost2(board.getLectureNo(), board.getBoardType()));
+	
 
 		
 		//넘겨줄 리스트(게시판)
 		List<BoardPost> list = boardService.getBoardPostList2((int)pageVariable.get("beginRow"), (int)pageVariable.get("rowPerPage"), board);
+		
+		//게시판 번호추출 쿼리
+		int boardNo = boardService.getBoardNoByLectureNonBoardType(board);
 
 		//값 넘겨주기
 		model.addAttribute("boardPostList",list);
 		model.addAttribute("boardName",board.getBoardName());
-		model.addAttribute("boardNo",board.getBoardNo());
+		model.addAttribute("boardNo",boardNo);
 		model.addAttribute("boardType",board.getBoardType());		
 		model.addAttribute("lectureNo",board.getLectureNo());
 
@@ -177,7 +181,7 @@ public class BoardController {
 	
 	//게시글 상세 페이지 출력 메서드
 	@GetMapping("/board/post/one")
-	public String getBoardPostOne(int boardPostNo, String boardName, int boardNo, Model model) {
+	public String getBoardPostOne(int boardPostNo, String boardName, int lectureNo, int boardType, int boardNo, Model model) {
 		
 
 		//파라미터 확인 디버깅
@@ -195,6 +199,10 @@ public class BoardController {
 		model.addAttribute("commentList",commentList);		
 		model.addAttribute("boardName",boardName);
 		model.addAttribute("boardNo",boardNo);
+		model.addAttribute("boardType",boardType);
+		model.addAttribute("lectureNo",lectureNo);
+		
+		
 		
 		
 		//결과 디버깅
@@ -246,7 +254,7 @@ public class BoardController {
 	
 	//게시글 추가 폼 전송 메서드
 	@GetMapping("/board/post/add/form")
-	public String directAddBoardPost(int boardNo, String boardName, int lectureNo, Model model) {
+	public String directAddBoardPost(int boardNo, String boardName, int lectureNo, int boardType, Model model) {
 
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / boardNo : " + boardNo);
@@ -254,6 +262,8 @@ public class BoardController {
 		//값 넘겨주기
 		model.addAttribute("boardName",boardName);
 		model.addAttribute("boardNo",boardNo);
+		model.addAttribute("boardType",boardType);
+		
 		model.addAttribute("lectureNo",lectureNo);
 		
 		
@@ -266,7 +276,7 @@ public class BoardController {
 	
 	//게시글 추가 메서드
 	@PostMapping("/board/post/add")
-	public String addBoardPost(Board board, BoardPost boardPost, int lectureNo, MultipartFile[] uploadFile, HttpServletRequest request) throws UnsupportedEncodingException {
+	public String addBoardPost(Board board, BoardPost boardPost, int boardType, int lectureNo, MultipartFile[] uploadFile, HttpServletRequest request) throws UnsupportedEncodingException {
 		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / add boardPost boardPost : " + boardPost);
@@ -290,7 +300,7 @@ public class BoardController {
 		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 리스트로 리다이렉션");
 		
 		//리다이렉션
-		return "redirect:/board/post?boardNo=" + board.getBoardNo() +"&boardName=" + encodedboardName + "&lectureNo=" + lectureNo;
+		return "redirect:/board/post2?boardNo=" + board.getBoardNo() +"&boardName=" + encodedboardName + "&lectureNo=" + lectureNo + "&boardType=" + boardType;
 		
 	}
 	
@@ -379,7 +389,7 @@ public class BoardController {
 	
 	//게시글 삭제 기능
 	@GetMapping("board/removePost")
-	public String removePost(String boardName, int boardNo, int boardPostNo, String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
+	public String removePost(String boardName, int boardNo, int boardPostNo, int lectureNo, int boardType, String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / boardPostNo : " + boardPostNo);
 		log.debug(TeamColor.KHJ + "파라미터 확인 / fileName : " + fileName);
@@ -399,7 +409,7 @@ public class BoardController {
 		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
 		
 		
-		return "redirect:/board/post?boardNo="+boardNo+"&boardName="+encodedboardName;
+		return "redirect:/board/post2?boardNo="+boardNo+"&boardName="+encodedboardName +"&boardType="+boardType + "&lectureNo=" + lectureNo;
 
 		
 	}
@@ -407,7 +417,7 @@ public class BoardController {
 	
 	//게시글 수정 폼 전송 기능
 	@GetMapping ("board/modifyPost/form")
-	public String directModifyPost(int boardPostNo, String boardName, int boardNo, Model model) {
+	public String directModifyPost(int boardPostNo, String boardName, int lectureNo, int boardType, int boardNo, Model model) {
 		
 		//파라미터 확인 디버깅
 		System.out.println("[boardCtrl] boardPostNo : " + boardPostNo);	
@@ -425,6 +435,10 @@ public class BoardController {
 		model.addAttribute("boardName",boardName);
 		model.addAttribute("boardNo",boardNo);
 		model.addAttribute("boardPostNo",boardPostNo);
+		model.addAttribute("boardType",boardType);
+		model.addAttribute("lectureNo",lectureNo);
+		
+		
 		
 		
 		
@@ -438,12 +452,15 @@ public class BoardController {
 	
 	//게시글 수정 기능
 	@PostMapping("board/modifyPost")
-	public String modifyPost(BoardPost boardPost, int boardNo, String boardName) throws UnsupportedEncodingException {
+	public String modifyPost(BoardPost boardPost, int boardNo, int lectureNo, int boardType, String boardName) throws UnsupportedEncodingException {
 		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / boardPost : " + boardPost);
 		log.debug(TeamColor.KHJ + "파라미터 확인 / boardName : " + boardName);
 		log.debug(TeamColor.KHJ + "파라미터 확인 / boardNo : " + boardNo);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / boardType : " + boardType);
+		
+		
 		
 		//실행
 		int row = boardService.modifyBoardPost(boardPost);
@@ -452,7 +469,7 @@ public class BoardController {
 		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
 		
 		//리턴
-		return "redirect:/board/post/one?boardPostNo="+boardPost.getBoardPostNo()+"&boardNo="+boardNo+"&boardName="+encodedboardName;
+		return "redirect:/board/post/one?boardPostNo="+boardPost.getBoardPostNo()+"&boardNo="+boardNo+"&boardName="+encodedboardName + "&boardType=" + boardType + "&lectureNo=" + lectureNo;
 	}
 	
 	

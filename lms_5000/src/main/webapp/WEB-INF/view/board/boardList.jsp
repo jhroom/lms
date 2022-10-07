@@ -102,7 +102,7 @@
 						<tbody>
 							<c:forEach var="n" items="${boardList}">
 									<tr>
-										<td>${n.boardNo}</td><td><a href="${pageContext.request.contextPath}/board/post?boardNo=${n.boardNo}&boardName=${n.boardName}&lectureNo=${lectureNo}">${n.boardName}</a></td><td>${n.createDate}</td>
+										<td>${n.boardNo}</td><td><a href="${pageContext.request.contextPath}/board/post?boardNo=${n.boardNo}&boardName=${n.boardName}&lectureNo=${lectureNo}&boardType=3">${n.boardName}</a></td><td>${n.createDate}</td>
 									</tr>
 							</c:forEach>
 						</tbody>

@@ -59,6 +59,8 @@
 				<form action="${pageContext.request.contextPath}/board/post/add" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="boardNo" id="boardNo" value="${boardNo}">
 					<input type="hidden" name="lectureNo" id="lectureNo" value="${lectureNo}">
+					<input type="hidden" name="boardType" id="boardType" value="${boardType}">
+					
 					
 					<table class="table table-hover text-nowrap">
 						<thead>

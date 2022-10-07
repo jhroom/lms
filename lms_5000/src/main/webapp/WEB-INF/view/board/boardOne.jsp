@@ -122,8 +122,8 @@
 					<c:set var="writer" value="${loginUser.userName}(${loginUser.userId})"/>
 					
 					<c:if test="${loginUser.userLevel eq 2 || writer eq boardOne.boardPostWriter}">
-						<a href="${pageContext.request.contextPath}/board/modifyPost/form?boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}">수정</a>
-						<a href="${pageContext.request.contextPath}/board/removePost?boardPostNo=${boardOne.boardPostNo}&fileName=${boardOne.fileName}&boardName=${boardName}&boardNo=${boardNo}">삭제</a>
+						<a href="${pageContext.request.contextPath}/board/modifyPost/form?boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}&boardType=${boardType}&lectureNo=${lectureNo}">수정</a>
+						<a href="${pageContext.request.contextPath}/board/removePost?boardPostNo=${boardOne.boardPostNo}&fileName=${boardOne.fileName}&boardName=${boardName}&boardNo=${boardNo}&boardType=${boardType}&lectureNo=${lectureNo}">삭제</a>
 					</c:if>
 				</div>
 
