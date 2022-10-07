@@ -100,7 +100,7 @@
 							</c:forEach>
 		                  </tbody>
                 	</c:when>
-                	<c:otherwise>
+                	<c:when test="${loginUser.userLevel == 2 || loginUser.userLevel == 3}">
                 		<thead>
 		                    <tr>
 		                      <th>과목</th>
@@ -117,8 +117,9 @@
 								<%-- <td>${b.majorName}</td> --%>
 								<td>${b.subjectName}</td>
 								<td>${b.boardName}</td>
-								<td><a href="${pageContext.request.contextPath}
-								/board/post/one?boardPostNo=${b.boardPostNo}&boardNo=${b.boardNo}&boardName=${b.boardName}">
+								<td><a href="${pageContext.request.contextPath}/board/post/one?
+								boardPostNo=${b.boardPostNo}&boardNo=${b.boardNo}&boardName=${b.boardName}
+								&lectureNo=${b.lectureNo}&boardType=${b.boardType}">
 								${b.boardPostName}</a></td>
 								<td>${b.count}</td>
 								<td>${b.boardPostCreatedate}</td>
@@ -126,7 +127,7 @@
 							</tr>
 							</c:forEach>
 		                  </tbody>
-                	</c:otherwise>
+                	</c:when>
                 </c:choose>
                 </table>
               </div>

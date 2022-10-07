@@ -129,6 +129,7 @@ public class MypageService implements IMypageService {
 			case 3 : total = mypageMapper.selectBoardCount(paging.getUserId());break;
 		}
 		paging.setTotal(total);
+		log.debug(TeamColor.AJH + "작성한 게시글 총 개수 : " + total);
 		
 		paging.setLastPage((int)Math.ceil(paging.getTotal()/(double)paging.getRowPerPage()));
 		
@@ -169,6 +170,7 @@ public class MypageService implements IMypageService {
 	public Paging getCommentCount(Paging paging) {
 		
 		int total = mypageMapper.selectCommentCount(paging.getUserId());
+		log.debug(TeamColor.AJH + "작성한 댓글 총 개수 : " + total);
 		paging.setTotal(total);
 		
 		paging.setLastPage((int)Math.ceil(paging.getTotal()/(double)paging.getRowPerPage()));

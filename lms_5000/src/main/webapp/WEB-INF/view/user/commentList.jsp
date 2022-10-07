@@ -101,8 +101,9 @@
 						<td>${b.subjectName}</td>
 						<td>${b.boardName}</td>
 						<td>${b.boardPostTitle}</td>
-						<td><a href="${pageContext.request.contextPath}
-						/board/post/one?boardPostNo=${b.boardPostNo}&boardNo=${b.boardNo}&boardName=${b.boardName}">
+						<td><a href="${pageContext.request.contextPath}/board/post/one?
+						boardPostNo=${b.boardPostNo}&boardNo=${b.boardNo}&boardName=${b.boardName}
+						&lectureNo=${b.lectureNo}&boardType=${b.boardType}">
 						${b.commentContent}</a></td>
 						<td>${b.commentCreateDate}</td>
 						<td>${b.commentUpdateDate}</td>
