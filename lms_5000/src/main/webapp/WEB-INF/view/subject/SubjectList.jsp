@@ -36,7 +36,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">전체 강좌리스트</h1>
+            <h1 class="m-0 text-dark">전체 과목리스트</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -56,14 +56,14 @@
       <div class="container-fluid">
      
 	<div>
-	<c:if test="${loginUser.userLevel eq 1}">
+	<c:if test="${loginUser.userLevel eq 4 || loginUser.userLevel eq 1}">
 		<a href="${pageContext.request.contextPath}/lmsSubject/addSubject" class="btn btn-primary">추가하기</a>
 	</c:if>
 	</div>
 	<table class="table table-hover text-nowrap">
 		<tr>
-			<th>강좌번호</th>
-			<th>강좌이름</th>
+			<th>과목번호</th>
+			<th>과목이름</th>
 			<th>이수학점</th>
 			<th>대상학년</th>
 			<th>학과번호</th>
@@ -76,7 +76,13 @@
 				</td>				
 				<td>${s.subjectPoint}점</td>
 				<td>${s.subjectGrade}학년</td>
-				<td>${s.majorNo}</td> 
+				<td>
+					${s.majorNo}
+				<c:choose></c:choose>	
+					
+				</td>
+				
+				<!-- <td>${s.majorNo}</td> --> 
 				
 			</tr>
 		

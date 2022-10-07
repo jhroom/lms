@@ -57,7 +57,9 @@
       <div>
 
 	</div>
+	<c:if test="${loginUser.userLevel eq 4 || loginUser.userLevel eq 1}">
 		<a href="${pageContext.request.contextPath}/lmsSemester/addSemester" class="btn btn-primary">학기 추가</a>
+	</c:if>
 	<div>
 		<table class="table table-hover text-nowrap">
 			<tr>
