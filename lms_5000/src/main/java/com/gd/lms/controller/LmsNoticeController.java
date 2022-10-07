@@ -20,6 +20,7 @@ import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.ILmsNoticeService;
 import com.gd.lms.service.IMypageService;
 import com.gd.lms.vo.LmsNotice;
+import com.gd.lms.vo.User;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -94,9 +95,17 @@ public class LmsNoticeController {
 	@GetMapping("/lmsNotice/LmsNoticeAddBoard")
 	public String LmsNoticeAddBoard(HttpSession session, Model model) throws Exception {
 		
-		//String userId=((User)session.getAttribute("loginUser")).getUserId();
+		// 이름값 세션으로 가져오기
+		String userId = ((User)session.getAttribute("loginUser")).getUserId();
+		String userName=((User)session.getAttribute("loginUser")).getUserName();
 		
-		//model.addAttribute("userId", userId);
+		// 잘 가지고 왔지? 디버깅
+		log.debug(TeamColor.SSH + "userId : " + userId);
+		log.debug(TeamColor.SSH + "userName : " + userName);
+		
+		// model로 구현
+		model.addAttribute("userId", userId);
+		model.addAttribute("userName", userName);
 		
 		return "/lmsNotice/LmsNoticeAddBoard";
 		

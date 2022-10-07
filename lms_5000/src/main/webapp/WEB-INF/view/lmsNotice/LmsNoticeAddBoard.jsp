@@ -70,7 +70,9 @@
 				<!-- 작성자는 db에는 없기 때문에 혹시나 입력된대로 게시판에 들어가면 어떨까 생각해봤습니다. -->
 				<!-- 그래서 만약 잘만 된다면 db에 작성자란을 만들고 거기에 직접 입력하는 식으로 만드는거죠. -->
 					<th>작성자</th>
-					<td><input type="text" name="lmsNoticeName" id="LmsNoticeName" Placeholder="작성자의 이름을 쓰시오" ></td>
+					<td>
+						<input type="text" name="lmsNoticeName" id="lmsNoticeName" value="${userId}(${userName})" readonly="readonly"> 
+					</td>
 				</tr>
 				<tr>
 					<th>내용</th>

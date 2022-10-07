@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
 import com.gd.lms.service.IMajorService;
-import com.gd.lms.service.IMypageService;
 import com.gd.lms.vo.Major;
 import com.gd.lms.vo.User;
 
@@ -25,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 public class MajorController {
 	@Autowired IMajorService majorService;
-	@Autowired IMypageService mypageService;
+	
 	
 	
 	// 학과 리스트

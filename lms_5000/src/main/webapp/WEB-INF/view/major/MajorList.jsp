@@ -58,7 +58,7 @@
 		
 	</h3>
 	<div>
-	<c:if test="${loginUser.userLevel eq 1 }">
+	<c:if test="${loginUser.userLevel eq 4 || loginUser.userLevel eq 1}">
 	<a href="${pageContext.request.contextPath}/lmsMajor/addMajor" class="btn btn-primary">학과 추가</a>
 	</c:if>
 	</div>

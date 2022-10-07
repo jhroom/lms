@@ -71,7 +71,7 @@
 <!-- End header -->
 	<div class="card-body">		
 	<div>
-		<c:if test="${loginUser.userLevel eq 4}">
+		<c:if test="${loginUser.userLevel eq 4 || loginUser.userLevel eq 1}">
 		<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeAddBoard" class="btn btn-primary">글 작성</a>
 		</c:if>
 	</div>
