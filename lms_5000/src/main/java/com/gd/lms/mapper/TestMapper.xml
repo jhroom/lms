@@ -4,7 +4,7 @@
 
 	
 	<!-- 강좌별 시험리스트 생성 쿼리_학생 -->
-	<select id="selectTestList" resultType="com.gd.lms.vo.Test">
+	<select id="selectTestList" resultType="map">
 		SELECT 
 			t.test_no testNo
 			, t.test_name testName
@@ -137,7 +137,7 @@
 	
 	<!-- 학생 수강 -->
 	<select id="selectSignNoByTest" resultType="int">
-	SELECT count(sign_no) cnt
+	SELECT sign_no
 		from sign
 		WHERE 
 			user_id = #{userId}  
@@ -153,14 +153,19 @@
 	
 		<!-- 학생 수강 -->
 	<select id="selectSignNoByLecture" resultType="int">
-	SELECT count(sign_no) cnt
+		SELECT ifnull(sign_no,0) AS signNo
 		from sign
+
 		WHERE 
 			user_id = #{userId}  
 		AND 
 			lecture_no=#{lectureNo}
 		AND 
 			sign_state = '1'
+			UNION all
+			SELECT 0 as signNo 
+			FROM dual
+	LIMIT 1
 	</select>
 	
 	<!-- 교수 아이디 추출 쿼리 -->
@@ -202,7 +207,8 @@
 	FROM sign s
 	INNER JOIN student st
 	ON s.user_id = st.user_id
-	WHERE s.lecture_no = #{lectureNo};
+	WHERE s.lecture_no = #{lectureNo}
+	and s.sign_state = '1'
 	</select>
 	
 	<!-- 응시 학생 전체 채점 쿼리_정답 처리 -->

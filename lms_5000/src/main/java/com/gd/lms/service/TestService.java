@@ -36,16 +36,18 @@ public class TestService implements ITestService {
 		
 		//수강 정보 확인
 		int signNo = testMapper.selectSignNoByLecture(userId, lectureNo);
+		log.debug(TeamColor.KHJ + "값 확인 signNo : "+ signNo );
 		
 		
 		//리턴 값 세팅
 		list = testMapper.selectTestList(lectureNo, signNo);
+		log.debug(TeamColor.KHJ + "값 확인 list : "+ list );
 		
 		//리턴
 		return list;
 		
 		//유저가 학생이 아닐 경우
-		} else if(userLv != 3) {
+		} else {
 			
 			//리턴 값 세팅
 			list = testMapper.selectTestListAdmin(lectureNo);
@@ -55,7 +57,6 @@ public class TestService implements ITestService {
 			
 		}
 		
-		return list;
 	}
 
 	//시험별 문제 리스트 생성 메서드
@@ -321,14 +322,27 @@ public class TestService implements ITestService {
 
 	@Override
 	public int getSignNo(String uesrId, int lectureNo) {
+		
+		//리턴값
+		int row = testMapper.selectSignNoByLecture(uesrId, lectureNo);
+		
+		//디버깅
+		log.debug(TeamColor.KHJ + " 값 확인 row : "+ row );
+		
 		//학생 수강 여부 확인		
-		return testMapper.selectSignNoByLecture(uesrId, lectureNo);
+		return row;
 	}
 
 	@Override
 	public String getProId(int lectureNo) {
 		// 교수 아이디 추출 쿼리
-		return testMapper.selectPro(lectureNo);
+		String id = testMapper.selectPro(lectureNo);
+		
+		//디버깅
+		log.debug(TeamColor.KHJ + " 값 확인 row : "+ id );
+		
+		//리턴
+		return id;
 	}
 
 }

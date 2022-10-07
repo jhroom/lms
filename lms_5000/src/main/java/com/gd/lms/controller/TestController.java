@@ -37,16 +37,7 @@ public class TestController {
 	//시험 게시판 폼 전송 메서드
 	@GetMapping ("/test/board")
 	public String testBoard(HttpSession session, int lectureNo, Model model) {
-		//로그인이 안되어있을 경우 로그인 창으로 보내기
-		if(session.getAttribute("loginUser") == null) {
-		
-			//파라미터 값 확인 디버깅
-			log.debug(TeamColor.KHJ + "로그인 세션 확인 불가 / 로그인 창을 포워딩");			
-			
-			//리턴
-			return "redirect:/index/login";			
-		}
-		
+
 		//세션 아이디 받아오기
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		
