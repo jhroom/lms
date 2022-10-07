@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -91,7 +92,11 @@
 			<tr>
 				<td>${a.lmsNoticeNo}</td>
 				<td><a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeOne?lmsNoticeNo=${a.lmsNoticeNo}&lmsNoticeTitle=${a.lmsNoticeTitle}">${a.lmsNoticeTitle}</a></td>
+				
+				
 				<td>${a.lmsNoticeContent}</td>
+				
+				
 				<td>${a.lmsNoticeName}</td>
 				<td>${a.lmsNoticeCreatetime}</td>
 				<td>${a.count}</td>
@@ -110,7 +115,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
+</div>
   <!-- Control Sidebar -->
   <!-- 좌측 사이드 바 -->
   <aside class="control-sidebar control-sidebar-dark">

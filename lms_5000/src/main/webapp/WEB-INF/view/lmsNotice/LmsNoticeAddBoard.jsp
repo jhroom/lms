@@ -63,7 +63,7 @@
 			<tbody>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="lmsNoticeTitle" id="lmsNoticeTitle"></td>
+					<td><input class ="form-control" type="text" name="lmsNoticeTitle" id="lmsNoticeTitle"></td>
 				</tr>
 				
 				<tr>
@@ -71,12 +71,12 @@
 				<!-- 그래서 만약 잘만 된다면 db에 작성자란을 만들고 거기에 직접 입력하는 식으로 만드는거죠. -->
 					<th>작성자</th>
 					<td>
-						<input type="text" name="lmsNoticeName" id="lmsNoticeName" value="${userId}(${userName})" readonly="readonly"> 
+						<input class ="form-control" type="text" name="lmsNoticeName" id="lmsNoticeName" value="${userId}(${userName})" readonly="readonly"> 
 					</td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea name="lmsNoticeContent" id="lmsNoticeContent"></textarea></td>
+					<td><textarea class ="form-control" name="lmsNoticeContent" id="lmsNoticeContent" style= "width:100%; height:6.25em;resize:none"></textarea></td>
 				</tr>		
 				<tr>
 					<th>파일</th>
@@ -91,7 +91,6 @@
 	</form>
 
       
-
 
 
       </div><!-- /.container-fluid -->
