@@ -31,14 +31,16 @@ public class SubjectController {
 		
 		//리스트 불러오기
 		List<Subject> SubjectList = subjectService.getSubjectList();
-		List<Major> getMajorList = majorService.getMajorList();
+		List<Major> MajorList = majorService.getMajorList();
+		
+		
 		
 		//리스트 구현
 		model.addAttribute("SubjectList", SubjectList);
-		model.addAttribute("getMajorList", getMajorList);
+		model.addAttribute("MajorList", MajorList);
 				
 		//디버깅
-		log.debug(TeamColor.SSH + "학과리스트 : " + getMajorList);
+		log.debug(TeamColor.SSH + "학과리스트 : " + MajorList);
 		log.debug(TeamColor.SSH + "강좌리스트 : " + SubjectList);
 		
 		return "/subject/SubjectList";

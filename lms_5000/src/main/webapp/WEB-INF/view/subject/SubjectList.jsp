@@ -66,9 +66,10 @@
 			<th>과목이름</th>
 			<th>이수학점</th>
 			<th>대상학년</th>
-			<th>학과번호</th>
+			<th>학과번호 및 이름</th>
+			
 		</tr>
-		<c:forEach var="s" items="${SubjectList}">
+		<c:forEach var="s" items="${SubjectList}" >
 			<tr>
 				<td>${s.subjectNo}번</td>
 				<td>
@@ -77,10 +78,9 @@
 				<td>${s.subjectPoint}점</td>
 				<td>${s.subjectGrade}학년</td>
 				<td>
-					${s.majorNo}
-				<c:choose></c:choose>	
-					
+					${s.majorNo}. ${s.majorName}
 				</td>
+			
 				
 				<!-- <td>${s.majorNo}</td> --> 
 				

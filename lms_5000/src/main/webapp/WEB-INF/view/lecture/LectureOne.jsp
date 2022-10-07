@@ -69,7 +69,7 @@
 			</tr>
 			<tr>
 				<th>시작시간</th>
-				<td>${lectureOne.lectureStarttime}</td>
+				<td>${lectureOne.lectureStarttime}시간</td>
 			</tr>
 			<tr>
 				<th>종료시간</th>
@@ -81,7 +81,7 @@
 			</tr>
 			<tr>
 				<th>강좌번호</th>
-				<td>${lectureOne.subjectNo}</td>
+				<td>${lectureOne.subjectNo}. ${lectureOne.subjectName}</td>
 			</tr>
 			<tr>
 				<th>강의실</th>
@@ -89,11 +89,11 @@
 			</tr>
 			<tr>
 				<th>담당교수</th>
-				<td>${lectureOne.userId}</td>
+				<td>${lectureOne.userId}(${lectureOne.userName})</td>
 			</tr>
 			<tr>
 				<th>학기</th>
-				<td>${lectureOne.semesterNo}</td>
+				<td>${lectureOne.semesterYear}년 ${lectureOne.semesterSession}학기</td>
 			</tr>
 			
 		</tbody>

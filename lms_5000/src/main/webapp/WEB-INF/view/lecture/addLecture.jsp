@@ -90,11 +90,11 @@
 				<td>
 					<select name="lectureDay">
 						<option value="default">요일을 선택하세요.</option>
-						<option value="1">월</option>
-						<option value="2">화</option>
-						<option value="3">수</option>
-						<option value="4">목</option>
-						<option value="5">금</option>
+						<option value="월">월</option>
+						<option value="화">화</option>
+						<option value="수">수</option>
+						<option value="목">목</option>
+						<option value="금">금</option>
 					</select>
 				</td>
 			</tr>

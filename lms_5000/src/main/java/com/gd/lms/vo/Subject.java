@@ -15,4 +15,5 @@ public class Subject {
 	private int subjectGrade;
 	// 학과번호
 	private int majorNo;
+	private String majorName;
 }

@@ -80,10 +80,10 @@
 			<td>${l.lectureStarttime}</td>
 			<td>${l.lectureEndtime}</td>
 			<td>${l.lectureDay}</td>
-			<td>${l.subjectNo}</td>
+			<td>${l.subjectNo}. ${l.subjectName}</td>
 			<td>${l.classroomNo}번</td>
-			<td>${l.userId}</td>
-			<td>${l.semesterNo}</td>
+			<td>${l.userId}(${l.userName})</td>
+			<td>${l.semesterYear}년 ${l.semesterSession}학기</td>
 		</tr>		
 	</c:forEach>
 	</table>

@@ -11,9 +11,13 @@
 			l.lecture_endtime lectureEndtime,
 			l.lecture_day lectureDay,
 			s.subject_no subjectNo,
+			s.subject_name subjectName,
 			l.classroom_no classroomNo,
 			u.user_id userId,
-			e.semester_no semesterNo
+			u.user_name userName,
+			e.semester_no semesterNo,
+			e.semester_year semesterYear,
+			e.semester_session semesterSession
 		FROM lecture l
 		LEFT OUTER JOIN subject s
 		ON l.subject_no = s.subject_no
@@ -75,9 +79,13 @@
 			l.lecture_endtime lectureEndtime,
 			l.lecture_day lectureDay,
 			s.subject_no subjectNo,
+			s.subject_name subjectName,
 			l.classroom_no classroomNo,
 			u.user_id userId,
-			e.semester_no semesterNo
+			u.user_name userName,
+			e.semester_no semesterNo,
+			e.semester_year semesterYear,
+			e.semester_session semesterSession
 		FROM lecture l
 		LEFT OUTER JOIN subject s
 		ON l.subject_no = s.subject_no

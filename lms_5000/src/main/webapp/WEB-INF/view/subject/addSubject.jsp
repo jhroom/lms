@@ -91,7 +91,7 @@
 						<select name="subjectPoint" id="subjectPoint">
 							<option value="default">학점을 선택하세요.</option>
 							<option value="1" disabled>1학점</option>
-							<option value="2" disabled>2학점</option>
+							<option value="2" disabled >2학점</option>
 							<option value="3">3학점</option>
 						
 						</select>

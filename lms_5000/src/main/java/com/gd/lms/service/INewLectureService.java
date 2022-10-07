@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Professor;
-import com.gd.lms.vo.Week;
 
 public interface INewLectureService {
 	// 생성 강의 리스트 (수강신청할 수 있는)

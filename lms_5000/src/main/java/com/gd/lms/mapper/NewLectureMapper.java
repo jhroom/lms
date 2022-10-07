@@ -9,7 +9,6 @@ import com.gd.lms.vo.Lecture;
 import com.gd.lms.vo.Professor;
 import com.gd.lms.vo.Semester;
 import com.gd.lms.vo.Subject;
-import com.gd.lms.vo.Week;
 
 @Mapper
 public interface NewLectureMapper {

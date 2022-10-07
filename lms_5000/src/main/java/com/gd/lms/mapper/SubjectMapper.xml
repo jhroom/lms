@@ -9,7 +9,8 @@
 			s.subject_name subjectName,
 			s.subject_point subjectPoint,
 			s.subject_grade subjectGrade,
-			m.major_no majorNo
+			m.major_no majorNo,
+			m.major_name majorName
 		FROM subject s
 		LEFT OUTER JOIN major m
 		ON s.major_no = m.major_no
@@ -23,7 +24,8 @@
 			s.subject_name subjectName,
 			s.subject_point subjectPoint,
 			s.subject_grade subjectGrade,
-			m.major_no majorNo
+			m.major_no majorNo,
+			m.major_name majorName
 		FROM subject s
 		LEFT OUTER JOIN major m
 		ON s.major_no = m.major_no

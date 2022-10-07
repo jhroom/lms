@@ -80,7 +80,7 @@
 				
 				<td>
 				
-				${subjectOne.majorNo}${subjectOne.majorName}
+				${subjectOne.majorNo}. ${subjectOne.majorName}
 				
 				</td>
 			</tr>

@@ -13,7 +13,7 @@ public class Lecture {
 	//강의 종료시간
 	private String lectureEndtime;		
 	//강의를 하는 요일
-	private int lectureDay;			
+	private String lectureDay;			
 	//과목 번호
 	private int subjectNo;			
 	//강의실 번호
@@ -21,5 +21,10 @@ public class Lecture {
 	//교수 ID
 	private String userId;			
 	//학기 번호
-	private int semesterNo;				
+	private int semesterNo;
+	
+	private String subjectName;
+	private String userName;
+	private int semesterYear;
+	private int semesterSession;
 }
