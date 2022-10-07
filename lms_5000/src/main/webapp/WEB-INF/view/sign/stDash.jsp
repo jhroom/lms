@@ -88,18 +88,7 @@
 						<td>
 							<a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?userId=${loginUser.userId}&lectureNo=${a.lecture_no}">${a.subject_name}</a>
 						</td>     	 	
-						<td>
-							<c:choose>
-								<c:when test="${a.lecture_day eq 1}">월요일</c:when>
-								<c:when test="${a.lecture_day eq 2}">화요일</c:when>
-								<c:when test="${a.lecture_day eq 3}">수요일</c:when>
-								<c:when test="${a.lecture_day eq 4}">목요일</c:when>
-								<c:when test="${a.lecture_day eq 5}">금요일</c:when>
-								<c:when test="${a.lecture_day eq 6}">토요일</c:when>
-								<c:when test="${a.lecture_day eq 7}">일요일</c:when>
-								<c:otherwise>요일을 다시 확인해 주세요</c:otherwise>
-							</c:choose>
-						</td> 	 	 
+						<td>${a.lecture_day}요일</td> 	 	 
 						<td>${a.classroom_no} 강의실</td>           	 	 
 						<td>${a.pro_name} 교수</td>           	 	 
 	           	 	 </tr>

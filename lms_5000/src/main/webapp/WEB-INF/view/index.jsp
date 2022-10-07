@@ -265,17 +265,15 @@ function change() {
 						<tr>
 							<th>번호</th>
 							<th>제목</th>
-							<th>내용</th>
 							<th>작성자</th>
 							<th>작성일</th>
 							<th>조회수</th>
 							
 						</tr>
-						<c:forEach var="a" items="${lmsNoticeList}" begin="1" end="6">
+						<c:forEach var="a" items="${lmsNoticeList}" begin="0" end="5">
 							<tr>
 								<td>${a.lmsNoticeNo}</td>
 								<td><a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeOne?lmsNoticeNo=${a.lmsNoticeNo}&lmsNoticeTitle=${a.lmsNoticeTitle}">${a.lmsNoticeTitle}</a></td>
-								<td>${a.lmsNoticeContent}</td>
 								<td>${a.lmsNoticeName}</td>
 								<td>${a.lmsNoticeCreatetime}</td>
 								<td>${a.count}</td>

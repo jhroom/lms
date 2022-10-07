@@ -14,8 +14,8 @@
 		where l.semester_no = (
 		SELECT semester_no
 			FROM semester
-			WHERE semester_year = YEAR(NOW())
-			AND semester_session = round(MONTH(NOW())/6)
+			WHERE semester_year = 2022<!-- YEAR(NOW()) -->
+			AND semester_session = 2<!-- round(MONTH(NOW())/6) -->
 		)
 		ORDER BY l.lecture_no
 		limit #{beginRow}, #{rowPerPage}
@@ -25,7 +25,7 @@
 	<select id="getTotal" resultType="int">
 		SELECT 
 			count(*)
-		FROM subject; 		
+		FROM lecture; 		
 	</select>	
 	
 	<!-- 학생 원하는 수강 과목 insert -->

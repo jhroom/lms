@@ -130,18 +130,7 @@
 					<td>${s.subject_name}</td>
 					<td>${s.subject_point}점</td>
 					<td>${s.subject_grade}학년</td>
-					<td>
-						<c:choose>
-							<c:when test="${s.lecture_day eq 1}">월요일</c:when>
-							<c:when test="${s.lecture_day eq 2}">화요일</c:when>
-							<c:when test="${s.lecture_day eq 3}">수요일</c:when>
-							<c:when test="${s.lecture_day eq 4}">목요일</c:when>
-							<c:when test="${s.lecture_day eq 5}">금요일</c:when>
-							<c:when test="${s.lecture_day eq 6}">토요일</c:when>
-							<c:when test="${s.lecture_day eq 7}">일요일</c:when>
-							<c:otherwise>요일을 다시 확인해 주세요</c:otherwise>
-						</c:choose>
-					</td>
+					<td>${s.lecture_day}요일</td>
 					<td>${s.classroom_no}호 강의실</td>
 					<td>
 						<!-- session 등으로 수강신청 상태 대기 -->
@@ -150,7 +139,13 @@
 							<c:when test="${s.sign_state eq 1}">수강 신청 완료</c:when>
 						</c:choose>
 					</td>
-					<td><a href="${pageContext.request.contextPath}/sign/cancelSign?userId=${loginUser.userId}&signNo=${s.sign_no}&lectureNo=${s.lecture_no}&cancelId=${loginUser.userId}">수강취소</a></td>
+					<td>
+						<c:choose>
+							<c:when test="${s.sign_state eq 0}">
+								<a href="${pageContext.request.contextPath}/sign/cancelSign?userId=${loginUser.userId}&signNo=${s.sign_no}&lectureNo=${s.lecture_no}&cancelId=${loginUser.userId}">수강취소</a>
+							</c:when>							
+						</c:choose>
+					</td>
 				</tr>
 				</c:if>
 			</c:forEach>

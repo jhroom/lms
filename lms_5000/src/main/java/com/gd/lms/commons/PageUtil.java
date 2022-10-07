@@ -35,7 +35,7 @@ public class PageUtil {
 		Map<String, Object> map = new HashMap();
 		
 		//페이징 하고 싶은 수의 변수
-		int rowPerPage = 2;
+		int rowPerPage = 5;
 		
 		//쿼리로 찐 막 페이지 구하기
 		////변수 선언

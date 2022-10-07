@@ -46,12 +46,15 @@ public class LectureService implements ILectureService {
 		
 		// 수강 신청 여부 확인
 		int check = lecturemapper.selectSignHistory(sign);
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / check : "+ check );
 		
 		//같은 과목 신청 여부 확인
 		check += lecturemapper.selectSignHistoryForSubject(sign);
+		log.debug(TeamColor.KHJ + "파라미터 값 확인 / check : "+ check );
 		
 		//요일과 시간이 겹치는 과목이 잇는 지 확인
-		check += lecturemapper.selectSignHistoryForTime(sign);
+//		check += lecturemapper.selectSignHistoryForTime(sign);
+//		log.debug(TeamColor.KHJ + "파라미터 값 확인 / check : "+ check );
 		
 		
 		//수강 신청 이력이 없고 & 같은 과목을 신청하지 않은 경우에만 삽입 실행
@@ -140,7 +143,7 @@ public class LectureService implements ILectureService {
 		//연산 확인
 		try {
 			
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); 
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
 			
 			//학기 시작 날짜 객체 입력
 			Date date = formatter.parse(semester);
