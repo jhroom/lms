@@ -329,7 +329,7 @@ public class BoardController {
 	
 	//댓글 달기 기능
 	@GetMapping("board/addComment")
-	public String addComment(HttpSession session, Comment comment, String boardName, int boardNo, Model model) throws UnsupportedEncodingException{
+	public String addComment(HttpSession session, int boardType, int lectureNo,  int boardPostNo, Comment comment, String boardName, int boardNo, Model model) throws UnsupportedEncodingException{
 		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / comment : " + comment);
@@ -355,7 +355,7 @@ public class BoardController {
 		
 
 		//포워딩
-		return "redirect:/board/post/one?boardPostNo="+comment.getBoardPostNo() + "&boardName=" + encodedboardName + "&boardNo=" + boardNo;
+		return "redirect:/board/post/one?boardPostNo="+boardPostNo+"&boardNo="+boardNo+"&boardName="+encodedboardName + "&boardType=" + boardType + "&lectureNo=" + lectureNo;
 				
 		
 	}
@@ -363,7 +363,7 @@ public class BoardController {
 	
 	//댓글 삭제 기능
 	@GetMapping("board/removeComment")
-	public String removeCommet(int commentNo, int boardPostNo, String boardName, int boardNo, Model model) throws UnsupportedEncodingException {
+	public String removeCommet(int commentNo, int boardType, int lectureNo,  int boardPostNo, String boardName, int boardNo, Model model) throws UnsupportedEncodingException {
 		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / comment : " + commentNo);
@@ -382,7 +382,8 @@ public class BoardController {
 		
 
 		
-		return "redirect:/board/post/one?boardPostNo="+boardPostNo + "&boardName=" + encodedboardName + "&boardNo=" + boardNo;
+		
+		return "redirect:/board/post/one?boardPostNo="+boardPostNo+"&boardNo="+boardNo+"&boardName="+encodedboardName + "&boardType=" + boardType + "&lectureNo=" + lectureNo;
 	}
 	
 	

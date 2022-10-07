@@ -210,7 +210,7 @@
 										           	 	<c:if test="${d.boardType eq 4}">과제</c:if>
 									           	 	</td>
 									           	 	<td>
-									           	 		<a href="${pageContext.request.contextPath}/board/post/one?boardPostNo=${d.boardPostNo}&boardNo=${d.boardNo}&boardName=${d.boardName}">${d.boardPostTitle}</a>
+									           	 		<a href="${pageContext.request.contextPath}/board/post/one?boardPostNo=${d.boardPostNo}&boardNo=${d.boardNo}&boardName=${d.boardName}&lectureNo=${lectureNo}&boardType=${d.boardType}">${d.boardPostTitle}</a>
 									           	 	</td>
 									           	 	<td>${d.boardPostWriter}</td><td>${d.boardPostCreatedate}</td>
 									           	 </tr>

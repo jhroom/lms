@@ -170,6 +170,9 @@
 					<input type="hidden" name="boardPostNo" value="${boardOne.boardPostNo}">
 					<input type="hidden" name="boardName" value="${boardName}">
 					<input type="hidden" name="boardNo" value="${boardNo}">
+					<input type="hidden" name="boardType" value="${boardType}">
+					<input type="hidden" name="lectureNo" value="${lectureNo}">
+					
 					
 					<textarea class="form-control" name="commentContent"></textarea>
 					<button class="btn btn-success"type="submit">댓글 달기</button>
@@ -191,7 +194,7 @@
 									<td>${m.commentWriter}</td><td>${m.commentContent}</td>
 									<td>
 										<c:if test="${loginUser.userLevel eq 2||writer eq m.commentWriter}">
-											<a href="${pageContext.request.contextPath}/board/removeComment?commentNo=${m.commentNo}&boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}">삭제</a>
+											<a href="${pageContext.request.contextPath}/board/removeComment?commentNo=${m.commentNo}&boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}&boardType=${boardType}&lectureNo=${lectureNo}">삭제</a>
 										</c:if>
 									</td>
 								</tr>
