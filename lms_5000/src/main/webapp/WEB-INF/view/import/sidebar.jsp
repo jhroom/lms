@@ -5,8 +5,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="${pageContext.request.contextPath}/index" class="brand-link">
-      <img src="${pageContext.request.contextPath}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
+      <img src="${pageContext.request.contextPath}/img/logo_main.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="background-color: white">
       <span class="brand-text font-weight-light">LMS 5000</span>
     </a>
 

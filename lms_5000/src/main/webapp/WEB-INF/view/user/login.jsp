@@ -19,20 +19,25 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- title logo -->
+  <link href="${pageContext.request.contextPath}/img/logo_title.ico" rel="shortcut icon" type="image/x-icon">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background-image:url('${pageContext.request.contextPath}/img/back_login.jpg');background-size:100%;background-repeat: no-repeat;background-position:center;background-color:aliceblue">
 <div>
 		<c:if test="${errMsg != null }">
 			<p>${errMsg }</p>
 		</c:if>
 </div>
-<div class="login-box">
+<div class="login-box" Style="background-color:#ffffffb3;padding:1em;border-radius: 20px;">  
+<p style="text-align:center">
+<img src="${pageContext.request.contextPath}/img/logo_main.png" alt="dd" style="width:40%;">
+</p>
   <div class="login-logo">
     <a href="${pageContext.request.contextPath}/index"><b>5000</b>LMS</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
-    <div class="card-body login-card-body">
+    <div class="card-body login-card-body" Style="border-radius: 20px">
       <p class="login-box-msg">Sign in to start your session</p>
 
       <form action="${pageContext.request.contextPath}/index/login" method="post">
