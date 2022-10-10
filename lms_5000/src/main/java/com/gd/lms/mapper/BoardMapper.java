@@ -18,10 +18,7 @@ public interface BoardMapper {
 	//선택 게시판의 게시글 리스트 생성 쿼리
 	public List<BoardPost> selectBoardPostList(int beginRow, int rowPerPage, Board board);
 	
-	//선택 게시판의 게시글 리스트 생성 쿼리
-	public List<BoardPost> selectBoardPostList2(int beginRow, int rowPerPage, Board board);
-		
-	
+
 	//게시판 추가 쿼리
 	public int insertBoard(Board board);
 	
@@ -37,7 +34,7 @@ public interface BoardMapper {
 	//게시글 첨부 파일 추가 쿼리
 	public int insertBoardFile(BoardFile boardFile);
 	
-	//댓글 추가 생성 쿼리
+	//댓글 생성 쿼리
 	public int insertComment(Comment comment);
 	
 	//댓글 리스트 생성 쿼리
@@ -70,8 +67,15 @@ public interface BoardMapper {
 	//페이징_마지막 페이지 구하기(게시판 글)
 	public int selectRealEndPageForBoardPost2(int lectureNo, int boardType);
 	
+	
+	
+	
 	//타입과 강좌번호로 특정 게시판 번호 찾기
 	public int selectBoardNoByLectureNonBoardType(Board board);
+	
+	//게시판 번호로 게시판 객체 생성하는 쿼리
+	public Board selectBoardByBoardNo(int boardNo);
+	
 			
 	
 	

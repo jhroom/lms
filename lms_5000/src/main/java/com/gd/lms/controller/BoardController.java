@@ -52,6 +52,7 @@ public class BoardController {
 	
 	
 	//게시판 리스트 출력 메서드
+	// - 일반 게시판만 리스트의 출력이 필요하기 떄문에 필요한 파라미터는 lectureNo뿐.
 	@GetMapping("/board/list")
 	public String getboardList(int lectureNo, @RequestParam(required=false, value="currentPage", defaultValue="1") int currentPage, Model model) {
 		
@@ -61,8 +62,7 @@ public class BoardController {
 		
 		
 		//페이징 변수 설정
-		Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, boardService.getRealEndPageForBoard(lectureNo));
-		
+		Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, boardService.getRealEndPageForBoard(lectureNo));		
 		
 		//넘겨줄 리스트(게시판)
 		List<Board> list = boardService.getBoardList((int)pageVariable.get("beginRow"), (int)pageVariable.get("rowPerPage"),lectureNo);
@@ -71,14 +71,10 @@ public class BoardController {
 		//값 넘겨주기
 		model.addAttribute("boardList",list);
 		model.addAttribute("lectureNo",lectureNo);
-
 		
 		//페이징 넘겨주는 값
 		model.addAttribute("pages",pageVariable.get("pages"));
 		model.addAttribute("currentPage",pageVariable.get("currentPage"));
-		
-
-		
 
 		//디버깅
 		log.debug(TeamColor.KHJ + "값 확인 / boardList list : " + list);
@@ -90,83 +86,44 @@ public class BoardController {
 		
 	}
 	
-	// 삭제 예정
+
 	//게시판 게시글 출력 메서드
+	// - 필수 파라미터 : 게시판 번호 || 강좌번호, 게시판 타입
 	@GetMapping("/board/post")
 	public String getBoardPostList(@RequestParam(required=false, value="currentPage", defaultValue="1") int currentPage, Board board, Model model) {
 		
 		//파라미터 확인 디버깅
-
 		log.debug(TeamColor.KHJ + "값 확인 / board : " + board);
 		log.debug(TeamColor.KHJ + "값 확인 / currentPage : " + currentPage);
 		
-		
 
-		//페이징 변수 설정
-		Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, boardService.getRealEndPageForBoardPost(board.getLectureNo(), board.getBoardNo()));
+		//게시판 번호가 없을 경우 타입과 강좌 번호로 번호 세팅
+		if(board.getBoardNo() == 0) {
+			board.setBoardNo(boardService.getBoardNoByLectureNonBoardType(board));
+		}
 		
-		
-		//넘겨줄 리스트(게시판)
-		List<BoardPost> list = boardService.getBoardPostList((int)pageVariable.get("beginRow"), (int)pageVariable.get("rowPerPage"), board);
-		
-		//값 넘겨주기
-		model.addAttribute("boardPostList",list);
-		model.addAttribute("boardName",board.getBoardName());
-		model.addAttribute("boardNo",board.getBoardNo());
-		model.addAttribute("lectureNo",board.getLectureNo());
-		model.addAttribute("boardType",3);	
-		
-		//페이징 넘겨주는 값
-		model.addAttribute("pages",pageVariable.get("pages"));
-		model.addAttribute("currentPage",pageVariable.get("currentPage"));
-		model.addAttribute("realLastPage",pageVariable.get("realLastPage"));
-		
+		//returnBoard객체 생성 쿼리 실행
+		Board reBoard = boardService.getBoardByBoardNo(board.getBoardNo());
 		
 		//디버깅
-		log.debug(TeamColor.KHJ + "값 확인 / boardPost list : " + list);
-		log.debug(TeamColor.KHJ + "boardPost 리스트 생성 및 포워딩");
-		
-		
-		
-		//포워딩
-		return "board/boardPost";
-		
-	}
-	
-	
-	//게시판 게시글 출력 메서드2
-	@GetMapping("/board/post2")
-	public String getBoardPostList2(@RequestParam(required=false, value="currentPage", defaultValue="1") int currentPage, Board board,  Model model) {
-		
-		//파라미터 확인 디버깅
-		log.debug(TeamColor.KHJ + "값 확인 / board : " + board);
-		log.debug(TeamColor.KHJ + "값 확인 / currentPage : " + currentPage);
+		log.debug(TeamColor.KHJ + "값 확인 / reBoard : " + reBoard);
 		
 
 		//페이징 변수 설정
-		Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, boardService.getRealEndPageForBoardPost2(board.getLectureNo(), board.getBoardType()));
-	
-
+		Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, boardService.getRealEndPageForBoardPost(reBoard.getLectureNo(), reBoard.getBoardNo()));
 		
 		//넘겨줄 리스트(게시판)
-		List<BoardPost> list = boardService.getBoardPostList2((int)pageVariable.get("beginRow"), (int)pageVariable.get("rowPerPage"), board);
+		List<BoardPost> list = boardService.getBoardPostList((int)pageVariable.get("beginRow"), (int)pageVariable.get("rowPerPage"), reBoard);
 		
-		//게시판 번호추출 쿼리
-		int boardNo = boardService.getBoardNoByLectureNonBoardType(board);
-
+		
 		//값 넘겨주기
 		model.addAttribute("boardPostList",list);
-		model.addAttribute("boardName",board.getBoardName());
-		model.addAttribute("boardNo",boardNo);
-		model.addAttribute("boardType",board.getBoardType());		
-		model.addAttribute("lectureNo",board.getLectureNo());
-
+		model.addAttribute("board",reBoard);	
 		
 		//페이징 넘겨주는 값
 		model.addAttribute("pages",pageVariable.get("pages"));
 		model.addAttribute("currentPage",pageVariable.get("currentPage"));
 		model.addAttribute("realLastPage",pageVariable.get("realLastPage"));
-		
 		
 		//디버깅
 		log.debug(TeamColor.KHJ + "값 확인 / boardPost list : " + list);
@@ -181,30 +138,34 @@ public class BoardController {
 	
 	//게시글 상세 페이지 출력 메서드
 	@GetMapping("/board/post/one")
-	public String getBoardPostOne(int boardPostNo, String boardName, int lectureNo, int boardType, int boardNo, Model model) {
+	public String getBoardPostOne(int boardPostNo, int boardNo, Model model) {
 		
 
 		//파라미터 확인 디버깅
 		System.out.println("[boardCtrl] boardPostNo : " + boardPostNo);	
+		System.out.println("boardNo : " + boardNo);	
+		
+
+		//returnBoard객체 생성 쿼리 실행
+		Board reBoard = boardService.getBoardByBoardNo(boardNo);
+		
 		
 		//넘겨줄 값(BoardPost)
-		Map<String, Object> boardOne = boardService.getBoardPostOne(boardPostNo);
-		
+		Map<String, Object> boardOne = boardService.getBoardPostOne(boardPostNo);		
 		
 		//댓글 리스트
 		List<Comment> commentList = boardService.getComment(boardPostNo);
 		
+		//디버깅
+		log.debug(TeamColor.KHJ + "값 확인 / boardOne : " + boardOne);
+		
+		
 		//값 넘겨주기
 		model.addAttribute("boardOne",boardOne);
 		model.addAttribute("commentList",commentList);		
-		model.addAttribute("boardName",boardName);
-		model.addAttribute("boardNo",boardNo);
-		model.addAttribute("boardType",boardType);
-		model.addAttribute("lectureNo",lectureNo);
+		model.addAttribute("board",reBoard);
 		
-		
-		
-		
+
 		//결과 디버깅
 		log.debug(TeamColor.KHJ + "값 확인 / boardOne : " + boardOne);
 		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 상세보기 폼으로 포워딩");
@@ -254,17 +215,23 @@ public class BoardController {
 	
 	//게시글 추가 폼 전송 메서드
 	@GetMapping("/board/post/add/form")
-	public String directAddBoardPost(int boardNo, String boardName, int lectureNo, int boardType, Model model) {
+	public String directAddBoardPost(int boardNo, Model model) {
 
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / boardNo : " + boardNo);
 		
-		//값 넘겨주기
-		model.addAttribute("boardName",boardName);
-		model.addAttribute("boardNo",boardNo);
-		model.addAttribute("boardType",boardType);
 		
-		model.addAttribute("lectureNo",lectureNo);
+		//returnBoard객체 생성 쿼리 실행
+		Board reBoard = boardService.getBoardByBoardNo(boardNo);
+		
+		//디버깅
+		log.debug(TeamColor.KHJ + "값 확인 / reBoard : " + reBoard);
+		
+		
+		
+		//값 넘겨주기
+		model.addAttribute("board",reBoard);
+
 		
 		
 		//결과 확인 디버깅
@@ -291,16 +258,10 @@ public class BoardController {
 		
 		//결과 확인 디버깅
 		log.debug(TeamColor.KHJ + "완료 후 값 확인 / 게시글 + 파일 추가 행 수 : " + row);
-		
-		
-		//넘겨주는 값 인코딩
-		String encodedboardName= URLEncoder.encode(board.getBoardName(), "UTF-8");
-		
-		//결과 확인 디버깅
 		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 리스트로 리다이렉션");
 		
 		//리다이렉션
-		return "redirect:/board/post2?boardNo=" + board.getBoardNo() +"&boardName=" + encodedboardName + "&lectureNo=" + lectureNo + "&boardType=" + boardType;
+		return "redirect:/board/post?boardNo=" + board.getBoardNo();
 		
 	}
 	
@@ -329,7 +290,7 @@ public class BoardController {
 	
 	//댓글 달기 기능
 	@GetMapping("board/addComment")
-	public String addComment(HttpSession session, int boardType, int lectureNo,  int boardPostNo, Comment comment, String boardName, int boardNo, Model model) throws UnsupportedEncodingException{
+	public String addComment(HttpSession session, Comment comment, int boardNo, Model model) throws UnsupportedEncodingException{
 		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / comment : " + comment);
@@ -349,13 +310,11 @@ public class BoardController {
 		
 		//결과확인 디버깅
 		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 상세페이지로 포워딩");
-		
-		//넘겨주는 값 인코딩
-		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
+
 		
 
 		//포워딩
-		return "redirect:/board/post/one?boardPostNo="+boardPostNo+"&boardNo="+boardNo+"&boardName="+encodedboardName + "&boardType=" + boardType + "&lectureNo=" + lectureNo;
+		return "redirect:/board/post/one?boardPostNo="+comment.getBoardPostNo()+"&boardNo="+boardNo;
 				
 		
 	}
@@ -363,34 +322,26 @@ public class BoardController {
 	
 	//댓글 삭제 기능
 	@GetMapping("board/removeComment")
-	public String removeCommet(int commentNo, int boardType, int lectureNo,  int boardPostNo, String boardName, int boardNo, Model model) throws UnsupportedEncodingException {
+	public String removeCommet(Comment comment, int boardNo, Model model) throws UnsupportedEncodingException {
 		
 		//파라미터 확인 디버깅
-		log.debug(TeamColor.KHJ + "파라미터 확인 / comment : " + commentNo);
+		log.debug(TeamColor.KHJ + "파라미터 확인 / comment : " + comment);
 
 		// 실행
-		int row = boardService.removeComment(commentNo);
+		int row = boardService.removeComment(comment.getCommentNo());
 		
 		//결과확인 디버깅
 		log.debug(TeamColor.KHJ + "결과 확인 / 삭제된 댓글 행수 : " + row);
-		
-		//결과확인 디버깅
 		log.debug(TeamColor.KHJ + "결과 확인 / 게시글 상세페이지로 포워딩");
 		
-		//넘겨주는 값 인코딩
-		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
-		
-
-		
-		
-		return "redirect:/board/post/one?boardPostNo="+boardPostNo+"&boardNo="+boardNo+"&boardName="+encodedboardName + "&boardType=" + boardType + "&lectureNo=" + lectureNo;
+		return "redirect:/board/post/one?boardPostNo="+comment.getBoardPostNo()+"&boardNo="+boardNo;
 	}
 	
 	
 	
 	//게시글 삭제 기능
 	@GetMapping("board/removePost")
-	public String removePost(String boardName, int boardNo, int boardPostNo, int lectureNo, int boardType, String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
+	public String removePost(int boardNo, int boardPostNo,String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / boardPostNo : " + boardPostNo);
 		log.debug(TeamColor.KHJ + "파라미터 확인 / fileName : " + fileName);
@@ -401,16 +352,9 @@ public class BoardController {
 		
 		//결과확인 디버깅
 		log.debug(TeamColor.KHJ + "결과 확인 / 삭제된 댓글 행수 : " + row);
-		
-		//결과확인 디버깅
 		log.debug(TeamColor.KHJ + "결과 확인 / 해당 게시판으로 포워딩");
 		
-		
-		//넘겨주는 값 인코딩
-		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
-		
-		
-		return "redirect:/board/post2?boardNo="+boardNo+"&boardName="+encodedboardName +"&boardType="+boardType + "&lectureNo=" + lectureNo;
+		return "redirect:/board/post?boardNo="+boardNo;
 
 		
 	}
@@ -418,10 +362,16 @@ public class BoardController {
 	
 	//게시글 수정 폼 전송 기능
 	@GetMapping ("board/modifyPost/form")
-	public String directModifyPost(int boardPostNo, String boardName, int lectureNo, int boardType, int boardNo, Model model) {
+	public String directModifyPost(int boardPostNo, int boardNo, Model model) {
 		
 		//파라미터 확인 디버깅
 		System.out.println("[boardCtrl] boardPostNo : " + boardPostNo);	
+		
+		
+		
+
+		//returnBoard객체 생성 쿼리 실행
+		Board reBoard = boardService.getBoardByBoardNo(boardNo);
 		
 		//넘겨줄 값(BoardPost)
 		Map<String, Object> boardOne = boardService.getBoardPostOne(boardPostNo);
@@ -433,15 +383,10 @@ public class BoardController {
 		//값 넘겨주기
 		model.addAttribute("boardOne",boardOne);
 		model.addAttribute("commentList",commentList);		
-		model.addAttribute("boardName",boardName);
-		model.addAttribute("boardNo",boardNo);
+		model.addAttribute("board",reBoard);
+
 		model.addAttribute("boardPostNo",boardPostNo);
-		model.addAttribute("boardType",boardType);
-		model.addAttribute("lectureNo",lectureNo);
-		
-		
-		
-		
+
 		
 		//결과 디버깅
 		log.debug(TeamColor.KHJ + "값 확인 / boardOne : " + boardOne);
@@ -453,24 +398,23 @@ public class BoardController {
 	
 	//게시글 수정 기능
 	@PostMapping("board/modifyPost")
-	public String modifyPost(BoardPost boardPost, int boardNo, int lectureNo, int boardType, String boardName) throws UnsupportedEncodingException {
+	public String modifyPost(BoardPost boardPost, int boardNo) throws UnsupportedEncodingException {
 		
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / boardPost : " + boardPost);
-		log.debug(TeamColor.KHJ + "파라미터 확인 / boardName : " + boardName);
 		log.debug(TeamColor.KHJ + "파라미터 확인 / boardNo : " + boardNo);
-		log.debug(TeamColor.KHJ + "파라미터 확인 / boardType : " + boardType);
-		
+
+
+		//returnBoard객체 생성 쿼리 실행
+		Board reBoard = boardService.getBoardByBoardNo(boardNo);
 		
 		
 		//실행
 		int row = boardService.modifyBoardPost(boardPost);
 
-		//넘겨주는 값 인코딩
-		String encodedboardName= URLEncoder.encode(boardName, "UTF-8");
 		
 		//리턴
-		return "redirect:/board/post/one?boardPostNo="+boardPost.getBoardPostNo()+"&boardNo="+boardNo+"&boardName="+encodedboardName + "&boardType=" + boardType + "&lectureNo=" + lectureNo;
+		return "redirect:/board/post/one?boardPostNo="+boardPost.getBoardPostNo()+"&boardNo="+boardNo;
 	}
 	
 	

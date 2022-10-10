@@ -72,26 +72,6 @@
 		limit #{beginRow}, #{rowPerPage}
 	</select>
 	
-		<!-- 선택한 게시판의 게시글 리스트 생성 쿼리 --> 
-	<select id="selectBoardPostList2" resultType="com.gd.lms.vo.BoardPost">
-		select
-			board_post_no boardPostNo
-			, board_no boardNo
-			, board_post_Title boardPostTitle
-			, board_post_content boardPostContent
-			, board_post_writer boardPostWriter
-			, board_post_createdate boardPostCreatedate
-			, board_post_updatedate boardPostUpdatedate
-			, count count
-		from board_post
-		where board_No = (
-			SELECT board_no
-			FROM board
-			WHERE board_type=#{board.boardType}
-			AND lecture_no = #{board.lectureNo}
-		)
-		limit #{beginRow}, #{rowPerPage}
-	</select>
 	
 
 	
@@ -272,6 +252,21 @@
 		FROM board
 		WHERE board_type = #{boardType}
 		AND lecture_no = #{lectureNo}	
+	</select>
+	
+	<!-- 게시판 번호로 게시판 객체 생성하는 쿼리 -->
+	<select id="selectBoardByBoardNo" resultType="com.gd.lms.vo.Board">
+	select 
+		board_no boardNo
+		, board_name boardName
+		, board_type boardType
+		, create_date createDate
+		, lecture_no lectureNo
+	from board
+	where board_no = #{boardNo}
+	
+	
+	
 	</select>
 
 </mapper>

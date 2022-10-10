@@ -81,17 +81,6 @@ public class BoardService implements IBoardService{
 	
 
 
-	@Override
-	public List<BoardPost> getBoardPostList2(int beginRow, int rowPerPage, Board board) {
-		//리턴 값(list) 세팅
-		List<BoardPost> list = boardMapper.selectBoardPostList2(beginRow, rowPerPage, board);
-		
-		//디버깅
-		System.out.println("[boardSvc] BoardPost list : " + list);
-		
-		return list;
-	}
-
 	
 	
 	
@@ -407,6 +396,15 @@ public class BoardService implements IBoardService{
 		int boardNo = boardMapper.selectBoardNoByLectureNonBoardType(board);
 
 		return boardNo;
+	}
+
+
+	@Override
+	public Board getBoardByBoardNo(int boardNo) {
+		
+		Board board = boardMapper.selectBoardByBoardNo(boardNo);
+		
+		return board;
 	}
 
 

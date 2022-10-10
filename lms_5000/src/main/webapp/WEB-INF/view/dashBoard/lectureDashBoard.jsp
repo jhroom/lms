@@ -223,9 +223,9 @@
 						
 						</div>
 						<!-- 그리드 네개 -->
-						<a href="${pageContext.request.contextPath}/board/post2?boardType=1&lectureNo=${lectureNo}"><div class="item"><span class="icon_g"><i class="fa-sharp fa-solid fa-circle-exclamation"></i></span><p class="p_g">공지사항</p></div></a>
-						<a href="${pageContext.request.contextPath}/board/post2?boardType=2&lectureNo=${lectureNo}"><div class="item"><span class="icon_g"><i class="fa-sharp fa-solid fa-question"></i></span><p class="p_g">Qna</p></div></a>
-						<a href="${pageContext.request.contextPath}/board/post2?boardType=4&lectureNo=${lectureNo}"><div class="item"><span class="icon_g"><i class="fa-sharp fa-solid fa-paperclip"></i></span><p class="p_g">과제</p></div></a>
+						<a href="${pageContext.request.contextPath}/board/post?boardType=1&lectureNo=${lectureNo}"><div class="item"><span class="icon_g"><i class="fa-sharp fa-solid fa-circle-exclamation"></i></span><p class="p_g">공지사항</p></div></a>
+						<a href="${pageContext.request.contextPath}/board/post?boardType=2&lectureNo=${lectureNo}"><div class="item"><span class="icon_g"><i class="fa-sharp fa-solid fa-question"></i></span><p class="p_g">Qna</p></div></a>
+						<a href="${pageContext.request.contextPath}/board/post?boardType=4&lectureNo=${lectureNo}"><div class="item"><span class="icon_g"><i class="fa-sharp fa-solid fa-paperclip"></i></span><p class="p_g">과제</p></div></a>
 						<a href="${pageContext.request.contextPath}/test/board?lectureNo=${lectureNo}"><div class="item"><span class="icon_g"><i class="fa-sharp fa-solid fa-pencil"></i></span><p class="p_g">시험</p></div></a>
 						<a href="${pageContext.request.contextPath}/board/list?lectureNo=${lectureNo}">	<div class="item"><span class="icon_g"><i class="fa-sharp fa-solid fa-clipboard-list"></i></span><p class="p_g">게시판</p></div></a>
 						<c:if test="${loginUser.userLevel  eq 3}">

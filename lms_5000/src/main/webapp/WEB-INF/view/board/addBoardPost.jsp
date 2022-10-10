@@ -57,9 +57,9 @@
       <!-- 카드형태를 옮겨 쓰셔도 무상관 -->
 			<div>
 				<form action="${pageContext.request.contextPath}/board/post/add" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="boardNo" id="boardNo" value="${boardNo}">
-					<input type="hidden" name="lectureNo" id="lectureNo" value="${lectureNo}">
-					<input type="hidden" name="boardType" id="boardType" value="${boardType}">
+					<input type="hidden" name="boardNo" id="boardNo" value="${board.boardNo}">
+					<input type="hidden" name="lectureNo" id="lectureNo" value="${board.lectureNo}">
+					<input type="hidden" name="boardType" id="boardType" value="${board.boardType}">
 					
 					
 					<table class="table table-hover text-nowrap">
@@ -71,7 +71,7 @@
 						<tbody>
 							<tr>
 								<th>게시판</th>
-								<td><input class="form-control" type="text" name="boardName" id="boardName" value="${boardName}" readonly></td>
+								<td><input class="form-control" type="text" name="boardName" id="boardName" value="${board.boardName}" readonly></td>
 							</tr>
 							<tr>
 								<th>제목</th>

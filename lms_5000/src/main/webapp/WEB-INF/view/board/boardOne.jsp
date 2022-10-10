@@ -37,7 +37,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">${boardName} 게시판</h1>
+            <h1 class="m-0 text-dark">${board.boardName} 게시판</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -122,8 +122,8 @@
 					<c:set var="writer" value="${loginUser.userName}(${loginUser.userId})"/>
 					
 					<c:if test="${loginUser.userLevel eq 2 || writer eq boardOne.boardPostWriter}">
-						<a href="${pageContext.request.contextPath}/board/modifyPost/form?boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}&boardType=${boardType}&lectureNo=${lectureNo}">수정</a>
-						<a href="${pageContext.request.contextPath}/board/removePost?boardPostNo=${boardOne.boardPostNo}&fileName=${boardOne.fileName}&boardName=${boardName}&boardNo=${boardNo}&boardType=${boardType}&lectureNo=${lectureNo}">삭제</a>
+						<a href="${pageContext.request.contextPath}/board/modifyPost/form?boardPostNo=${boardOne.boardPostNo}&boardNo=${board.boardNo}">수정</a>
+						<a href="${pageContext.request.contextPath}/board/removePost?boardPostNo=${boardOne.boardPostNo}&fileName=${boardOne.fileName}&boardNo=${board.boardNo}">삭제</a>
 					</c:if>
 				</div>
 
@@ -168,10 +168,10 @@
 				<form action="${pageContext.request.contextPath}/board/addComment" method="get">
 					
 					<input type="hidden" name="boardPostNo" value="${boardOne.boardPostNo}">
-					<input type="hidden" name="boardName" value="${boardName}">
-					<input type="hidden" name="boardNo" value="${boardNo}">
-					<input type="hidden" name="boardType" value="${boardType}">
-					<input type="hidden" name="lectureNo" value="${lectureNo}">
+					<input type="hidden" name="boardName" value="${board.boardName}">
+					<input type="hidden" name="boardNo" value="${board.boardNo}">
+					<input type="hidden" name="boardType" value="${board.boardType}">
+					<input type="hidden" name="lectureNo" value="${board.lectureNo}">
 					
 					
 					<textarea class="form-control" name="commentContent"></textarea>
@@ -194,7 +194,7 @@
 									<td>${m.commentWriter}</td><td>${m.commentContent}</td>
 									<td>
 										<c:if test="${loginUser.userLevel eq 2||writer eq m.commentWriter}">
-											<a href="${pageContext.request.contextPath}/board/removeComment?commentNo=${m.commentNo}&boardPostNo=${boardOne.boardPostNo}&boardName=${boardName}&boardNo=${boardNo}&boardType=${boardType}&lectureNo=${lectureNo}">삭제</a>
+											<a href="${pageContext.request.contextPath}/board/removeComment?commentNo=${m.commentNo}&boardPostNo=${boardOne.boardPostNo}&boardName=${board.boardName}&boardNo=${board.boardNo}&boardType=${boardType}&lectureNo=${board.lectureNo}">삭제</a>
 										</c:if>
 									</td>
 								</tr>

@@ -38,18 +38,9 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0 text-dark">
-            <c:if test="${boardType eq 1}">
-            	공지사항
-            </c:if>
-            <c:if test="${boardType eq 2}">
-            	QNA 게시판
-            </c:if>
-            <c:if test="${boardType eq 3}">
-            	${boardName} 게시판
-            </c:if>
-            <c:if test="${boardType eq 4}">
-            	과제 게시판
-            </c:if>
+
+            	${board.boardName}
+
             </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -88,15 +79,15 @@
 	              <div class="card-body">
 
 				
-					<c:if test="${boardType eq 1 && loginUser.userLevel eq 2}">
-						<a href="${pageContext.request.contextPath}/board/post/add/form?boardNo=${boardNo}&boardName=${boardName}&lectureNo=${lectureNo}&boardType=${boardType}">글쓰기</a>
+					<c:if test="${board.boardType eq 1 && loginUser.userLevel eq 2}">
+						<a href="${pageContext.request.contextPath}/board/post/add/form?boardNo=${board.boardNo}">글쓰기</a>
 					</c:if>
-					<c:if test="${boardType ne 1 && loginUser.userLevel eq 2|| boardType ne 1 &&  loginUser.userLevel eq 3}">
-						<a href="${pageContext.request.contextPath}/board/post/add/form?boardNo=${boardNo}&boardName=${boardName}&lectureNo=${lectureNo}&boardType=${boardType}">글쓰기</a>
+					<c:if test="${board.boardType ne 1 && loginUser.userLevel eq 2|| boardType ne 1 &&  loginUser.userLevel eq 3}">
+						<a href="${pageContext.request.contextPath}/board/post/add/form?boardNo=${board.boardNo}">글쓰기</a>
 					</c:if>
 					
-					<c:if test="${boardType eq 3 && loginUser.userLevel eq 2}">
-						<a href="${pageContext.request.contextPath}/board/removeBoard?boardNo=${boardNo}&lectureNo=${lectureNo}">게시판 삭제</a>
+					<c:if test="${board.boardType eq 3 && loginUser.userLevel eq 2}">
+						<a href="${pageContext.request.contextPath}/board/removeBoard?boardNo=${board.boardNo}&lectureNo=${board.lectureNo}">게시판 삭제</a>
 					</c:if>
 					
 						<table class="table table-hover text-nowrap">
@@ -108,7 +99,7 @@
 							<tbody>
 								<c:forEach var="p" items="${boardPostList}">
 									<tr>
-										<td>${p.boardPostNo}</td><td><a href="${pageContext.request.contextPath}/board/post/one?boardPostNo=${p.boardPostNo}&boardNo=${boardNo}&boardName=${boardName}&boardType=${boardType}&lectureNo=${lectureNo}">${p.boardPostTitle}</a></td><td>${p.boardPostWriter}</td><td>${p.count}</td><td>${p.boardNo}</td>
+										<td>${p.boardPostNo}</td><td><a href="${pageContext.request.contextPath}/board/post/one?boardPostNo=${p.boardPostNo}&boardNo=${board.boardNo}">${p.boardPostTitle}</a></td><td>${p.boardPostWriter}</td><td>${p.count}</td><td>${p.boardNo}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -122,18 +113,18 @@
 					  <nav aria-label="Contacts Page Navigation">
 
 				            <ul class="pagination justify-content-center m-0">
-				            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=1">첫페이지</a></li>
-				            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${currentPage - 1}">이전쪽</a></li>
+				            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${board.boardNo}&currentPage=1">첫페이지</a></li>
+				            	<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${board.boardNo}&currentPage=${currentPage - 1}">이전쪽</a></li>
 									<c:forEach items="${pages}" var="p">
 										<c:if test="${p eq currentPage}">
-											<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${p}">${p}</a></li>
+											<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${board.boardNo}&currentPage=${p}">${p}</a></li>
 							            </c:if>
 							            <c:if test="${p ne currentPage}">
-											<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${p}">${p}</a></li>
+											<li class="page-item "><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${board.boardNo}&currentPage=${p}">${p}</a></li>
 							            </c:if>
 									</c:forEach>
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${currentPage +1}">다음쪽</a></li>
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/post2?boardType=${boardType}&lectureNo=${lectureNo}&currentPage=${realLastPage}">막페이지</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${board.boardNo}&currentPage=${currentPage +1}">다음쪽</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/post?boardNo=${board.boardNo}&currentPage=${realLastPage}">막페이지</a></li>
 				            </ul> 
 			          	
 			          </nav>
