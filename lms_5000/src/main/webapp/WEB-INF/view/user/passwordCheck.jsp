@@ -60,6 +60,9 @@
     <div class="content" style="padding: 5% 10%">
       <div class="container-fluid card">
       	<div style="padding: 5% 10%;" class="text-center">
+      		<c:if test="${msg != null}">
+      		<div>${msg}</div>
+      		</c:if>
 	      	<form action="${pageContext.request.contextPath}/index/mypage/pwCheck" method="post">
 	      		<div><strong>비밀번호 확인</strong></div>
 	      		<input type="password" class="form-control" name="userPw">

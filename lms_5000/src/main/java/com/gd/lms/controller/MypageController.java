@@ -91,6 +91,7 @@ public class MypageController {
 		
 		//입력한 비밀번호로 조회사 정보가 없다면 다시 확인 페이지로
 		if(mypageService.getPasswordCheck(user)) {
+			model.addAttribute("msg","비밀번호를 다시 확인해주세요");
 			return "user/passwordCheck";
 		}
 		//세션의 유저 아이디

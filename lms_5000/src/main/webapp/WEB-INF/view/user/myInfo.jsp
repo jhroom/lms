@@ -145,7 +145,13 @@
 		<c:choose>
 				<c:when test="${userInfo.userLevel == 1 }">
 					<div>직책</div>
-					<div>${userInfo.extraInfo}</div>
+					<div>
+					<c:choose>
+						<c:when test="${userInfo.extraInfo == 1 }"> <div>사원</div> </c:when>
+						<c:when test="${userInfo.extraInfo == 2 }"> <div>대리</div> </c:when>
+						<c:when test="${userInfo.extraInfo == 3 }"> <div>과장</div> </c:when>
+					</c:choose>
+					</div>
 					<hr>
 				</c:when>
 				<c:when test="${userInfo.userLevel == 2 || userInfo.userLevel == 3}">
