@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>5000LMS | Login</title>
+<title>LMS 5000 | login</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -33,7 +33,7 @@
 <img src="${pageContext.request.contextPath}/img/logo_main.png" alt="dd" style="width:40%;">
 </p>
   <div class="login-logo">
-    <a href="${pageContext.request.contextPath}/index"><b>5000</b>LMS</a>
+    <a href="${pageContext.request.contextPath}/index">LMS<b>5000</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">

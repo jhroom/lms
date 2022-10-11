@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.service.BoardService;
 import com.gd.lms.service.ILectureDashBoadService;
 import com.gd.lms.vo.AttendanceForm;
 import com.gd.lms.vo.Board;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class LectureDashBoadController {
 	@Autowired ILectureDashBoadService lectureDashBoardService;
+	@Autowired BoardService boardService;
 	//////////////////////////////////////기타 게시판////////////////////////////////
 	// 기타 게시판 추가
 	@GetMapping("/dashBoard/addSubBoardForm")
@@ -111,6 +113,11 @@ public class LectureDashBoadController {
 		//모델 값 부여
 		model.addAttribute("weekList",weekList);
 		model.addAttribute("lectureNo",lectureNo.getLectureNo());
+		
+		//강좌 이름
+		String lectureName = boardService.getLectureName(lectureNo.getLectureNo());
+		model.addAttribute("lectureName",lectureName);
+		
 
 	return "/dashBoard/lectureDashBoard";
 	}

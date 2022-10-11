@@ -40,7 +40,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Insert title here</title>
+<title>LMS 5000</title>
 
 <!-- start calendar script -->
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
@@ -161,8 +161,7 @@ function change() {
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item active"><a href="#">메인페이지</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -225,10 +224,6 @@ function change() {
 					</table>
 	              </div>
 	              <!-- /.card-body -->
-	              <div class="card-footer">
-	                Footer 취향것
-	              </div>
-	              <!-- /.card-footer-->
 	            </div>
 	            <!-- /.card -->
 	          </div>
@@ -281,10 +276,7 @@ function change() {
 						</c:forEach>
 					</table>
 	              </div><!-- /.card-body -->
-	              
-	              <div class="card-footer">
-	                Footer 취향것
-	              </div><!-- /.card-footer-->
+
 	            </div><!-- /.card -->
 	          </div><!-- End col.6 -->
 	          
@@ -386,35 +378,7 @@ function change() {
 	    </section>
 	<!-- /.end 하단구역-->
 
-<!--     기존 링크들은 사이드바로? -->
-<%-- 		<c:choose> --%>
-<%-- 			<c:when test="${loginUser != null}"> --%>
-<%-- 				<c:if test="${loginUser.userLevel eq 4}"> --%>
-<!-- 						loginUser 레벨이 4일경우 승인 페이지로 갈수있는 링크 출력 -->
-<%-- 				<a href="${pageContext.request.contextPath}/user/userList">승인 페이지</a> --%>
-<%-- 				</c:if> --%>
-<!-- 				<br> -->
-<%-- 				<a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList">공지 리스트</a><br> --%>
-<%-- 				<a href="${pageContext.request.contextPath}/sign/stDash">수강신청(학생용)</a><br> --%>
-<%-- 				<a href="${pageContext.request.contextPath}/sign/SignListForAdmin">수강신청 상태 변경(운영자용)</a><br> --%>
-<%-- 				<a href="${pageContext.request.contextPath}/board/list?lectureNo=1">게시판</a><br> --%>
-<%-- 				<a href="${pageContext.request.contextPath}/index/mypage">마이페이지</a><br> --%>
-<%-- 				<a href="${pageContext.request.contextPath}/lmsMajor/MajorList">학과 리스트</a><br> --%>
-<%-- 				<a href="${pageContext.request.contextPath}/lmsSubject/SubjectList">강좌리스트</a><br> --%>
-<%-- 				<a href="${pageContext.request.contextPath}/lmsSemester/SemesterList">학기 리스트</a><br> --%>
-<%-- 				<a href="${pageContext.request.contextPath}/lmsLecture/LectureList">강의 리스트</a><br> --%>
-<%-- 				<button  onclick="window.open('${pageContext.request.contextPath}/user/messageList' --%>
-<%-- 				, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false">메세지</button> --%>
-				
-<%-- 				<p><a href="${pageContext.request.contextPath}/index/logout">로그아웃</a></p> --%>
-<%-- 			</c:when> --%>
-			
-<%-- 			<c:otherwise> --%>
-<%-- 				<a href="${pageContext.request.contextPath}/index/login">로그인하러가기</a> --%>
-<%-- 			</c:otherwise> --%>
-<%-- 		</c:choose> --%>
 
-		
 		
 		</div>
      </div><!-- /.container-fluid -->

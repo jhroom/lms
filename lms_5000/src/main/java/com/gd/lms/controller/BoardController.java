@@ -60,6 +60,9 @@ public class BoardController {
 		log.debug(TeamColor.KHJ + "파라미터 확인 / lectureNo : " + lectureNo);
 		log.debug(TeamColor.KHJ + "파라미터 확인 / currentPage : " + currentPage);
 		
+		//강좌 이름 생성 쿼리
+		String lectureName = boardService.getLectureName(lectureNo);
+		
 		
 		//페이징 변수 설정
 		Map<String, Object> pageVariable = PageUtil.pageVariable(currentPage, boardService.getRealEndPageForBoard(lectureNo));		
@@ -71,6 +74,8 @@ public class BoardController {
 		//값 넘겨주기
 		model.addAttribute("boardList",list);
 		model.addAttribute("lectureNo",lectureNo);
+		model.addAttribute("lectureName",lectureName);
+		
 		
 		//페이징 넘겨주는 값
 		model.addAttribute("pages",pageVariable.get("pages"));
@@ -105,6 +110,10 @@ public class BoardController {
 		//returnBoard객체 생성 쿼리 실행
 		Board reBoard = boardService.getBoardByBoardNo(board.getBoardNo());
 		
+		//강좌 이름 생성 쿼리
+		String lectureName = boardService.getLectureName(board.getLectureNo());
+		
+		
 		//디버깅
 		log.debug(TeamColor.KHJ + "값 확인 / reBoard : " + reBoard);
 		
@@ -119,6 +128,8 @@ public class BoardController {
 		//값 넘겨주기
 		model.addAttribute("boardPostList",list);
 		model.addAttribute("board",reBoard);	
+		model.addAttribute("lectureName",lectureName);	
+		
 		
 		//페이징 넘겨주는 값
 		model.addAttribute("pages",pageVariable.get("pages"));
@@ -149,6 +160,10 @@ public class BoardController {
 		//returnBoard객체 생성 쿼리 실행
 		Board reBoard = boardService.getBoardByBoardNo(boardNo);
 		
+		//강좌 이름 생성 쿼리
+		String lectureName = boardService.getLectureName(reBoard.getLectureNo());
+		
+		
 		
 		//넘겨줄 값(BoardPost)
 		Map<String, Object> boardOne = boardService.getBoardPostOne(boardPostNo);		
@@ -164,6 +179,8 @@ public class BoardController {
 		model.addAttribute("boardOne",boardOne);
 		model.addAttribute("commentList",commentList);		
 		model.addAttribute("board",reBoard);
+		model.addAttribute("lectureName",lectureName);
+		
 		
 
 		//결과 디버깅
@@ -224,6 +241,9 @@ public class BoardController {
 		//returnBoard객체 생성 쿼리 실행
 		Board reBoard = boardService.getBoardByBoardNo(boardNo);
 		
+		//강좌 이름 생성 쿼리
+		String lectureName = boardService.getLectureName(reBoard.getLectureNo());
+		
 		//디버깅
 		log.debug(TeamColor.KHJ + "값 확인 / reBoard : " + reBoard);
 		
@@ -231,6 +251,8 @@ public class BoardController {
 		
 		//값 넘겨주기
 		model.addAttribute("board",reBoard);
+		model.addAttribute("lectureName",lectureName);
+		
 
 		
 		

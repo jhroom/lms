@@ -40,8 +40,9 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item active">게시판 생성</li>             
+              <li class="breadcrumb-item active"><a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?lectureNo=${board.lectureNo}">${lectureName}</a></li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">메인페이지</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

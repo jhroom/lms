@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-<title>AdminLTE 3 | Starter</title>
+<title>LMS 5000</title>
 
 <!-- 페이지 삽입 - 필수적인 레퍼런스(css, font) -->
 <%@include file="../import/reference.jsp" %>
@@ -40,8 +40,10 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item active">일반 게시판</li>           
+              <li class="breadcrumb-item active"><a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?lectureNo=${lectureNo}">${lectureName}</a></li>
+              <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/index">메인페이지</a></li>
+
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

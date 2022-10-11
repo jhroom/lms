@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gd.lms.commons.TeamColor;
+import com.gd.lms.service.IBoardService;
 import com.gd.lms.service.ITotalGradeService;
 import com.gd.lms.vo.Sign;
 import com.gd.lms.vo.Totalgrade;
@@ -24,12 +25,18 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class TotalGradeController {
 	@Autowired ITotalGradeService totalGradeService;
+	@Autowired IBoardService boardService;
+	
 	
 	//교수 성적 폼 전송
 	@GetMapping("/grade/pro/form")
 	public String goGradeProForm(HttpSession sesssion, Model model, int lectureNo) {
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.KHJ + "파라미터 확인 / lectureNo : " + lectureNo);
+		
+		//강좌 이름 세팅
+		String lectureName = boardService.getLectureName(lectureNo);
+		
 
 		
 		
@@ -39,6 +46,8 @@ public class TotalGradeController {
 		//값 넘겨주기
 		model.addAttribute("stuGradeList", stuGradeList);
 		model.addAttribute("lectureNo", lectureNo);
+		model.addAttribute("lectureName", lectureName);
+		
 		
 		
 		return "totalGrade/gradePro";
@@ -79,6 +88,9 @@ public class TotalGradeController {
 		// 파라미터 확인 디버깅
 		log.debug(TeamColor.YHW + "파라미터 확인 / lectureNo : " + lectureNo);
 		
+
+		
+		
 		//로그인 아이디 추출
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
 		sign.setUserId(userId);
@@ -89,6 +101,10 @@ public class TotalGradeController {
 		
 		//모델값 전송
 		model.addAttribute("grade", grade);
+		model.addAttribute("lectureNo", lectureNo);
+
+		
+		
 		
 		//리턴
 		return "totalGrade/gradeStu";
