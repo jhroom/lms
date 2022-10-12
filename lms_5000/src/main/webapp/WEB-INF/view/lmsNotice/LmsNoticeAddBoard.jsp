@@ -71,7 +71,7 @@
 				<!-- 그래서 만약 잘만 된다면 db에 작성자란을 만들고 거기에 직접 입력하는 식으로 만드는거죠. -->
 					<th>작성자</th>
 					<td>
-						<input class ="form-control" type="text" name="lmsNoticeName" id="lmsNoticeName" value="${userId}(${userName})" readonly="readonly"> 
+						<input class ="form-control" type="text" name="lmsNoticeName" id="lmsNoticeName" value="${loginUser.userId}(${loginUser.userName})" readonly="readonly"> 
 					</td>
 				</tr>
 				<tr>

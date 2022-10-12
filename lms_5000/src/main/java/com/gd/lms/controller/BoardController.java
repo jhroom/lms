@@ -290,7 +290,7 @@ public class BoardController {
 	
 	//파일 다운로드 메서드
 	@GetMapping("board/download/file")
-	public ResponseEntity<Object> downloadFile(String fileName, int boardPostNo, String boardName, int boardNo, HttpServletRequest request) throws UnsupportedEncodingException {
+	public ResponseEntity<Object> downloadFile(String fileName, HttpServletRequest request) throws UnsupportedEncodingException {
 		
 		//파일 경로 설정
 		String realPath = request.getSession().getServletContext().getRealPath("/uploadFile/boardFile") +"\\"+ fileName;

@@ -175,6 +175,7 @@ function change() {
       <div class="container-fluid">
 		
 	<!--  상단 구역 수강 게시판 섹션 -->
+	<c:if test="${loginUser.userLevel ne 1 && loginUser.userLevel ne 4 }">
 	    <section class="content">
 	      <div class="container-fluid">
 	        <div class="row">
@@ -230,6 +231,7 @@ function change() {
 	        </div>
 	      </div>
 	    </section>
+	    </c:if>
 	    <!-- /.end-->
 	    
 	<!--  하단 구역 수강 게시판 섹션 -->
