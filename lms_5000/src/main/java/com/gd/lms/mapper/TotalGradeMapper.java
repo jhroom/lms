@@ -33,7 +33,7 @@ public interface TotalGradeMapper {
 	int updateGrade(Totalgrade totalgrade);
 	
 	// 가상테이블에 랭크 및 학점 출력
-	List<Map<String,Object>> selectRank();
+	List<Map<String,Object>> selectRank(int lectureNo);
 	
 	// 랭크 및 학점 업데이트
 	int updateRank(Totalgrade totalgrade);

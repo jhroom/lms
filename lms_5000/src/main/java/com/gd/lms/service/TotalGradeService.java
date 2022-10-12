@@ -99,8 +99,8 @@ public class TotalGradeService implements ITotalGradeService{
 
 	// 가상테이블에 랭크 및 학점 출력
 	@Override
-	public int getRank() {
-		List<Map<String, Object>> table = totalGradeMapper.selectRank();
+	public int getRank(int lectureNo) {
+		List<Map<String, Object>> table = totalGradeMapper.selectRank(lectureNo);
 		log.debug(TeamColor.YHW + "가상테이블 정보 확인 : " + table);
 		
 		// 리턴값 셋팅
@@ -111,7 +111,7 @@ public class TotalGradeService implements ITotalGradeService{
 			Totalgrade update = new Totalgrade();
 			update.setSignNo((Integer)map.get("sign_no"));
 			// 등수 셋팅
-			update.setGradeRank(Integer.parseInt((String)map.get("RANK")));
+			update.setGradeRank(Integer.parseInt(String.valueOf(map.get("RANK"))));
 			log.debug(TeamColor.YHW + "등수 정보 확인 : " + update.getGradeRank());
 			// 학점 셋팅
 			update.setTotalGrade(Double.parseDouble(String.valueOf(map.get("POINT"))));

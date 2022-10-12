@@ -14,7 +14,7 @@ public interface ITotalGradeService {
 	int calGrade(int lectureNo, int [] paper);
 	
 	// 가상테이블에 랭크 및 학점 출력
-	int getRank();
+	int getRank(int lectureNo);
 	
 	// 특정 학생 성적 산출 서비스
 	Map<String, Object>  getTotalgradeForStu(String userId, int lectureNo);

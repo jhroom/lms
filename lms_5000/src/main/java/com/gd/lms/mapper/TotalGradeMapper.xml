@@ -27,6 +27,7 @@
 		SELECT sign_no
 		FROM sign
 		WHERE lecture_no = #{lectureNo}
+		and sign_state = "1"
 	</select>
 	
 	<!-- 특정 강좌의 총 문제수 출력 쿼리 -->
@@ -44,7 +45,7 @@
 	<!-- 특정 학생의 시험점수 확인 쿼리 -->
 	<select id="selectTestGrade" resultType="Integer">
 		SELECT 
-			SUM(a.answer_score)/#{questionCnt}*100 score
+			ifnull(SUM(a.answer_score)/#{questionCnt}*100,0) score
 			, COUNT(q.question_no) questionCnt
 			, COUNT(a.answer_score) scoreCnt
 		FROM answer a
@@ -78,17 +79,15 @@
 	
 	<!-- 가상테이블에 랭크 및 학점 출력 -->
 	<select id="selectRank" parameterType="com.gd.lms.vo.Totalgrade" resultType="map">
-		  SELECT 
+ SELECT 
 	         t.sign_no
 	         , s.lecture_no
 	         , t.grade_total
-	         , @RANK:= IF(
-	            @LAST > grade_total
-	            , @RANK := @RANK + 1
-	            , @RANK
+	         , ( SELECT COUNT(*) + 1 FROM totalgrade WHERE <![CDATA[grade_total > t.grade_total]]>
 	         )  AS RANK
-	         , @LAST := grade_total AS totalgrade
-	         , @RANK / (SELECT COUNT(sign_no) FROM sign WHERE lecture_no = 1) * 100 AS persent
+	         
+	         , ( SELECT COUNT(*) + 1 FROM totalgrade WHERE  <![CDATA[grade_total > t.grade_total]]> 
+	         ) / (SELECT COUNT(sign_no) FROM sign WHERE lecture_no = 48) * 100 AS persent
 	         , (SELECT
 	            case
 	               when <![CDATA[persent <= 10]]> then 4.5
@@ -98,13 +97,13 @@
 	               when <![CDATA[persent <= 95]]> then 2.5
 	               when <![CDATA[persent <= 100]]> then 2.0
 	            END
-	         ) POINT
+	         ) AS POINT
 	      FROM totalgrade t
 	      INNER JOIN sign s
 	      ON s.sign_no = t.sign_no
 	      ,(SELECT @RANK := 1) xx
-	      WHERE s.lecture_no = #{lectureNo}
-	      ORDER BY grade_total desc
+	      WHERE s.lecture_no = 48
+	      ORDER BY grade_total DESC
 	</select>
 	
 	

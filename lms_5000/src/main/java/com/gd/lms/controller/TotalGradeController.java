@@ -68,7 +68,7 @@ public class TotalGradeController {
 	//최종 등수 및 학점 기능
 	@GetMapping("/grade/pro/final")
 	public String calFinalGrade(Model model, int lectureNo) {
-		int row = totalGradeService.getRank();
+		int row = totalGradeService.getRank(lectureNo);
 		//파라미터 확인 디버깅
 		log.debug(TeamColor.YHW + "랭크정보 : " + row);
 		//다시 폼으로 전송
