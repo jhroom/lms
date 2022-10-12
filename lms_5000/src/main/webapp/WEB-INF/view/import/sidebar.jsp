@@ -124,17 +124,19 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                교수_
+                강의중인 수업
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <c:forEach items="${sidebarList}" var="sl">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Active Page</p>
+                <a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?lectureNo=${sl.lectureNo}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>	
+                  <p>${sl.subjectName}</p>
                 </a>
               </li>
+              </c:forEach>
 
             </ul>
           </li>
@@ -148,7 +150,28 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                학생_
+                수강중인 수업
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <c:forEach items="${sidebarList}" var="sl">
+              <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/dashBoard/lectureDashBoard?lectureNo=${sl.lectureNo}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>	
+                  <p>${sl.subjectName}</p>
+                </a>
+              </li>
+              </c:forEach>
+
+            </ul>
+          </li>
+          
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                수강 신청
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -159,7 +182,7 @@
                   <p>수강신청</p>
                 </a>
               </li>
-
+              
             </ul>
           </li>
 		</c:if>
@@ -167,21 +190,10 @@
          <!-- end 학생 사이드바 -->
          
          <!-- 일반 링크 -->
-         <!-- lms 공지사항 -->
-          <li class="nav-item">
-            <a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                LMS 공지사항
 
-              </p>
-            </a>
-          </li>
-          
+          <br/>
           <!-- 메세지 -->
- <%--            <a onclick="window.open('${pageContext.request.contextPath}/user/messageList'
-				, '새창', 'width=300px, height=500px' , 'location=no' , 'toolbar=yes'); return false" class="nav-link">
-              <i class="nav-icon fas fa-th"></i> --%>
+
 		 <li class="nav-item has-treeview menu">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -212,13 +224,17 @@
 
             </ul>
           </li>  
-              
-     <%--       <a href="${pageContext.request.contextPath}/user/messageList" class="nav-link">
+          
+         <!-- lms 공지사항 -->
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath}/lmsNotice/LmsNoticeList" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
               <p>
-                메세지
+                LMS 공지사항
+
               </p>
             </a>
-          </li> --%>
+          </li>
           
           <!-- 마이페이지 -->
           <li class="nav-item">

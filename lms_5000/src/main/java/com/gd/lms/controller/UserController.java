@@ -61,6 +61,9 @@ public class UserController {
 		model.addAttribute("lectureList", lectureList);
 		model.addAttribute("lmsNoticeList", LmsNoticeList);
 		
+		//사이드바로 넘기기
+		session.setAttribute("sidebarList", lectureList);
+		
 		
 		return "index";
 	}
